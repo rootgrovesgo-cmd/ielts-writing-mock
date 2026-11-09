@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>答卷列表 · 教师后台</title>
+  <title>Submissions · Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">教师后台 · 答卷列表</div>
+    <div class="brand-block">
+      <div class="brand">Rosette Exclusive Mock Exam</div>
+      <div class="brand-sub">Teacher · submissions</div>
+    </div>
     <div class="meta">
       <a class="btn secondary sm" href="/">模考页</a>
       <a class="btn secondary sm" href="{{ url_for('admin_export_json') }}">导出 JSON</a>
@@ -18,10 +21,11 @@
   </header>
   <main class="wrap">
     <section class="card">
-      <h1>全部提交</h1>
-      <p class="muted">共 {{ submissions|length }} 份 · 本地 <code>data/submissions/</code>{% if notion_on %} · <strong>Notion 同步已开启</strong>{% else %} · Notion 未配置{% endif %}</p>
+      <p class="eyebrow">All scripts</p>
+      <h1>学生答卷列表</h1>
+      <p class="muted">共 {{ submissions|length }} 份{% if notion_on %} · Notion 同步已开启{% else %} · 当前保存在服务器本地{% endif %}</p>
       {% if not submissions %}
-      <div class="banner info">暂无答卷。请先在模考页完成一次提交。</div>
+      <div class="banner info">暂无答卷。学生在模考页提交后会显示在这里。</div>
       {% else %}
       <div style="overflow-x:auto">
         <table class="admin-table">
@@ -49,7 +53,7 @@
               <td>{{ s.task2_word_count }}</td>
               <td>{{ (s.time_used_seconds // 60) }}:{{ '%02d' % (s.time_used_seconds % 60) }}</td>
               <td>{{ "是" if s.auto_submitted else "否" }}</td>
-              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看</a></td>
+              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看全文</a></td>
             </tr>
             {% endfor %}
           </tbody>

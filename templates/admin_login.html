@@ -3,22 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>教师登录 · 雅思写作模考</title>
+  <title>Teacher login · Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
+  <header class="topbar">
+    <div class="brand-block">
+      <div class="brand">Rosette Exclusive Mock Exam</div>
+      <div class="brand-sub">Teacher portal</div>
+    </div>
+  </header>
   <main class="wrap">
     <section class="card login-box">
+      <p class="eyebrow">Teacher access</p>
       <h1>教师后台登录</h1>
-      <p class="muted">默认密码见 README（可用环境变量 <code>IELTS_ADMIN_PASSWORD</code> 修改）。</p>
+      <p class="muted">输入后台密码后可查看学生提交的 Task 1 / Task 2 全文。</p>
       {% if error %}
       <div class="banner error">{{ error }}</div>
       {% endif %}
       <form method="post" action="{{ url_for('admin_login') }}">
         <input type="hidden" name="next" value="{{ next }}" />
         <label class="field" style="margin-top:12px">
-          密码
-          <input type="password" name="password" required autofocus />
+          Password
+          <input type="password" name="password" required autofocus autocomplete="current-password" />
         </label>
         <div class="actions">
           <button type="submit" class="btn">登录</button>

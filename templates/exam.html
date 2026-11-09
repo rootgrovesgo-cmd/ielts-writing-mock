@@ -3,32 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>雅思写作限时模考</title>
+  <title>Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">雅思写作限时模考</div>
+    <div class="brand-block">
+      <div class="brand">Rosette Exclusive Mock Exam</div>
+      <div class="brand-sub">IELTS Academic Writing · Computer-delivered style</div>
+    </div>
     <div class="meta">
-      <span id="modeLabel">尚未开始</span>
+      <span id="modeLabel" class="mode-chip">Ready</span>
+      <span class="timer-label">Time remaining</span>
       <span id="timer" class="timer">--:--</span>
-      <button type="button" id="btnPause" class="btn secondary sm hidden">暂停</button>
+      <button type="button" id="btnPause" class="btn secondary sm hidden">Pause</button>
     </div>
   </header>
 
   <main class="wrap">
     <!-- Setup -->
     <section id="setupPanel" class="card setup-card">
-      <h1>开始模考</h1>
-      <p class="muted lead">三步完成：填写姓名 → 点「开始模考」→ 写完点「提交答卷」。题目为英文，按钮为中文。</p>
+      <p class="eyebrow">Candidate check-in</p>
+      <h1>Start your writing test</h1>
+      <p class="muted lead">填写姓名后开始。界面仿照雅思机考 Writing：左侧题目，右侧答题区。</p>
 
       <div class="setup-grid" style="margin-top:18px">
         <label class="field">
-          你的姓名 <span class="req">*必填</span>
-          <input type="text" id="candidateName" placeholder="请输入真实姓名，方便老师批改" maxlength="80" required autocomplete="name" />
+          Candidate name <span class="req">*</span>
+          <input type="text" id="candidateName" placeholder="请输入真实姓名" maxlength="80" required autocomplete="name" />
         </label>
         <label class="field">
-          题目套卷
+          Question set
           <select id="promptSet">
             {% for s in sets %}
             <option value="{{ s.id }}">{{ s.title }}</option>
@@ -38,83 +43,91 @@
       </div>
 
       <div style="margin-top:18px">
-        <div class="muted" style="margin-bottom:8px;font-weight:600">考试模式</div>
+        <div class="muted" style="margin-bottom:8px;font-weight:600">Test mode</div>
         <div class="mode-pills" id="modePills">
-          <label class="active"><input type="radio" name="mode" value="full" checked /> 完整测试 60 分钟（推荐）</label>
-          <label><input type="radio" name="mode" value="task1" /> 仅 Task 1 · 20 分钟</label>
-          <label><input type="radio" name="mode" value="task2" /> 仅 Task 2 · 40 分钟</label>
+          <label class="active"><input type="radio" name="mode" value="full" checked /> Full test · 60 min</label>
+          <label><input type="radio" name="mode" value="task1" /> Task 1 only · 20 min</label>
+          <label><input type="radio" name="mode" value="task2" /> Task 2 only · 40 min</label>
         </div>
       </div>
 
       <details class="teacher-opt" style="margin-top:14px">
-        <summary class="muted">教师选项（学生可忽略）</summary>
+        <summary class="muted">Teacher options</summary>
         <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;margin-top:8px">
           <input type="checkbox" id="teacherPause" />
-          允许暂停计时
+          Allow pause
         </label>
       </details>
 
-      <div id="nameError" class="banner error hidden" style="margin-top:14px">请先填写姓名，再开始模考。</div>
+      <div id="nameError" class="banner error hidden" style="margin-top:14px">Please enter your name before starting.</div>
 
       <div class="actions start-actions">
-        <button type="button" id="btnStart" class="btn btn-start">开始模考</button>
+        <button type="button" id="btnStart" class="btn btn-start">Start test</button>
       </div>
-      <p class="hint" style="margin-top:14px">Task 1 建议 ≥150 词；Task 2 建议 ≥250 词。时间到会自动提交，请放心交卷。</p>
+      <p class="hint" style="margin-top:14px">Task 1 ≥ 150 words · Task 2 ≥ 250 words. The test auto-submits when time is up.</p>
     </section>
 
-    <!-- Exam -->
-    <section id="examPanel" class="hidden">
+    <!-- Exam: CD IELTS-style split -->
+    <section id="examPanel" class="exam-shell hidden">
       <div id="statusBanner" class="banner info hidden"></div>
 
-      <div class="task-tabs" id="taskTabs">
-        <button type="button" data-task="1" class="active" id="tab1">Task 1</button>
-        <button type="button" data-task="2" id="tab2">Task 2</button>
+      <div class="task-tabs" id="taskTabs" role="tablist">
+        <button type="button" data-task="1" class="active" id="tab1">Part 1 · Writing Task 1</button>
+        <button type="button" data-task="2" id="tab2">Part 2 · Writing Task 2</button>
       </div>
 
-      <article id="task1Panel" class="card">
-        <h2>Writing Task 1</h2>
-        <p class="muted">学术类 · 建议至少 150 词</p>
-        <div id="task1Instruction" class="prompt-box"></div>
-        <div id="task1Visual"></div>
-        <textarea id="task1Answer" class="answer" placeholder="在此写 Task 1 答案（英文）…" spellcheck="true"></textarea>
-        <div class="stats-row">
-          <span>词数：<span id="wc1" class="wc low">0</span> / 150+</span>
-          <span>可点上方切换到 Task 2</span>
+      <article id="task1Panel" class="cd-stage">
+        <div class="cd-left">
+          <div class="cd-part-label">Writing Task 1</div>
+          <p class="cd-hint">Academic · Write at least 150 words</p>
+          <div id="task1Instruction" class="prompt-box"></div>
+          <div id="task1Visual"></div>
+        </div>
+        <div class="cd-right">
+          <div class="cd-answer-head">
+            <span>Your answer</span>
+            <span class="wc-pill">Words: <span id="wc1" class="wc low">0</span></span>
+          </div>
+          <textarea id="task1Answer" class="answer" placeholder="Type your answer for Writing Task 1 here…" spellcheck="true"></textarea>
         </div>
       </article>
 
-      <article id="task2Panel" class="card hidden">
-        <h2>Writing Task 2</h2>
-        <p class="muted">学术类议论文 · 建议至少 250 词</p>
-        <div id="task2Instruction" class="prompt-box"></div>
-        <textarea id="task2Answer" class="answer" placeholder="在此写 Task 2 答案（英文）…" spellcheck="true"></textarea>
-        <div class="stats-row">
-          <span>词数：<span id="wc2" class="wc low">0</span> / 250+</span>
-          <span>写完请点下方「提交答卷」</span>
+      <article id="task2Panel" class="cd-stage hidden">
+        <div class="cd-left">
+          <div class="cd-part-label">Writing Task 2</div>
+          <p class="cd-hint">Academic · Write at least 250 words</p>
+          <div id="task2Instruction" class="prompt-box"></div>
+        </div>
+        <div class="cd-right">
+          <div class="cd-answer-head">
+            <span>Your answer</span>
+            <span class="wc-pill">Words: <span id="wc2" class="wc low">0</span></span>
+          </div>
+          <textarea id="task2Answer" class="answer" placeholder="Type your answer for Writing Task 2 here…" spellcheck="true"></textarea>
         </div>
       </article>
 
-      <div class="actions" style="margin-bottom:40px">
-        <button type="button" id="btnSubmit" class="btn ok btn-lg">提交答卷</button>
-        <button type="button" id="btnReset" class="btn ghost">放弃并返回</button>
+      <div class="cd-footer-bar">
+        <button type="button" id="btnReset" class="btn ghost">Quit</button>
+        <button type="button" id="btnSubmit" class="btn ok btn-lg">Submit test</button>
       </div>
     </section>
 
     <!-- Done -->
     <section id="donePanel" class="card done-card hidden">
       <div class="done-icon" aria-hidden="true">✓</div>
-      <h2>已提交，可以关闭页面</h2>
+      <h2>Submitted</h2>
       <div id="doneMsg" class="banner success"></div>
-      <p class="muted" style="text-align:center;margin-top:8px">老师会收到你的答卷。无需截图，直接关掉即可。</p>
+      <p class="muted" style="text-align:center;margin-top:8px">Your answers have been saved. You may close this page.</p>
       <div class="actions" style="justify-content:center">
-        <button type="button" id="btnAgain" class="btn ghost">再考一次</button>
+        <button type="button" id="btnAgain" class="btn ghost">Take again</button>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <span>雅思写作限时模考</span>
-    <a href="/admin" class="footer-admin">教师入口</a>
+    <span>Rosette Exclusive Mock Exam</span>
+    <a href="/admin" class="footer-admin">Teacher</a>
   </footer>
 
   <script>

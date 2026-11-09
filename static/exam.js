@@ -398,7 +398,7 @@
       task1: "仅 Task 1 · 20 分钟",
       task2: "仅 Task 2 · 40 分钟",
     };
-    el.modeLabel.textContent = "模式：" + modeNames[state.mode];
+    el.modeLabel.textContent = modeNames[state.mode] || state.mode;
 
     el.setup.classList.add("hidden");
     el.done.classList.add("hidden");
@@ -505,7 +505,7 @@
     el.btnPause.classList.add("hidden");
     el.timer.textContent = "--:--";
     el.timer.classList.remove("warn", "danger");
-    el.modeLabel.textContent = "模式：未开始";
+    el.modeLabel.textContent = "Ready";
     el.exam.classList.add("hidden");
     el.done.classList.add("hidden");
     el.setup.classList.remove("hidden");

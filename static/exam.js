@@ -198,7 +198,108 @@
     return html;
   }
 
+  function renderImage(image) {
+    if (!image || !image.src) return "";
+    return (
+      `<div class="chart-wrap image-wrap">` +
+      `<img class="task1-image" src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || "Task 1 chart")}" />` +
+      `</div>`
+    );
+  }
+
+  function renderLineChart(chart) {
+    const labels = chart.xLabels || [];
+    const series = chart.series || [];
+    const maxVal = Math.max(...series.flatMap((s) => s.values), 1);
+    const W = 560, H = 280, padL = 48, padB = 40, padT = 24, padR = 20;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444"];
+    const n = Math.max(labels.length - 1, 1);
+
+    let ticks = "";
+    for (let t = 0; t <= 4; t++) {
+      const val = Math.round((maxVal * t) / 4);
+      const y = padT + plotH - (plotH * t) / 4;
+      ticks += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#e2e8f0"/>`;
+      ticks += `<text x="${padL - 6}" y="${y + 3}" text-anchor="end" font-size="10" fill="#64748b">${val}</text>`;
+    }
+
+    let xLabels = "";
+    labels.forEach((lab, i) => {
+      const x = padL + (plotW * i) / n;
+      xLabels += `<text x="${x}" y="${H - 12}" text-anchor="middle" font-size="10" fill="#334155">${escapeHtml(lab)}</text>`;
+    });
+
+    let lines = "";
+    series.forEach((ser, si) => {
+      const pts = (ser.values || []).map((v, i) => {
+        const x = padL + (plotW * i) / n;
+        const y = padT + plotH - (v / maxVal) * plotH;
+        return `${x},${y}`;
+      });
+      const color = colors[si % colors.length];
+      lines += `<polyline fill="none" stroke="${color}" stroke-width="2.5" points="${pts.join(" ")}"/>`;
+      (ser.values || []).forEach((v, i) => {
+        const x = padL + (plotW * i) / n;
+        const y = padT + plotH - (v / maxVal) * plotH;
+        lines += `<circle cx="${x}" cy="${y}" r="3.5" fill="${color}"/>`;
+      });
+    });
+
+    const legend = series
+      .map(
+        (s, i) =>
+          `<span><i class="swatch" style="background:${colors[i % colors.length]}"></i>${escapeHtml(s.name)}</span>`
+      )
+      .join("");
+
+    return (
+      `<div class="chart-wrap">` +
+      `<div class="muted" style="text-align:center;margin-bottom:6px">${escapeHtml(chart.yLabel || "")}</div>` +
+      `<div class="line-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Line graph">` +
+      ticks +
+      lines +
+      xLabels +
+      `</svg></div>` +
+      `<div class="legend">${legend}</div></div>`
+    );
+  }
+
+  function renderFlowchart(flow) {
+    const steps = (flow && flow.steps) || [];
+    const boxW = 200, boxH = 70, gap = 28, padX = 40, padY = 20;
+    const W = boxW + padX * 2;
+    const H = padY * 2 + steps.length * boxH + Math.max(steps.length - 1, 0) * gap;
+    let shapes = "";
+    steps.forEach((step, i) => {
+      const y = padY + i * (boxH + gap);
+      const x = padX;
+      shapes += `<rect x="${x}" y="${y}" width="${boxW}" height="${boxH}" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
+      shapes += `<text x="${x + boxW / 2}" y="${y + 28}" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">${escapeHtml(step.label || "")}</text>`;
+      shapes += `<text x="${x + boxW / 2}" y="${y + 50}" text-anchor="middle" font-size="11" fill="#475569">${escapeHtml(step.detail || "")}</text>`;
+      if (i < steps.length - 1) {
+        const ax = x + boxW / 2;
+        const y1 = y + boxH;
+        const y2 = y + boxH + gap;
+        shapes += `<line x1="${ax}" y1="${y1}" x2="${ax}" y2="${y2 - 8}" stroke="#64748b" stroke-width="2"/>`;
+        shapes += `<polygon points="${ax},${y2} ${ax - 6},${y2 - 10} ${ax + 6},${y2 - 10}" fill="#64748b"/>`;
+      }
+    });
+    const title = flow && flow.title ? `<div class="muted" style="text-align:center;margin-bottom:8px">${escapeHtml(flow.title)}</div>` : "";
+    return (
+      `<div class="chart-wrap flowchart-wrap">` +
+      title +
+      `<div class="flowchart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Process diagram">` +
+      shapes +
+      `</svg></div></div>`
+    );
+  }
+
   function renderTask1Visual(t1) {
+    if (t1.image) return renderImage(t1.image);
+    if (t1.line_chart) return renderLineChart(t1.line_chart);
+    if (t1.flowchart) return renderFlowchart(t1.flowchart);
     if (t1.chart) return renderBarChart(t1.chart);
     if (t1.table) return renderTable(t1.table);
     if (t1.process_steps) return renderProcess(t1.process_steps);

@@ -364,3 +364,18 @@ textarea.answer:focus {
   font-size: 11px;
 }
 .site-footer .footer-admin:hover { color: var(--accent); text-decoration: underline; }
+
+/* Task 1 visuals */
+.task1-image {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+}
+.image-wrap { padding: 8px 0 4px; }
+.line-chart svg, .flowchart svg { width: 100%; height: auto; display: block; }
+.flowchart-wrap { max-width: 320px; margin: 0 auto; }

@@ -1,22 +1,17 @@
 {
-  "version": 1,
+  "version": 2,
   "sets": [
     {
       "id": "set-a",
-      "title": "Set A — Urban Energy & Public Libraries",
+      "title": "Set A — UK Town Population",
       "task1": {
         "id": "a-t1",
-        "type": "bar_chart",
+        "type": "image",
         "title": "Task 1",
-        "instruction": "The chart below shows the average daily electricity consumption (in kilowatt-hours) of four types of buildings in a mid-sized city in 2015 and 2025.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
-        "chart": {
-          "kind": "bar",
-          "yLabel": "kWh per day",
-          "categories": ["Residential", "Office", "Retail", "School"],
-          "series": [
-            {"name": "2015", "values": [18, 42, 35, 22]},
-            {"name": "2025", "values": [16, 38, 48, 20]}
-          ]
+        "instruction": "The bar charts below show the information about the population in a particular town in the UK from 1951 to 2011.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "image": {
+          "src": "/static/images/set-a-town-population.png",
+          "alt": "Bar charts: town population and age group distribution, UK town, 1951–2011"
         }
       },
       "task2": {
@@ -27,18 +22,19 @@
     },
     {
       "id": "set-b",
-      "title": "Set B — Tourism Seasons & Remote Work",
+      "title": "Set B — Tourism Visitors & Remote Work",
       "task1": {
         "id": "b-t1",
-        "type": "table",
+        "type": "line_chart",
         "title": "Task 1",
-        "instruction": "The table below shows the number of international visitors (in thousands) to three coastal regions of a country in the peak season and the off season of 2024.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
-        "table": {
-          "headers": ["Region", "Peak season (000s)", "Off season (000s)", "Change (%)"],
-          "rows": [
-            ["North Bay", "420", "95", "-77%"],
-            ["Coral Coast", "310", "180", "-42%"],
-            ["Sunset Peninsula", "265", "240", "-9%"]
+        "instruction": "The line graph below shows the number of international visitors (in thousands) to three coastal regions of a country from 2015 to 2024.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "line_chart": {
+          "yLabel": "Visitors (thousands)",
+          "xLabels": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+          "series": [
+            {"name": "North Bay", "values": [280, 295, 310, 340, 365, 120, 180, 250, 390, 420]},
+            {"name": "Coral Coast", "values": [210, 225, 240, 255, 270, 95, 140, 200, 290, 310]},
+            {"name": "Sunset Peninsula", "values": [190, 200, 210, 220, 230, 160, 185, 220, 250, 265]}
           ]
         }
       },
@@ -50,20 +46,23 @@
     },
     {
       "id": "set-c",
-      "title": "Set C — Recycling Process & Youth Sports",
+      "title": "Set C — Plastic Recycling & Youth Sports",
       "task1": {
         "id": "c-t1",
-        "type": "process",
+        "type": "flowchart",
         "title": "Task 1",
         "instruction": "The diagram below shows the process of recycling plastic bottles into new products.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
-        "process_steps": [
-          "Collection of used plastic bottles from households and public bins",
-          "Sorting by colour and polymer type at a recycling centre",
-          "Washing and shredding into plastic flakes",
-          "Melting flakes and forming pellets",
-          "Manufacturing new products (e.g. containers, textiles, packaging)",
-          "Distribution of finished goods to retailers"
-        ]
+        "flowchart": {
+          "title": "Recycling plastic bottles",
+          "steps": [
+            {"id": "1", "label": "Collection", "detail": "Used bottles from homes & public bins"},
+            {"id": "2", "label": "Sorting", "detail": "By colour and polymer type"},
+            {"id": "3", "label": "Washing & shredding", "detail": "Cleaned then cut into flakes"},
+            {"id": "4", "label": "Melting & pelletising", "detail": "Flakes melted into pellets"},
+            {"id": "5", "label": "Manufacturing", "detail": "New containers, textiles, packaging"},
+            {"id": "6", "label": "Distribution", "detail": "Finished goods to retailers"}
+          ]
+        }
       },
       "task2": {
         "id": "c-t2",

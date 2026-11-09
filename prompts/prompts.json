@@ -1,9 +1,9 @@
 {
-  "version": 2,
+  "version": 3,
   "sets": [
     {
       "id": "set-a",
-      "title": "Set A — UK Town Population",
+      "title": "Set A — UK Town Population & Older People Exercise",
       "task1": {
         "id": "a-t1",
         "type": "image",
@@ -17,12 +17,12 @@
       "task2": {
         "id": "a-t2",
         "title": "Task 2",
-        "instruction": "Some people believe that public libraries are no longer necessary because digital technology provides easy access to information.\n\nTo what extent do you agree or disagree?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+        "instruction": "Doctors recommend regular exercise for older people, but many don’t do enough.\n\nWhy, and what can be done to encourage them?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
       }
     },
     {
       "id": "set-b",
-      "title": "Set B — Tourism Visitors & Remote Work",
+      "title": "Set B — Tourism Visitors & Performing Arts Funding",
       "task1": {
         "id": "b-t1",
         "type": "line_chart",
@@ -30,23 +30,76 @@
         "instruction": "The line graph below shows the number of international visitors (in thousands) to three coastal regions of a country from 2015 to 2024.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
         "line_chart": {
           "yLabel": "Visitors (thousands)",
-          "xLabels": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+          "xLabels": [
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024"
+          ],
           "series": [
-            {"name": "North Bay", "values": [280, 295, 310, 340, 365, 120, 180, 250, 390, 420]},
-            {"name": "Coral Coast", "values": [210, 225, 240, 255, 270, 95, 140, 200, 290, 310]},
-            {"name": "Sunset Peninsula", "values": [190, 200, 210, 220, 230, 160, 185, 220, 250, 265]}
+            {
+              "name": "North Bay",
+              "values": [
+                280,
+                295,
+                310,
+                340,
+                365,
+                120,
+                180,
+                250,
+                390,
+                420
+              ]
+            },
+            {
+              "name": "Coral Coast",
+              "values": [
+                210,
+                225,
+                240,
+                255,
+                270,
+                95,
+                140,
+                200,
+                290,
+                310
+              ]
+            },
+            {
+              "name": "Sunset Peninsula",
+              "values": [
+                190,
+                200,
+                210,
+                220,
+                230,
+                160,
+                185,
+                220,
+                250,
+                265
+              ]
+            }
           ]
         }
       },
       "task2": {
         "id": "b-t2",
         "title": "Task 2",
-        "instruction": "An increasing number of employees are choosing to work from home rather than commute to an office.\n\nDo the advantages of this trend outweigh the disadvantages?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+        "instruction": "Some people think that the government should provide funds for performing art courses, while others believe that it is the responsibility of businesses and students’ families.\n\nDiscuss both these views and give your own opinion.\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
       }
     },
     {
       "id": "set-c",
-      "title": "Set C — Plastic Recycling & Youth Sports",
+      "title": "Set C — Plastic Recycling & Road Safety Age",
       "task1": {
         "id": "c-t1",
         "type": "flowchart",
@@ -55,19 +108,43 @@
         "flowchart": {
           "title": "Recycling plastic bottles",
           "steps": [
-            {"id": "1", "label": "Collection", "detail": "Used bottles from homes & public bins"},
-            {"id": "2", "label": "Sorting", "detail": "By colour and polymer type"},
-            {"id": "3", "label": "Washing & shredding", "detail": "Cleaned then cut into flakes"},
-            {"id": "4", "label": "Melting & pelletising", "detail": "Flakes melted into pellets"},
-            {"id": "5", "label": "Manufacturing", "detail": "New containers, textiles, packaging"},
-            {"id": "6", "label": "Distribution", "detail": "Finished goods to retailers"}
+            {
+              "id": "1",
+              "label": "Collection",
+              "detail": "Used bottles from homes & public bins"
+            },
+            {
+              "id": "2",
+              "label": "Sorting",
+              "detail": "By colour and polymer type"
+            },
+            {
+              "id": "3",
+              "label": "Washing & shredding",
+              "detail": "Cleaned then cut into flakes"
+            },
+            {
+              "id": "4",
+              "label": "Melting & pelletising",
+              "detail": "Flakes melted into pellets"
+            },
+            {
+              "id": "5",
+              "label": "Manufacturing",
+              "detail": "New containers, textiles, packaging"
+            },
+            {
+              "id": "6",
+              "label": "Distribution",
+              "detail": "Finished goods to retailers"
+            }
           ]
         }
       },
       "task2": {
         "id": "c-t2",
         "title": "Task 2",
-        "instruction": "Many schools are reducing the amount of time spent on physical education in order to focus more on academic subjects.\n\nWhat are the causes of this trend, and what effects might it have on young people?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+        "instruction": "Some people think that the best way to improve road safety is to increase the minimum legal age for driving a car or a motorbike.\n\nTo what extent do you agree or disagree?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
       }
     }
   ]

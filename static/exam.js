@@ -394,9 +394,9 @@
     }
 
     const modeNames = {
-      full: "完整测试 60 分钟",
-      task1: "仅 Task 1 · 20 分钟",
-      task2: "仅 Task 2 · 40 分钟",
+      full: "Full test · 60 min",
+      task1: "Task 1 · 20 min",
+      task2: "Task 2 · 40 min",
     };
     el.modeLabel.textContent = modeNames[state.mode] || state.mode;
 

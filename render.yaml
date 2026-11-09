@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ielts-writing-mock
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120
+    healthCheckPath: /health
+    envVars:
+      - key: IELTS_ADMIN_PASSWORD
+        generateValue: true
+      - key: IELTS_SECRET_KEY
+        generateValue: true
+      - key: NOTION_TOKEN
+        sync: false
+      - key: NOTION_DATABASE_ID
+        sync: false

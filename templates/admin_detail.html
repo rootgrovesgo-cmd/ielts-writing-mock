@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>答卷详情 · {{ record.id }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">答卷详情</div>
+    <div class="meta">
+      <a class="btn secondary sm" href="{{ url_for('admin') }}">返回列表</a>
+      <a class="btn secondary sm" href="{{ url_for('admin_logout') }}">退出</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="card">
+      <h1>元数据</h1>
+      <p class="muted">
+        ID：<code>{{ record.id }}</code><br/>
+        时间：{{ record.timestamp }}（Asia/Shanghai）<br/>
+        考生：{{ record.candidate_name or "—" }}<br/>
+        模式：{{ record.mode }} · 套卷：{{ record.prompt_set_id }}<br/>
+        Task1 题：{{ record.task1_prompt_id }} · Task2 题：{{ record.task2_prompt_id }}<br/>
+        用时 {{ record.time_used_seconds }}s · 剩余 {{ record.time_remaining_seconds }}s · 暂停累计 {{ record.paused_total_seconds }}s<br/>
+        自动提交：{{ "是" if record.auto_submitted else "否" }}
+      </p>
+    </section>
+    <section class="card">
+      <h2>Task 1（{{ record.task1_word_count }} 词）</h2>
+      <div class="answer-preview">{{ record.task1_text or "（未作答）" }}</div>
+    </section>
+    <section class="card">
+      <h2>Task 2（{{ record.task2_word_count }} 词）</h2>
+      <div class="answer-preview">{{ record.task2_text or "（未作答）" }}</div>
+    </section>
+  </main>
+</body>
+</html>

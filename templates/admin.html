@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>答卷列表 · 教师后台</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">教师后台 · 答卷列表</div>
+    <div class="meta">
+      <a class="btn secondary sm" href="/">模考页</a>
+      <a class="btn secondary sm" href="{{ url_for('admin_export_json') }}">导出 JSON</a>
+      <a class="btn secondary sm" href="{{ url_for('admin_export_csv') }}">导出 CSV</a>
+      <a class="btn secondary sm" href="{{ url_for('admin_logout') }}">退出</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="card">
+      <h1>全部提交</h1>
+      <p class="muted">共 {{ submissions|length }} 份 · 本地 <code>data/submissions/</code>{% if notion_on %} · <strong>Notion 同步已开启</strong>{% else %} · Notion 未配置{% endif %}</p>
+      {% if not submissions %}
+      <div class="banner info">暂无答卷。请先在模考页完成一次提交。</div>
+      {% else %}
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>时间 (Asia/Shanghai)</th>
+              <th>考生</th>
+              <th>模式</th>
+              <th>套卷</th>
+              <th>T1 词</th>
+              <th>T2 词</th>
+              <th>用时</th>
+              <th>自动交</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in submissions %}
+            <tr>
+              <td>{{ s.timestamp }}</td>
+              <td>{{ s.candidate_name or "—" }}</td>
+              <td>{{ s.mode }}</td>
+              <td>{{ s.prompt_set_id }}</td>
+              <td>{{ s.task1_word_count }}</td>
+              <td>{{ s.task2_word_count }}</td>
+              <td>{{ (s.time_used_seconds // 60) }}:{{ '%02d' % (s.time_used_seconds % 60) }}</td>
+              <td>{{ "是" if s.auto_submitted else "否" }}</td>
+              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

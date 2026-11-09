@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "sets": [
+    {
+      "id": "set-a",
+      "title": "Set A — Urban Energy & Public Libraries",
+      "task1": {
+        "id": "a-t1",
+        "type": "bar_chart",
+        "title": "Task 1",
+        "instruction": "The chart below shows the average daily electricity consumption (in kilowatt-hours) of four types of buildings in a mid-sized city in 2015 and 2025.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "chart": {
+          "kind": "bar",
+          "yLabel": "kWh per day",
+          "categories": ["Residential", "Office", "Retail", "School"],
+          "series": [
+            {"name": "2015", "values": [18, 42, 35, 22]},
+            {"name": "2025", "values": [16, 38, 48, 20]}
+          ]
+        }
+      },
+      "task2": {
+        "id": "a-t2",
+        "title": "Task 2",
+        "instruction": "Some people believe that public libraries are no longer necessary because digital technology provides easy access to information.\n\nTo what extent do you agree or disagree?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+      }
+    },
+    {
+      "id": "set-b",
+      "title": "Set B — Tourism Seasons & Remote Work",
+      "task1": {
+        "id": "b-t1",
+        "type": "table",
+        "title": "Task 1",
+        "instruction": "The table below shows the number of international visitors (in thousands) to three coastal regions of a country in the peak season and the off season of 2024.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "table": {
+          "headers": ["Region", "Peak season (000s)", "Off season (000s)", "Change (%)"],
+          "rows": [
+            ["North Bay", "420", "95", "-77%"],
+            ["Coral Coast", "310", "180", "-42%"],
+            ["Sunset Peninsula", "265", "240", "-9%"]
+          ]
+        }
+      },
+      "task2": {
+        "id": "b-t2",
+        "title": "Task 2",
+        "instruction": "An increasing number of employees are choosing to work from home rather than commute to an office.\n\nDo the advantages of this trend outweigh the disadvantages?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+      }
+    },
+    {
+      "id": "set-c",
+      "title": "Set C — Recycling Process & Youth Sports",
+      "task1": {
+        "id": "c-t1",
+        "type": "process",
+        "title": "Task 1",
+        "instruction": "The diagram below shows the process of recycling plastic bottles into new products.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "process_steps": [
+          "Collection of used plastic bottles from households and public bins",
+          "Sorting by colour and polymer type at a recycling centre",
+          "Washing and shredding into plastic flakes",
+          "Melting flakes and forming pellets",
+          "Manufacturing new products (e.g. containers, textiles, packaging)",
+          "Distribution of finished goods to retailers"
+        ]
+      },
+      "task2": {
+        "id": "c-t2",
+        "title": "Task 2",
+        "instruction": "Many schools are reducing the amount of time spent on physical education in order to focus more on academic subjects.\n\nWhat are the causes of this trend, and what effects might it have on young people?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+      }
+    }
+  ]
+}

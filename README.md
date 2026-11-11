@@ -1,20 +1,22 @@
-# 雅思写作 Task 1 / Task 2 限时模考（线上 / 本地）
+# 雅思学术类写作 / 阅读限时模考（线上 / 本地）
 
-面向雅思教师：给学生发**一个链接**即可模考。中文操作界面 + 英文学术写作题干；答卷保存到服务器磁盘，并可同步到 **Notion** 数据库（推荐线上使用）。
+面向雅思教师：给学生发**一个链接**即可模考。品牌为 **Rosette Exclusive Mock Exam**，界面仿照雅思机考（computer-delivered）。中文操作提示 + 英文试题；答卷保存到服务器磁盘。写作还可选同步到 **Notion** 数据库。
 
 **学生微信话术（可直接转发）：**  
-打开链接 → 填姓名 → 开始模考 → 交卷即可。
+打开链接 → 选「写作」或「阅读」→ 填姓名 → 开始模考 → 交卷即可。交卷后不会显示分数或答案。
 
 ---
 
 ## 功能概览
 
-- 仅 Task 1（20 分钟）/ 仅 Task 2（40 分钟）/ 完整测试 60 分钟
+- 首页 `/` 两个入口：Academic Writing（`/writing`）、Academic Reading（`/reading`）
+- **写作**：仅 Task 1（20 分钟）/ 仅 Task 2（40 分钟）/ 完整测试 60 分钟；左侧题目，右侧答题区
+- **阅读**：完整测试 60 分钟（Q1–40），或只考 Passage 1 / 2 / 3（各 20 分钟）；左文右题、底部题号面板、标记复查、文章高亮与笔记
 - 倒计时、可选教师暂停、5 分钟 / 1 分钟提醒、到点自动提交
-- 姓名必填；交卷后显示「已提交，可以关闭页面」
-- 内置 3 套原创题目（柱状图 SVG / 表格 / 流程）
-- 本地 JSON 落盘 + 可选 Notion 行存储
-- 教师后台 `/admin`（列表 / 详情 / 导出 JSON·CSV）
+- 姓名必填；交卷后显示「Submitted. You may close this page.」——**不向学生展示分数、答案或解析**
+- 写作内置 3 套原创题目；阅读当前为 Set A（原创练习卷，三篇 + 40 题）
+- 本地 JSON 落盘；写作可另同步 Notion（阅读默认只存本地，避免旧数据库缺字段）
+- 教师后台 `/admin`（列表分科目：写作 / 阅读；详情 / 导出 JSON·CSV）
 - 健康检查 `/health`（部署探针）
 
 ---
@@ -31,9 +33,13 @@ python app.py
 
 或：`./run.sh`
 
-浏览器打开：http://127.0.0.1:8765/  
-健康检查：http://127.0.0.1:8765/health  
-教师后台：http://127.0.0.1:8765/admin  
+浏览器打开：
+
+- 首页（选科）：http://127.0.0.1:8765/
+- 写作：http://127.0.0.1:8765/writing
+- 阅读：http://127.0.0.1:8765/reading
+- 健康检查：http://127.0.0.1:8765/health
+- 教师后台：http://127.0.0.1:8765/admin
 
 默认端口 **8765**，默认绑定 `0.0.0.0`（可用 `HOST=127.0.0.1` 限制本机）。
 
@@ -42,6 +48,12 @@ python app.py
 ```bash
 export PORT=8765
 gunicorn app:app --bind 0.0.0.0:$PORT
+```
+
+本地自测（含阅读判分与路由）：
+
+```bash
+python3 -m unittest tests.test_reading -v
 ```
 
 ---
@@ -70,7 +82,7 @@ gunicorn app:app --bind 0.0.0.0:$PORT
 
 4. **Environment** 环境变量（见下表）保存后 Deploy
 5. 部署成功后得到类似：`https://ielts-writing-mock-xxxx.onrender.com`
-6. 把该链接发给学生；教师用 `https://…/admin` 看卷（页脚也有「教师入口」）
+6. 把该链接发给学生（会先进入首页选写作或阅读）；教师用 `https://…/admin` 看卷
 
 > Free 实例闲置会休眠，首次打开可能要等 30–60 秒。正式课前可先自己点开唤醒。
 
@@ -81,15 +93,15 @@ gunicorn app:app --bind 0.0.0.0:$PORT
 | `PORT` | 自动 | Render 注入，勿手改 |
 | `IELTS_ADMIN_PASSWORD` | 强烈建议 | 教师后台密码；不设则默认 `ielts2026` |
 | `IELTS_SECRET_KEY` | 强烈建议 | Flask session 密钥；线上务必设成长随机串 |
-| `NOTION_TOKEN` | 可选 | Notion Internal Integration Secret |
-| `NOTION_DATABASE_ID` | 可选 | 答卷数据库 ID（与 Token 同时设置才启用） |
+| `NOTION_TOKEN` | 可选 | Notion Internal Integration Secret（仅写作同步） |
+| `NOTION_DATABASE_ID` | 可选 | 答卷数据库 ID（与 Token 同时设置才启用写作同步） |
 | `HOST` | 可选 | 仅 `python app.py` 时有效；默认 `0.0.0.0` |
 
 ---
 
-## 三、Notion 答卷库（推荐线上使用）
+## 三、Notion 答卷库（推荐线上写作使用）
 
-Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢失。配置 Notion 后，每次交卷会**额外**写入一行数据库，教师在 Notion 里批改最稳妥。
+Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢失。配置 Notion 后，每次**写作**交卷会额外写入一行数据库。阅读答卷目前只保存在服务器本地 JSON（以及教师后台导出），以免旧 Notion 库缺少阅读字段导致写入失败。
 
 ### 1. 创建 Integration
 
@@ -127,7 +139,7 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 
 在 Render 填入 `NOTION_TOKEN` + `NOTION_DATABASE_ID` 后重新 Deploy。`/health` 返回 `"notion": true` 即表示已启用。
 
-> 未配置 Notion 时，仍写入服务器 `data/submissions/`；本地自测足够，线上请务必配 Notion。
+> 未配置 Notion 时，仍写入服务器 `data/submissions/`；本地自测足够，线上写作请务必配 Notion。
 
 ---
 
@@ -135,28 +147,51 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 
 - 地址：`/admin`
 - 默认密码：`ielts2026`（请用环境变量改掉）
-- 可查看全文、导出 JSON / CSV
-- 学生首页**不展示**后台按钮；仅页脚小字「教师入口」
+- 列表含「科目」列（写作 / 阅读）。阅读显示成绩（如 `36/40`）与**参考分数**；写作仍显示 T1 / T2 词数
+- 阅读详情为逐题对照（学生作答 / 标准答案 / ✓✗ / 中文解析），仅教师可见
+- 可导出 JSON / CSV（含 `module`、阅读分数等列，不影响已有写作行）
+- 「模考页」回到首页 `/`
 
 ---
 
 ## 五、更换题目
 
-编辑 `prompts/prompts.json` 后重新部署（或本地重启）。Task 1 支持 `chart` / `table` / `process_steps`。
+- 写作：编辑 `prompts/prompts.json` 后重新部署（或本地重启）。Task 1 支持 `chart` / `table` / `process_steps`。
+- 阅读学生卷：`prompts/reading_set_a.json`（只有文章与题目，不含答案）。
+- 阅读标准答案与解析（仅服务器使用）：`prompts/reading_keys.json`。切勿把该文件的内容放进学生页面或前端脚本。
 
 ---
 
-## 六、目录结构
+## 六、主要路由
+
+| 路径 | 说明 |
+|---|---|
+| `/` | 首页，选择写作或阅读 |
+| `/writing` | 学术写作模考 |
+| `/reading` | 学术阅读模考 |
+| `/api/submit` | 写作交卷 |
+| `/api/reading/submit` | 阅读交卷（服务器判分，响应中不含分数） |
+| `/api/reading/paper` | 阅读学生卷 JSON（无答案） |
+| `/admin` | 教师后台 |
+| `/health` | 健康检查 |
+
+---
+
+## 七、目录结构
 
 ```
 ielts-writing-mock/
   app.py
+  reading_scoring.py
   requirements.txt
   Procfile
   render.yaml
   README.md
   run.sh
   prompts/prompts.json
+  prompts/reading_set_a.json
+  prompts/reading_keys.json
+  tests/test_reading.py
   templates/
   static/
   data/submissions/    # 本地/实例磁盘备份
@@ -166,5 +201,6 @@ ielts-writing-mock/
 
 ## 说明
 
-- 题目为教学用原创提示，非剑桥官方真题原文。
+- 题目为教学用原创材料，非剑桥官方真题原文。
 - Notion 写入失败**不会**阻断学生交卷（仍有本地 JSON）；错误记在服务日志。
+- 阅读的参考分数仅供教师使用，按常见学术类阅读正确题数换算；单篇模式只记原始分，不换算总分段。

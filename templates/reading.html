@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Academic Reading · Rosette Exclusive Mock Exam</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='reading.css') }}" />
+</head>
+<body class="reading-page">
+  <header class="topbar">
+    <div class="brand-block">
+      <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
+      <div class="brand-sub">IELTS Academic Reading · Computer-delivered style</div>
+    </div>
+    <div class="meta">
+      <span id="modeLabel" class="mode-chip">Ready</span>
+      <span class="timer-label">Time remaining</span>
+      <span id="timer" class="timer">--:--</span>
+      <button type="button" id="btnPause" class="btn secondary sm hidden">Pause</button>
+    </div>
+  </header>
+
+  <main id="setupPanel" class="wrap">
+    <section class="card setup-card">
+      <p class="eyebrow">Candidate check-in</p>
+      <h1>Start your reading test</h1>
+      <p class="muted lead">填写姓名后开始。界面仿照雅思机考 Reading：左侧文章，右侧试题，底部为题号面板。</p>
+
+      <div class="setup-grid" style="margin-top:18px">
+        <label class="field">
+          Candidate name <span class="req">*</span>
+          <input type="text" id="candidateName" placeholder="请输入真实姓名" maxlength="80" required autocomplete="name" />
+        </label>
+        <label class="field">
+          Question set
+          <select id="promptSet">
+            <option value="set-a">Set A · Academic Reading</option>
+          </select>
+        </label>
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="muted" style="margin-bottom:8px;font-weight:600">Test mode</div>
+        <div class="mode-pills" id="modePills">
+          <label class="active"><input type="radio" name="mode" value="full" checked /> Full test · 60 min · Questions 1–40</label>
+          <label><input type="radio" name="mode" value="passage1" /> Passage 1 only · 20 min · Q1–13</label>
+          <label><input type="radio" name="mode" value="passage2" /> Passage 2 only · 20 min · Q14–26</label>
+          <label><input type="radio" name="mode" value="passage3" /> Passage 3 only · 20 min · Q27–40</label>
+        </div>
+      </div>
+
+      <details class="teacher-opt" style="margin-top:14px">
+        <summary class="muted">Teacher options</summary>
+        <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;margin-top:8px">
+          <input type="checkbox" id="teacherPause" />
+          Allow pause
+        </label>
+      </details>
+
+      <div id="nameError" class="banner error hidden" style="margin-top:14px">Please enter your name before starting.</div>
+      <div id="resumeBanner" class="banner info hidden" style="margin-top:14px"></div>
+
+      <div class="actions start-actions">
+        <button type="button" id="btnStart" class="btn btn-start">Start test</button>
+      </div>
+      <p class="hint" style="margin-top:14px">There are 40 questions. Each question carries one mark. The test auto-submits when time is up. Answers are not shown after you submit.</p>
+      <div class="teacher-entry">
+        <a class="btn ghost" href="/">返回首页</a>
+        <a class="btn ghost" href="/admin">教师入口 · Teacher login</a>
+        <span class="hint">密码登录后可查看学生提交的答卷</span>
+      </div>
+    </section>
+  </main>
+
+  <section id="examPanel" class="reading-shell hidden">
+    <div id="statusBanner" class="banner info hidden reading-status"></div>
+    <div class="pane-toggle" id="paneToggle">
+      <button type="button" class="active" data-pane="passage">Passage</button>
+      <button type="button" data-pane="questions">Questions</button>
+    </div>
+    <div class="reading-split" id="readingSplit">
+      <div class="passage-pane" id="passagePane">
+        <div class="passage-toolbar">
+          <span class="passage-toolbar-label" id="passageLabel">Reading Passage</span>
+          <div class="hl-tools">
+            <button type="button" id="btnHighlight" class="btn ghost sm" title="Highlight selected text">Highlight</button>
+            <button type="button" id="btnClearHighlight" class="btn ghost sm" title="Clear highlight from the selection">Clear</button>
+            <button type="button" id="btnAddNote" class="btn ghost sm" title="Add a short note to the selection">Note</button>
+          </div>
+        </div>
+        <div class="passage-scroll" id="passageScroll">
+          <p class="passage-guidance" id="passageGuidance"></p>
+          <h2 class="passage-title" id="passageTitle"></h2>
+          <div class="passage-body" id="passageBody"></div>
+        </div>
+      </div>
+      <div class="splitter" id="splitter" role="separator" aria-orientation="vertical" aria-label="Resize panes"></div>
+      <div class="question-pane" id="questionPane">
+        <div class="question-scroll" id="questionScroll"></div>
+      </div>
+    </div>
+    <div id="reviewScreen" class="review-screen hidden">
+      <div class="review-head">
+        <h2>Review</h2>
+        <button type="button" id="btnBackToTest" class="btn ghost sm">Back to questions</button>
+      </div>
+      <p class="muted review-lead">Click a question to return to it. You can keep changing your answers until you submit.</p>
+      <div id="reviewList" class="review-list"></div>
+    </div>
+    <footer class="reading-palette">
+      <div class="pal-row pal-row-nav">
+        <button type="button" id="btnPrev" class="btn ghost sm pal-nav">Previous</button>
+        <div class="palette-nums" id="paletteNums" role="navigation" aria-label="Question numbers"></div>
+        <button type="button" id="btnNext" class="btn ghost sm pal-nav">Next</button>
+      </div>
+      <div class="pal-row pal-row-actions">
+        <div class="pal-actions-left">
+          <button type="button" id="btnFlag" class="btn ghost sm" title="Flag for review">Flag</button>
+          <button type="button" id="btnReview" class="btn ghost sm">Review</button>
+        </div>
+        <div class="pal-actions-right">
+          <button type="button" id="btnQuit" class="btn ghost sm">Quit</button>
+          <button type="button" id="btnSubmit" class="btn ok sm">Submit test</button>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <div id="hlMenu" class="hl-menu hidden" role="menu">
+    <button type="button" data-act="highlight">Highlight</button>
+    <button type="button" data-act="note">Add note</button>
+    <button type="button" data-act="clear">Clear highlight</button>
+  </div>
+
+  <div id="noteModal" class="note-modal hidden">
+    <div class="note-modal-card">
+      <h3>Note</h3>
+      <textarea id="noteText" maxlength="240" placeholder="Write a short note…"></textarea>
+      <div class="actions">
+        <button type="button" id="btnNoteSave" class="btn sm">Save</button>
+        <button type="button" id="btnNoteCancel" class="btn ghost sm">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="donePanel" class="wrap hidden">
+    <div class="card done-card">
+      <div class="done-icon" aria-hidden="true">✓</div>
+      <h2>Submitted</h2>
+      <div id="doneMsg" class="banner success"></div>
+      <p class="muted" style="text-align:center;margin-top:8px">Your answers have been saved. You may close this page.</p>
+      <div class="actions" style="justify-content:center">
+        <button type="button" id="btnAgain" class="btn ghost">Take again</button>
+        <a class="btn ghost" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="siteFooter" class="site-footer">
+    <span>Rosette Exclusive Mock Exam</span>
+    <a href="/" class="footer-admin">Home</a>
+    <a href="/admin" class="footer-admin">Teacher</a>
+  </footer>
+
+  <script>
+    window.READING_PAPER = {{ paper | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='reading.js') }}"></script>
+</body>
+</html>

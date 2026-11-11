@@ -1,0 +1,205 @@
+{
+  "set_id": "set-a",
+  "questions": {
+    "1": {
+      "answer": "sand",
+      "type": "notes",
+      "explanation": "定位第2段：nasal passages keep sand out of the airways。同句稍后出现干扰名词 grit（intercept ... grit），但与 keep ... out 搭配的只有 sand，不可填 grit。"
+    },
+    "2": {
+      "answer": "blood",
+      "type": "notes",
+      "explanation": "定位第2段：lower the temperature of its blood in the heat。同句干扰名词 gravel 指滚烫的地面，不是被降温的对象。"
+    },
+    "3": {
+      "answer": "coat",
+      "type": "notes",
+      "explanation": "定位第2段：grows a thicker, darker coat ... which it sheds when the heat returns。句末 pelage 指换毛之后的夏季毛色，不是题目所要的那个名词。"
+    },
+    "4": {
+      "answer": "horns",
+      "type": "notes",
+      "explanation": "定位第4段：especially for the horns of male addax。trophies / ornaments 是羊角的用途，不是偷猎所针对的部位。"
+    },
+    "5": {
+      "answer": "habitat",
+      "type": "notes",
+      "explanation": "定位第5段：reduced the size of the addax's habitat。同句 tracts / forage 为干扰；笔记对应 reduction in the size of the addax's ...，唯一可填 habitat。"
+    },
+    "6": {
+      "answer": "routes",
+      "type": "notes",
+      "explanation": "定位第5段：block access to the routes which they use for seasonal movement。其后 corridors 指稀疏草场通道，与笔记 which they use for seasonal movement 精确对应的是 routes。"
+    },
+    "7": {
+      "answer": "oases",
+      "type": "notes",
+      "explanation": "定位第7段：the disappearance of the oases which the addax relied on。后文 palm groves / watering hollows 是另一层描述，不是该结构中的原词。"
+    },
+    "8": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第1段：今日野外种群主要集中在尼日尔（占90%以上），乍得及可能的残存种群只占其余，并写明 not spread evenly。与 evenly distributed 相反。"
+    },
+    "9": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第3段：numbers rose steadily through most of the twentieth century，种群崩溃发生在1980年代末至90年代。题干把“大部分20世纪”说成持续下降，与原文相反；勿被后文 sudden crash 带偏。"
+    },
+    "10": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第4段：为保护犀牛而推广弯角羚羊角作为替代品，需求转移导致捕杀加剧。原文明确 efforts designed to protect rhinos ... had a significant and damaging effect。safeguard / impact 为同义替换。"
+    },
+    "11": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "第7段讨论气候极端波动对撒哈拉弯角羚的威胁，但完全没有与世界其他地区作比较。more than in other parts of the world 在文中无线索。"
+    },
+    "12": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第8段：Partnership was formed to restore desert ecosystems and the many species they support, including the addax。项目是为多种动物（而不只是弯角羚）设立的。"
+    },
+    "13": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "第8段只提及被列为联合国 flagship initiative，提高了 profile，并未提及任何 additional funding、捐款或资金。获得认定≠带来资金。"
+    },
+    "14": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "第1段给出人口倍增、每年流入、联合国式预测及远期数字，但从未说增长比先前预测更快或更慢。faster than earlier forecasts 无线索。"
+    },
+    "15": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第2段：Most residents live not in towers but in single-storey or low informal settlements on the expanding edges。与 high-rise buildings 相反。"
+    },
+    "16": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "第2段提及有限的 suburban rail，但完全没有居民咨询、民意调查或征求 views 的信息。提到铁路≠征求过意见。"
+    },
+    "17": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第4段：almost all of the city's current expansion has taken place informally, without an agreed strategy。对应 most ... has not been planned。"
+    },
+    "18": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第5段：In an explicit departure from the approach taken by many large African cities（那些城市在建地铁），伊巴丹当局选择了 BRT。并非仿效多数非洲城市的公交方案。"
+    },
+    "19": {
+      "answer": "lanes",
+      "type": "notes",
+      "explanation": "定位第6段：The buses use designated lanes ... to cut down on delays。不要误填 corridor（指整条走廊，不是 designated 的对象）。"
+    },
+    "20": {
+      "answer": "boarding",
+      "type": "notes",
+      "explanation": "定位第6段：Passengers pay fares before boarding。platform / machines 是购票地点，不是空格所需的词。"
+    },
+    "21": {
+      "answer": "wheelchairs",
+      "type": "notes",
+      "explanation": "定位第6段：fully accessible to passengers in wheelchairs, and to those with buggies。笔记为 passengers in 21，搭配只能是 wheelchairs；buggies 前的介词是 with。"
+    },
+    "22": {
+      "answer": "fuel",
+      "type": "notes",
+      "explanation": "定位第7段：air-conditioning is often left switched off in order to reduce fuel use。题目用 temperature control is sometimes not activated 作同义转述。"
+    },
+    "23": {
+      "answer": "flood",
+      "type": "notes",
+      "explanation": "定位第8段：A severe flood at a riverside depot wrecked ... the fleet，由此造成车辆不足。depot / fleet 是地点或结果，不是 severe 后应填的词。"
+    },
+    "24": {
+      "answer": "smartcards",
+      "type": "notes",
+      "explanation": "定位第8段：Smartcards have become unusable ... because the readers and related equipment are out of action。equipment / readers 是故障原因，不是乘客无法使用的对象。"
+    },
+    "25": {
+      "answer": "gates",
+      "type": "notes",
+      "explanation": "定位第8段：tickets have to be checked manually at station gates。不要误填 stations 或 corridors。"
+    },
+    "26": {
+      "answer": "queues",
+      "type": "notes",
+      "explanation": "定位第8段：queues frequently build up during rush hours。与笔记 26 frequently build up during rush hours 原词对应。"
+    },
+    "27": {
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "第2段作者明确写出 two overall messages：所谓“先进”城市特征可追溯得更早；早期城市的社会组织被后来的等级/父权假设误读。这是在指出认识上的关键变化。B（仍不清楚的方面）不符合；C（归纳他人态度）未出现；D（专家分歧）在第5段，不在第2段。"
+    },
+    "28": {
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "第6段以早期机械钟从粗糙到逐步改进为例，说明 Development usually proceeds by incremental steps。后文虽提及 tipping points，但该比喻本身服务于“大多是渐进的”，不是说路径不可预测（D 为近干扰）。文中未谈创新来源多样（B）或技术进步是否都有益（C）。"
+    },
+    "29": {
+      "answer": "D",
+      "type": "mcq",
+      "explanation": "第7段将 unravel this inherited conceptual weave 解释为：把土壤与文本实际显示的内容，与早期研究中夹带的过时社会假设分开。即重新评估受过时社会观念影响的研究。A 是评估新发现，B 是质疑证据真伪，C 过宽（泛指研究早期城市组织），均不切中该短语。"
+    },
+    "30": {
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "末段：Studying these past cities ... could help us imagine, and perhaps build, a fairer urban life today。直接对应 A。B（不以今律古）、C（仍有许多未知）、D（证据可有多种解释）并非末段提出的主张。"
+    },
+    "31": {
+      "answer": "E",
+      "type": "matching_endings",
+      "explanation": "第3段：Ain Tazaght 的工艺早于通常的“第一批城市”叙事，implies that those famous early civilisations were not the only societies capable of such sophisticated construction。陷阱 A 把“更早”泛化为“第一批城市出现得更早”，并非该遗址发现的核心结论。"
+    },
+    "32": {
+      "answer": "F",
+      "type": "matching_endings",
+      "explanation": "第3段 Puna de Lirio：非经典河谷城市文化的群体，在高海拔极端环境中更早维持了密集、有组织的聚落。对应 F。不要误选总述年代提前的 A。"
+    },
+    "33": {
+      "answer": "D",
+      "type": "matching_endings",
+      "explanation": "第8段 2024 年 4 月的元分析发现集体仓储、共享手工业与非宫殿式管理，suggesting that specialists may have been wrong about who organised labour and accounts。对应 D。不要与第34题“谁掌权/性别判断”混淆，也不可选 C（文中没有“女性比男性更常控制手工业”这种比较）。"
+    },
+    "34": {
+      "answer": "B",
+      "type": "matching_endings",
+      "explanation": "第8段：Khirbet al-Majnuna 一处 4,600 年前的墓葬长期被当作男性首领，牙釉蛋白分析证明墓主为女性，说明先前关于谁掌握权力的假设不准确。C 是文中未做的性别比例比较；D 对应的是 2024 年元分析，不是这处墓葬。"
+    },
+    "35": {
+      "answer": "NO",
+      "type": "ynng",
+      "explanation": "第4段：长期以为美索不达米亚神庙壁画是最早的城市装饰艺术，That claim no longer stands；更早的彩绘泥灰与印章雕刻已经出现。与 seems likely that ... were the first 相反。"
+    },
+    "36": {
+      "answer": "NOT GIVEN",
+      "type": "ynng",
+      "explanation": "第4段提及 seal-carving，但未评价这种装饰 very rare 或常见。提到物品≠对其稀有程度表态。"
+    },
+    "37": {
+      "answer": "NOT GIVEN",
+      "type": "ynng",
+      "explanation": "第5段的争议在于证据是否充分，以及成果发布方式（先纪录片、后开放评审期刊）。作者并未评价发掘或检测等方法本身是否 unconventional。发布方式不寻常≠田野方法不寻常。"
+    },
+    "38": {
+      "answer": "YES",
+      "type": "ynng",
+      "explanation": "第4段：The dating of the murals, and of the grid itself, is still provisional; neither has been firmly established。第5段作者也要求 especially on dating 的更多证据。年代尚不明确。"
+    },
+    "39": {
+      "answer": "YES",
+      "type": "ynng",
+      "explanation": "第5段：The dispute has been heightened by the way the results were released。发布/宣传方式加剧了围绕该遗址的争议。"
+    },
+    "40": {
+      "answer": "NO",
+      "type": "ynng",
+      "explanation": "第5段作者明确写道：the absence of palaces ... is a distraction。缺少宫殿并非判断该聚落是否为城市的关键因素。注意这是作者观点，不是批评者的看法（批评者正纠结于 missing elite quarter）。"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rosette Exclusive Mock Exam</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <div class="brand">Rosette Exclusive Mock Exam</div>
+      <div class="brand-sub">IELTS Academic · Computer-delivered style</div>
+    </div>
+    <div class="meta">
+      <a class="btn secondary sm" href="/admin">教师入口</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card setup-card hub-hero">
+      <p class="eyebrow">Candidate check-in</p>
+      <h1>选择要参加的模考</h1>
+      <p class="muted lead">界面仿照雅思机考。填写姓名后计时作答，到点自动交卷。交卷后不会显示分数或答案。</p>
+    </section>
+
+    <div class="hub-grid">
+      <a class="hub-card" href="/writing">
+        <p class="eyebrow">Academic Writing</p>
+        <h2>写作模考</h2>
+        <p class="muted">Task 1 + Task 2 · 完整测试 60 分钟，也可只考一篇。</p>
+        <ul class="hub-points">
+          <li>左侧题目，右侧答题区</li>
+          <li>词数统计 · 倒计时 · 自动交卷</li>
+        </ul>
+        <span class="btn btn-start hub-cta">进入写作</span>
+      </a>
+      <a class="hub-card" href="/reading">
+        <p class="eyebrow">Academic Reading</p>
+        <h2>阅读模考</h2>
+        <p class="muted">三篇短文 · 40 题 · 完整测试 60 分钟，也可按篇计时。</p>
+        <ul class="hub-points">
+          <li>左文右题 · 题号面板 · 标记复查</li>
+          <li>高亮与笔记 · 倒计时 · 自动交卷</li>
+        </ul>
+        <span class="btn btn-start hub-cta">进入阅读</span>
+      </a>
+    </div>
+
+    <div class="teacher-entry">
+      <a class="btn ghost" href="/admin">教师入口 · Teacher login</a>
+      <span class="hint">密码登录后可查看学生提交的答卷</span>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Rosette Exclusive Mock Exam</span>
+    <a href="/admin" class="footer-admin">Teacher</a>
+  </footer>
+</body>
+</html>

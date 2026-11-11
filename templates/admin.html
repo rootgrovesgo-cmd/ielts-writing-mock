@@ -23,7 +23,7 @@
     <section class="card">
       <p class="eyebrow">All scripts</p>
       <h1>学生答卷列表</h1>
-      <p class="muted">共 {{ submissions|length }} 份{% if notion_on %} · Notion 同步已开启{% else %} · 当前保存在服务器本地{% endif %}</p>
+      <p class="muted">共 {{ submissions|length }} 份{% if notion_on %} · Notion 同步已开启（写作）{% else %} · 当前保存在服务器本地{% endif %}</p>
       {% if not submissions %}
       <div class="banner info">暂无答卷。学生在模考页提交后会显示在这里。</div>
       {% else %}
@@ -33,10 +33,13 @@
             <tr>
               <th>时间 (Asia/Shanghai)</th>
               <th>考生</th>
+              <th>科目</th>
               <th>模式</th>
               <th>套卷</th>
               <th>T1 词</th>
               <th>T2 词</th>
+              <th>成绩</th>
+              <th>参考分</th>
               <th>用时</th>
               <th>自动交</th>
               <th></th>
@@ -44,16 +47,45 @@
           </thead>
           <tbody>
             {% for s in submissions %}
+            {% set module = s.get('module') or 'writing' %}
             <tr>
               <td>{{ s.timestamp }}</td>
               <td>{{ s.candidate_name or "—" }}</td>
+              <td>
+                {% if module == 'reading' %}
+                <span class="mod-badge reading">阅读</span>
+                {% else %}
+                <span class="mod-badge writing">写作</span>
+                {% endif %}
+              </td>
               <td>{{ s.mode }}</td>
               <td>{{ s.prompt_set_id }}</td>
-              <td>{{ s.task1_word_count }}</td>
-              <td>{{ s.task2_word_count }}</td>
-              <td>{{ (s.time_used_seconds // 60) }}:{{ '%02d' % (s.time_used_seconds % 60) }}</td>
+              <td>{% if module == 'writing' %}{{ s.task1_word_count }}{% else %}—{% endif %}</td>
+              <td>{% if module == 'writing' %}{{ s.task2_word_count }}{% else %}—{% endif %}</td>
+              <td>
+                {% if module == 'reading' and s.get('score') is not none %}
+                  {{ s.score }}/{{ s.total }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+              <td>
+                {% if module == 'reading' and s.get('band_estimate') is not none %}
+                  {{ s.band_estimate }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+              <td>
+                {% set used = s.get('time_used_seconds') %}
+                {% if used is not none %}
+                  {{ (used // 60) }}:{{ '%02d' % (used % 60) }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
               <td>{{ "是" if s.auto_submitted else "否" }}</td>
-              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看全文</a></td>
+              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看{% if module == 'reading' %}详批{% else %}全文{% endif %}</a></td>
             </tr>
             {% endfor %}
           </tbody>

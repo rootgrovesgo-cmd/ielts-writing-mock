@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""IELTS Writing timed mock-exam — Flask app (local + online)."""
+"""IELTS Academic Writing + Reading timed mock-exam — Flask app (local + online)."""
 
 from __future__ import annotations
 
@@ -25,11 +25,15 @@ from flask import (
     url_for,
 )
 
+import reading_scoring as rs
+
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 SUBMISSIONS_DIR = DATA_DIR / "submissions"
 INDEX_PATH = DATA_DIR / "index.json"
 PROMPTS_PATH = BASE_DIR / "prompts" / "prompts.json"
+READING_PAPER_PATH = BASE_DIR / "prompts" / "reading_set_a.json"
+READING_KEYS_PATH = BASE_DIR / "prompts" / "reading_keys.json"
 
 TZ_SHANGHAI = timezone(timedelta(hours=8))
 
@@ -65,6 +69,14 @@ def load_prompts() -> dict:
         return json.load(f)
 
 
+def load_reading_paper() -> dict:
+    return rs.load_paper(READING_PAPER_PATH)
+
+
+def load_reading_keys() -> dict:
+    return rs.load_keys(READING_KEYS_PATH)
+
+
 def load_index() -> dict:
     ensure_storage()
     with INDEX_PATH.open(encoding="utf-8") as f:
@@ -91,9 +103,21 @@ def truncate(text: str, limit: int = 1900) -> str:
     return text[: limit - 1] + "…"
 
 
+def record_module(record: dict | None) -> str:
+    if not record:
+        return "writing"
+    mod = (record.get("module") or "").strip().lower()
+    if mod == "reading":
+        return "reading"
+    return "writing"
+
+
 def save_to_notion(record: dict) -> dict | None:
     """Create a Notion database row. Returns page meta or None if disabled/failed."""
     if not notion_enabled():
+        return None
+    # Reading submissions skip Notion: existing DBs lack reading properties.
+    if record_module(record) == "reading":
         return None
     try:
         from notion_client import Client
@@ -105,7 +129,6 @@ def save_to_notion(record: dict) -> dict | None:
         client = Client(auth=NOTION_TOKEN)
         name = record.get("candidate_name") or "未命名"
         submitted_at = record.get("timestamp") or datetime.now(TZ_SHANGHAI).isoformat()
-        # Notion date prefers ISO; strip timezone offset issues by using UTC Z if needed
         props = {
             "Name": {"title": [{"text": {"content": truncate(str(name), 100)}}]},
             "Candidate Name": {
@@ -166,6 +189,7 @@ def health():
         {
             "ok": True,
             "service": "ielts-writing-mock",
+            "modules": ["writing", "reading"],
             "notion": notion_enabled(),
         }
     )
@@ -173,6 +197,11 @@ def health():
 
 @app.route("/")
 def index():
+    return render_template("hub.html")
+
+
+@app.route("/writing")
+def writing():
     prompts = load_prompts()
     return render_template(
         "exam.html",
@@ -181,9 +210,21 @@ def index():
     )
 
 
+@app.route("/reading")
+def reading():
+    paper = load_reading_paper()
+    return render_template("reading.html", paper=paper)
+
+
 @app.route("/api/prompts")
 def api_prompts():
     return jsonify(load_prompts())
+
+
+@app.route("/api/reading/paper")
+def api_reading_paper():
+    """Student-facing paper only — never includes keys or explanations."""
+    return jsonify(load_reading_paper())
 
 
 @app.route("/api/submit", methods=["POST"])
@@ -216,6 +257,7 @@ def api_submit():
         "id": sid,
         "timestamp": now.isoformat(timespec="seconds"),
         "candidate_name": candidate_name,
+        "module": "writing",
         "mode": mode,
         "prompt_set_id": prompt_set_id,
         "task1_prompt_id": task1_prompt_id,
@@ -231,7 +273,6 @@ def api_submit():
         "auto_submitted": auto_submitted,
     }
 
-    # Always persist locally (fallback / admin list)
     out_path = SUBMISSIONS_DIR / f"{sid}.json"
     with out_path.open("w", encoding="utf-8") as f:
         json.dump(record, f, ensure_ascii=False, indent=2)
@@ -243,6 +284,7 @@ def api_submit():
             "id": sid,
             "timestamp": record["timestamp"],
             "candidate_name": candidate_name,
+            "module": "writing",
             "mode": mode,
             "prompt_set_id": prompt_set_id,
             "task1_word_count": record["task1_word_count"],
@@ -267,6 +309,92 @@ def api_submit():
             "timestamp": record["timestamp"],
             "notion": bool(notion_result and notion_result.get("id")),
             "notion_error": (notion_result or {}).get("error"),
+        }
+    )
+
+
+@app.route("/api/reading/submit", methods=["POST"])
+def api_reading_submit():
+    ensure_storage()
+    data = request.get_json(silent=True) or {}
+
+    candidate_name = (data.get("candidate_name") or "").strip()
+    if not candidate_name:
+        return jsonify({"ok": False, "error": "请填写姓名"}), 400
+
+    mode = data.get("mode") or "full"
+    if mode not in rs.MODES:
+        mode = "full"
+    prompt_set_id = data.get("prompt_set_id") or "set-a"
+    answers = data.get("answers") or {}
+    if not isinstance(answers, dict):
+        answers = {}
+    flags = data.get("flags") or []
+
+    duration_seconds = int(data.get("duration_seconds") or rs.MODES[mode]["seconds"])
+    time_remaining_seconds = int(data.get("time_remaining_seconds") or 0)
+    time_used_seconds = int(
+        data.get("time_used_seconds")
+        or max(0, duration_seconds - time_remaining_seconds)
+    )
+    auto_submitted = bool(data.get("auto_submitted", False))
+    paused_total_seconds = int(data.get("paused_total_seconds") or 0)
+
+    result = rs.score_paper(answers, mode=mode, keys=load_reading_keys())
+
+    now = datetime.now(TZ_SHANGHAI)
+    sid = str(uuid.uuid4())
+    record = {
+        "id": sid,
+        "timestamp": now.isoformat(timespec="seconds"),
+        "candidate_name": candidate_name,
+        "module": "reading",
+        "mode": mode,
+        "prompt_set_id": prompt_set_id,
+        "answers": {str(k): ("" if v is None else str(v)) for k, v in answers.items()},
+        "flags": flags,
+        "marking": result["marking"],
+        "score": result["score"],
+        "total": result["total"],
+        "band_estimate": result["band_estimate"],
+        "duration_seconds": duration_seconds,
+        "time_remaining_seconds": time_remaining_seconds,
+        "time_used_seconds": time_used_seconds,
+        "paused_total_seconds": paused_total_seconds,
+        "auto_submitted": auto_submitted,
+    }
+
+    out_path = SUBMISSIONS_DIR / f"{sid}.json"
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(record, f, ensure_ascii=False, indent=2)
+
+    index = load_index()
+    index.setdefault("submissions", []).insert(
+        0,
+        {
+            "id": sid,
+            "timestamp": record["timestamp"],
+            "candidate_name": candidate_name,
+            "module": "reading",
+            "mode": mode,
+            "prompt_set_id": prompt_set_id,
+            "score": record["score"],
+            "total": record["total"],
+            "band_estimate": record["band_estimate"],
+            "time_used_seconds": time_used_seconds,
+            "auto_submitted": auto_submitted,
+            "file": f"submissions/{sid}.json",
+        },
+    )
+    save_index(index)
+
+    # Intentionally skip Notion for reading so a missing property cannot
+    # interfere. Local JSON is the source of truth.
+    return jsonify(
+        {
+            "ok": True,
+            "id": sid,
+            "timestamp": record["timestamp"],
         }
     )
 
@@ -309,7 +437,20 @@ def admin_submission(sid: str):
         return "未找到该答卷", 404
     with path.open(encoding="utf-8") as f:
         record = json.load(f)
-    return render_template("admin_detail.html", record=record)
+    explanations = {}
+    if record_module(record) == "reading":
+        keys = load_reading_keys().get("questions", {})
+        for q, meta in keys.items():
+            explanations[int(q)] = meta.get("explanation") or ""
+        # Attach explanation onto each marking row for the template.
+        for row in record.get("marking") or []:
+            row["explanation"] = explanations.get(int(row.get("q") or 0), "")
+    return render_template(
+        "admin_detail.html",
+        record=record,
+        is_reading=record_module(record) == "reading",
+        band_label=rs.format_band(record.get("band_estimate")),
+    )
 
 
 @app.route("/admin/export.json")
@@ -329,6 +470,16 @@ def admin_export_json():
     )
 
 
+def _answers_summary(record: dict) -> str:
+    answers = record.get("answers")
+    if not isinstance(answers, dict) or not answers:
+        return ""
+    parts = []
+    for k in sorted(answers.keys(), key=lambda x: int(x) if str(x).isdigit() else str(x)):
+        parts.append(f"{k}:{answers[k]}")
+    return " | ".join(parts)
+
+
 @app.route("/admin/export.csv")
 @admin_required
 def admin_export_csv():
@@ -340,15 +491,20 @@ def admin_export_csv():
             "id",
             "timestamp",
             "candidate_name",
+            "module",
             "mode",
             "prompt_set_id",
             "task1_word_count",
             "task2_word_count",
+            "score",
+            "total",
+            "band_estimate",
             "time_used_seconds",
             "time_remaining_seconds",
             "auto_submitted",
             "task1_text",
             "task2_text",
+            "answers_summary",
         ]
     )
     for item in index.get("submissions", []):
@@ -357,20 +513,26 @@ def admin_export_csv():
             continue
         with path.open(encoding="utf-8") as f:
             r = json.load(f)
+        module = record_module(r)
         writer.writerow(
             [
                 r.get("id"),
                 r.get("timestamp"),
                 r.get("candidate_name") or "",
+                module,
                 r.get("mode"),
                 r.get("prompt_set_id"),
-                r.get("task1_word_count"),
-                r.get("task2_word_count"),
+                r.get("task1_word_count") if module == "writing" else "",
+                r.get("task2_word_count") if module == "writing" else "",
+                r.get("score") if module == "reading" else "",
+                r.get("total") if module == "reading" else "",
+                r.get("band_estimate") if module == "reading" else "",
                 r.get("time_used_seconds"),
                 r.get("time_remaining_seconds"),
                 r.get("auto_submitted"),
-                (r.get("task1_text") or "").replace("\n", "\\n"),
-                (r.get("task2_text") or "").replace("\n", "\\n"),
+                (r.get("task1_text") or "").replace("\n", "\\n") if module == "writing" else "",
+                (r.get("task2_text") or "").replace("\n", "\\n") if module == "writing" else "",
+                _answers_summary(r) if module == "reading" else "",
             ]
         )
     return Response(
@@ -383,9 +545,10 @@ def admin_export_csv():
 def main() -> None:
     ensure_storage()
     port = int(os.environ.get("PORT", DEFAULT_PORT))
-    # Local default 127.0.0.1; production / LAN: HOST=0.0.0.0
     host = os.environ.get("HOST", "0.0.0.0")
-    print(f"IELTS Writing Mock → http://{host}:{port}/")
+    print(f"Rosette Exclusive Mock Exam → http://{host}:{port}/")
+    print(f"Writing → http://{host}:{port}/writing")
+    print(f"Reading → http://{host}:{port}/reading")
     print(f"Health → http://{host}:{port}/health")
     print(f"教师后台 → http://{host}:{port}/admin")
     print(f"Notion sync: {'ON' if notion_enabled() else 'OFF'}")

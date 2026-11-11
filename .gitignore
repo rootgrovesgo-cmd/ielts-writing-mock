@@ -4,3 +4,5 @@ __pycache__/
 .DS_Store
 data/submissions/*.json
 !data/submissions/.gitkeep
+
+data/index.json

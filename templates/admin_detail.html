@@ -21,12 +21,49 @@
         ID：<code>{{ record.id }}</code><br/>
         时间：{{ record.timestamp }}（Asia/Shanghai）<br/>
         考生：{{ record.candidate_name or "—" }}<br/>
-        模式：{{ record.mode }} · 套卷：{{ record.prompt_set_id }}<br/>
+        科目：{% if is_reading %}阅读{% else %}写作{% endif %}
+        · 模式：{{ record.mode }} · 套卷：{{ record.prompt_set_id }}<br/>
+        {% if is_reading %}
+        成绩：{{ record.score }}/{{ record.total }}
+        {% if band_label %} · 参考分数：{{ band_label }}{% else %} · 参考分数：—（单篇模式仅记原始分）{% endif %}<br/>
+        {% else %}
         Task1 题：{{ record.task1_prompt_id }} · Task2 题：{{ record.task2_prompt_id }}<br/>
-        用时 {{ record.time_used_seconds }}s · 剩余 {{ record.time_remaining_seconds }}s · 暂停累计 {{ record.paused_total_seconds }}s<br/>
+        {% endif %}
+        用时 {{ record.time_used_seconds }}s · 剩余 {{ record.time_remaining_seconds }}s · 暂停累计 {{ record.paused_total_seconds or 0 }}s<br/>
         自动提交：{{ "是" if record.auto_submitted else "否" }}
       </p>
     </section>
+
+    {% if is_reading %}
+    <section class="card">
+      <h2>逐题批改</h2>
+      <p class="muted">学生答案对照标准答案；解析仅供教师备课使用。</p>
+      <div style="overflow-x:auto">
+        <table class="admin-table mark-table">
+          <thead>
+            <tr>
+              <th>题号</th>
+              <th>学生作答</th>
+              <th>标准答案</th>
+              <th>对错</th>
+              <th>解析</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in record.marking %}
+            <tr class="{{ 'ok-row' if row.ok else 'bad-row' }}">
+              <td>{{ row.q }}</td>
+              <td>{{ row.student or "（未作答）" }}</td>
+              <td>{{ row.correct }}</td>
+              <td>{% if row.ok %}✓{% else %}✗{% endif %}</td>
+              <td class="explain">{{ row.explanation }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% else %}
     <section class="card">
       <h2>Task 1（{{ record.task1_word_count }} 词）</h2>
       <div class="answer-preview">{{ record.task1_text or "（未作答）" }}</div>
@@ -35,6 +72,7 @@
       <h2>Task 2（{{ record.task2_word_count }} 词）</h2>
       <div class="answer-preview">{{ record.task2_text or "（未作答）" }}</div>
     </section>
+    {% endif %}
   </main>
 </body>
 </html>

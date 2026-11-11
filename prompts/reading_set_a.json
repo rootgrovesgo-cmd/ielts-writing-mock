@@ -1,0 +1,523 @@
+{
+  "id": "set-a",
+  "title": "Set A",
+  "subtitle": "Academic Reading",
+  "instructions": {
+    "time": "1 hour",
+    "to_candidates": [
+      "Answer all the questions.",
+      "You may write on this question paper.",
+      "You must write your answers clearly.",
+      "In a real test you would transfer your answers to an answer sheet within the time allowed."
+    ],
+    "information": [
+      "There are 40 questions on this question paper.",
+      "Each question carries one mark."
+    ]
+  },
+  "passages": [
+    {
+      "id": 1,
+      "label": "READING PASSAGE 1",
+      "time_guidance": "You should spend about 20 minutes on Questions 1–13, which are based on Reading Passage 1 below.",
+      "title": "Saving the addax",
+      "paragraphs": [
+        "For centuries the addax, a pale, spiral-horned antelope of the Sahara (Addax nasomaculatus), moved in great companies across a desert range that stretched from the Atlantic margins of the Maghreb to the dry plains west of the Nile. Travellers once described herds so numerous that their tracks resembled the wake of a migrating army, and the animals were a familiar presence at the edge of caravan routes. Those spectacles have vanished. Today the wild population is largely confined to a single country, Niger, which holds well over ninety per cent of the animals that still survive outside captivity. A much smaller group persists in neighbouring Chad, and a tiny remnant may cling on in one further pocket of the central desert. The species is not spread evenly across its former countries.",
+        "The addax is a masterpiece of desert physiology. Its elaborately coiled nasal passages keep sand out of the airways. The same chambers also intercept a little wind-blown grit, but it is sand — the desert's principal airborne hazard — that they are adapted to exclude. By a cooling action in those passages, they lower the temperature of its blood in the heat, even when the surrounding gravel is almost too hot to touch. On cold desert nights the same passages warm the air entering the lungs before it reaches the chest. The animal also grows a thicker, darker coat in the cooler season, which it sheds when the heat returns, leaving a paler summer pelage that reflects the sun.",
+        "In the nineteenth century, and in the early decades of colonial occupation that followed, commercial and sport hunters came close to wiping the addax out. Legal protection was eventually introduced, and numbers rose steadily through most of the twentieth century as patrols and hunting bans took effect. That recovery did not last. From the late 1980s, and with particular severity in the 1990s, a sudden crash — driven by motorised pursuit, regional unrest and a sequence of harsh droughts — produced one of the steepest mammal declines ever recorded in Africa. Within a little more than a decade, a species that had seemed to be consolidating was again on the brink.",
+        "Poaching has been the most immediate cause of that later collapse, especially for the horns of male addax, which are prized as trophies and as carved ornaments. The crisis deepened after a poorly judged conservation and traditional-medicine campaign, intended to relieve pressure on rhinoceroses, began to promote addax horn as an acceptable substitute for threatened rhino horn. Demand that had once been concentrated on rhinos was partly deflected onto the desert antelope, and killing intensified just as the population was already fragile. Efforts designed to protect rhinos, in other words, had a significant and damaging effect on addax numbers.",
+        "Habitat loss has compounded the problem. The expansion of farms, deep wells, oil camps and new settlements has steadily reduced the size of the addax's habitat, squeezing animals into narrower and more isolated tracts of desert even where some forage still grows. Fences, roads and pipelines now block access to the routes which they use for seasonal movement, cutting the herds off from the corridors of sparse grazing that once carried them between wet-season and dry-season grounds.",
+        "Disease has added a further, less predictable threat. In the early 2000s, and again a decade later, outbreaks of a highly contagious respiratory infection — a pasteurellosis that spread rapidly through already stressed groups — produced mass mortality events, leaving carcasses scattered along dry watercourses. Veterinary teams have since improved surveillance, but the timing and severity of such outbreaks remain difficult to forecast, and a single epidemic can erase years of painstaking recovery.",
+        "Climate change presents a slower but no less serious challenge. The addax is well adapted to fierce daytime heat and to cold desert nights, yet it struggles when those conditions swing to new extremes or arrive in unfamiliar combinations. Growing aridity has already altered the calendar of rare rains, and with it has come the disappearance of the oases which the addax relied on for drinking water and shade. Scattered shrubs may still appear after an isolated storm, but the palm groves and shaded watering hollows that once anchored the animals' dry-season range are shrinking or gone.",
+        "A concerted response is now under way. The Tin Toumma Restoration Partnership, led by Niger's national wildlife authority with a cluster of international scientific and conservation partners, was formed to restore desert ecosystems and the many species they support, including the addax. The programme combines anti-poaching patrols, the management of water points, and the carefully staged release of animals bred in protected enclosures. In recognition of its regional importance, the Partnership was later designated a United Nations flagship initiative for dryland restoration — an honour that has raised the scheme's profile among governments and researchers.",
+        "The addax has already passed through a historic low, and setbacks have continued to interrupt the work: drought years, a flare-up of poaching, and one disappointing breeding season in the release enclosures. Even so, recent aerial surveys and ground counts have recorded a modest but unmistakable recovery in the core Niger range, with a smaller improvement in Chad. The species remains critically endangered, and no one involved in the Partnership regards the present figures as a cause for complacency. The trend, however, is at last positive, and it offers a narrow but genuine prospect that the pale antelope of the Sahara may yet hold its ground."
+      ]
+    },
+    {
+      "id": 2,
+      "label": "READING PASSAGE 2",
+      "time_guidance": "You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.",
+      "title": "The problems of getting around the city of Ibadan",
+      "paragraphs": [
+        "Ibadan, the sprawling capital of Oyo State in south-western Nigeria, has become one of the most rapidly expanding urban centres in West Africa. In 1980 the city was already large; since then its population has multiplied several times over, swollen by a steady annual influx of people from the surrounding countryside and from smaller towns. United Nations-style projections now treat Ibadan as a city on the threshold of megacity status, and one long-range forecast has suggested that, if present trends persist, its built-up area could by mid-century support well over eight million residents. Markets, workshops and new housing have already spread far beyond the old core, and a journey from one side of the city to the other can occupy a substantial part of the working day. Planners argue over the precise figures, but few dispute the scale of the pressure that this growth is already placing on roads, housing and basic services.",
+        "Most residents live not in towers but in single-storey or low informal settlements that have spread across the city's expanding edges. For many households a journey to the markets and offices of the central districts means a long commute along roads that, in the rainy season, turn from packed earth to deep mud. Even outside the morning and evening peaks, congestion is a daily condition on the main approaches. A limited suburban rail service runs along one inherited corridor, serving only a handful of neighbourhoods and leaving the greater part of the urban area untouched.",
+        "Where paved roads give way to lanes too narrow for a minibus, motorbike taxis — known locally as okada — thread the side streets and carry passengers and goods through the gaps in the formal network. They are cheap and they go where buses cannot, but their safety record is poor: collisions, unlicensed riders and a near-absence of protective gear make them one of the most dangerous everyday forms of travel in the city.",
+        "The roots of the present tangle lie in part in a colonial-era street plan. A few arterial roads were laid out for a historic population that numbered only in the low hundreds of thousands, and almost all of the city's current expansion has taken place informally, without an agreed strategy for housing, drainage or public transport. New compounds and workshops appear first; the road, the drain and the bus stop, if they come at all, arrive later and in a hurry.",
+        "Faced with this inheritance, the city has pinned its hopes not on an underground railway but on buses. In an explicit departure from the approach taken by many large African cities, which have been trying to build metro systems, Ibadan's authorities have chosen a bus rapid transit programme — branded IBUS, or the Ibadan Transitway — as a cheaper and more achievable alternative. The first corridors opened after years of delay, and the system is now the centrepiece of the municipal transport strategy.",
+        "The design of IBUS is intended to make bus travel faster and more reliable than the chaotic mixed traffic it replaces. The buses use designated lanes, physically separated from other vehicles for most of each corridor, to cut down on delays. Passengers pay fares before boarding, at ticket booths or machines on the platform, so that boarding itself is swift. The system is fully accessible to passengers in wheelchairs, and to those with buggies, with level boarding and ramps at every station.",
+        "Among those who use the service regularly is Adedayo Okunola, a clerk who travels each weekday from a settlement on the south-eastern fringe to an office near Dugbe market. He praises the time he now saves, and the shade of the stations in the heat, but he notes that the air-conditioning is often left switched off in order to reduce fuel use — a compromise that leaves the packed cabins uncomfortably warm in the mid-afternoon.",
+        "The service has also been troubled by more serious operational failures. A severe flood at a riverside depot wrecked a substantial part of the fleet, and the resulting shortage of vehicles has left headways longer than the timetable promises. Smartcards have become unusable on several corridors because the readers and related equipment are out of action, forcing staff to issue paper tickets instead. Those tickets have to be checked manually at station gates, and queues frequently build up during rush hours, undoing some of the time that the dedicated lanes were meant to save.",
+        "Further phases of the Transitway are planned along the Ife Road and the Ojoo–Sango axis, with a later spur intended to reach the university area. Funmilayo Adewale, a researcher with the West African Urban Mobility Alliance, a transport non-governmental organisation, contrasts the metro model — in which a foreign firm is typically parachuted in to design, build and, for a time, operate the line — with bus rapid transit, which can be constructed and run to a far greater extent by local builders and operators. That, she argues, is why a city such as Ibadan can realistically expand IBUS in stages rather than wait for a single, immensely costly underground project. The difficulties of the first years have been real, but those who ride the corridors each day, and those who are planning the next ones, still speak of the Transitway as the most practical path through the congestion that now defines the city."
+      ]
+    },
+    {
+      "id": 3,
+      "label": "READING PASSAGE 3",
+      "time_guidance": "You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.",
+      "title": "Rethinking Early Cities",
+      "paragraphs": [
+        "It is now a truism that the story of the first cities — of how and where urban life began — is being thoroughly rethought. Excavations and surveys of the past two decades have forced specialists to revise dates, to redraw the map of early urban places, and to reopen the question of what should count as a city. Drawing common threads from this material is not straightforward. The sites involved are scattered across several continents and widely separated in time, so that any single narrative is quickly strained.",
+        "Even so, I believe two overall messages can be drawn out. The first is that features we have long treated as marks of an 'advanced' urban culture — formal planning, drainage, monumental building — can be traced earlier than the conventional accounts allowed, and to societies that were once dismissed as pre-urban or merely village-based. The second is that we have badly misunderstood the social organisation of early cities, reading back onto them the hierarchical and patriarchal arrangements of later ages, and in doing so we have mistaken one historical pattern for a universal rule.",
+        "The dressed-stone platforms and carefully aligned terrace walls at Ain Tazaght, on the desert-facing slopes of the Moroccan Atlas, offer a clear illustration of the first message. The workmanship, now dated well before the period usually reserved for the 'first cities' of Mesopotamia and the Nile, implies that those famous early civilisations were not the only societies capable of such sophisticated construction. A parallel lesson comes from the compact settlements of the Puna de Lirio, a high Andean plateau where seasonal frost and thin air make permanent occupation demanding. Occupation layers there show that communities other than the classic urban cultures of the coastal valleys were sustaining dense, organised settlement in this extreme environment earlier than was once thought.",
+        "Symbolic work was earlier, too. It was long assumed that the celebrated mural cycles of early Mesopotamian temple precincts were the earliest instances of urban decorative art ever created. That claim no longer stands. Painted plaster, and a tradition of seal-carving with clearly civic motifs, appear at settlements once classed as pre-urban, and they predate those famous Mesopotamian cycles. More contentious still is the case of Tell Sefira, a modestly scaled settlement on a river terrace at the edge of the Syrian steppe. It has no palaces and no obvious elite quarter, yet it shows a planned street grid and a set of wall paintings in what appears to be a civic building. By the old dogma, a place of this kind could not be a real city. The dating of the murals, and of the grid itself, is still provisional; neither has been firmly established.",
+        "The controversy surrounding Tell Sefira is intense. Some specialists argue that the evidence is simply inadequate to support the claims being made for the site. The dispute has been heightened by the way the results were released: first in a widely streamed documentary, and only later in a journal that invites open online reviews, rather than through the usual sequence of peer-reviewed excavation reports. I think more evidence is needed, especially on dating, before the status of the settlement can be settled. At the same time, the absence of palaces — the 'missing' elite quarter that so exercises the site's critics — is a distraction. Other forms of organisation, including councils of household heads, specialised craft quarters and ritual federations, may equally well explain the complexity on display.",
+        "We should not, in any case, be surprised by early sophistication, nor by its incomplete forms. Development usually proceeds by incremental steps, and building technology is no exception. The first mechanical clocks, those weight-driven machines installed in medieval towers, were crude instruments: they lacked a minute hand, drifted by a wide margin each day, and needed constant adjustment. They were improved only gradually into the precise timekeepers that later organised urban life. A sudden 'urban revolution', in which true cities sprang up fully formed, is not an inherently ridiculous idea — tipping points do occur in human history — but there was never that much evidence that urban development actually worked in that way. Earlier experiments walked so that later capitals could run.",
+        "One way or another, the argument over Tell Sefira will illustrate how readily preconceptions can get in the way of evidence. The same is true of social roles in early cities. The modern discipline of urban archaeology was shaped by nineteenth- and early twentieth-century scholars whose hierarchical and patriarchal views, now thoroughly unfashionable, fed directly into the questions they asked and the reconstructions they published. Researchers today are attempting to unravel this inherited conceptual weave — to separate what the soils and the texts actually show from the social assumptions that were smuggled into the first interpretations.",
+        "The most dramatic result of that effort has been the demolition of a once-dominant theory, the Palace-First model, which held that monumental elite residences and a priest-king at the centre were the necessary engines of urban life. A meta-analysis published in April 2024, covering a large sample of early urban sites, found collective storage, shared craft production and non-palace forms of administration in a high percentage of cases, suggesting that specialists may have been wrong about who organised labour and accounts in the first cities. A simple impressed sealing system, used on storeroom doors and commodity jars, appears to have allowed a wider group, including women, to keep and check records. Evidence of women in authority is also growing. Tablets from Tell al-Hinu name a civic organiser, Nin-Kalla, who allocated rations and oversaw a workshop quarter. And a richly furnished 4,600-year-old burial at Khirbet al-Majnuna, long assumed to be that of a male chieftain, was shown by enamel-protein analysis to belong to a woman.",
+        "The more we learn, the more our preconceptions about how a city 'has to be' begin to look misplaced. Rigid hierarchy, and power reserved exclusively for men, are not inevitable features of urban life; they are historical choices. The early urban record shows that people have organised themselves differently, and with considerable success. Studying these past cities will not supply a template for the present, but it could help us imagine, and perhaps build, a fairer urban life today."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "q1-7",
+      "passage": 1,
+      "from": 1,
+      "to": 7,
+      "type": "notes",
+      "heading": "Questions 1–7",
+      "instructions": [
+        "Complete the notes below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 1–7 on your answer sheet."
+      ],
+      "notes": {
+        "title": "The addax",
+        "sections": [
+          {
+            "heading": "Adaptations",
+            "items": [
+              {
+                "text": "has elaborately coiled nasal passages that",
+                "children": [
+                  {
+                    "parts": [
+                      "keep ",
+                      {
+                        "q": 1
+                      },
+                      " out"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "lower the temperature of its ",
+                      {
+                        "q": 2
+                      },
+                      " in the heat"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "warm the air entering its lungs on cold nights"
+                    ]
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "grows a thicker ",
+                  {
+                    "q": 3
+                  },
+                  " in the cooler season, which it sheds when the heat returns"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Reasons for population decline",
+            "items": [
+              {
+                "parts": [
+                  "poaching, especially for the ",
+                  {
+                    "q": 4
+                  },
+                  " of male addax"
+                ]
+              },
+              {
+                "text": "expansion of farms and settlements, causing",
+                "children": [
+                  {
+                    "parts": [
+                      "reduction in the size of the addax's ",
+                      {
+                        "q": 5
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "loss of access to the ",
+                      {
+                        "q": 6
+                      },
+                      " which they use for seasonal movement"
+                    ]
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "disease, leading to mass mortality events"
+                ]
+              },
+              {
+                "parts": [
+                  "climate change, causing the disappearance of ",
+                  {
+                    "q": 7
+                  },
+                  " which the addax relied on"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "q8-13",
+      "passage": 1,
+      "from": 8,
+      "to": 13,
+      "type": "tfng",
+      "heading": "Questions 8–13",
+      "instructions": [
+        "Do the following statements agree with the information given in Reading Passage 1?",
+        "In boxes 8–13 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "TRUE",
+          "meaning": "if the statement agrees with the information"
+        },
+        {
+          "value": "FALSE",
+          "meaning": "if the statement contradicts the information"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if there is no information on this"
+        }
+      ],
+      "items": [
+        {
+          "q": 8,
+          "stem": "Today addax are evenly distributed across Niger and Chad."
+        },
+        {
+          "q": 9,
+          "stem": "For most of the twentieth century, the addax population was in decline."
+        },
+        {
+          "q": 10,
+          "stem": "Attempts to safeguard rhinoceroses had a significant impact on addax numbers."
+        },
+        {
+          "q": 11,
+          "stem": "Unpredictable fluctuations in climate are placing Sahara wildlife under greater threat than wildlife in other parts of the world."
+        },
+        {
+          "q": 12,
+          "stem": "The Tin Toumma Restoration Partnership was established to benefit a range of different species."
+        },
+        {
+          "q": 13,
+          "stem": "The Partnership's recognition as a United Nations flagship initiative brought in additional international funding for the scheme."
+        }
+      ]
+    },
+    {
+      "id": "q14-18",
+      "passage": 2,
+      "from": 14,
+      "to": 18,
+      "type": "tfng",
+      "heading": "Questions 14–18",
+      "instructions": [
+        "Do the following statements agree with the information given in Reading Passage 2?",
+        "In boxes 14–18 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "TRUE",
+          "meaning": "if the statement agrees with the information"
+        },
+        {
+          "value": "FALSE",
+          "meaning": "if the statement contradicts the information"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if there is no information on this"
+        }
+      ],
+      "items": [
+        {
+          "q": 14,
+          "stem": "The population of Ibadan is increasing at a faster rate than earlier forecasts had suggested."
+        },
+        {
+          "q": 15,
+          "stem": "The majority of Ibadan's inhabitants live in high-rise buildings on the outskirts of the city."
+        },
+        {
+          "q": 16,
+          "stem": "The city's residents have been asked for their opinions on the suburban rail service in Ibadan."
+        },
+        {
+          "q": 17,
+          "stem": "Most of the residential development now taking place in Ibadan has not been planned."
+        },
+        {
+          "q": 18,
+          "stem": "The authorities in Ibadan have chosen to adopt the public transport approach taken by many other African cities."
+        }
+      ]
+    },
+    {
+      "id": "q19-26",
+      "passage": 2,
+      "from": 19,
+      "to": 26,
+      "type": "notes",
+      "heading": "Questions 19–26",
+      "instructions": [
+        "Complete the notes below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 19–26 on your answer sheet."
+      ],
+      "notes": {
+        "title": "Ibadan's IBUS system",
+        "sections": [
+          {
+            "heading": "Features",
+            "items": [
+              {
+                "parts": [
+                  "the buses use designated ",
+                  {
+                    "q": 19
+                  },
+                  " to cut down on delays"
+                ]
+              },
+              {
+                "parts": [
+                  "passengers pay fares before ",
+                  {
+                    "q": 20
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "passengers in ",
+                  {
+                    "q": 21
+                  },
+                  " can use every part of the system"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Problems",
+            "items": [
+              {
+                "parts": [
+                  "the temperature control is sometimes not activated in order to reduce ",
+                  {
+                    "q": 22
+                  },
+                  " use"
+                ]
+              },
+              {
+                "parts": [
+                  "an insufficient number of vehicles is available owing to the effects of a severe ",
+                  {
+                    "q": 23
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "passengers are unable to use ",
+                  {
+                    "q": 24
+                  },
+                  " because some equipment is out of action"
+                ]
+              },
+              {
+                "parts": [
+                  "tickets have to be checked manually at station ",
+                  {
+                    "q": 25
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  {
+                    "q": 26
+                  },
+                  " frequently build up during rush hours"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "q27-30",
+      "passage": 3,
+      "from": 27,
+      "to": 30,
+      "type": "mcq",
+      "heading": "Questions 27–30",
+      "instructions": [
+        "Choose the correct letter, A, B, C or D.",
+        "Write the correct letter in boxes 27–30 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 27,
+          "stem": "What is the writer doing in the second paragraph?",
+          "options": {
+            "A": "pinpointing some key changes in our understanding of early cities",
+            "B": "outlining aspects of urban prehistory that remain poorly understood",
+            "C": "summarising attitudes to a number of recent revelations",
+            "D": "giving an overview of current disagreements among specialists"
+          }
+        },
+        {
+          "q": 28,
+          "stem": "In the sixth paragraph, the writer mentions the first mechanical clocks to make the point that",
+          "options": {
+            "A": "most developments happen in a gradual way.",
+            "B": "innovation can come from a variety of sources.",
+            "C": "not all technological advancements are positive.",
+            "D": "the path of urban development can often be unpredictable."
+          }
+        },
+        {
+          "q": 29,
+          "stem": "In the seventh paragraph, the phrase 'unravel this inherited conceptual weave' refers to the task of",
+          "options": {
+            "A": "assessing the impact of certain recent research findings.",
+            "B": "questioning the authenticity of evidence used in earlier research.",
+            "C": "conducting research into how early cities were organised.",
+            "D": "reevaluating research influenced by outdated beliefs about society."
+          }
+        },
+        {
+          "q": 30,
+          "stem": "What does the writer suggest in the final paragraph?",
+          "options": {
+            "A": "Studying past cities could help us create a fairer society today.",
+            "B": "We should not judge past societies by modern standards.",
+            "C": "We still have much to learn about how cities evolved.",
+            "D": "There is more than one way to interpret evidence about early cities."
+          }
+        }
+      ]
+    },
+    {
+      "id": "q31-34",
+      "passage": 3,
+      "from": 31,
+      "to": 34,
+      "type": "matching_endings",
+      "heading": "Questions 31–34",
+      "instructions": [
+        "Complete each sentence with the correct ending, A–F, below.",
+        "Write the correct letter, A–F, in boxes 31–34 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 31,
+          "stem": "The findings at Ain Tazaght revealed that"
+        },
+        {
+          "q": 32,
+          "stem": "Evidence from the Puna de Lirio suggests that"
+        },
+        {
+          "q": 33,
+          "stem": "An academic publication from April 2024 shows that"
+        },
+        {
+          "q": 34,
+          "stem": "Analysis of a 4,600-year-old burial at Khirbet al-Majnuna indicates that"
+        }
+      ],
+      "endings": {
+        "A": "early cities were established earlier than specialists had previously believed.",
+        "B": "earlier assumptions about who held positions of authority were inaccurate.",
+        "C": "women were more likely than men to control craft production in early cities.",
+        "D": "researchers may have been wrong about who organised labour and administration in early cities.",
+        "E": "the well-known early civilisations were probably not alone in possessing sophisticated building skills.",
+        "F": "communities other than the famous urban cultures had maintained organised settlement in a harsh environment at an earlier date."
+      }
+    },
+    {
+      "id": "q35-40",
+      "passage": 3,
+      "from": 35,
+      "to": 40,
+      "type": "ynng",
+      "heading": "Questions 35–40",
+      "instructions": [
+        "Do the following statements agree with the claims of the writer in Reading Passage 3?",
+        "In boxes 35–40 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "YES",
+          "meaning": "if the statement agrees with the claims of the writer"
+        },
+        {
+          "value": "NO",
+          "meaning": "if the statement contradicts the claims of the writer"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if it is impossible to say what the writer thinks about this"
+        }
+      ],
+      "items": [
+        {
+          "q": 35,
+          "stem": "It seems likely that the mural cycles of early Mesopotamian temple precincts were the first examples of urban decorative art ever created."
+        },
+        {
+          "q": 36,
+          "stem": "It is very rare to find early urban decoration carved onto seals."
+        },
+        {
+          "q": 37,
+          "stem": "The methods which the researchers used to examine Tell Sefira were rather unconventional."
+        },
+        {
+          "q": 38,
+          "stem": "It is unclear how old the murals and the street grid at Tell Sefira are."
+        },
+        {
+          "q": 39,
+          "stem": "The means used to publicise the findings from Tell Sefira added to the controversy that surrounds them."
+        },
+        {
+          "q": 40,
+          "stem": "The absence of palaces is a key factor in the question of whether Tell Sefira should be regarded as a city."
+        }
+      ]
+    }
+  ]
+}

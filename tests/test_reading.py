@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+import access as accessmod  # noqa: E402
 import reading_scoring as rs  # noqa: E402
 import app as appmod  # noqa: E402
 
@@ -179,6 +180,7 @@ class RouteTests(unittest.TestCase):
         appmod.DATA_DIR = base / "data"
         appmod.SUBMISSIONS_DIR = appmod.DATA_DIR / "submissions"
         appmod.INDEX_PATH = appmod.DATA_DIR / "index.json"
+        accessmod.bind(appmod.DATA_DIR)
         appmod.ensure_storage()
         appmod.app.config["TESTING"] = True
         appmod.app.config["SECRET_KEY"] = "test-secret"
@@ -186,6 +188,20 @@ class RouteTests(unittest.TestCase):
 
     def tearDown(self):
         self.tmp.cleanup()
+
+    def _create_code(self, code="TESTCODE1"):
+        return accessmod.create_code(code=code)
+
+    def _start(self, name="Test Candidate", code="TESTCODE1", module="reading", mode="full"):
+        return self.client.post(
+            "/api/session/start",
+            json={
+                "candidate_name": name,
+                "invite_code": code,
+                "module": module,
+                "mode": mode,
+            },
+        )
 
     def test_health_and_pages(self):
         h = self.client.get("/health")
@@ -203,13 +219,16 @@ class RouteTests(unittest.TestCase):
 
         writing = self.client.get("/writing")
         self.assertEqual(writing.status_code, 200)
-        self.assertIn("Start your writing test", writing.get_data(as_text=True))
+        writing_page = writing.get_data(as_text=True)
+        self.assertIn("Start your writing test", writing_page)
+        self.assertIn("Invitation code", writing_page)
 
         reading = self.client.get("/reading")
         self.assertEqual(reading.status_code, 200)
         page = reading.get_data(as_text=True)
         self.assertIn("Start your reading test", page)
-        self.assertIn("Saving the addax", page)
+        self.assertIn("Invitation code", page)
+        self.assertNotIn("Saving the addax", page)
         lower = page.lower()
         for word in FORBIDDEN:
             self.assertNotIn(word, lower)
@@ -219,6 +238,13 @@ class RouteTests(unittest.TestCase):
         self.assertNotIn('"answer": "sand"', page)
 
     def test_student_paper_api_has_no_keys(self):
+        denied = self.client.get("/api/reading/paper")
+        self.assertEqual(denied.status_code, 403)
+
+        self._create_code()
+        started = self._start()
+        self.assertEqual(started.status_code, 200)
+
         res = self.client.get("/api/reading/paper")
         self.assertEqual(res.status_code, 200)
         data = res.get_json()
@@ -239,6 +265,9 @@ class RouteTests(unittest.TestCase):
         self.assertFalse(res.get_json()["ok"])
 
     def test_submit_success_does_not_return_score(self):
+        self._create_code()
+        started = self._start()
+        self.assertEqual(started.status_code, 200)
         res = self.client.post(
             "/api/reading/submit",
             json={
@@ -272,6 +301,9 @@ class RouteTests(unittest.TestCase):
         self.assertEqual(index["submissions"][0]["score"], 40)
 
     def test_writing_submit_still_works(self):
+        self._create_code()
+        started = self._start(name="Writer", module="writing", mode="task1")
+        self.assertEqual(started.status_code, 200)
         res = self.client.post(
             "/api/submit",
             json={
@@ -286,8 +318,8 @@ class RouteTests(unittest.TestCase):
         )
         self.assertEqual(res.status_code, 200)
         self.assertTrue(res.get_json()["ok"])
-        # missing name still 400
-        bad = self.client.post("/api/submit", json={"task1_text": "x"})
+        # missing name and no student session still 400
+        bad = appmod.app.test_client().post("/api/submit", json={"task1_text": "x"})
         self.assertEqual(bad.status_code, 400)
 
 

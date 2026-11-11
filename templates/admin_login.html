@@ -17,15 +17,19 @@
     <section class="card login-box">
       <p class="eyebrow">Teacher access</p>
       <h1>教师后台登录</h1>
-      <p class="muted">输入后台密码后可查看学生提交的写作全文与阅读批改。</p>
+      <p class="muted">使用唯一管理员账号登录后，可查看答卷、登录用户，并管理邀请码。</p>
       {% if error %}
       <div class="banner error">{{ error }}</div>
       {% endif %}
       <form method="post" action="{{ url_for('admin_login') }}">
         <input type="hidden" name="next" value="{{ next }}" />
         <label class="field" style="margin-top:12px">
+          Username
+          <input type="text" name="username" required autofocus autocomplete="username" />
+        </label>
+        <label class="field" style="margin-top:12px">
           Password
-          <input type="password" name="password" required autofocus autocomplete="current-password" />
+          <input type="password" name="password" required autocomplete="current-password" />
         </label>
         <div class="actions">
           <button type="submit" class="btn">登录</button>

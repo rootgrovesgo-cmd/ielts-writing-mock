@@ -6,3 +6,7 @@ data/submissions/*.json
 !data/submissions/.gitkeep
 
 data/index.json
+data/invite_codes.json
+data/users.json
+data/access_log.json
+data/.access.lock

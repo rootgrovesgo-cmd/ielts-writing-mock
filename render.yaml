@@ -7,8 +7,10 @@ services:
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120
     healthCheckPath: /health
     envVars:
+      - key: IELTS_ADMIN_USERNAME
+        sync: false
       - key: IELTS_ADMIN_PASSWORD
-        generateValue: true
+        sync: false
       - key: IELTS_SECRET_KEY
         generateValue: true
       - key: NOTION_TOKEN

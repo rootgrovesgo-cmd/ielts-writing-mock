@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Submissions · Rosette Exclusive Mock Exam</title>
+  <title>Teacher portal · Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand-block">
       <div class="brand">Rosette Exclusive Mock Exam</div>
-      <div class="brand-sub">Teacher · submissions</div>
+      <div class="brand-sub">Teacher · {{ admin_name }}</div>
     </div>
     <div class="meta">
       <a class="btn secondary sm" href="/">模考页</a>
@@ -20,6 +20,22 @@
     </div>
   </header>
   <main class="wrap">
+    <nav class="admin-tabs" aria-label="教师后台分区">
+      <a class="{{ 'active' if tab == 'scripts' else '' }}" href="{{ url_for('admin', tab='scripts') }}">答题情况</a>
+      <a class="{{ 'active' if tab == 'users' else '' }}" href="{{ url_for('admin', tab='users') }}">登录用户</a>
+      <a class="{{ 'active' if tab == 'log' else '' }}" href="{{ url_for('admin', tab='log') }}">进入记录</a>
+      <a class="{{ 'active' if tab == 'invites' else '' }}" href="{{ url_for('admin', tab='invites') }}">邀请码</a>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="banner {{ 'error' if category == 'error' else 'success' }}" style="margin-bottom:14px">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% if tab == 'scripts' %}
     <section class="card">
       <p class="eyebrow">All scripts</p>
       <h1>学生答卷列表</h1>
@@ -93,6 +109,171 @@
       </div>
       {% endif %}
     </section>
+    {% endif %}
+
+    {% if tab == 'users' %}
+    <section class="card">
+      <p class="eyebrow">Student access</p>
+      <h1>登录用户</h1>
+      <p class="muted">共 {{ user_rows|length }} 人。同一姓名使用同一邀请码会合并为一条记录。</p>
+      {% if not user_rows %}
+      <div class="banner info">还没有学生使用邀请码进入模考。</div>
+      {% else %}
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>考生</th>
+              <th>邀请码</th>
+              <th>备注</th>
+              <th>首次进入</th>
+              <th>最近进入</th>
+              <th>进入次数</th>
+              <th>写作</th>
+              <th>阅读</th>
+              <th>答卷</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in user_rows %}
+            {% set u = row.user %}
+            <tr>
+              <td>{{ u.name }}</td>
+              <td><code>{{ row.code }}</code></td>
+              <td>{{ row.note or "—" }}</td>
+              <td>{{ u.first_seen or "—" }}</td>
+              <td>{{ u.last_seen or "—" }}</td>
+              <td>{{ u.start_count or 0 }}</td>
+              <td>{{ u.writing_started or 0 }} 次进入 / {{ u.writing_submitted or 0 }} 份交卷</td>
+              <td>{{ u.reading_started or 0 }} 次进入 / {{ u.reading_submitted or 0 }} 份交卷</td>
+              <td>
+                {% if row.submissions %}
+                  {% for s in row.submissions %}
+                  <a href="{{ url_for('admin_submission', sid=s.id) }}">{% if (s.get('module') or 'writing') == 'reading' %}阅读{% else %}写作{% endif %}</a>{% if not loop.last %}、{% endif %}
+                  {% endfor %}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {% if tab == 'log' %}
+    <section class="card">
+      <p class="eyebrow">Access log</p>
+      <h1>进入记录</h1>
+      <p class="muted">最近 {{ event_rows|length }} 条（文件最多保留 5000 条）。失败尝试不会记录错误的邀请码本身。</p>
+      {% if not event_rows %}
+      <div class="banner info">暂无进入记录。</div>
+      {% else %}
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>时间 (Asia/Shanghai)</th>
+              <th>动作</th>
+              <th>考生</th>
+              <th>邀请码</th>
+              <th>科目</th>
+              <th>模式</th>
+              <th>IP</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in event_rows %}
+            {% set ev = row.event %}
+            <tr>
+              <td>{{ ev.timestamp }}</td>
+              <td>
+                {% if ev.action == 'start' %}进入
+                {% elif ev.action == 'submit' %}交卷
+                {% elif ev.action == 'denied' %}拒绝
+                {% else %}{{ ev.action }}{% endif %}
+              </td>
+              <td>{{ ev.candidate_name or "—" }}</td>
+              <td>{% if row.code %}<code>{{ row.code }}</code>{% if row.note %} · {{ row.note }}{% endif %}{% else %}—{% endif %}</td>
+              <td>{{ ev.module or "—" }}</td>
+              <td>{{ ev.mode or "—" }}</td>
+              <td>{{ ev.ip or "—" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {% if tab == 'invites' %}
+    <section class="card">
+      <p class="eyebrow">Invitation codes</p>
+      <h1>邀请码</h1>
+      <p class="muted">学生必须使用已启用的邀请码才能开始模考。若没有可用邀请码，学生将无法进入考试。留空邀请码会自动生成一枚。</p>
+      <form class="invite-form" method="post" action="{{ url_for('admin_invite_create') }}">
+        <label class="field">
+          邀请码（可留空自动生成）
+          <input type="text" name="code" maxlength="32" placeholder="例如 CLASS-A1" autocomplete="off" />
+        </label>
+        <label class="field">
+          备注（如班级）
+          <input type="text" name="note" maxlength="80" placeholder="可选" />
+        </label>
+        <label class="field">
+          次数上限
+          <input type="number" name="max_uses" min="1" placeholder="不限" />
+        </label>
+        <div class="invite-form-action">
+          <button type="submit" class="btn">创建邀请码</button>
+        </div>
+      </form>
+    </section>
+    <section class="card" style="margin-top:16px">
+      <h2 style="font-size:18px">已有邀请码</h2>
+      {% if not codes %}
+      <div class="banner info" style="margin-top:12px">尚未创建邀请码。请先在上方创建一枚，再发给学生。</div>
+      {% else %}
+      <div style="overflow-x:auto;margin-top:12px">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>邀请码</th>
+              <th>备注</th>
+              <th>状态</th>
+              <th>已用 / 上限</th>
+              <th>创建时间</th>
+              <th>创建人</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in codes %}
+            <tr>
+              <td><code>{{ c.code }}</code></td>
+              <td>{{ c.note or "—" }}</td>
+              <td>{{ "启用" if c.enabled else "停用" }}</td>
+              <td>{{ c.use_count or 0 }} / {{ c.max_uses if c.max_uses is not none else "不限" }}</td>
+              <td>{{ c.created_at or "—" }}</td>
+              <td>{{ c.created_by or "—" }}</td>
+              <td>
+                <form method="post" action="{{ url_for('admin_invite_toggle', cid=c.id) }}" style="display:inline">
+                  <input type="hidden" name="enabled" value="{{ '0' if c.enabled else '1' }}" />
+                  <button type="submit" class="btn ghost sm">{{ "停用" if c.enabled else "启用" }}</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </section>
+    {% endif %}
   </main>
 </body>
 </html>

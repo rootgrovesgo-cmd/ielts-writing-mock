@@ -21,6 +21,7 @@
         ID：<code>{{ record.id }}</code><br/>
         时间：{{ record.timestamp }}（Asia/Shanghai）<br/>
         考生：{{ record.candidate_name or "—" }}<br/>
+        {% if invite %}邀请码：<code>{{ invite.code }}</code>{% if invite.note %}（{{ invite.note }}）{% endif %}<br/>{% endif %}
         科目：{% if is_reading %}阅读{% else %}写作{% endif %}
         · 模式：{{ record.mode }} · 套卷：{{ record.prompt_set_id }}<br/>
         {% if is_reading %}

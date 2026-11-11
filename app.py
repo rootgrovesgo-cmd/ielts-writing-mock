@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import hmac
 import io
 import json
 import logging
@@ -17,6 +18,7 @@ from pathlib import Path
 from flask import (
     Flask,
     Response,
+    flash,
     jsonify,
     redirect,
     render_template,
@@ -24,7 +26,9 @@ from flask import (
     session,
     url_for,
 )
+from werkzeug.security import check_password_hash
 
+import access
 import reading_scoring as rs
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -37,7 +41,6 @@ READING_KEYS_PATH = BASE_DIR / "prompts" / "reading_keys.json"
 
 TZ_SHANGHAI = timezone(timedelta(hours=8))
 
-DEFAULT_ADMIN_PASSWORD = "ielts2026"
 DEFAULT_PORT = 8765
 
 logging.basicConfig(level=logging.INFO)
@@ -45,28 +48,84 @@ log = logging.getLogger("ielts-mock")
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("IELTS_SECRET_KEY") or secrets.token_hex(16)
-ADMIN_PASSWORD = os.environ.get("IELTS_ADMIN_PASSWORD", DEFAULT_ADMIN_PASSWORD)
+app.config["MAX_FLASH_MESSAGES"] = 8
 NOTION_TOKEN = (os.environ.get("NOTION_TOKEN") or "").strip()
 NOTION_DATABASE_ID = (os.environ.get("NOTION_DATABASE_ID") or "").strip()
+
+access.bind(DATA_DIR)
 
 
 def notion_enabled() -> bool:
     return bool(NOTION_TOKEN and NOTION_DATABASE_ID)
 
 
+def admin_username() -> str:
+    return (os.environ.get("IELTS_ADMIN_USERNAME") or "").strip()
+
+
+def admin_password() -> str:
+    return os.environ.get("IELTS_ADMIN_PASSWORD") or ""
+
+
+def admin_password_hash() -> str:
+    return (os.environ.get("IELTS_ADMIN_PASSWORD_HASH") or "").strip()
+
+
+def admin_credentials_configured() -> bool:
+    return bool(admin_username() and (admin_password_hash() or admin_password()))
+
+
+def _digest_equal(left: str, right: str) -> bool:
+    try:
+        return hmac.compare_digest(left, right)
+    except (TypeError, ValueError):
+        return False
+
+
+def verify_admin_login(username: str, password: str) -> bool:
+    expected_user = admin_username()
+    expected_password = admin_password()
+    expected_hash = admin_password_hash()
+    given_user = (username or "").strip()
+    given_password = password or ""
+
+    if not expected_user or (not expected_hash and not expected_password):
+        log.warning("Admin login is closed: IELTS_ADMIN_USERNAME / password env is not set")
+        _digest_equal(given_user or "x", "y")
+        if expected_hash:
+            check_password_hash(expected_hash, given_password)
+        else:
+            _digest_equal(given_password or "x", "y")
+        return False
+
+    user_ok = _digest_equal(given_user, expected_user)
+    if expected_hash:
+        pw_ok = check_password_hash(expected_hash, given_password)
+    else:
+        pw_ok = _digest_equal(given_password, expected_password)
+    return bool(user_ok and pw_ok)
+
+
 def ensure_storage() -> None:
-    SUBMISSIONS_DIR.mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+    SUBMISSIONS_DIR.mkdir(parents=True, exist_ok=True)
+    access.bind(DATA_DIR)
     if not INDEX_PATH.exists():
-        INDEX_PATH.write_text(
-            json.dumps({"submissions": []}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        access.atomic_write_json(INDEX_PATH, {"submissions": []})
 
 
 def load_prompts() -> dict:
     with PROMPTS_PATH.open(encoding="utf-8") as f:
         return json.load(f)
+
+
+def prompt_set_summaries() -> list[dict]:
+    prompts = load_prompts()
+    return [
+        {"id": s.get("id"), "title": s.get("title") or s.get("id")}
+        for s in prompts.get("sets", [])
+        if s.get("id")
+    ]
 
 
 def load_reading_paper() -> dict:
@@ -85,8 +144,7 @@ def load_index() -> dict:
 
 def save_index(index: dict) -> None:
     ensure_storage()
-    with INDEX_PATH.open("w", encoding="utf-8") as f:
-        json.dump(index, f, ensure_ascii=False, indent=2)
+    access.atomic_write_json(INDEX_PATH, index)
 
 
 def word_count(text: str) -> int:
@@ -110,6 +168,13 @@ def record_module(record: dict | None) -> str:
     if mod == "reading":
         return "reading"
     return "writing"
+
+
+def request_client_ip() -> str:
+    forwarded = request.headers.get("X-Forwarded-For") or ""
+    if forwarded.strip():
+        return forwarded.split(",", 1)[0].strip()
+    return (request.remote_addr or "").strip()
 
 
 def save_to_notion(record: dict) -> dict | None:
@@ -176,11 +241,36 @@ def save_to_notion(record: dict) -> dict | None:
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        if not session.get("admin_ok"):
+        if not session.get("admin_ok") or not admin_credentials_configured():
+            return redirect(url_for("admin_login", next=request.path))
+        if session.get("admin_username") != admin_username():
+            session.pop("admin_ok", None)
+            session.pop("admin_username", None)
             return redirect(url_for("admin_login", next=request.path))
         return fn(*args, **kwargs)
 
     return wrapper
+
+
+def student_session_error():
+    if access.session_is_valid(session):
+        return None
+    return jsonify({"ok": False, "error": "请先使用有效邀请码开始模考"}), 403
+
+
+def ident_for_submit(data: dict, module: str):
+    try:
+        ident = access.resolve_student(
+            session,
+            candidate_name=data.get("candidate_name"),
+            invite_code=data.get("invite_code"),
+            module=module,
+        )
+    except access.AccessError as exc:
+        return None, (jsonify({"ok": False, "error": exc.message}), exc.status)
+    if not (ident.get("candidate_name") or "").strip():
+        return None, (jsonify({"ok": False, "error": "请填写姓名"}), 400)
+    return ident, None
 
 
 @app.route("/health")
@@ -202,28 +292,60 @@ def index():
 
 @app.route("/writing")
 def writing():
-    prompts = load_prompts()
     return render_template(
         "exam.html",
-        sets=prompts.get("sets", []),
+        sets=prompt_set_summaries(),
         notion_on=notion_enabled(),
     )
 
 
 @app.route("/reading")
 def reading():
-    paper = load_reading_paper()
-    return render_template("reading.html", paper=paper)
+    return render_template("reading.html")
+
+
+@app.route("/api/session/start", methods=["POST"])
+def api_session_start():
+    data = request.get_json(silent=True) or {}
+    try:
+        result = access.start_student(
+            candidate_name=data.get("candidate_name"),
+            invite_code=data.get("invite_code"),
+            module=data.get("module"),
+            mode=data.get("mode"),
+            ip=request_client_ip(),
+            user_agent=request.headers.get("User-Agent"),
+        )
+    except access.AccessError as exc:
+        return jsonify({"ok": False, "error": exc.message}), exc.status
+    session["student_ok"] = True
+    session["student_name"] = result["candidate_name"]
+    session["student_user_id"] = result["user_id"]
+    session["invite_code_id"] = result["invite_code_id"]
+    session["student_module"] = result["module"]
+    return jsonify(
+        {
+            "ok": True,
+            "candidate_name": result["candidate_name"],
+            "module": result["module"],
+        }
+    )
 
 
 @app.route("/api/prompts")
 def api_prompts():
+    err = student_session_error()
+    if err:
+        return err
     return jsonify(load_prompts())
 
 
 @app.route("/api/reading/paper")
 def api_reading_paper():
     """Student-facing paper only — never includes keys or explanations."""
+    err = student_session_error()
+    if err:
+        return err
     return jsonify(load_reading_paper())
 
 
@@ -231,10 +353,11 @@ def api_reading_paper():
 def api_submit():
     ensure_storage()
     data = request.get_json(silent=True) or {}
+    ident, err = ident_for_submit(data, "writing")
+    if err:
+        return err
 
-    candidate_name = (data.get("candidate_name") or "").strip()
-    if not candidate_name:
-        return jsonify({"ok": False, "error": "请填写姓名"}), 400
+    candidate_name = ident["candidate_name"]
 
     task1_text = data.get("task1_text") or ""
     task2_text = data.get("task2_text") or ""
@@ -271,6 +394,8 @@ def api_submit():
         "time_used_seconds": time_used_seconds,
         "paused_total_seconds": paused_total_seconds,
         "auto_submitted": auto_submitted,
+        "user_id": ident.get("user_id"),
+        "invite_code_id": ident.get("invite_code_id"),
     }
 
     out_path = SUBMISSIONS_DIR / f"{sid}.json"
@@ -292,9 +417,22 @@ def api_submit():
             "time_used_seconds": time_used_seconds,
             "auto_submitted": auto_submitted,
             "file": f"submissions/{sid}.json",
+            "user_id": ident.get("user_id"),
+            "invite_code_id": ident.get("invite_code_id"),
         },
     )
     save_index(index)
+
+    access.record_submit(
+        user_id=ident.get("user_id"),
+        module="writing",
+        submission_id=sid,
+        candidate_name=candidate_name,
+        invite_code_id=ident.get("invite_code_id"),
+        ip=request_client_ip(),
+        user_agent=request.headers.get("User-Agent"),
+        mode=mode,
+    )
 
     notion_result = save_to_notion(record)
     if notion_result and notion_result.get("id"):
@@ -317,10 +455,11 @@ def api_submit():
 def api_reading_submit():
     ensure_storage()
     data = request.get_json(silent=True) or {}
+    ident, err = ident_for_submit(data, "reading")
+    if err:
+        return err
 
-    candidate_name = (data.get("candidate_name") or "").strip()
-    if not candidate_name:
-        return jsonify({"ok": False, "error": "请填写姓名"}), 400
+    candidate_name = ident["candidate_name"]
 
     mode = data.get("mode") or "full"
     if mode not in rs.MODES:
@@ -362,6 +501,8 @@ def api_reading_submit():
         "time_used_seconds": time_used_seconds,
         "paused_total_seconds": paused_total_seconds,
         "auto_submitted": auto_submitted,
+        "user_id": ident.get("user_id"),
+        "invite_code_id": ident.get("invite_code_id"),
     }
 
     out_path = SUBMISSIONS_DIR / f"{sid}.json"
@@ -384,9 +525,22 @@ def api_reading_submit():
             "time_used_seconds": time_used_seconds,
             "auto_submitted": auto_submitted,
             "file": f"submissions/{sid}.json",
+            "user_id": ident.get("user_id"),
+            "invite_code_id": ident.get("invite_code_id"),
         },
     )
     save_index(index)
+
+    access.record_submit(
+        user_id=ident.get("user_id"),
+        module="reading",
+        submission_id=sid,
+        candidate_name=candidate_name,
+        invite_code_id=ident.get("invite_code_id"),
+        ip=request_client_ip(),
+        user_agent=request.headers.get("User-Agent"),
+        mode=mode,
+    )
 
     # Intentionally skip Notion for reading so a missing property cannot
     # interfere. Local JSON is the source of truth.
@@ -399,34 +553,133 @@ def api_reading_submit():
     )
 
 
+def safe_admin_next(raw: str | None) -> str:
+    nxt = (raw or "").strip()
+    if nxt.startswith("/") and not nxt.startswith("//") and "\\" not in nxt and ":" not in nxt:
+        return nxt
+    return url_for("admin")
+
+
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
     error = None
-    nxt = request.args.get("next") or request.form.get("next") or url_for("admin")
+    nxt = safe_admin_next(request.args.get("next") or request.form.get("next"))
     if request.method == "POST":
+        username = request.form.get("username") or ""
         password = request.form.get("password") or ""
-        if password == ADMIN_PASSWORD:
+        if verify_admin_login(username, password):
             session["admin_ok"] = True
+            session["admin_username"] = admin_username()
             return redirect(nxt)
-        error = "密码错误，请重试。"
+        error = "用户名或密码错误。"
     return render_template("admin_login.html", error=error, next=nxt)
 
 
 @app.route("/admin/logout")
 def admin_logout():
     session.pop("admin_ok", None)
+    session.pop("admin_username", None)
     return redirect(url_for("admin_login"))
+
+
+def _admin_view_data():
+    index = load_index()
+    submissions = index.get("submissions", [])
+    codes = access.list_codes()
+    code_map = {c["id"]: c for c in codes if c.get("id")}
+    users = access.list_users()
+    events = access.list_events(200)
+
+    subs_by_user: dict[str, list] = {}
+    for item in submissions:
+        uid = item.get("user_id")
+        if uid:
+            subs_by_user.setdefault(uid, []).append(item)
+
+    user_rows = []
+    for user in users:
+        code = code_map.get(user.get("invite_code_id") or "")
+        user_rows.append(
+            {
+                "user": user,
+                "code": (code or {}).get("code") or user.get("invite_code") or "—",
+                "note": (code or {}).get("note") or "",
+                "submissions": subs_by_user.get(user.get("id") or "", []),
+            }
+        )
+
+    event_rows = []
+    for ev in events:
+        code = code_map.get(ev.get("invite_code_id") or "")
+        event_rows.append(
+            {
+                "event": ev,
+                "code": (code or {}).get("code") or "",
+                "note": (code or {}).get("note") or "",
+            }
+        )
+    return {
+        "submissions": submissions,
+        "codes": codes,
+        "user_rows": user_rows,
+        "event_rows": event_rows,
+        "notion_on": notion_enabled(),
+        "admin_name": session.get("admin_username") or "",
+    }
 
 
 @app.route("/admin")
 @admin_required
 def admin():
-    index = load_index()
-    return render_template(
-        "admin.html",
-        submissions=index.get("submissions", []),
-        notion_on=notion_enabled(),
-    )
+    tab = (request.args.get("tab") or "scripts").strip()
+    if tab not in {"scripts", "users", "log", "invites"}:
+        tab = "scripts"
+    data = _admin_view_data()
+    return render_template("admin.html", tab=tab, **data)
+
+
+@app.route("/admin/invites/create", methods=["POST"])
+@admin_required
+def admin_invite_create():
+    code = (request.form.get("code") or "").strip()
+    note = (request.form.get("note") or "").strip()
+    max_uses_raw = (request.form.get("max_uses") or "").strip()
+    max_uses = None
+    if max_uses_raw:
+        try:
+            max_uses = int(max_uses_raw)
+            if max_uses < 1:
+                raise ValueError("max_uses must be positive")
+        except (TypeError, ValueError):
+            flash("次数上限须为正整数，或留空表示不限。", "error")
+            return redirect(url_for("admin", tab="invites"))
+    try:
+        rec = access.create_code(
+            code=code or None,
+            note=note,
+            max_uses=max_uses,
+            created_by=session.get("admin_username") or "",
+        )
+    except access.AccessError as exc:
+        flash(exc.message, "error")
+        return redirect(url_for("admin", tab="invites"))
+    flash(f"已创建邀请码：{rec['code']}", "success")
+    return redirect(url_for("admin", tab="invites"))
+
+
+@app.route("/admin/invites/<cid>/toggle", methods=["POST"])
+@admin_required
+def admin_invite_toggle(cid: str):
+    raw = (request.form.get("enabled") or "").strip().lower()
+    enabled = raw in {"1", "true", "on", "yes"}
+    rec = access.set_code_enabled(cid, enabled)
+    if not rec:
+        flash("未找到该邀请码。", "error")
+    elif enabled:
+        flash(f"已启用邀请码：{rec.get('code')}", "success")
+    else:
+        flash(f"已停用邀请码：{rec.get('code')}", "success")
+    return redirect(url_for("admin", tab="invites"))
 
 
 @app.route("/admin/submission/<sid>")
@@ -445,11 +698,13 @@ def admin_submission(sid: str):
         # Attach explanation onto each marking row for the template.
         for row in record.get("marking") or []:
             row["explanation"] = explanations.get(int(row.get("q") or 0), "")
+    invite = access.get_code(record.get("invite_code_id"))
     return render_template(
         "admin_detail.html",
         record=record,
         is_reading=record_module(record) == "reading",
         band_label=rs.format_band(record.get("band_estimate")),
+        invite=invite,
     )
 
 
@@ -505,6 +760,8 @@ def admin_export_csv():
             "task1_text",
             "task2_text",
             "answers_summary",
+            "user_id",
+            "invite_code_id",
         ]
     )
     for item in index.get("submissions", []):
@@ -533,6 +790,8 @@ def admin_export_csv():
                 (r.get("task1_text") or "").replace("\n", "\\n") if module == "writing" else "",
                 (r.get("task2_text") or "").replace("\n", "\\n") if module == "writing" else "",
                 _answers_summary(r) if module == "reading" else "",
+                r.get("user_id") or "",
+                r.get("invite_code_id") or "",
             ]
         )
     return Response(
@@ -552,6 +811,8 @@ def main() -> None:
     print(f"Health → http://{host}:{port}/health")
     print(f"教师后台 → http://{host}:{port}/admin")
     print(f"Notion sync: {'ON' if notion_enabled() else 'OFF'}")
+    if not admin_credentials_configured():
+        print("警告：未设置 IELTS_ADMIN_USERNAME 与密码环境变量，教师后台将无法登录。")
     app.run(host=host, port=port, debug=False)
 
 

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const sets = window.PROMPT_SETS || [];
+  let sets = [];
   const DURATIONS = { task1: 20 * 60, task2: 40 * 60, full: 60 * 60 };
 
   const el = {
@@ -17,6 +17,7 @@
     btnAgain: document.getElementById("btnAgain"),
     teacherPause: document.getElementById("teacherPause"),
     candidateName: document.getElementById("candidateName"),
+    inviteCode: document.getElementById("inviteCode"),
     promptSet: document.getElementById("promptSet"),
     modePills: document.getElementById("modePills"),
     tab1: document.getElementById("tab1"),
@@ -87,9 +88,18 @@
 
   el.task1Answer.addEventListener("input", updateWordCounts);
   el.task2Answer.addEventListener("input", updateWordCounts);
-  el.candidateName.addEventListener("input", () => {
-    if (el.nameError && el.candidateName.value.trim()) el.nameError.classList.add("hidden");
-  });
+  function hideSetupError() {
+    if (el.nameError) el.nameError.classList.add("hidden");
+  }
+
+  function showSetupError(msg) {
+    if (!el.nameError) return;
+    el.nameError.textContent = msg || "Please enter your name and invitation code before starting.";
+    el.nameError.classList.remove("hidden");
+  }
+
+  el.candidateName.addEventListener("input", hideSetupError);
+  if (el.inviteCode) el.inviteCode.addEventListener("input", hideSetupError);
 
   function formatTime(sec) {
     sec = Math.max(0, Math.floor(sec));
@@ -352,18 +362,68 @@
     }
   }
 
-  function startExam() {
-    if (!sets.length) {
-      alert("未加载到题目套卷。");
-      return;
-    }
+  async function startSession() {
     const name = (el.candidateName.value || "").trim();
+    const code = (el.inviteCode && el.inviteCode.value || "").trim();
     if (!name) {
-      if (el.nameError) el.nameError.classList.remove("hidden");
+      showSetupError("Please enter your name before starting.");
       el.candidateName.focus();
-      return;
+      return null;
     }
-    if (el.nameError) el.nameError.classList.add("hidden");
+    if (!code) {
+      showSetupError("Please enter your invitation code before starting.");
+      if (el.inviteCode) el.inviteCode.focus();
+      return null;
+    }
+    hideSetupError();
+    const res = await fetch("/api/session/start", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        candidate_name: name,
+        invite_code: code,
+        module: "writing",
+        mode: selectedMode(),
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      showSetupError(data.error || "邀请码无效或已失效");
+      return null;
+    }
+    return data;
+  }
+
+  async function loadPromptSets() {
+    const res = await fetch("/api/prompts", { credentials: "same-origin" });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      showSetupError((data && data.error) || "题目加载失败，请重试。");
+      return false;
+    }
+    sets = data.sets || [];
+    if (!sets.length) {
+      showSetupError("未加载到题目套卷。");
+      return false;
+    }
+    return true;
+  }
+
+  async function startExam() {
+    el.btnStart.disabled = true;
+    try {
+      const started = await startSession();
+      if (!started) return;
+      const loaded = await loadPromptSets();
+      if (!loaded) return;
+    } catch (err) {
+      console.error(err);
+      showSetupError("无法开始考试，请检查网络后重试。");
+      return;
+    } finally {
+      el.btnStart.disabled = false;
+    }
     state.mode = selectedMode();
     state.set = findSet(el.promptSet.value);
     state.duration = DURATIONS[state.mode] || DURATIONS.full;

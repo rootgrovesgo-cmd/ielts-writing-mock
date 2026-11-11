@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const paper = window.READING_PAPER || {};
+  let paper = window.READING_PAPER || null;
   const LS_KEY = "rosette-reading-exam-v1";
   const DURATIONS = {
     full: 60 * 60,
@@ -41,6 +41,7 @@
     btnBackToTest: document.getElementById("btnBackToTest"),
     teacherPause: document.getElementById("teacherPause"),
     candidateName: document.getElementById("candidateName"),
+    inviteCode: document.getElementById("inviteCode"),
     modePills: document.getElementById("modePills"),
     nameError: document.getElementById("nameError"),
     resumeBanner: document.getElementById("resumeBanner"),
@@ -104,9 +105,18 @@
     });
   });
 
-  el.candidateName.addEventListener("input", () => {
-    if (el.nameError && el.candidateName.value.trim()) el.nameError.classList.add("hidden");
-  });
+  function hideSetupError() {
+    if (el.nameError) el.nameError.classList.add("hidden");
+  }
+
+  function showSetupError(msg) {
+    if (!el.nameError) return;
+    el.nameError.textContent = msg || "Please enter your name and invitation code before starting.";
+    el.nameError.classList.remove("hidden");
+  }
+
+  el.candidateName.addEventListener("input", hideSetupError);
+  if (el.inviteCode) el.inviteCode.addEventListener("input", hideSetupError);
 
   function selectedMode() {
     const r = document.querySelector('input[name="mode"]:checked');
@@ -939,48 +949,50 @@
     }
   }
 
-  function startExam(fromSaved) {
-    if (!paper || !paper.groups) {
-      alert("The reading paper could not be loaded.");
-      return;
+  async function startSession(name, mode) {
+    const code = (el.inviteCode && el.inviteCode.value || "").trim();
+    if (!name) {
+      showSetupError("Please enter your name before starting.");
+      el.candidateName.focus();
+      return null;
     }
-    if (!fromSaved) {
-      const name = (el.candidateName.value || "").trim();
-      if (!name) {
-        if (el.nameError) el.nameError.classList.remove("hidden");
-        el.candidateName.focus();
-        return;
-      }
-      if (el.nameError) el.nameError.classList.add("hidden");
-      state.name = name;
-      state.mode = selectedMode();
-      state.setId = "set-a";
-      state.duration = DURATIONS[state.mode] || DURATIONS.full;
-      state.remaining = state.duration;
-      state.pausedTotal = 0;
-      state.pauseStartedAt = null;
-      state.paused = false;
-      state.answers = {};
-      state.flags = {};
-      state.passageHtml = {};
-      state.hlSeq = 0;
-      state.warned5 = false;
-      state.warned1 = false;
-      state.allowPause = !!(el.teacherPause && el.teacherPause.checked);
-      state.questions = questionList(state.mode);
-      state.currentQ = state.questions[0];
-      state.currentPassage = 0;
+    if (!code) {
+      showSetupError("Please enter your invitation code before starting.");
+      if (el.inviteCode) el.inviteCode.focus();
+      return null;
     }
-    state.running = true;
-    state.submitted = false;
-    state.reviewing = false;
-    beginFromState();
-    persist();
+    hideSetupError();
+    const res = await fetch("/api/session/start", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        candidate_name: name,
+        invite_code: code,
+        module: "reading",
+        mode: mode,
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      showSetupError(data.error || "邀请码无效或已失效");
+      return null;
+    }
+    return data;
   }
 
-  function resumeIfNeeded() {
-    const saved = loadPersist();
-    if (!saved || !saved.running) return;
+  async function ensurePaper() {
+    if (paper && paper.groups) return true;
+    const res = await fetch("/api/reading/paper", { credentials: "same-origin" });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      return false;
+    }
+    paper = data;
+    return !!(paper && paper.groups);
+  }
+
+  function restoreSaved(saved) {
     state.mode = saved.mode || "full";
     state.setId = saved.setId || "set-a";
     state.name = saved.name || "";
@@ -1003,6 +1015,86 @@
       state.remaining = Math.max(0, (saved.remaining || 0) - elapsed);
     }
     if (el.candidateName && state.name) el.candidateName.value = state.name;
+  }
+
+  async function startExam(fromSaved) {
+    if (!fromSaved) {
+      const name = (el.candidateName.value || "").trim();
+      const mode = selectedMode();
+      el.btnStart.disabled = true;
+      try {
+        const started = await startSession(name, mode);
+        if (!started) return;
+        const loaded = await ensurePaper();
+        if (!loaded) {
+          showSetupError("试卷加载失败，请重试。");
+          return;
+        }
+      } catch (err) {
+        console.error(err);
+        showSetupError("无法开始考试，请检查网络后重试。");
+        return;
+      } finally {
+        el.btnStart.disabled = false;
+      }
+      const saved = loadPersist();
+      if (saved && saved.running && saved.name === name) {
+        restoreSaved(saved);
+        fromSaved = true;
+      } else {
+        state.name = name;
+        state.mode = mode;
+        state.setId = "set-a";
+        state.duration = DURATIONS[state.mode] || DURATIONS.full;
+        state.remaining = state.duration;
+        state.pausedTotal = 0;
+        state.pauseStartedAt = null;
+        state.paused = false;
+        state.answers = {};
+        state.flags = {};
+        state.passageHtml = {};
+        state.hlSeq = 0;
+        state.warned5 = false;
+        state.warned1 = false;
+        state.allowPause = !!(el.teacherPause && el.teacherPause.checked);
+        state.questions = questionList(state.mode);
+        state.currentQ = state.questions[0];
+        state.currentPassage = 0;
+      }
+    }
+    if (!paper || !paper.groups) {
+      showSetupError("The reading paper could not be loaded.");
+      return;
+    }
+    state.running = true;
+    state.submitted = false;
+    state.reviewing = false;
+    beginFromState();
+    persist();
+  }
+
+  async function resumeIfNeeded() {
+    const saved = loadPersist();
+    if (!saved || !saved.running) return;
+    if (el.candidateName && saved.name) el.candidateName.value = saved.name;
+    try {
+      const loaded = await ensurePaper();
+      if (!loaded) {
+        if (el.resumeBanner) {
+          el.resumeBanner.textContent = "Your test is still in progress. Enter your name and invitation code to continue.";
+          el.resumeBanner.classList.remove("hidden");
+        }
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+      if (el.resumeBanner) {
+        el.resumeBanner.textContent = "Your test is still in progress. Enter your name and invitation code to continue.";
+        el.resumeBanner.classList.remove("hidden");
+      }
+      return;
+    }
+    restoreSaved(saved);
     startExam(true);
   }
 

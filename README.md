@@ -3,7 +3,7 @@
 面向雅思教师：给学生发**一个链接**即可模考。品牌为 **Rosette Exclusive Mock Exam**，界面仿照雅思机考（computer-delivered）。中文操作提示 + 英文试题；答卷保存到服务器磁盘。写作还可选同步到 **Notion** 数据库。
 
 **学生微信话术（可直接转发）：**  
-打开链接 → 选「写作」或「阅读」→ 填姓名 → 开始模考 → 交卷即可。交卷后不会显示分数或答案。
+打开链接 → 选「写作」或「阅读」→ 填姓名和老师提供的邀请码 → 开始模考 → 交卷即可。交卷后不会显示分数或答案。
 
 ---
 
@@ -13,10 +13,10 @@
 - **写作**：仅 Task 1（20 分钟）/ 仅 Task 2（40 分钟）/ 完整测试 60 分钟；左侧题目，右侧答题区
 - **阅读**：完整测试 60 分钟（Q1–40），或只考 Passage 1 / 2 / 3（各 20 分钟）；左文右题、底部题号面板、标记复查、文章高亮与笔记
 - 倒计时、可选教师暂停、5 分钟 / 1 分钟提醒、到点自动提交
-- 姓名必填；交卷后显示「Submitted. You may close this page.」——**不向学生展示分数、答案或解析**
+- 姓名与**邀请码**必填；没有有效邀请码无法开始或交卷；交卷后显示「Submitted. You may close this page.」——**不向学生展示分数、答案或解析**
 - 写作内置 3 套原创题目；阅读当前为 Set A（原创练习卷，三篇 + 40 题）
 - 本地 JSON 落盘；写作可另同步 Notion（阅读默认只存本地，避免旧数据库缺字段）
-- 教师后台 `/admin`（列表分科目：写作 / 阅读；详情 / 导出 JSON·CSV）
+- 教师后台 `/admin`（唯一管理员账号登录；答题情况 / 登录用户 / 进入记录 / 邀请码管理；详情 / 导出 JSON·CSV）
 - 健康检查 `/health`（部署探针）
 
 ---
@@ -50,10 +50,10 @@ export PORT=8765
 gunicorn app:app --bind 0.0.0.0:$PORT
 ```
 
-本地自测（含阅读判分与路由）：
+本地自测（含阅读判分、邀请码与后台登录）：
 
 ```bash
-python3 -m unittest tests.test_reading -v
+python3 -m unittest discover -s tests -v
 ```
 
 ---
@@ -91,7 +91,9 @@ python3 -m unittest tests.test_reading -v
 | 变量 | 必填 | 说明 |
 |---|---|---|
 | `PORT` | 自动 | Render 注入，勿手改 |
-| `IELTS_ADMIN_PASSWORD` | 强烈建议 | 教师后台密码；不设则默认 `ielts2026` |
+| `IELTS_ADMIN_USERNAME` | **生产环境必填** | 唯一教师后台用户名（请自行设置，不要把真实账号写进仓库） |
+| `IELTS_ADMIN_PASSWORD` | **生产环境必填**（或改用哈希） | 唯一教师后台密码；**不设则无法登录，没有默认密码** |
+| `IELTS_ADMIN_PASSWORD_HASH` | 可选 | 若设置，则用 Werkzeug 密码哈希校验，优先于明文密码 |
 | `IELTS_SECRET_KEY` | 强烈建议 | Flask session 密钥；线上务必设成长随机串 |
 | `NOTION_TOKEN` | 可选 | Notion Internal Integration Secret（仅写作同步） |
 | `NOTION_DATABASE_ID` | 可选 | 答卷数据库 ID（与 Token 同时设置才启用写作同步） |
@@ -146,11 +148,20 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 ## 四、教师后台
 
 - 地址：`/admin`
-- 默认密码：`ielts2026`（请用环境变量改掉）
+- **唯一管理员**：通过环境变量 `IELTS_ADMIN_USERNAME` 与 `IELTS_ADMIN_PASSWORD`（或 `IELTS_ADMIN_PASSWORD_HASH`）配置；二者缺一则无法登录。仓库中不含默认账号或密码。
+- 登录页需同时输入用户名和密码；错误提示不会区分是用户名还是密码不对。
+- 后台四个分区：
+  - **答题情况**：原有答卷列表、详情与导出（写作 / 阅读）
+  - **登录用户**：成功进入模考的学生（姓名、邀请码、首次/最近进入、各科开始与交卷次数，以及答卷链接）
+  - **进入记录**：近期开始 / 交卷 / 被拒绝的记录
+  - **邀请码**：创建、启用或停用邀请码，查看使用次数；可手填或自动生成，可选备注与次数上限
+- 没有已启用的邀请码时，学生不能开始模考。请先在后台创建一枚，再发给学生。
 - 列表含「科目」列（写作 / 阅读）。阅读显示成绩（如 `36/40`）与**参考分数**；写作仍显示 T1 / T2 词数
 - 阅读详情为逐题对照（学生作答 / 标准答案 / ✓✗ / 中文解析），仅教师可见
 - 可导出 JSON / CSV（含 `module`、阅读分数等列，不影响已有写作行）
 - 「模考页」回到首页 `/`
+
+创建第一枚邀请码：用已配置的管理员账号登录 `/admin` → 打开「邀请码」→ 填写或留空自动生成 → 点「创建邀请码」→ 把该码发给学生。
 
 ---
 
@@ -167,11 +178,13 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 | 路径 | 说明 |
 |---|---|
 | `/` | 首页，选择写作或阅读 |
-| `/writing` | 学术写作模考 |
-| `/reading` | 学术阅读模考 |
-| `/api/submit` | 写作交卷 |
-| `/api/reading/submit` | 阅读交卷（服务器判分，响应中不含分数） |
-| `/api/reading/paper` | 阅读学生卷 JSON（无答案） |
+| `/writing` | 学术写作模考（需邀请码后才能开始） |
+| `/reading` | 学术阅读模考（需邀请码后才能开始） |
+| `/api/session/start` | 校验姓名与邀请码，记录登录并建立学生会话 |
+| `/api/prompts` | 写作题目 JSON（需已通过邀请码的学生会话） |
+| `/api/submit` | 写作交卷（需有效学生会话或邀请码） |
+| `/api/reading/submit` | 阅读交卷（服务器判分，响应中不含分数；需有效会话或邀请码） |
+| `/api/reading/paper` | 阅读学生卷 JSON（无答案；需已通过邀请码的学生会话） |
 | `/admin` | 教师后台 |
 | `/health` | 健康检查 |
 
@@ -182,6 +195,7 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 ```
 ielts-writing-mock/
   app.py
+  access.py
   reading_scoring.py
   requirements.txt
   Procfile
@@ -192,9 +206,11 @@ ielts-writing-mock/
   prompts/reading_set_a.json
   prompts/reading_keys.json
   tests/test_reading.py
+  tests/test_access.py
   templates/
   static/
-  data/submissions/    # 本地/实例磁盘备份
+  data/submissions/    # 本地/实例磁盘备份（已 gitignore）
+  data/invite_codes.json / users.json / access_log.json  # 邀请码与登录记录（已 gitignore）
 ```
 
 ---

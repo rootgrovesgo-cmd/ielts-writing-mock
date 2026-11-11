@@ -172,7 +172,8 @@ label.field {
 }
 label.field select,
 label.field input[type="text"],
-label.field input[type="password"] {
+label.field input[type="password"],
+label.field input[type="number"] {
   font: inherit;
   font-weight: 400;
   padding: 10px 12px;
@@ -600,3 +601,51 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
 .mark-table td.explain { font-size: 13px; color: var(--ink); max-width: 520px; }
 .mark-table tr.ok-row td:nth-child(4) { color: var(--ok); font-weight: 700; }
 .mark-table tr.bad-row td:nth-child(4) { color: var(--danger); font-weight: 700; }
+
+/* Admin tabs and invite form */
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.admin-tabs a {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 8px 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.admin-tabs a:hover { color: var(--accent-deep); text-decoration: none; background: rgba(125, 139, 153, 0.08); }
+.admin-tabs a.active {
+  color: var(--accent-deep);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-bottom-color: var(--card);
+  margin-bottom: -9px;
+  padding-bottom: 14px;
+}
+.invite-form {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1.2fr 1.2fr 0.8fr auto;
+  align-items: end;
+  margin-top: 16px;
+}
+.invite-form-action { padding-bottom: 1px; }
+@media (max-width: 900px) {
+  .invite-form { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .invite-form { grid-template-columns: 1fr; }
+}
+.admin-table code {
+  font-size: 13px;
+  background: #f3efe9;
+  padding: 1px 6px;
+  border-radius: 4px;
+}

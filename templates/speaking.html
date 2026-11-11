@@ -26,7 +26,7 @@
     <section id="setupPanel" class="card setup-card">
       <p class="eyebrow">Speaking practice</p>
       <h1>口语题库练习</h1>
-      <p class="muted lead">填写姓名和邀请码后，按 Part 1 → Part 2 → Part 3 练习。这是练习，不是计分考试，结束后不会给出分数或答案。</p>
+      <p class="muted lead">填写姓名和邀请码后开始练习。可进行完整 Part 1–3，也可只练 Part 1 或 Part 3。这是练习，不是计分考试，结束后不会给出分数或答案。</p>
 
       <div class="setup-grid" style="margin-top:18px">
         <label class="field">
@@ -52,6 +52,8 @@
         <div class="mode-pills" id="modePills">
           <label class="active"><input type="radio" name="mode" value="full" checked /> 完整练习 · 随机抽取 Part 1–3</label>
           <label><input type="radio" name="mode" value="topic" /> 自选 Part 2 话题</label>
+          <label><input type="radio" name="mode" value="part1" /> 单项练习 · Part 1</label>
+          <label><input type="radio" name="mode" value="part3" /> 单项练习 · Part 3</label>
         </div>
       </div>
 
@@ -60,7 +62,7 @@
       <div class="actions start-actions">
         <button type="button" id="btnStart" class="btn btn-start">开始练习</button>
       </div>
-      <p class="hint" style="margin-top:14px">计时参照正式口语考试：Part 1 约 4–5 分钟，Part 2 准备 1 分钟、陈述 2 分钟，Part 3 约 4–5 分钟。题目来自 2026 年 9–12 月公开回忆题库，并非官方材料。</p>
+      <p class="hint" style="margin-top:14px">计时参照正式口语考试：Part 1 约 4–5 分钟，Part 2 准备 1 分钟、陈述 2 分钟，Part 3 约 4–5 分钟。单项练习只计时该部分。题目来自 2026 年 9–12 月公开回忆题库，并非官方材料。</p>
       <div class="teacher-entry">
         <a class="btn ghost" href="/">返回首页</a>
       </div>
@@ -68,10 +70,10 @@
 
     <section id="pickPanel" class="card setup-card hidden">
       <p class="eyebrow">Speaking practice</p>
-      <h1>选择 Part 2 话题</h1>
-      <p class="muted lead">选定话题后，会配上相应的 Part 3 讨论题，并从本季 Part 1 题库抽题。</p>
+      <h1 id="pickTitle">选择 Part 2 话题</h1>
+      <p class="muted lead" id="pickLead">选定话题后，会配上相应的 Part 3 讨论题，并从本季 Part 1 题库抽题。</p>
       <label class="field" id="topicField" style="margin-top:16px">
-        Part 2 topic
+        <span id="topicSelectLabel">Part 2 topic</span>
         <select id="topicSelect"></select>
       </label>
       <div class="actions start-actions">
@@ -118,7 +120,7 @@
     <section id="donePanel" class="card done-card hidden">
       <div class="done-icon" aria-hidden="true">✓</div>
       <h2>练习结束</h2>
-      <div class="banner success">You have finished this Part 1–3 practice session. No score is given for speaking practice.</div>
+      <div class="banner success" id="doneBanner">You have finished this Part 1–3 practice session. No score is given for speaking practice.</div>
       <p class="muted" style="text-align:center;margin-top:8px">可以再练一套，或返回首页。</p>
       <div class="actions" style="justify-content:center">
         <button type="button" id="btnAgain" class="btn btn-start">再练一套</button>

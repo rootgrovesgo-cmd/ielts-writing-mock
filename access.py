@@ -23,7 +23,7 @@ _DATA_DIR: Path | None = None
 
 WRITING_MODES = {"full", "task1", "task2"}
 READING_MODES = {"full", "passage1", "passage2", "passage3"}
-SPEAKING_MODES = {"full", "topic"}
+SPEAKING_MODES = {"full", "topic", "part1", "part3"}
 MODULES = {"writing", "reading", "speaking"}
 MODULE_MODES = {
     "writing": WRITING_MODES,

@@ -13,6 +13,9 @@
     candidateName: document.getElementById("candidateName"),
     inviteCode: document.getElementById("inviteCode"),
     topicSelect: document.getElementById("topicSelect"),
+    topicSelectLabel: document.getElementById("topicSelectLabel"),
+    pickTitle: document.getElementById("pickTitle"),
+    pickLead: document.getElementById("pickLead"),
     btnBegin: document.getElementById("btnBegin"),
     setupError: document.getElementById("setupError"),
     btnStart: document.getElementById("btnStart"),
@@ -28,6 +31,7 @@
     btnSkipPart: document.getElementById("btnSkipPart"),
     btnNext: document.getElementById("btnNext"),
     btnAgain: document.getElementById("btnAgain"),
+    doneBanner: document.getElementById("doneBanner"),
     btnRecord: document.getElementById("btnRecord"),
     btnDownloadRec: document.getElementById("btnDownloadRec"),
     recStatus: document.getElementById("recStatus"),
@@ -129,6 +133,14 @@
     }));
   }
 
+  function allQuestions(topic) {
+    return (topic.questions || []).map((text) => ({
+      topic: topic.topic,
+      topic_zh: topic.topic_zh,
+      text,
+    }));
+  }
+
   function coreTopic(status) {
     const want = status === "work" ? "p1-work" : "p1-study";
     return (bank.part1 || []).find((t) => t.id === want) || (bank.part1 || [])[0];
@@ -155,22 +167,74 @@
     return { sets: [intro, ...extras], questions };
   }
 
+  function findPart1Topic(id) {
+    return (bank.part1 || []).find((t) => t.id === id) || null;
+  }
+
   function findCard(id) {
     return (bank.part2 || []).find((c) => c.id === id) || null;
+  }
+
+  function randomCard() {
+    const cards = bank.part2 || [];
+    if (!cards.length) return null;
+    return cards[Math.floor(Math.random() * cards.length)];
+  }
+
+  function isPart1Only() {
+    return !!(session && session.mode === "part1");
+  }
+
+  function isPart3Only() {
+    return !!(session && session.mode === "part3");
   }
 
   function buildSession() {
     const status = selectedValue("status") || "study";
     const mode = selectedValue("mode") || "full";
+
+    if (mode === "part1") {
+      const chosen = el.topicSelect.value;
+      let part1;
+      if (chosen && chosen !== "random") {
+        const set = findPart1Topic(chosen);
+        part1 = set ? { sets: [set], questions: allQuestions(set) } : buildPart1(status);
+      } else {
+        part1 = buildPart1(status);
+      }
+      return {
+        mode,
+        status,
+        part1,
+        card: null,
+        part3: [],
+        p1Index: 0,
+        p3Index: 0,
+        phase: "part1",
+      };
+    }
+
+    if (mode === "part3") {
+      let card = findCard(el.topicSelect.value);
+      if (!card) card = randomCard();
+      return {
+        mode,
+        status,
+        part1: { sets: [], questions: [] },
+        card,
+        part3: (card && card.part3) || [],
+        p1Index: 0,
+        p3Index: 0,
+        phase: "part3",
+      };
+    }
+
     const part1 = buildPart1(status);
     let card = null;
     if (mode === "topic") {
       card = findCard(el.topicSelect.value);
     }
-    if (!card) {
-      const cards = bank.part2 || [];
-      card = cards[Math.floor(Math.random() * cards.length)];
-    }
+    if (!card) card = randomCard();
     return {
       mode,
       status,
@@ -186,9 +250,23 @@
   let session = null;
 
   function setTabs(part) {
-    el.tab1.classList.toggle("active", part === 1);
-    el.tab2.classList.toggle("active", part === 2);
-    el.tab3.classList.toggle("active", part === 3);
+    const show1 = !isPart3Only();
+    const show2 = !isPart1Only() && !isPart3Only();
+    const show3 = !isPart1Only();
+    el.tab1.classList.toggle("hidden", !show1);
+    el.tab2.classList.toggle("hidden", !show2);
+    el.tab3.classList.toggle("hidden", !show3);
+    el.tab1.classList.toggle("active", part === 1 && show1);
+    el.tab2.classList.toggle("active", part === 2 && show2);
+    el.tab3.classList.toggle("active", part === 3 && show3);
+  }
+
+  function discussionLabel() {
+    if (!session || !session.card) return "Discussion";
+    const zh = session.card.title_zh || "";
+    const en = session.card.title || "";
+    if (zh && en) return `${zh} · ${en}`;
+    return zh || en || "Discussion";
   }
 
   function renderPart1() {
@@ -204,9 +282,16 @@
       <p class="question-text">${escapeHtml(q.text)}</p>
       <p class="progress-meta">Question ${session.p1Index + 1} of ${total}</p>
     `;
-    el.btnNext.textContent = session.p1Index === total - 1 ? "Enter Part 2" : "Next";
-    show(el.btnSkipPart);
-    el.btnSkipPart.textContent = "进入 Part 2";
+    const last = session.p1Index === total - 1;
+    if (isPart1Only()) {
+      el.btnNext.textContent = last ? "Finish practice" : "Next";
+      show(el.btnSkipPart);
+      el.btnSkipPart.textContent = "结束练习";
+    } else {
+      el.btnNext.textContent = last ? "Enter Part 2" : "Next";
+      show(el.btnSkipPart);
+      el.btnSkipPart.textContent = "进入 Part 2";
+    }
     if (!tickId && remaining > 0) {
       startTimer(remaining, "part1", onPart1TimeUp);
     } else if (!tickId) {
@@ -215,7 +300,11 @@
   }
 
   function onPart1TimeUp() {
-    showBanner("Part 1 时间到。你可以进入 Part 2，或先答完当前问题。", "warn");
+    if (isPart1Only()) {
+      showBanner("Part 1 时间到。你可以结束练习，或先答完当前问题。", "warn");
+    } else {
+      showBanner("Part 1 时间到。你可以进入 Part 2，或先答完当前问题。", "warn");
+    }
   }
 
   function renderPart2Prep() {
@@ -265,7 +354,7 @@
     el.stageLabel.textContent = "Part 3 · Discussion";
     el.stageHint.textContent = "Discuss the question. Give reasons and examples, not only personal stories.";
     el.questionBox.innerHTML = `
-      <p class="question-kicker">${escapeHtml(session.card.title_zh || "Discussion")}</p>
+      <p class="question-kicker">${escapeHtml(discussionLabel())}</p>
       <p class="question-text">${escapeHtml(q)}</p>
       <p class="progress-meta">Question ${session.p3Index + 1} of ${questions.length}</p>
     `;
@@ -318,6 +407,15 @@
     stopTimer();
     hide(el.timerWrap);
     hide(el.practicePanel);
+    if (el.doneBanner) {
+      if (isPart1Only()) {
+        el.doneBanner.textContent = "You have finished this Part 1 practice session. No score is given for speaking practice.";
+      } else if (isPart3Only()) {
+        el.doneBanner.textContent = "You have finished this Part 3 practice session. No score is given for speaking practice.";
+      } else {
+        el.doneBanner.textContent = "You have finished this Part 1–3 practice session. No score is given for speaking practice.";
+      }
+    }
     show(el.donePanel);
     el.modeLabel.textContent = "Finished";
     hideBanner();
@@ -329,6 +427,8 @@
       if (session.p1Index < session.part1.questions.length - 1) {
         session.p1Index += 1;
         renderPart1();
+      } else if (isPart1Only()) {
+        finishPractice();
       } else {
         goPart2();
       }
@@ -354,17 +454,76 @@
 
   function onSkipPart() {
     if (!session) return;
-    if (session.phase === "part1") goPart2();
-    else if (session.phase === "part2-prep") beginPart2Speak(false);
+    if (session.phase === "part1") {
+      if (isPart1Only()) finishPractice();
+      else goPart2();
+    } else if (session.phase === "part2-prep") beginPart2Speak(false);
     else if (session.phase === "part2-speak") goPart3();
     else if (session.phase === "part3") finishPractice();
   }
 
-  function fillTopicSelect() {
+  function optionLabel(zh, en) {
+    if (zh && en) return `${zh} — ${en}`;
+    return zh || en || "";
+  }
+
+  function fillPart2Select(includeRandom) {
     const cards = bank.part2 || [];
-    el.topicSelect.innerHTML = cards
-      .map((c) => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.title_zh ? c.title_zh + " — " : "")}${escapeHtml(c.title)}</option>`)
+    const randomOpt = includeRandom
+      ? `<option value="random">随机抽取话题</option>`
+      : "";
+    el.topicSelect.innerHTML = randomOpt + cards
+      .map((c) => `<option value="${escapeHtml(c.id)}">${escapeHtml(optionLabel(c.title_zh, c.title))}</option>`)
       .join("");
+  }
+
+  function fillPart1Select() {
+    const topics = bank.part1 || [];
+    const groups = [
+      { key: "core", label: "常考开场" },
+      { key: "new", label: "本季新题" },
+      { key: "retained", label: "保留题目" },
+    ];
+    const used = new Set(groups.map((g) => g.key));
+    const other = topics.filter((t) => !used.has(t.category));
+    if (other.length) groups.push({ key: "__other", label: "其他" });
+
+    const parts = [`<option value="random">随机抽取 · 开场问答 + 两个话题</option>`];
+    groups.forEach((group) => {
+      const items = group.key === "__other"
+        ? other
+        : topics.filter((t) => t.category === group.key);
+      if (!items.length) return;
+      const opts = items
+        .map((t) => `<option value="${escapeHtml(t.id)}">${escapeHtml(optionLabel(t.topic_zh, t.topic))}</option>`)
+        .join("");
+      parts.push(`<optgroup label="${escapeHtml(group.label)}">${opts}</optgroup>`);
+    });
+    el.topicSelect.innerHTML = parts.join("");
+  }
+
+  function configurePickPanel(mode) {
+    if (mode === "part1") {
+      el.pickTitle.textContent = "选择 Part 1 话题";
+      el.pickLead.textContent = "可随机抽取一组 Part 1 题目，或指定一个话题集练习。练习结束后不会进入 Part 2 或 Part 3。";
+      el.topicSelectLabel.textContent = "Part 1 topic";
+      el.btnBegin.textContent = "开始 Part 1";
+      fillPart1Select();
+      return;
+    }
+    if (mode === "part3") {
+      el.pickTitle.textContent = "选择讨论话题";
+      el.pickLead.textContent = "Part 3 讨论题与 Part 2 话题配套。选定或随机抽取一个话题后，直接练习对应的讨论题，无需先做 Part 2。";
+      el.topicSelectLabel.textContent = "Part 2 topic · matching Part 3 set";
+      el.btnBegin.textContent = "开始 Part 3";
+      fillPart2Select(true);
+      return;
+    }
+    el.pickTitle.textContent = "选择 Part 2 话题";
+    el.pickLead.textContent = "选定话题后，会配上相应的 Part 3 讨论题，并从本季 Part 1 题库抽题。";
+    el.topicSelectLabel.textContent = "Part 2 topic";
+    el.btnBegin.textContent = "开始 Part 1";
+    fillPart2Select(false);
   }
 
   async function startSession() {
@@ -412,7 +571,7 @@
       return false;
     }
     bank = data;
-    fillTopicSelect();
+    fillPart2Select(false);
     return true;
   }
 
@@ -433,7 +592,9 @@
     hide(el.setupPanel);
     hide(el.donePanel);
     hide(el.practicePanel);
-    if (selectedValue("mode") === "topic") {
+    const mode = selectedValue("mode") || "full";
+    if (mode === "topic" || mode === "part1" || mode === "part3") {
+      configurePickPanel(mode);
       show(el.pickPanel);
       el.modeLabel.textContent = "Choose a topic";
       return;
@@ -441,20 +602,45 @@
     beginSession();
   }
 
+  function sessionIsReady(s) {
+    if (!s) return false;
+    if (s.mode === "part1") return !!(s.part1 && s.part1.questions.length);
+    if (s.mode === "part3") return !!(s.card && (s.part3 || []).length);
+    return !!(s.card && s.part1.questions.length && s.part3.length);
+  }
+
   function beginSession() {
     session = buildSession();
-    if (!session.card || !session.part1.questions.length || !session.part3.length) {
-      showSetupError("未能生成完整的 Part 1–3 练习，请重试。");
+    if (!sessionIsReady(session)) {
+      const msg = session && session.mode === "part1"
+        ? "未能生成 Part 1 练习，请重试。"
+        : session && session.mode === "part3"
+          ? "未能生成 Part 3 练习，请重试。"
+          : "未能生成完整的 Part 1–3 练习，请重试。";
+      showSetupError(msg);
       hide(el.pickPanel);
       show(el.setupPanel);
+      session = null;
       return;
     }
     hide(el.setupPanel);
     hide(el.pickPanel);
     hide(el.donePanel);
     show(el.practicePanel);
+    if (isPart3Only()) {
+      session.phase = "part3";
+      session.p3Index = 0;
+      remaining = 0;
+      timerKind = "";
+      stopTimer();
+      renderPart3();
+      return;
+    }
     session.phase = "part1";
     session.p1Index = 0;
+    remaining = 0;
+    timerKind = "";
+    stopTimer();
     renderPart1();
   }
 
@@ -463,6 +649,7 @@
     stopRecording(true);
     session = null;
     remaining = 0;
+    timerKind = "";
     hide(el.timerWrap);
     hide(el.practicePanel);
     hide(el.pickPanel);
@@ -472,6 +659,15 @@
     el.modeLabel.textContent = "Ready";
     el.timer.textContent = "--:--";
     el.timer.classList.remove("warn", "danger");
+    el.tab1.classList.remove("hidden");
+    el.tab2.classList.remove("hidden");
+    el.tab3.classList.remove("hidden");
+    el.tab1.classList.add("active");
+    el.tab2.classList.remove("active");
+    el.tab3.classList.remove("active");
+    if (el.doneBanner) {
+      el.doneBanner.textContent = "You have finished this Part 1–3 practice session. No score is given for speaking practice.";
+    }
   }
 
   async function startRecording() {

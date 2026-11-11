@@ -128,8 +128,66 @@ class SpeakingRouteTests(unittest.TestCase):
         self.assertIn("Part 2", html)
         self.assertIn("Part 3", html)
         self.assertIn("不是计分考试", html)
+        self.assertIn("完整练习 · 随机抽取 Part 1–3", html)
+        self.assertIn("自选 Part 2 话题", html)
+        self.assertIn("单项练习 · Part 1", html)
+        self.assertIn("单项练习 · Part 3", html)
+        self.assertIn('value="part1"', html)
+        self.assertIn('value="part3"', html)
         self.assertNotIn('href="/admin">Root Login</a>', html.split("<footer", 1)[0])
         self.assertIn('footer-admin">Teacher</a>', html)
+
+    def test_speaking_start_records_single_part_modes(self):
+        accessmod.create_code(code="CLASS01")
+        for mode in ("part1", "part3", "topic", "full"):
+            res = self._start(mode=mode)
+            self.assertEqual(res.status_code, 200, mode)
+            self.assertTrue(res.get_json()["ok"])
+            events = accessmod.load_log().get("events") or []
+            starts = [ev for ev in events if ev.get("action") == "start"]
+            self.assertEqual(starts[-1]["mode"], mode)
+            self.assertEqual(starts[-1]["module"], "speaking")
+
+        unknown = self._start(mode="not-a-mode")
+        self.assertEqual(unknown.status_code, 200)
+        self.assertTrue(unknown.get_json()["ok"])
+        events = accessmod.load_log().get("events") or []
+        starts = [ev for ev in events if ev.get("action") == "start"]
+        self.assertEqual(starts[-1]["mode"], "full")
+
+        bad = self._start(code="NO-SUCH", mode="part1")
+        self.assertEqual(bad.status_code, 403)
+        self.assertEqual(bad.get_json()["error"], "邀请码无效或已失效")
+        self.assertIn("part1", accessmod.SPEAKING_MODES)
+        self.assertIn("part3", accessmod.SPEAKING_MODES)
+
+    def test_single_part_client_flow_does_not_require_other_parts(self):
+        js = (ROOT / "static" / "speaking.js").read_text(encoding="utf-8")
+        self.assertIn('s.mode === "part1") return !!(s.part1 && s.part1.questions.length)', js)
+        self.assertIn('s.mode === "part3") return !!(s.card && (s.part3 || []).length)', js)
+
+        on_next = js.split("function onNext()")[1].split("function onSkipPart()")[0]
+        part1_branch = on_next.split('session.phase === "part1"')[1].split("return;")[0]
+        self.assertIn("finishPractice();", part1_branch)
+        self.assertIn("goPart2();", part1_branch)
+        self.assertLess(part1_branch.index("isPart1Only()"), part1_branch.index("finishPractice();"))
+        self.assertLess(part1_branch.index("finishPractice();"), part1_branch.index("goPart2();"))
+
+        on_skip = js.split("function onSkipPart()")[1].split("function fillPart2Select")[0]
+        skip_part1 = on_skip.split('session.phase === "part1"')[1].split("else if")[0]
+        self.assertIn("isPart1Only()", skip_part1)
+        self.assertIn("finishPractice();", skip_part1)
+        self.assertIn("goPart2();", skip_part1)
+        self.assertLess(skip_part1.index("finishPractice();"), skip_part1.index("goPart2();"))
+
+        begin = js.split("function beginSession()")[1].split("function resetToSetup()")[0]
+        self.assertIn("isPart3Only()", begin)
+        self.assertIn("renderPart3();", begin)
+        self.assertIn("renderPart1();", begin)
+        self.assertLess(begin.index("renderPart3();"), begin.index("renderPart1();"))
+        # Part 3-only starts at discussion and must not enter Part 2 first.
+        self.assertNotIn("renderPart2Prep()", begin)
+        self.assertNotIn("beginPart2Speak(", begin)
 
     def test_bank_requires_invite_session(self):
         blocked = self.client.get("/api/speaking/bank")

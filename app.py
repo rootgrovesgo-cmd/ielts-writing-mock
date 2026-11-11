@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""IELTS Academic Writing + Reading timed mock-exam — Flask app (local + online)."""
+"""IELTS Academic Writing, Reading, and Speaking practice — Flask app (local + online)."""
 
 from __future__ import annotations
 
@@ -38,6 +38,7 @@ INDEX_PATH = DATA_DIR / "index.json"
 PROMPTS_PATH = BASE_DIR / "prompts" / "prompts.json"
 READING_PAPER_PATH = BASE_DIR / "prompts" / "reading_set_a.json"
 READING_KEYS_PATH = BASE_DIR / "prompts" / "reading_keys.json"
+SPEAKING_BANK_PATH = BASE_DIR / "prompts" / "speaking_sept2026.json"
 
 TZ_SHANGHAI = timezone(timedelta(hours=8))
 
@@ -134,6 +135,11 @@ def load_reading_paper() -> dict:
 
 def load_reading_keys() -> dict:
     return rs.load_keys(READING_KEYS_PATH)
+
+
+def load_speaking_bank() -> dict:
+    with SPEAKING_BANK_PATH.open(encoding="utf-8") as f:
+        return json.load(f)
 
 
 def load_index() -> dict:
@@ -279,7 +285,7 @@ def health():
         {
             "ok": True,
             "service": "ielts-writing-mock",
-            "modules": ["writing", "reading"],
+            "modules": ["writing", "reading", "speaking"],
             "notion": notion_enabled(),
         }
     )
@@ -302,6 +308,11 @@ def writing():
 @app.route("/reading")
 def reading():
     return render_template("reading.html")
+
+
+@app.route("/speaking")
+def speaking():
+    return render_template("speaking.html")
 
 
 @app.route("/api/session/start", methods=["POST"])
@@ -347,6 +358,25 @@ def api_reading_paper():
     if err:
         return err
     return jsonify(load_reading_paper())
+
+
+@app.route("/api/speaking/bank")
+def api_speaking_bank():
+    """Speaking practice bank. Prompts only — no sample answers or scores."""
+    err = student_session_error()
+    if err:
+        return err
+    bank = load_speaking_bank()
+    return jsonify(
+        {
+            "season": bank.get("season"),
+            "season_label": bank.get("season_label"),
+            "disclaimer": bank.get("disclaimer"),
+            "disclaimer_zh": bank.get("disclaimer_zh"),
+            "part1": bank.get("part1") or [],
+            "part2": bank.get("part2") or [],
+        }
+    )
 
 
 @app.route("/api/submit", methods=["POST"])
@@ -808,6 +838,7 @@ def main() -> None:
     print(f"Rosette Exclusive Mock Exam → http://{host}:{port}/")
     print(f"Writing → http://{host}:{port}/writing")
     print(f"Reading → http://{host}:{port}/reading")
+    print(f"Speaking → http://{host}:{port}/speaking")
     print(f"Health → http://{host}:{port}/health")
     print(f"教师后台 → http://{host}:{port}/admin")
     print(f"Notion sync: {'ON' if notion_enabled() else 'OFF'}")

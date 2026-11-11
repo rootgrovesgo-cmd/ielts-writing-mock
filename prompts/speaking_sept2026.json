@@ -1,0 +1,2482 @@
+{
+  "season": "2026-09-12",
+  "season_label": "2026年9–12月雅思口语题季",
+  "disclaimer": "Practice questions based on publicly reported September–December 2026 IELTS Speaking topics from candidate recollections. These are not official Cambridge or IELTS materials.",
+  "disclaimer_zh": "练习题依据考生公开回忆的 2026 年 9–12 月雅思口语话题整理，并非剑桥或雅思官方材料。",
+  "sources": [
+    "https://ezielts.app/zh/ielts-speaking-topics",
+    "https://ieltsactualtests.com/zh/speaking/2026-q3",
+    "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+    "https://www.jingsailian.com/liuxue/1651459.html",
+    "https://en.scorefactory.io/ielts_speaking_forecast",
+    "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026",
+    "https://ielts.koolearn.com/20260916/868065.html",
+    "https://ielts.koolearn.com/20260917/868081.html",
+    "https://ielts.koolearn.com/20261008/868110.html",
+    "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+    "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+  ],
+  "part1": [
+    {
+      "id": "p1-study",
+      "part": 1,
+      "topic": "Study",
+      "topic_zh": "学习",
+      "category": "core",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do you work or are you a student?",
+        "What subject are you studying?",
+        "Why did you choose that subject?",
+        "What would you like to do in the future?",
+        "What are the most popular subjects in your country?",
+        "Do you think it's important to choose a subject you like?",
+        "Are you looking forward to working?",
+        "Do you like your subject? (Why? / Why not?)",
+        "Do you prefer to study in the mornings or in the afternoons?",
+        "Is your subject interesting to you?",
+        "Is there any kind of technology you can use in study?"
+      ]
+    },
+    {
+      "id": "p1-work",
+      "part": 1,
+      "topic": "Work",
+      "topic_zh": "工作",
+      "category": "core",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "What work do you do?",
+        "Why did you choose to do that type of job?",
+        "Do you like your job?",
+        "Do you miss being a student?",
+        "Is it very interesting?",
+        "Is there any kind of technology you use at work?",
+        "Can you manage your time well when you work?",
+        "Who helps you most at work?"
+      ]
+    },
+    {
+      "id": "p1-hometown",
+      "part": 1,
+      "topic": "Hometown",
+      "topic_zh": "家乡",
+      "category": "core",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Has your hometown changed much these years?",
+        "Is that a big city or a small place?",
+        "How long have you been living here?",
+        "For you, what benefits are there living in a big city?",
+        "Is there anything you dislike about it?",
+        "What do you like most about your hometown?",
+        "Where in your country do you live?"
+      ]
+    },
+    {
+      "id": "p1-accommodation",
+      "part": 1,
+      "topic": "Accommodation",
+      "topic_zh": "住所",
+      "category": "core",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Are the transport facilities in your city very good?",
+        "Which room does your family spend most of the time in?",
+        "Do you live in a house or a flat?",
+        "Do you plan to live here for a long time?",
+        "Do you live alone or with your family?",
+        "How long have you lived there?",
+        "What do you usually do in your house/flat/room?",
+        "Which is your favourite room in your home?",
+        "What's the difference between where you are living now and where you lived in the past?",
+        "What can you see when you look out the window of your room?",
+        "Would you be willing to live in the countryside in the future?"
+      ]
+    },
+    {
+      "id": "p1-area",
+      "part": 1,
+      "topic": "The area you live in",
+      "topic_zh": "你居住的地区",
+      "category": "core",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you like the area that you live in now?",
+        "Do you think the area you live in now is suitable for people of all ages?",
+        "Are people in your area friendly?",
+        "How has your area changed in recent years?",
+        "Do you know any famous people in your area?",
+        "Where do you like to go in your area?"
+      ]
+    },
+    {
+      "id": "p1-city",
+      "part": 1,
+      "topic": "The city you live in",
+      "topic_zh": "你居住的城市",
+      "category": "core",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "What city do you live in?",
+        "Do you like this city? Why?",
+        "How long have you lived in this city?",
+        "Are there big changes in this city?",
+        "Is this city your permanent residence?",
+        "Are there people of different ages living in this city?",
+        "Are the people friendly in the city?",
+        "Is the city friendly to children and old people?",
+        "Do you often see your neighbors?",
+        "What's the weather like where you live?",
+        "Would you recommend your city to others?"
+      ]
+    },
+    {
+      "id": "p1-travelling",
+      "part": 1,
+      "topic": "Travelling",
+      "topic_zh": "旅行",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you prefer sitting by the window when you travel?",
+        "Did you ever go on a long journey with your family when you were a child?",
+        "What do you usually do during a long journey?",
+        "Do you prefer travelling alone or with other people?",
+        "What is the longest journey you have ever taken?"
+      ]
+    },
+    {
+      "id": "p1-rubbish",
+      "part": 1,
+      "topic": "Rubbish and recycling",
+      "topic_zh": "垃圾与回收",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Did you recycle when you were a kid?",
+        "Is waste sorting common in your country?",
+        "How do you recycle things like paper and plastic?",
+        "What do you do when you see rubbish on the street?"
+      ]
+    },
+    {
+      "id": "p1-tiredness",
+      "part": 1,
+      "topic": "Tiredness",
+      "topic_zh": "疲惫",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you often get tired?",
+        "When would you feel tired?",
+        "When you feel tired, do you still go out with your friends?"
+      ]
+    },
+    {
+      "id": "p1-shoes",
+      "part": 1,
+      "topic": "Shoes",
+      "topic_zh": "鞋子",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you like buying shoes? How often?",
+        "Have you ever bought shoes online?",
+        "How much do you usually spend on shoes?",
+        "Do you prefer fashionable shoes or comfortable shoes?",
+        "What is your favourite type of shoes?"
+      ]
+    },
+    {
+      "id": "p1-politeness",
+      "part": 1,
+      "topic": "Politeness",
+      "topic_zh": "礼貌",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "What did you do to show your politeness as a child?",
+        "On what occasions should we be polite?",
+        "Do you think being polite is very important?",
+        "How did you learn to be polite as a child?"
+      ]
+    },
+    {
+      "id": "p1-fruit",
+      "part": 1,
+      "topic": "Fruit and vegetables",
+      "topic_zh": "水果和蔬菜",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do people in your country like planting vegetables?",
+        "Were there any kind of fruits and vegetables you disliked as a child?",
+        "What kind of fruits and vegetables do you dislike?",
+        "Where do you usually buy fruit and vegetables?",
+        "How often do you eat fruit and vegetables?",
+        "Do you like eating vegetables?",
+        "Do people often grow vegetables by themselves?"
+      ]
+    },
+    {
+      "id": "p1-advertisement",
+      "part": 1,
+      "topic": "Advertisement",
+      "topic_zh": "广告",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you often see advertisements when you are on your phone or computer?",
+        "What kind of advertising do you like?",
+        "Do you see a lot of advertising on trains or other transport?",
+        "Is there an advertisement that made an impression on you when you were a child?"
+      ]
+    },
+    {
+      "id": "p1-paper",
+      "part": 1,
+      "topic": "Paper",
+      "topic_zh": "纸",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do you carry paper and pens with you when you go out?",
+        "Do people still keep handwritten letters today?",
+        "Do you still write physical letters?",
+        "What did you like to do with paper as a child?",
+        "Have you made any crafts with paper?"
+      ]
+    },
+    {
+      "id": "p1-secondary-school",
+      "part": 1,
+      "topic": "Secondary school",
+      "topic_zh": "中学",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Is there anything you miss about your secondary school?",
+        "What was your favourite subject at secondary school?",
+        "Were there any subjects that you found difficult at secondary school?",
+        "Do you remember your first day at secondary school?"
+      ]
+    },
+    {
+      "id": "p1-names",
+      "part": 1,
+      "topic": "Remembering names",
+      "topic_zh": "记名字",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you often forget people's names?",
+        "How do you feel when people can't remember your name?",
+        "How do you remember people's names?"
+      ]
+    },
+    {
+      "id": "p1-opportunities",
+      "part": 1,
+      "topic": "Opportunities",
+      "topic_zh": "机会",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "questions": [
+        "Is it important to seize opportunities when they come?",
+        "Would you like to have more opportunities in the future? Why?",
+        "What would you do if you had more opportunities?",
+        "How can you get more opportunities?",
+        "Do you have many opportunities in life?"
+      ]
+    },
+    {
+      "id": "p1-collecting",
+      "part": 1,
+      "topic": "Collecting things",
+      "topic_zh": "收藏东西",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you collect things?",
+        "Where do you usually keep things you need?",
+        "Would you keep old things for a long time? Why?",
+        "Are there any things you have kept from your childhood?"
+      ]
+    },
+    {
+      "id": "p1-street-market",
+      "part": 1,
+      "topic": "Street market",
+      "topic_zh": "街头市场",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Are there many street markets in your country?",
+        "When was the last time you went to a street market?",
+        "Do you prefer to go shopping in the shopping mall or on the street market?",
+        "What do people usually buy on the street market?"
+      ]
+    },
+    {
+      "id": "p1-computers",
+      "part": 1,
+      "topic": "Computers and tablets",
+      "topic_zh": "电脑与平板",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Would you like to use a computer or tablet?",
+        "When was the first time you used a computer or tablet?",
+        "What would your life be like without computers or tablets?",
+        "In what conditions would it be difficult for you to use a computer or tablet?"
+      ]
+    },
+    {
+      "id": "p1-lost-found",
+      "part": 1,
+      "topic": "Lost and found",
+      "topic_zh": "丢失与找回",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Have you ever lost your keys?",
+        "Will you post on social media if you lose your item?",
+        "Have you ever lost things?",
+        "Do you report to the police when finding something lost by others? Why?",
+        "What will you do if you find something lost by others?"
+      ]
+    },
+    {
+      "id": "p1-music",
+      "part": 1,
+      "topic": "Music",
+      "topic_zh": "音乐",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "questions": [
+        "Do you prefer sad or happy music?",
+        "Does happy music make you feel more excited?",
+        "Have you taken any music classes?",
+        "Do you listen to music while doing other things?",
+        "Do you like music?",
+        "What kinds of music do you listen to?",
+        "Is it easy to learn music?",
+        "Do you learn music lessons at school?"
+      ]
+    },
+    {
+      "id": "p1-teachers",
+      "part": 1,
+      "topic": "Teachers",
+      "topic_zh": "老师",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you have a favorite teacher?",
+        "Do you want to be a teacher in the future?",
+        "Do you have a teacher from your past that you still remember?",
+        "Are you still in touch with your primary school teachers?",
+        "In what way has your favourite teacher helped you?",
+        "Do you like your primary school teachers more than your high school teachers?"
+      ]
+    },
+    {
+      "id": "p1-social-media",
+      "part": 1,
+      "topic": "Social media",
+      "topic_zh": "社交媒体",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Have you ever posted anything on social media?",
+        "When did you start using social media?",
+        "Do you think you spend too much time on social media?",
+        "Do your friends use social media?",
+        "What do people often do on social media?"
+      ]
+    },
+    {
+      "id": "p1-tidiness",
+      "part": 1,
+      "topic": "Tidiness",
+      "topic_zh": "整洁",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you like to keep things tidy?",
+        "Did you keep your room tidy as a child?",
+        "How do you keep your work or study space tidy?",
+        "Do you think that it is necessary to be tidy?",
+        "Are you a tidy person now?",
+        "What do you think of those who don't care about tidiness?",
+        "What do you think of those who are overly concerned about tidiness?"
+      ]
+    },
+    {
+      "id": "p1-websites",
+      "part": 1,
+      "topic": "Websites",
+      "topic_zh": "网站",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "What kinds of websites do you often visit?",
+        "What is your favourite website?",
+        "Are there any changes to the websites you often visit?",
+        "What kinds of websites are popular in your country?",
+        "Do you prefer getting information from websites or books?",
+        "Would you like to have your own website?",
+        "What have you learned from websites that help with your life or studies?"
+      ]
+    },
+    {
+      "id": "p1-watch",
+      "part": 1,
+      "topic": "Watch",
+      "topic_zh": "手表",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you wear a watch?",
+        "Have you ever got a watch as a gift?",
+        "Why do some people wear expensive watches?",
+        "Do you think it is important to wear a watch? Why?"
+      ]
+    },
+    {
+      "id": "p1-shopping",
+      "part": 1,
+      "topic": "Shopping",
+      "topic_zh": "购物",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "questions": [
+        "Do you like shopping?",
+        "How often do you go shopping?",
+        "Do you prefer online shopping or in-store shopping?",
+        "Have you ever returned anything you bought online?",
+        "Do you compare prices when you shop? Why?",
+        "Is it difficult for you to make choices when you shop?",
+        "Do you think expensive products are always better than cheaper ones?"
+      ]
+    },
+    {
+      "id": "p1-cars",
+      "part": 1,
+      "topic": "Cars",
+      "topic_zh": "汽车",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Did you enjoy traveling by car when you were a kid?",
+        "What types of cars do you like?",
+        "Do you prefer to be a driver or a passenger?",
+        "What do you usually do when there is a traffic jam?",
+        "Do you think car colours are important?",
+        "Will you buy an expensive car in the future?"
+      ]
+    },
+    {
+      "id": "p1-parks",
+      "part": 1,
+      "topic": "Public gardens and parks",
+      "topic_zh": "公园与公共花园",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Did you like going to parks as a child?",
+        "Do you still like going to parks now?",
+        "Would you like to see more parks in your city?",
+        "Are there any parks you want to go to in the future?",
+        "Would you prefer to play in a personal garden or public garden?",
+        "How are the parks today different from those you visited as a kid?",
+        "What do you like to do when visiting a park?",
+        "Would you like to play in a public garden or park?"
+      ]
+    },
+    {
+      "id": "p1-science",
+      "part": 1,
+      "topic": "Science",
+      "topic_zh": "科学",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do you like science?",
+        "When did you start to learn about science?",
+        "Which science subject is interesting to you?",
+        "What kinds of interesting things have you done with science?",
+        "Do you like watching science TV programs?",
+        "Do people in your country often visit science museums?"
+      ]
+    },
+    {
+      "id": "p1-mirrors",
+      "part": 1,
+      "topic": "Mirrors",
+      "topic_zh": "镜子",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you like looking at yourself in the mirror? How often?",
+        "Have you ever bought mirrors?",
+        "Do you usually take a mirror with you?",
+        "Would you use mirrors to decorate your room?"
+      ]
+    },
+    {
+      "id": "p1-space",
+      "part": 1,
+      "topic": "Outer space and stars",
+      "topic_zh": "太空与星星",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Have you ever learnt about outer space and stars?",
+        "Do you like science fiction movies? Why?",
+        "Do you want to know more about outer space?",
+        "Do you want to go into outer space in the future?",
+        "Do you like science-fiction movies set in space?"
+      ]
+    },
+    {
+      "id": "p1-singing",
+      "part": 1,
+      "topic": "Singing",
+      "topic_zh": "唱歌",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do you like singing? Why?",
+        "Have you ever learnt how to sing?",
+        "Who do you want to sing for?",
+        "Do you think singing can bring happiness to people?",
+        "Do you like listening to others singing?",
+        "Have you ever taken a singing class?",
+        "Did you like singing when you were a child?",
+        "Do you enjoy singing in the car?",
+        "Did you learn to sing when you were at school?"
+      ]
+    },
+    {
+      "id": "p1-clothing",
+      "part": 1,
+      "topic": "Clothing",
+      "topic_zh": "服装",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "questions": [
+        "What kind of clothes do you like to wear?",
+        "Do you prefer to wear comfortable and casual clothes or smart clothes?",
+        "Do you like wearing T-shirts?",
+        "Do you spend a lot of time choosing clothes?",
+        "Do you wear different styles of clothes on weekdays and weekends?",
+        "What colour clothes do you like?"
+      ]
+    },
+    {
+      "id": "p1-jokes",
+      "part": 1,
+      "topic": "Jokes and comedies",
+      "topic_zh": "笑话与喜剧",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "questions": [
+        "Are you good at telling jokes?",
+        "Do your friends like to tell jokes?",
+        "Do you like to watch comedies?",
+        "Have you ever watched a live show?",
+        "Are comedy shows popular in your country?"
+      ]
+    },
+    {
+      "id": "p1-headphones",
+      "part": 1,
+      "topic": "Headphones",
+      "topic_zh": "耳机",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you use headphones?",
+        "Is wearing headphones comfortable?",
+        "How often do you wear headphones?",
+        "Do you think headphones are useful?",
+        "Are headphones popular in your country?",
+        "In what situations should people not wear headphones?"
+      ]
+    },
+    {
+      "id": "p1-morning",
+      "part": 1,
+      "topic": "Morning time",
+      "topic_zh": "早晨时光",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do you like getting up early in the morning?",
+        "What do you usually do in the morning?",
+        "What is your daily study or work routine?",
+        "Have you ever changed your routine?",
+        "Do you spend your mornings differently on weekdays and weekends?",
+        "What part of your day do you like best?"
+      ]
+    },
+    {
+      "id": "p1-bored",
+      "part": 1,
+      "topic": "Feeling bored",
+      "topic_zh": "感到无聊",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you often feel bored?",
+        "Did you ever find school boring when you were a child?",
+        "What sort of things do you find most boring now?",
+        "What do you do to stop yourself feeling bored?",
+        "Do you think childhood is boring or adulthood is boring?"
+      ]
+    },
+    {
+      "id": "p1-friends",
+      "part": 1,
+      "topic": "Friends",
+      "topic_zh": "朋友",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Do you have a friend you have known for a long time?",
+        "What do you usually do with your friends?",
+        "Do you prefer to spend time with one friend or a group?",
+        "How important are friends to you?",
+        "Would you invite friends to your home?"
+      ]
+    },
+    {
+      "id": "p1-emails",
+      "part": 1,
+      "topic": "Emails",
+      "topic_zh": "电子邮件",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Do you often send emails?",
+        "Do you think sending emails will be more or less popular in the future?",
+        "Did you receive any handwritten letters when you were a child?",
+        "Which do you prefer, writing a letter or sending a message?"
+      ]
+    },
+    {
+      "id": "p1-punctuality",
+      "part": 1,
+      "topic": "Punctuality",
+      "topic_zh": "守时",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ielts9.io/de/blog/ielts-speaking-cue-cards-september-december-2026"
+      ],
+      "questions": [
+        "Are you a punctual person?",
+        "Do you think it is important to be on time?",
+        "How do you feel when others are late?",
+        "How do you remind yourself to be on time?",
+        "Why are some people consistently late?"
+      ]
+    },
+    {
+      "id": "p1-evening",
+      "part": 1,
+      "topic": "Evening time",
+      "topic_zh": "晚间时光",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "questions": [
+        "Do you like the morning or evening?",
+        "What do you usually do in the evening?",
+        "What did you do in the evening when you were little? Why?",
+        "Are there any differences between what you do in the evening now and what you did in the past?",
+        "Do you spend your evenings doing the same things on both weekends and weekdays? Why?",
+        "What do you hate doing in the evening?"
+      ]
+    },
+    {
+      "id": "p1-old-buildings",
+      "part": 1,
+      "topic": "Old buildings",
+      "topic_zh": "老建筑",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Have you ever seen old buildings in the city?",
+        "Do you think we should preserve old buildings in cities?",
+        "Do you prefer living in an old building or a modern house?",
+        "Are there any old buildings you want to see in the future? Why?"
+      ]
+    },
+    {
+      "id": "p1-growing",
+      "part": 1,
+      "topic": "Growing vegetables and fruits",
+      "topic_zh": "种蔬菜和水果",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "questions": [
+        "Are you interested in growing vegetables and fruits?",
+        "Is growing vegetables popular in your country?",
+        "Do you think it is easy to grow vegetables?",
+        "Should schools teach students how to grow vegetables?"
+      ]
+    }
+  ],
+  "part2": [
+    {
+      "id": "p2-difficult-success",
+      "part": 2,
+      "title": "Describe a person you know who did something difficult and was successful.",
+      "title_zh": "做困难事情并成功的人",
+      "category": "new",
+      "sources": [
+        "https://ielts.koolearn.com/20260916/868065.html",
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "Who this person is",
+        "What difficult thing this person did",
+        "Why this person was successful",
+        "And explain how you feel about this person"
+      ],
+      "part3": [
+        "Is it difficult to do business in today's world?",
+        "How can companies help protect the environment?",
+        "Does money equal success?",
+        "In which sectors are companies more likely to succeed in your country?",
+        "Is it easy to start up a company?",
+        "Other than making money, what is more important for a company?"
+      ]
+    },
+    {
+      "id": "p2-happy-person",
+      "part": 2,
+      "title": "Describe a happy person you know.",
+      "title_zh": "一个快乐的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "Who this person is",
+        "What he/she is like",
+        "How he/she shows happiness",
+        "And explain why you think he/she is a happy person"
+      ],
+      "part3": [
+        "When do you think people are happiest?",
+        "How can the arts spread positive emotions in society?",
+        "Do you think teachers are able to spot the unhappy children?",
+        "Should teachers know what children are doing all the time?",
+        "What would make a student happy at school?",
+        "Do you think doing a job that you like is more important than other things?"
+      ]
+    },
+    {
+      "id": "p2-organized-person",
+      "part": 2,
+      "title": "Describe a person you know who is very organized.",
+      "title_zh": "很有条理的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "Who this person is",
+        "What this person usually does to stay organized",
+        "In what situations you have noticed this quality",
+        "And explain why you think being organized is important to him/her"
+      ],
+      "part3": [
+        "Do you think it is important for managers to be well organized?",
+        "Should parents teach their children to be organized?",
+        "What can people do to become more organized?",
+        "Are organized people more likely to be successful at work or in their studies?",
+        "Do you think children should learn to be organized from a young age?",
+        "Why is it important for people to be organized?"
+      ]
+    },
+    {
+      "id": "p2-likes-photos",
+      "part": 2,
+      "title": "Describe a person you know who really likes taking photos.",
+      "title_zh": "喜欢拍照的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Who the person is",
+        "When and how you got to know him/her",
+        "Where he/she takes photos",
+        "And explain how you feel about him/her"
+      ],
+      "part3": [
+        "Why are some people keen on taking photos?",
+        "What kind of photos do people often take?",
+        "Do you think it is okay to take photos everywhere?",
+        "Why do tourists like taking photos while they are travelling?",
+        "Some people do not mind others walking into their shots when they are taking photos. What do you think?"
+      ]
+    },
+    {
+      "id": "p2-older-admire",
+      "part": 2,
+      "title": "Describe someone who is older than you that you admire.",
+      "title_zh": "比你年长、让你钦佩的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "Who this person is",
+        "How you knew this person",
+        "What kinds of things you like to do together",
+        "And explain how you feel about this person"
+      ],
+      "part3": [
+        "What do old people usually do in their daily life?",
+        "Why is there a generation gap between the young and the old?",
+        "Has old people's life quality improved when compared to the past?",
+        "What can young and old people learn from each other?",
+        "What sports are popular among older people?",
+        "What kinds of things do the elderly remember for a long time?"
+      ]
+    },
+    {
+      "id": "p2-handmade",
+      "part": 2,
+      "title": "Describe a person who is good at making things by hand.",
+      "title_zh": "擅长手工制作的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "bullets": [
+        "Who this person is",
+        "What he/she makes",
+        "What materials or technologies he/she uses",
+        "And why you think this person is good at making things by hand"
+      ],
+      "part3": [
+        "Does art, like music or theater, have an impact on society?",
+        "Is it good to have creative people in a team?",
+        "What impact can artistic buildings have on society?",
+        "Do children these days still like doing arts and crafts?",
+        "Why do some children enjoy making things by hand?",
+        "Do you think art classes are important for children?"
+      ]
+    },
+    {
+      "id": "p2-loves-history",
+      "part": 2,
+      "title": "Describe a person who learns history and loves history.",
+      "title_zh": "学习并喜欢历史的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast"
+      ],
+      "bullets": [
+        "Who this person is",
+        "How he/she learns history",
+        "Why he/she loves history",
+        "And explain how you feel about him/her"
+      ],
+      "part3": [
+        "Besides big historical events, what else is important when learning history?",
+        "Do you think people should learn ancient history before learning modern history?",
+        "Is it important to learn how people in the past lived their lives?",
+        "How do children learn history before they attend school?",
+        "At what age do you think people should begin to learn history?",
+        "Do you think children should begin learning history from an early age?",
+        "Do you like learning history?"
+      ]
+    },
+    {
+      "id": "p2-taught-skill",
+      "part": 2,
+      "title": "Describe a person who taught you a new skill.",
+      "title_zh": "教你新技能的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Who this person was",
+        "What the skill was",
+        "How you learned it",
+        "And explain how you felt about this person"
+      ],
+      "part3": [
+        "Why is self-discipline important when learning a new skill?",
+        "What are the differences between learning from a teacher and learning by oneself?",
+        "How do adults learn a new skill?",
+        "How can parents and teachers teach children new skills?",
+        "Where can children learn new skills?",
+        "Why should children learn new skills?"
+      ]
+    },
+    {
+      "id": "p2-popular-person",
+      "part": 2,
+      "title": "Describe a popular person.",
+      "title_zh": "一个受欢迎的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Who this person is",
+        "What kind of person he or she is",
+        "When you see him/her normally",
+        "And explain why you think this person is popular"
+      ],
+      "part3": [
+        "Why do people want to be popular?",
+        "Is it easier to become popular nowadays?",
+        "What are the qualities of being a good teacher?",
+        "Do you think good teachers are always popular among students?",
+        "Is it important for a teacher to be popular?",
+        "Why are some students popular in school?"
+      ]
+    },
+    {
+      "id": "p2-sportsperson",
+      "part": 2,
+      "title": "Describe a successful sportsperson you admire.",
+      "title_zh": "钦佩的成功运动员",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Who he/she is",
+        "What you know about him/her",
+        "What he/she is like in real life",
+        "What achievement he/she has made",
+        "And explain why you admire him/her"
+      ],
+      "part3": [
+        "Should students have physical education and do sports at school?",
+        "What qualities should an athlete have?",
+        "Is talent important in sports?",
+        "Is it easy to identify children's talents?",
+        "What is the most popular sport in your country?",
+        "Why are there so few top athletes?"
+      ]
+    },
+    {
+      "id": "p2-noisy-place",
+      "part": 2,
+      "title": "Describe a noisy place you have been to.",
+      "title_zh": "一个嘈杂的地方",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Where it is",
+        "When you went there",
+        "What you did there",
+        "And explain why you feel it's a noisy place"
+      ],
+      "part3": [
+        "How can people consider others' feelings when chatting in public?",
+        "How would people usually respond to noises in your country?",
+        "Which area is exposed to noise more, the city or the countryside?",
+        "What kinds of noises are there in our life?",
+        "Should children not be allowed to make noise under any circumstances?",
+        "Do you think it is good for children to make noise?"
+      ]
+    },
+    {
+      "id": "p2-natural-place",
+      "part": 2,
+      "title": "Describe a natural place (e.g. parks, mountains).",
+      "title_zh": "一个自然之地",
+      "category": "new",
+      "sources": [
+        "https://ielts.koolearn.com/20260917/868081.html",
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Where this place is",
+        "How you knew this place",
+        "What it is like",
+        "And explain why you like to visit it"
+      ],
+      "part3": [
+        "What kind of people like to visit natural places?",
+        "What are the differences between a natural place and a city?",
+        "Do you think that going to the park is the only way to get close to nature?",
+        "What can people gain from going to natural places?",
+        "Do you think it is a good idea to let animals stay in local parks for people to see?"
+      ]
+    },
+    {
+      "id": "p2-crowded-place",
+      "part": 2,
+      "title": "Describe a crowded place that you have visited.",
+      "title_zh": "一个拥挤的地方",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Where it was",
+        "When you went there",
+        "Who you went there with",
+        "What you did there",
+        "And how you felt about the experience"
+      ],
+      "part3": [
+        "Which cities in your country are particularly overcrowded?",
+        "Do you think cities will have more or less green space in the future?",
+        "Do you think people will use bicycles more or less in cities in the future?",
+        "Why do people go to crowded places?",
+        "Do you think there are some people who enjoy crowded places?",
+        "Do you think it is a good trend to have more big cities?"
+      ]
+    },
+    {
+      "id": "p2-short-trip",
+      "part": 2,
+      "title": "Describe a short trip you often take but do not like.",
+      "title_zh": "一段不喜欢的短途行程",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Where you go",
+        "When you go there",
+        "Why you go there",
+        "And explain why you do not like the trip"
+      ],
+      "part3": [
+        "Which is better for knowing more about a country? Travelling or reading books about it?",
+        "How much time do you think people should spend on a trip abroad?",
+        "Who prefers travelling abroad? The young or the old?",
+        "Do people in your country like travelling abroad?",
+        "What are the benefits of travelling abroad?",
+        "What problems does it cause for transportation when everyone commutes at the same time?"
+      ]
+    },
+    {
+      "id": "p2-building-visit",
+      "part": 2,
+      "title": "Describe a building you enjoy visiting (e.g. a library, a shopping mall, etc.).",
+      "title_zh": "一座喜欢去的建筑",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Where it is",
+        "How you knew it",
+        "What it looks like",
+        "And explain why you enjoy visiting it"
+      ],
+      "part3": [
+        "Do you think all old buildings should be demolished?",
+        "Do you think old buildings are valuable?",
+        "Is it better to live in an apartment than in a house?",
+        "Why do people visit historic buildings?",
+        "Should modern buildings replace traditional buildings?",
+        "Is it important to protect historic buildings? Why?",
+        "Why do some people prefer to live in the countryside?"
+      ]
+    },
+    {
+      "id": "p2-least-favourite-movie",
+      "part": 2,
+      "title": "Describe your least favourite movie.",
+      "title_zh": "最不喜欢的电影",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "When you watched it",
+        "Where you watched it",
+        "What it was about",
+        "And explain why it's your least favourite movie"
+      ],
+      "part3": [
+        "Can movies help people better understand the cultural background of a country?",
+        "Are movies more likely to help people become more creative than books?",
+        "What are the differences between watching movies at home and in a cinema?",
+        "What kinds of movies are the most popular in your country?"
+      ]
+    },
+    {
+      "id": "p2-exciting-book",
+      "part": 2,
+      "title": "Describe an exciting book that you enjoyed reading.",
+      "title_zh": "一本令人兴奋的书",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "What kind of book it was",
+        "Why you decided to read it",
+        "What the book was about",
+        "Why you found it exciting"
+      ],
+      "part3": [
+        "What kinds of books do people in your country enjoy reading?",
+        "What kinds of books do young and older people enjoy?",
+        "Do boys and girls tend to enjoy different kinds of books?",
+        "Do you think it is important to read a book before watching its film adaptation?",
+        "Why are films based on books sometimes disappointing?",
+        "Can films based on novels encourage people to read more?"
+      ]
+    },
+    {
+      "id": "p2-important-decision",
+      "part": 2,
+      "title": "Describe a time you made an important decision and were happy with the result.",
+      "title_zh": "对结果感到满意的重要决定",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "What the decision was",
+        "Why you made the decision",
+        "How easy it was for you to make the decision",
+        "And explain why you were happy with the result"
+      ],
+      "part3": [
+        "Which is better, to make a decision quickly or slowly?",
+        "Do you think most people's decisions are made in their 20s?",
+        "What if people in a group have different opinions on a decision?",
+        "What little decisions do people make every day?",
+        "Do you think it is a good idea to make a small decision every day?",
+        "How can we tell the difference between an important and an easy decision?"
+      ]
+    },
+    {
+      "id": "p2-watched-interview",
+      "part": 2,
+      "title": "Describe a time you watched a famous person being interviewed.",
+      "title_zh": "看过的名人采访",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Who the famous person was",
+        "What the interview was about",
+        "When and where you watched the interview",
+        "And explain how you felt about the interview"
+      ],
+      "part3": [
+        "What should people wear to a job interview?",
+        "Why do we need to attend interviews when applying for jobs?",
+        "Why do some people think interviews are a waste of time?",
+        "Why do some people dislike being interviewed?",
+        "What kinds of people are usually interviewed?",
+        "What kinds of things do famous people often say in an interview?",
+        "What can we do to get a job interview?"
+      ]
+    },
+    {
+      "id": "p2-saved-money",
+      "part": 2,
+      "title": "Describe a time when you saved money to buy something special.",
+      "title_zh": "攒钱买特别的东西",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "What the special thing was",
+        "Why you wanted to buy it",
+        "How you saved money for it",
+        "And explain how you felt after buying it"
+      ],
+      "part3": [
+        "Should people spend time on charity, or just money?",
+        "What kind of things do people usually save money for?",
+        "Is it easier to spend money or save money?",
+        "Do you think it is easier to teach teenagers how to manage money when they are around 16 or 17 years old?",
+        "Should parents teach their children to spend money freely or to save money?",
+        "Should schools teach children how to manage money from a young age?"
+      ]
+    },
+    {
+      "id": "p2-childhood-skill",
+      "part": 2,
+      "title": "Describe a new skill you learned when you were a child.",
+      "title_zh": "小时候学会的新技能",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "What the skill was",
+        "Who taught you this skill",
+        "How you learned it",
+        "And explain how you felt about learning the skill"
+      ],
+      "part3": [
+        "Is it important for everyone to have a specialized skill?",
+        "Can a child learn skills from another child?",
+        "Do you think it is easier for children to learn new skills than for adults?",
+        "What are the differences between the way adults learn and the way children learn?",
+        "What are the differences between learning in a group and learning by yourself?",
+        "What skills should children learn before they go to school?"
+      ]
+    },
+    {
+      "id": "p2-good-service",
+      "part": 2,
+      "title": "Describe a time when you received good service in a shop or store.",
+      "title_zh": "在商店受到良好服务的经历",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Where the shop is",
+        "When you went to the shop",
+        "What service you received from the staff",
+        "And explain how you felt about the service"
+      ],
+      "part3": [
+        "Why are shopping malls so popular in your country?",
+        "What are the advantages and disadvantages of shopping in small shops?",
+        "Why do some people not like shopping in small shops?",
+        "What are the differences between online shopping and in-store shopping?",
+        "What are the advantages and disadvantages of shopping online?",
+        "Can consumption drive economic growth?"
+      ]
+    },
+    {
+      "id": "p2-enjoyable-evening",
+      "part": 2,
+      "title": "Describe an enjoyable evening you had with your friends.",
+      "title_zh": "和朋友度过的愉快夜晚",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "When and where it was",
+        "What you did",
+        "Who you spent the evening with",
+        "And explain why it was enjoyable"
+      ],
+      "part3": [
+        "What are the differences between young people's leisure time activities and those of old people?",
+        "What can we do to bring family members closer together?",
+        "How do people get along in a big family?",
+        "Is it important to communicate with your family?",
+        "Do older people prefer spending time with family or with friends?",
+        "Why do people need friends?"
+      ]
+    },
+    {
+      "id": "p2-waste-of-time",
+      "part": 2,
+      "title": "Describe an activity you do regularly that you think is a waste of time.",
+      "title_zh": "觉得浪费时间的日常活动",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ielts.koolearn.com/20261008/868110.html",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "What it is",
+        "When you usually do it",
+        "Why you do it",
+        "And explain why you think it is a waste of time"
+      ],
+      "part3": [
+        "How do you balance life and work?",
+        "Will you continue doing something when you are aware that it's a waste of time?",
+        "What kinds of things make people feel pressured?",
+        "Why do some people refuse to abide by rules?",
+        "Do you think stress is important in people's lives?",
+        "Is it good to have a daily routine?"
+      ]
+    },
+    {
+      "id": "p2-special-party",
+      "part": 2,
+      "title": "Describe a party for a special event that impressed you a lot.",
+      "title_zh": "印象深刻的特别聚会",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html"
+      ],
+      "bullets": [
+        "When and where it was held",
+        "What the party was held for",
+        "How many people attended it",
+        "And explain why it impressed you a lot"
+      ],
+      "part3": [
+        "What special events are celebrated in your country?",
+        "Do most people prefer to hold a party in a restaurant or in a pub?",
+        "Do most people prefer to hold a party in a public place or a private place?",
+        "When do people like to hold a party?",
+        "Do you think people nowadays prefer attending big parties or small gatherings with close friends? Why?",
+        "Are there any differences between how young people and older people celebrate events with parties?",
+        "Do you think it's a waste of money for governments to celebrate national events?",
+        "What festivals are the most important for people in your country?"
+      ]
+    },
+    {
+      "id": "p2-helped-problem",
+      "part": 2,
+      "title": "Describe a time you helped someone solve a problem.",
+      "title_zh": "帮助别人解决问题的经历",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "When it was",
+        "Who you helped",
+        "What problem you solved",
+        "And explain how you felt about this experience"
+      ],
+      "part3": [
+        "Should people solve their own problems before helping others?",
+        "What kinds of skills are needed when people want to help others?",
+        "Is it enough for children to learn about helping others only from their parents?",
+        "Is it important for parents to teach their children to help others?",
+        "When do people usually ask others for help?"
+      ]
+    },
+    {
+      "id": "p2-place-free-time",
+      "part": 2,
+      "title": "Describe a place you would like to visit in your free time.",
+      "title_zh": "空闲时想去的地方",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://www.jingsailian.com/liuxue/1651459.html",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Where it is",
+        "What you will do there",
+        "How long you will stay there",
+        "And explain why you would like to visit it"
+      ],
+      "part3": [
+        "Why do you think some people choose not to travel abroad?",
+        "Do you think a gap period in life is important?"
+      ]
+    },
+    {
+      "id": "p2-met-once",
+      "part": 2,
+      "title": "Describe a person you only met once recently and want to know more about.",
+      "title_zh": "最近只见过一面、想进一步了解的人",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Who he/she is",
+        "When you met him/her",
+        "Why you want to know more about him/her",
+        "And explain how you feel about him/her"
+      ],
+      "part3": [
+        "What should we not talk about when we meet a person for the first time?",
+        "What can we do to leave a good impression on people we meet for the first time?",
+        "What qualities make true friends?",
+        "Is it important to have the same hobbies and interests when making friends?",
+        "On what occasions do people like to make friends?"
+      ]
+    },
+    {
+      "id": "p2-special-cake",
+      "part": 2,
+      "title": "Describe a special cake you received from others.",
+      "title_zh": "别人送的特别的蛋糕",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When it happened",
+        "Where it happened",
+        "Who you got the cake from",
+        "And explain why it's a special cake"
+      ],
+      "part3": [
+        "Is there any food in your country that is eaten at special times or on special occasions?",
+        "Why are some people willing to spend a lot of money on meals on special days?",
+        "Do you think it's good to communicate when eating with your family?",
+        "In your country, do people nowadays cook at home as frequently as people did in the past?",
+        "What do you think of people using their mobile phones during a meal?"
+      ]
+    },
+    {
+      "id": "p2-organized-event",
+      "part": 2,
+      "title": "Describe a time when you organized a happy event successfully.",
+      "title_zh": "成功组织的快乐活动",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What the event was",
+        "How you prepared for it",
+        "Who helped you to organize it",
+        "And explain why you think it was a successful event"
+      ],
+      "part3": [
+        "How can parents help children to be organized?",
+        "On what occasions do people need to be organized?",
+        "Does everything need to be well prepared?",
+        "Do people need others' help when organizing things?",
+        "How would you feel when you were not well prepared for something?",
+        "Do you prefer to prepare and organize an activity or just take part in an activity?"
+      ]
+    },
+    {
+      "id": "p2-cheap-day-out",
+      "part": 2,
+      "title": "Describe a special day out that cost you little.",
+      "title_zh": "花钱不多却很特别的外出",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When the day was",
+        "Where you went",
+        "How much you spent",
+        "And explain how you feel about the day"
+      ],
+      "part3": [
+        "Do people like to spend their leisure time out in your country?",
+        "How do people spend their leisure time in your country?",
+        "How does technology affect the way people spend their leisure time?",
+        "Do you think only old people have time for leisure?",
+        "Why do people like to have days off?",
+        "Going out to have holidays is tiring. Why do people still want to do it?"
+      ]
+    },
+    {
+      "id": "p2-traffic-jam",
+      "part": 2,
+      "title": "Describe a time when you were stuck in a traffic jam for a very long time.",
+      "title_zh": "堵车很久的一次经历",
+      "category": "new",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When it happened",
+        "Where you were stuck",
+        "What you did while waiting",
+        "And explain how you felt in the traffic jam"
+      ],
+      "part3": [
+        "How can we solve the traffic jam problem?",
+        "Do you think developing public transport can solve traffic jam problems?",
+        "Do you think the highways will help reduce traffic jams?",
+        "What are good ways to manage traffic?",
+        "Do you like to use public transport?",
+        "Would you rather be in a car or a bus in a traffic jam?"
+      ]
+    },
+    {
+      "id": "p2-grow-plants",
+      "part": 2,
+      "title": "Describe a person who loves to grow plants (e.g. vegetables, flowers) at home or in the garden.",
+      "title_zh": "喜欢在家或花园种菜种花的人",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Who this person is",
+        "What plants he/she grows",
+        "And explain why he/she loves growing plants"
+      ],
+      "part3": [
+        "What are the advantages of growing vegetables or flowers at home?",
+        "Do many people grow vegetables or flowers at home in your country?",
+        "Is it easy to grow plants at home?",
+        "Why do some people like to grow plants?",
+        "Why do some people prefer to grow their own fruits and vegetables instead of buying them from the market?",
+        "Do you think students should learn to grow plants?"
+      ]
+    },
+    {
+      "id": "p2-childhood-friend",
+      "part": 2,
+      "title": "Describe a friend from your childhood.",
+      "title_zh": "一位童年时的朋友",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Who he/she is",
+        "Where and how you met each other",
+        "What you often did together",
+        "And explain what made you like him/her"
+      ],
+      "part3": [
+        "Do you still keep in touch with your friends from childhood? Why or why not?",
+        "How important is childhood friendship to children?",
+        "What do you think of communicating via social media?",
+        "Do you think online communication through social media will replace face-to-face communication?",
+        "What's the difference between having younger friends and older friends?",
+        "Has technology changed people's friendships? How?"
+      ]
+    },
+    {
+      "id": "p2-medical-career",
+      "part": 2,
+      "title": "Describe a person you know who would like to choose a career in the medical field (e.g. a doctor, a nurse).",
+      "title_zh": "想从事医疗行业的人",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When you knew him/her",
+        "When he/she started to think about that",
+        "What he/she would like to do",
+        "And explain why he/she would like to choose this career"
+      ],
+      "part3": [
+        "Do you think being a doctor is easy or difficult?",
+        "Do you think learning biology is interesting for children?",
+        "Why do some children want to become doctors?",
+        "Do you think governments should put a large amount of money into medical research?",
+        "Why is some doctors' pay high and others' low?",
+        "Do you think doctors should be paid more?"
+      ]
+    },
+    {
+      "id": "p2-successful-business",
+      "part": 2,
+      "title": "Describe a person you know who has a successful business.",
+      "title_zh": "生意很成功的人",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Who this person is",
+        "How you got to know him/her",
+        "Why and how he/she started the business",
+        "What business he/she does",
+        "And explain why you think the business is successful"
+      ],
+      "part3": [
+        "Why do some people start their own business?",
+        "Should governments provide financial support to start-ups?",
+        "Do most people prefer shopping at big stores or small stores?",
+        "What makes a business successful?",
+        "What makes a business fail?",
+        "Is it easy to set up a new business in your country?"
+      ]
+    },
+    {
+      "id": "p2-good-at-languages",
+      "part": 2,
+      "title": "Describe a person who is good at learning and speaking new languages.",
+      "title_zh": "擅长学习和说新语言的人",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "How you got to know him/her",
+        "How he/she learns a new language",
+        "What languages he/she can speak",
+        "And explain how you feel about him/her"
+      ],
+      "part3": [
+        "Are there many people who can speak foreign languages in your country?",
+        "Does speaking other languages help at work?",
+        "Do people learn any languages other than English?",
+        "Why is it easier for children to learn new things than for adults?",
+        "How do people learn new things?",
+        "What is the most important thing for learning a language well?"
+      ]
+    },
+    {
+      "id": "p2-tall-building",
+      "part": 2,
+      "title": "Describe a tall building you like or dislike.",
+      "title_zh": "喜欢或不喜欢的高楼",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What it is used for",
+        "Where it is",
+        "What it looks like",
+        "And explain why you like/dislike it"
+      ],
+      "part3": [
+        "Are there many tall buildings in your country?",
+        "What are the differences between those tall buildings in your country?",
+        "Why are different places laid out and designed differently?",
+        "What are the advantages of living in tall buildings?",
+        "Why do some people like to remodel and decorate their homes themselves?",
+        "What kind of interior design style do most people like?"
+      ]
+    },
+    {
+      "id": "p2-boring-place",
+      "part": 2,
+      "title": "Describe a boring place.",
+      "title_zh": "一个无聊的地方",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Where it is",
+        "Who you went there with",
+        "What you did there",
+        "And explain why you think it is a boring place"
+      ],
+      "part3": [
+        "Why do most children think education is boring?",
+        "Why aren't young people willing to listen to the experiences of older people?",
+        "What can people do when they feel bored?",
+        "Why are some teachers' classes boring? Are there any solutions?",
+        "Why do some young people feel bored when talking with old people?",
+        "Do most people think news about celebrities is boring?"
+      ]
+    },
+    {
+      "id": "p2-recommend-place",
+      "part": 2,
+      "title": "Describe a place you have travelled to that you would like to recommend to others.",
+      "title_zh": "想推荐给别人的旅行之地",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "What it is",
+        "Where it is",
+        "What you saw and did there",
+        "And explain why you would like to recommend it to others"
+      ],
+      "part3": [
+        "Where do people in your country often go for holidays?",
+        "What is the ideal length for a holiday?",
+        "How do people usually plan holidays?",
+        "Is it important to plan a holiday ahead?",
+        "Why do many countries try to attract people to visit?",
+        "How do people decide when to travel?"
+      ]
+    },
+    {
+      "id": "p2-home-visit",
+      "part": 2,
+      "title": "Describe a home that you like to visit but do not want to live in.",
+      "title_zh": "喜欢拜访但不想住的家",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Where it is",
+        "What it is like",
+        "Why you like to visit it",
+        "And explain why you would not like to live there"
+      ],
+      "part3": [
+        "Do people in your country like to visit others' homes?",
+        "What kind of place do people in your country like to live in?",
+        "What's the difference between homes in cities and those in the countryside?",
+        "What kind of gifts do people usually bring when they visit others?",
+        "How often do you visit your relatives or friends?"
+      ]
+    },
+    {
+      "id": "p2-interesting-video",
+      "part": 2,
+      "title": "Describe an interesting video.",
+      "title_zh": "一个有趣的视频",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When and where you watched it",
+        "What it is about",
+        "Why you watched it",
+        "And explain how you feel about it"
+      ],
+      "part3": [
+        "What kind of videos do people in your country like to watch?",
+        "Which is more helpful, watching videos or reading books?",
+        "What skills can people learn from watching videos?",
+        "Are there any differences between the videos that young people and old people like to watch?",
+        "What makes a video go viral online?"
+      ]
+    },
+    {
+      "id": "p2-new-law",
+      "part": 2,
+      "title": "Describe a new law you would like to introduce in your country.",
+      "title_zh": "希望在自己国家推行的新法律",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What law it is",
+        "What changes this law brings",
+        "Whether this new law will be popular",
+        "How you came up with the new law",
+        "And explain how you feel about this new law"
+      ],
+      "part3": [
+        "What rules should students follow at school?",
+        "Do people in your country usually obey the law?",
+        "What kinds of behavior are considered as good behavior?",
+        "Do you think children can learn about the law outside of school?",
+        "What are the benefits for people to obey rules?",
+        "How can parents teach children to obey rules?"
+      ]
+    },
+    {
+      "id": "p2-live-sports",
+      "part": 2,
+      "title": "Describe a live sports event you watched and liked.",
+      "title_zh": "现场观看并喜欢的体育赛事",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What it was",
+        "When and where you watched it",
+        "Who you watched it with",
+        "And explain why you liked it"
+      ],
+      "part3": [
+        "Why do some people like to watch sports events?",
+        "What are the advantages of watching sports events online?",
+        "What sports matches are suitable for children to attend?",
+        "Why do some people spend a lot going to other countries to watch sports events?",
+        "What sports games are popular in your country?",
+        "What are the main differences between watching a sports event live in a stadium and watching it on TV?"
+      ]
+    },
+    {
+      "id": "p2-special-food",
+      "part": 2,
+      "title": "Describe a food that people eat on special occasions/events.",
+      "title_zh": "特殊场合吃的食物",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "What it is",
+        "What the special event/occasion is",
+        "How it is cooked/made",
+        "And explain why people eat it on that special occasion/event"
+      ],
+      "part3": [
+        "Why are there special foods on special occasions or events?",
+        "What are the differences between everyday food and festival food?",
+        "Are there any differences between the food people eat today and the food people ate in the past?",
+        "Do people today prefer eating at home or in a restaurant?",
+        "What kinds of food are popular in your country?",
+        "Do people in your country like eating foreign food?",
+        "How have people's eating habits changed compared to the past?"
+      ]
+    },
+    {
+      "id": "p2-celebrity-ad",
+      "part": 2,
+      "title": "Describe an advertisement with a famous person in it.",
+      "title_zh": "有名人出镜的广告",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "Who the person is",
+        "Where you can see it",
+        "What the advertisement is about",
+        "And explain how you feel about the advertisement"
+      ],
+      "part3": [
+        "What are the advantages and disadvantages of advertisements?",
+        "Why are many advertisements endorsed by celebrities? How useful are they?",
+        "What is the most important factor in an advertisement?",
+        "Why are some advertisements boring?",
+        "Is advertising important for a company? Why?",
+        "Which is more effective, online advertising or offline advertising?"
+      ]
+    },
+    {
+      "id": "p2-animal-story",
+      "part": 2,
+      "title": "Describe a story/book with animals in it.",
+      "title_zh": "有动物出现的故事或书",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What animals are in it",
+        "What the story/book is about",
+        "Why you read the story/book",
+        "And explain what you think of this story/book"
+      ],
+      "part3": [
+        "Should schools teach children about animals?",
+        "Some people think pets should not be kept in cities. What do you think?",
+        "Many people regard pets as members of their family. What do you think?",
+        "Do many people keep pets in your country?",
+        "What are the advantages of keeping a pet?",
+        "Why do people always tell children stories with animals?"
+      ]
+    },
+    {
+      "id": "p2-environment-law",
+      "part": 2,
+      "title": "Describe a law on environmental protection.",
+      "title_zh": "一项环境保护的法律",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "What it is",
+        "How you first learned about it",
+        "Who benefits from it",
+        "And explain how you feel about this law"
+      ],
+      "part3": [
+        "What kinds of rules do schools in your country have?",
+        "Do you think school rules are important?",
+        "Are children unhappy with the school rules?",
+        "How can parents and teachers help children understand and follow rules?",
+        "What are the rules people should obey at work?",
+        "What is the purpose of punishment?"
+      ]
+    },
+    {
+      "id": "p2-got-up-early",
+      "part": 2,
+      "title": "Describe a time when you got up early.",
+      "title_zh": "一次早起的经历",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When it was",
+        "What you did",
+        "Why you got up early",
+        "And how you felt about it"
+      ],
+      "part3": [
+        "Do you know anyone who likes to get up early?",
+        "Why do people get up early?",
+        "What kinds of occasions need people to arrive early?",
+        "Why do some people like to stay up late?",
+        "Is it good to arrive early in any situation?",
+        "What kind of people like getting up early?"
+      ]
+    },
+    {
+      "id": "p2-changed-plan",
+      "part": 2,
+      "title": "Describe a plan that you had to change recently.",
+      "title_zh": "最近不得不改变的计划",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "When this happened",
+        "What made you change the plan",
+        "What the new plan was",
+        "And how you felt about the change"
+      ],
+      "part3": [
+        "Do people often change their plans?",
+        "Would you tell others if you change your plan?",
+        "Why do you think parents still make plans for their children nowadays?",
+        "How does technology help people make plans?",
+        "What kind of plans do people often make?",
+        "Do you think people like the process of making plans more, or the moment of carrying them out?"
+      ]
+    },
+    {
+      "id": "p2-worked-in-group",
+      "part": 2,
+      "title": "Describe a time when you worked in a group.",
+      "title_zh": "一次小组合作的经历",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What you did",
+        "Who you worked with",
+        "What problems you faced",
+        "And explain why you worked in the group"
+      ],
+      "part3": [
+        "Why do some people prefer to work by themselves?",
+        "What should a leader do to make team members want to follow him or her?",
+        "Should students learn to do group work?",
+        "What group tasks are there in schools?",
+        "What advantages are there for students experiencing teamwork at school?",
+        "How can you tell if a person is a good leader?"
+      ]
+    },
+    {
+      "id": "p2-no-reply",
+      "part": 2,
+      "title": "Describe a time when you sent a message or an email to someone but received no reply for a long time.",
+      "title_zh": "发了消息却很久没收到回复",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/"
+      ],
+      "bullets": [
+        "Who you sent it to",
+        "What the message/email was about",
+        "Whether you finally received the reply",
+        "And explain how you felt about the experience"
+      ],
+      "part3": [
+        "In what situations do people spend a long time responding to others' messages?",
+        "In what situations do people not respond to messages at all?",
+        "What would you do if you did not receive a reply after sending out a message?",
+        "Why do some people prefer sending a message instead of making a call?",
+        "How do you show your respect in your messages?",
+        "Why do some people feel angry when others don't reply to their message?",
+        "Are you more polite when sending a message to a stranger than to a friend?"
+      ]
+    },
+    {
+      "id": "p2-local-news",
+      "part": 2,
+      "title": "Describe a piece of local news that people are interested in.",
+      "title_zh": "一条大家都感兴趣的本地新闻",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What it was about",
+        "Where you saw/heard it",
+        "Who was involved",
+        "And explain why people were interested in it"
+      ],
+      "part3": [
+        "Do people read the newspaper where you live?",
+        "Do people prefer local or international news?",
+        "Do you think it's important to have a national identity?",
+        "How can people develop their national identity?",
+        "Are there a lot of people talking about local news?",
+        "Do young people or the elderly care more about local news?",
+        "Why do some people want to be very involved in their community?",
+        "Do you think local communities were stronger in the past than they are today?"
+      ]
+    },
+    {
+      "id": "p2-long-term-goal",
+      "part": 2,
+      "title": "Describe a long-term goal/ambition you would like to achieve.",
+      "title_zh": "想实现的长期目标或抱负",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/"
+      ],
+      "bullets": [
+        "How long you have had this goal/ambition",
+        "What it is",
+        "How you will achieve it",
+        "And explain why you set it"
+      ],
+      "part3": [
+        "Why should children have ambitions?",
+        "What do you think of people going after high positions?",
+        "Why are some young people keen on being fans of superstars?",
+        "Is it good for a person to be ambitious?",
+        "Do you think it is necessary to be ambitious when working in a team in a company?",
+        "Should parents support their children in pursuing their ambitions?",
+        "What kinds of ambitions do people have?",
+        "Is there any difference between children's ambitions and those of grown-ups?"
+      ]
+    },
+    {
+      "id": "p2-changed-opinion",
+      "part": 2,
+      "title": "Describe a time when you changed an important opinion of yours.",
+      "title_zh": "改变自己一个重要看法的经历",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://en.scorefactory.io/ielts_speaking_forecast",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "When you changed your opinion",
+        "What the original opinion was",
+        "Why you changed it",
+        "And explain how you felt about the experience"
+      ],
+      "part3": [
+        "When do most children begin to have their own opinions?",
+        "Whose opinions are more important to children, their parents' or teachers'?",
+        "Do children communicate more with teachers or with parents?",
+        "Who do young people like to share opinions with?"
+      ]
+    },
+    {
+      "id": "p2-tech-problem",
+      "part": 2,
+      "title": "Describe a challenging technological problem you faced.",
+      "title_zh": "遇到过的棘手技术问题",
+      "category": "retained",
+      "sources": [
+        "https://ezielts.app/zh/ielts-speaking-topics",
+        "https://ieltsactualtests.com/zh/speaking/2026-q3",
+        "https://shishiapcs.github.io/esl-speaking-ielts-topics-september-to-december-2026/",
+        "https://ieltsfever.org/september-2026-to-december-2026-cue-cards-with-sample-answers-updating-weekly/",
+        "https://nomto.app/ar/ielts/articles/ielts-speaking-topics"
+      ],
+      "bullets": [
+        "What the problem was",
+        "When and where you faced it",
+        "How challenging it was",
+        "And explain how you solved it"
+      ],
+      "part3": [
+        "What are the advantages and disadvantages of AI?",
+        "Do you think people today should learn about AI technology?",
+        "Should children learn to use AI?",
+        "How can AI help in our lives?",
+        "Do you think students are overly reliant on AI?",
+        "What can teachers do to stop students from relying too much on AI?"
+      ]
+    }
+  ]
+}

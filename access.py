@@ -23,7 +23,13 @@ _DATA_DIR: Path | None = None
 
 WRITING_MODES = {"full", "task1", "task2"}
 READING_MODES = {"full", "passage1", "passage2", "passage3"}
-MODULES = {"writing", "reading"}
+SPEAKING_MODES = {"full", "topic"}
+MODULES = {"writing", "reading", "speaking"}
+MODULE_MODES = {
+    "writing": WRITING_MODES,
+    "reading": READING_MODES,
+    "speaking": SPEAKING_MODES,
+}
 
 
 class AccessError(Exception):
@@ -349,7 +355,7 @@ def start_student(
         raise AccessError("请选择模考科目", 400)
 
     mode_key = (mode or "full").strip().lower()
-    allowed = WRITING_MODES if module_key == "writing" else READING_MODES
+    allowed = MODULE_MODES.get(module_key, {"full"})
     if mode_key not in allowed:
         mode_key = "full"
 

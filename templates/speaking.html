@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rosette Exclusive Mock Exam · Speaking</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='speaking.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
+      <div class="brand-sub">IELTS Academic Speaking practice · Computer-delivered style</div>
+    </div>
+    <div class="meta">
+      <span id="modeLabel" class="mode-chip">Ready</span>
+      <span id="timerWrap" class="hidden">
+        <span class="timer-label" id="timerLabel">Time remaining</span>
+        <span id="timer" class="timer">--:--</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="setupPanel" class="card setup-card">
+      <p class="eyebrow">Speaking practice</p>
+      <h1>口语题库练习</h1>
+      <p class="muted lead">填写姓名和邀请码后，按 Part 1 → Part 2 → Part 3 练习。这是练习，不是计分考试，结束后不会给出分数或答案。</p>
+
+      <div class="setup-grid" style="margin-top:18px">
+        <label class="field">
+          Candidate name <span class="req">*</span>
+          <input type="text" id="candidateName" placeholder="请输入真实姓名" maxlength="80" required autocomplete="name" />
+        </label>
+        <label class="field">
+          Invitation code <span class="req">*</span>
+          <input type="text" id="inviteCode" placeholder="Enter invitation code" maxlength="32" required autocomplete="off" />
+        </label>
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="muted" style="margin-bottom:8px;font-weight:600">About you</div>
+        <div class="mode-pills" id="statusPills">
+          <label class="active"><input type="radio" name="status" value="study" checked /> I am a student</label>
+          <label><input type="radio" name="status" value="work" /> I have a job</label>
+        </div>
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="muted" style="margin-bottom:8px;font-weight:600">Practice mode</div>
+        <div class="mode-pills" id="modePills">
+          <label class="active"><input type="radio" name="mode" value="full" checked /> 完整练习 · 随机抽取 Part 1–3</label>
+          <label><input type="radio" name="mode" value="topic" /> 自选 Part 2 话题</label>
+        </div>
+      </div>
+
+      <div id="setupError" class="banner error hidden" style="margin-top:14px"></div>
+
+      <div class="actions start-actions">
+        <button type="button" id="btnStart" class="btn btn-start">开始练习</button>
+      </div>
+      <p class="hint" style="margin-top:14px">计时参照正式口语考试：Part 1 约 4–5 分钟，Part 2 准备 1 分钟、陈述 2 分钟，Part 3 约 4–5 分钟。题目来自 2026 年 9–12 月公开回忆题库，并非官方材料。</p>
+      <div class="teacher-entry">
+        <a class="btn ghost" href="/">返回首页</a>
+      </div>
+    </section>
+
+    <section id="pickPanel" class="card setup-card hidden">
+      <p class="eyebrow">Speaking practice</p>
+      <h1>选择 Part 2 话题</h1>
+      <p class="muted lead">选定话题后，会配上相应的 Part 3 讨论题，并从本季 Part 1 题库抽题。</p>
+      <label class="field" id="topicField" style="margin-top:16px">
+        Part 2 topic
+        <select id="topicSelect"></select>
+      </label>
+      <div class="actions start-actions">
+        <button type="button" id="btnBegin" class="btn btn-start">开始 Part 1</button>
+      </div>
+    </section>
+
+    <section id="practicePanel" class="exam-shell hidden">
+      <div id="statusBanner" class="banner info hidden"></div>
+      <div class="task-tabs" id="partTabs" role="tablist">
+        <button type="button" data-part="1" class="active" id="tab1" disabled>Part 1 · Interview</button>
+        <button type="button" data-part="2" id="tab2" disabled>Part 2 · Long turn</button>
+        <button type="button" data-part="3" id="tab3" disabled>Part 3 · Discussion</button>
+      </div>
+
+      <article class="speak-stage">
+        <div class="speak-main">
+          <div class="cd-part-label" id="stageLabel">Part 1</div>
+          <p class="cd-hint" id="stageHint"></p>
+          <div id="questionBox"></div>
+        </div>
+        <div class="speak-side">
+          <div class="rec-card">
+            <div class="muted" style="font-weight:600;margin-bottom:8px">Optional recording</div>
+            <p class="hint">可在浏览器里录音，仅保存在本机，不会上传。</p>
+            <div class="rec-actions">
+              <button type="button" id="btnRecord" class="btn ghost sm">开始录音</button>
+              <button type="button" id="btnDownloadRec" class="btn ghost sm hidden">下载录音</button>
+            </div>
+            <p id="recStatus" class="hint" style="margin-top:8px"></p>
+          </div>
+        </div>
+      </article>
+
+      <div class="cd-footer-bar">
+        <button type="button" id="btnQuit" class="btn ghost">退出</button>
+        <div class="speak-nav">
+          <button type="button" id="btnSkipPart" class="btn ghost hidden">进入下一部分</button>
+          <button type="button" id="btnNext" class="btn ok btn-lg">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="donePanel" class="card done-card hidden">
+      <div class="done-icon" aria-hidden="true">✓</div>
+      <h2>练习结束</h2>
+      <div class="banner success">You have finished this Part 1–3 practice session. No score is given for speaking practice.</div>
+      <p class="muted" style="text-align:center;margin-top:8px">可以再练一套，或返回首页。</p>
+      <div class="actions" style="justify-content:center">
+        <button type="button" id="btnAgain" class="btn btn-start">再练一套</button>
+        <a class="btn ghost" href="/">返回首页</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Rosette Exclusive Mock Exam</span>
+    <a href="/" class="footer-admin">Home</a>
+    <a href="/admin" class="footer-admin">Teacher</a>
+  </footer>
+
+  <script src="{{ url_for('static', filename='speaking.js') }}"></script>
+</body>
+</html>

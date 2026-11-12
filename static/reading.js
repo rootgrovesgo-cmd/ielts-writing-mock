@@ -47,6 +47,10 @@
     resumeBanner: document.getElementById("resumeBanner"),
     statusBanner: document.getElementById("statusBanner"),
     doneMsg: document.getElementById("doneMsg"),
+    doneResult: document.getElementById("doneResult"),
+    doneScore: document.getElementById("doneScore"),
+    doneBand: document.getElementById("doneBand"),
+    doneParts: document.getElementById("doneParts"),
     passageLabel: document.getElementById("passageLabel"),
     passageGuidance: document.getElementById("passageGuidance"),
     passageTitle: document.getElementById("passageTitle"),
@@ -88,7 +92,11 @@
     answers: {},
     flags: {},
     passageHtml: {},
+    questionHtml: "",
     currentPassage: 0,
+    partTimes: { 1: 0, 2: 0, 3: 0 },
+    activePart: 0,
+    partTickAt: null,
     hlSeq: 0,
     warned5: false,
     warned1: false,
@@ -155,6 +163,42 @@
     return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
   }
 
+  function formatDuration(sec) {
+    sec = Math.max(0, Math.floor(Number(sec) || 0));
+    if (sec < 60) return sec + "s";
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return m + "min" + s + "s";
+  }
+
+  function emptyPartTimes() {
+    return { 1: 0, 2: 0, 3: 0 };
+  }
+
+  function creditPartTime() {
+    const now = Date.now();
+    if (state.partTickAt == null) {
+      state.partTickAt = now;
+      return;
+    }
+    const started = state.partTickAt;
+    if (!state.activePart || state.paused || !state.running || state.submitted) {
+      state.partTickAt = now;
+      return;
+    }
+    const delta = Math.floor((now - started) / 1000);
+    if (delta > 0) {
+      const id = state.activePart;
+      state.partTimes[id] = (state.partTimes[id] || 0) + delta;
+      state.partTickAt = started + delta * 1000;
+    }
+  }
+
+  function setActivePart(id) {
+    creditPartTime();
+    state.activePart = id || 0;
+  }
+
   function isAnswered(q) {
     const v = state.answers[q];
     return v != null && String(v).trim() !== "";
@@ -181,6 +225,7 @@
 
   function persist() {
     if (!state.running || state.submitted) return;
+    creditPartTime();
     const payload = {
       running: true,
       mode: state.mode,
@@ -196,6 +241,9 @@
       flags: state.flags,
       currentQ: state.currentQ,
       passageHtml: snapshotPassageHtml(),
+      questionHtml: snapshotQuestionHtml(),
+      partTimes: Object.assign({}, state.partTimes),
+      activePart: state.activePart,
       hlSeq: state.hlSeq,
       warned5: state.warned5,
       warned1: state.warned1,
@@ -233,6 +281,38 @@
     return map;
   }
 
+  function snapshotQuestionHtml() {
+    if (el.questionScroll) return el.questionScroll.innerHTML;
+    return state.questionHtml || "";
+  }
+
+  function syncAnswersToInputs() {
+    state.questions.forEach((q) => {
+      const val = state.answers[q] != null ? String(state.answers[q]) : "";
+      const input = document.getElementById("ans-" + q);
+      if (input) {
+        input.value = val;
+        return;
+      }
+      const radios = el.questionScroll
+        ? el.questionScroll.querySelectorAll('input[type="radio"][data-q="' + q + '"]')
+        : [];
+      radios.forEach((r) => {
+        r.checked = r.value === val || r.value === val.toUpperCase();
+      });
+    });
+  }
+
+  function restoreQuestionHtml(html) {
+    if (!html || !el.questionScroll) return false;
+    el.questionScroll.innerHTML = html;
+    syncAnswersToInputs();
+    bindQuestionInputs();
+    checkMatchingDups();
+    updateCurrentHighlight();
+    return true;
+  }
+
   function renderPassage(id, forceClean) {
     if (state.currentPassage && el.passageBody && state.currentPassage !== id) {
       state.passageHtml[state.currentPassage] = el.passageBody.innerHTML;
@@ -240,6 +320,7 @@
     const p = findPassage(id);
     if (!p) return;
     state.currentPassage = id;
+    setActivePart(id);
     el.passageLabel.textContent = p.label || ("Reading Passage " + id);
     el.passageGuidance.textContent = p.time_guidance || "";
     el.passageTitle.textContent = p.title || "";
@@ -640,12 +721,49 @@
     });
   }
 
-  function selectionInPassage() {
+  const UNHIGHLIGHTABLE = "input, textarea, select, button, option";
+
+  function highlightRoots() {
+    return [el.passageBody, el.questionScroll].filter(Boolean);
+  }
+
+  function nodeIsControl(node) {
+    const eln = node && (node.nodeType === 1 ? node : node.parentElement);
+    if (!eln || typeof eln.closest !== "function") return true;
+    return !!eln.closest(UNHIGHLIGHTABLE);
+  }
+
+  function rangeTouchesControl(range) {
+    if (nodeIsControl(range.startContainer) || nodeIsControl(range.endContainer)) {
+      return true;
+    }
+    const root = range.commonAncestorContainer;
+    const eln = root.nodeType === 1 ? root : root.parentElement;
+    if (!eln || !eln.querySelectorAll) return false;
+    const controls = eln.querySelectorAll(UNHIGHLIGHTABLE);
+    for (let i = 0; i < controls.length; i++) {
+      try {
+        if (range.intersectsNode(controls[i])) return true;
+      } catch (err) {
+        /* ignore */
+      }
+    }
+    return false;
+  }
+
+  function selectionInHighlightable() {
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed || !sel.rangeCount) return null;
     const range = sel.getRangeAt(0);
-    if (!el.passageBody.contains(range.commonAncestorContainer)) return null;
-    return { sel, range };
+    if (!String(range).trim()) return null;
+    const ancestor = range.commonAncestorContainer;
+    const node = ancestor.nodeType === 1 ? ancestor : ancestor.parentElement;
+    if (!node || typeof node.closest !== "function") return null;
+    const root = node.closest("#passageBody, #questionScroll");
+    if (!root) return null;
+    if (!root.contains(range.startContainer) || !root.contains(range.endContainer)) return null;
+    if (rangeTouchesControl(range)) return null;
+    return { sel, range, root };
   }
 
   function hideHlMenu() {
@@ -686,30 +804,40 @@
 
   function marksInRange(range) {
     const marks = [];
-    el.passageBody.querySelectorAll("mark.hl").forEach((m) => {
-      try {
-        if (range.intersectsNode(m)) marks.push(m);
-      } catch (err) {
-        /* ignore */
-      }
+    highlightRoots().forEach((root) => {
+      root.querySelectorAll("mark.hl").forEach((m) => {
+        try {
+          if (range.intersectsNode(m)) marks.push(m);
+        } catch (err) {
+          /* ignore */
+        }
+      });
     });
     return marks;
   }
 
+  function activeMark() {
+    for (const root of highlightRoots()) {
+      const found = root.querySelector("mark.hl[data-active='1']");
+      if (found) return found;
+    }
+    return null;
+  }
+
   function doHighlight() {
-    const ctx = selectionInPassage();
+    const ctx = selectionInHighlightable();
     if (!ctx) return;
     applyHighlight(ctx.range);
     hideHlMenu();
   }
 
   function doClearHighlight() {
-    const ctx = selectionInPassage();
+    const ctx = selectionInHighlightable();
     if (ctx) {
       marksInRange(ctx.range).forEach(unwrapMark);
       window.getSelection().removeAllRanges();
     } else {
-      const focused = el.passageBody.querySelector("mark.hl[data-active='1']");
+      const focused = activeMark();
       if (focused) unwrapMark(focused);
     }
     hideHlMenu();
@@ -753,8 +881,8 @@
 
   function doAddNote() {
     hideHlMenu();
-    const active = el.passageBody.querySelector("mark.hl[data-active='1']");
-    const ctx = selectionInPassage();
+    const active = activeMark();
+    const ctx = selectionInHighlightable();
     if (active && (!ctx || ctx.range.intersectsNode(active))) {
       openNoteModal(active, null);
       return;
@@ -770,27 +898,36 @@
   el.btnClearHighlight.addEventListener("click", doClearHighlight);
   el.btnAddNote.addEventListener("click", doAddNote);
 
-  el.passageBody.addEventListener("mouseup", (e) => {
+  function onHighlightableMouseUp(e) {
     setTimeout(() => {
-      const ctx = selectionInPassage();
+      const ctx = selectionInHighlightable();
       if (!ctx) {
         hideHlMenu();
         return;
       }
       showHlMenuNear(e.clientX + 8, e.clientY + 8);
     }, 0);
-  });
+  }
 
-  el.passageBody.addEventListener("click", (e) => {
+  function onHighlightableClick(e) {
+    const root = e.currentTarget;
     const mark = e.target.closest("mark.hl");
-    el.passageBody.querySelectorAll("mark.hl").forEach((m) => m.removeAttribute("data-active"));
-    if (mark) {
+    root.querySelectorAll("mark.hl").forEach((m) => m.removeAttribute("data-active"));
+    highlightRoots().forEach((other) => {
+      if (other !== root) other.querySelectorAll("mark.hl").forEach((m) => m.removeAttribute("data-active"));
+    });
+    if (mark && root.contains(mark)) {
       mark.dataset.active = "1";
-      if (mark.classList.contains("has-note") && !selectionInPassage()) {
+      if (mark.classList.contains("has-note") && !selectionInHighlightable()) {
         openNoteModal(mark, null);
       }
     }
-  });
+  }
+
+  el.passageBody.addEventListener("mouseup", onHighlightableMouseUp);
+  el.questionScroll.addEventListener("mouseup", onHighlightableMouseUp);
+  el.passageBody.addEventListener("click", onHighlightableClick);
+  el.questionScroll.addEventListener("click", onHighlightableClick);
 
   el.hlMenu.addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-act]");
@@ -887,6 +1024,7 @@
 
   function tick() {
     if (!state.running || state.paused || state.submitted) return;
+    creditPartTime();
     state.remaining -= 1;
     renderTimer();
     if (state.remaining % 5 === 0) persist();
@@ -931,6 +1069,9 @@
     enterExamChrome();
     renderPassage(passageForQuestion(state.currentQ), false);
     renderQuestions();
+    if (state.questionHtml) restoreQuestionHtml(state.questionHtml);
+    if (!state.paused) state.partTickAt = Date.now();
+    else state.partTickAt = null;
     renderPalette();
     setCurrent(state.currentQ, true);
     el.modeLabel.textContent = MODE_LABELS[state.mode] || state.mode;
@@ -1002,6 +1143,9 @@
     state.answers = saved.answers || {};
     state.flags = saved.flags || {};
     state.passageHtml = saved.passageHtml || {};
+    state.questionHtml = saved.questionHtml || "";
+    state.partTimes = Object.assign(emptyPartTimes(), saved.partTimes || {});
+    state.activePart = saved.activePart || passageForQuestion(saved.currentQ || 1);
     state.hlSeq = saved.hlSeq || 0;
     state.warned5 = !!saved.warned5;
     state.warned1 = !!saved.warned1;
@@ -1010,9 +1154,14 @@
     state.paused = !!saved.paused;
     if (state.paused) {
       state.remaining = saved.remaining || 0;
+      state.partTickAt = null;
     } else {
       const elapsed = Math.floor((Date.now() - (saved.savedAt || Date.now())) / 1000);
       state.remaining = Math.max(0, (saved.remaining || 0) - elapsed);
+      if (state.activePart && elapsed > 0) {
+        state.partTimes[state.activePart] = (state.partTimes[state.activePart] || 0) + elapsed;
+      }
+      state.partTickAt = Date.now();
     }
     if (el.candidateName && state.name) el.candidateName.value = state.name;
   }
@@ -1053,6 +1202,10 @@
         state.answers = {};
         state.flags = {};
         state.passageHtml = {};
+        state.questionHtml = "";
+        state.partTimes = emptyPartTimes();
+        state.activePart = 0;
+        state.partTickAt = null;
         state.hlSeq = 0;
         state.warned5 = false;
         state.warned1 = false;
@@ -1101,8 +1254,10 @@
   function togglePause() {
     if (!state.running || state.submitted || !state.allowPause) return;
     if (!state.paused) {
+      creditPartTime();
       state.paused = true;
       state.pauseStartedAt = Date.now();
+      state.partTickAt = null;
       el.btnPause.textContent = "Resume";
       showBanner("The timer is paused (teacher mode).", "info");
     } else {
@@ -1111,6 +1266,7 @@
         state.pauseStartedAt = null;
       }
       state.paused = false;
+      state.partTickAt = Date.now();
       el.btnPause.textContent = "Pause";
       el.statusBanner.classList.add("hidden");
     }
@@ -1127,6 +1283,66 @@
     persist();
   }
 
+  function partIdsForMode(mode) {
+    if (mode === "passage1") return [1];
+    if (mode === "passage2") return [2];
+    if (mode === "passage3") return [3];
+    return [1, 2, 3];
+  }
+
+  function renderDoneResult(data, payload, auto) {
+    const name = payload.candidate_name || "";
+    el.doneMsg.innerHTML =
+      (auto ? "Time is up. Your answers have been submitted automatically." : "Submitted.") +
+      (name ? "<br/>Name: " + escapeHtml(name) : "");
+
+    if (!el.doneResult || !el.doneScore || !el.doneParts) return;
+
+    const score = data && data.score;
+    const total = data && data.total;
+    if (score != null && total != null) {
+      el.doneScore.textContent = score + " / " + total;
+      if (el.doneBand) {
+        const band = data.band_estimate;
+        if (band != null && band !== "") {
+          const n = Number(band);
+          const label = !isNaN(n) && n % 1 === 0 ? String(n) : String(band);
+          el.doneBand.textContent = "Reference band: " + label;
+        } else if ((payload.mode || data.mode) && (payload.mode || data.mode) !== "full") {
+          el.doneBand.textContent = "Single-passage mode: raw score only (no overall band).";
+        } else {
+          el.doneBand.textContent = "";
+        }
+      }
+    } else {
+      el.doneScore.textContent = "—";
+      if (el.doneBand) el.doneBand.textContent = "";
+    }
+
+    const used =
+      data && data.time_used_seconds != null ? data.time_used_seconds : payload.time_used_seconds;
+    const parts = (data && data.part_times) || payload.part_times || {};
+    const mode = payload.mode || (data && data.mode) || "full";
+    const rows = partIdsForMode(mode)
+      .map((id) => {
+        const sec = Number(parts[id] != null ? parts[id] : parts[String(id)] || 0);
+        return (
+          "<tr><th>Passage " +
+          id +
+          "</th><td>" +
+          formatDuration(sec) +
+          "</td></tr>"
+        );
+      })
+      .join("");
+    el.doneParts.innerHTML =
+      rows +
+      '<tr class="total"><th>Total</th><td>' +
+      formatDuration(used) +
+      "</td></tr>";
+    el.doneResult.classList.remove("hidden");
+  }
+
   async function submitAnswers(auto) {
     if (state.submitted) return;
     state.submitted = true;
@@ -1137,6 +1353,7 @@
       state.pausedTotal += Math.floor((Date.now() - state.pauseStartedAt) / 1000);
       state.pauseStartedAt = null;
     }
+    creditPartTime();
 
     const flags = state.questions.filter((q) => state.flags[q]);
     const answers = {};
@@ -1154,6 +1371,15 @@
       time_remaining_seconds: Math.max(0, state.remaining),
       time_used_seconds: Math.max(0, state.duration - state.remaining),
       paused_total_seconds: state.pausedTotal,
+      part_times: {
+        "1": state.partTimes[1] || 0,
+        "2": state.partTimes[2] || 0,
+        "3": state.partTimes[3] || 0,
+      },
+      highlights: {
+        passage: snapshotPassageHtml(),
+        questions: snapshotQuestionHtml(),
+      },
       auto_submitted: !!auto,
     };
 
@@ -1169,14 +1395,7 @@
       clearPersist();
       leaveExamChrome();
       el.done.classList.remove("hidden");
-      const used = formatTime(payload.time_used_seconds);
-      el.doneMsg.innerHTML =
-        (auto ? "Time is up. Your answers have been submitted automatically." : "Submitted.") +
-        "<br/>Name: " +
-        escapeHtml(payload.candidate_name || "") +
-        "<br/>Time used: " +
-        used +
-        "<br/><strong>You may close this page.</strong>";
+      renderDoneResult(data, payload, auto);
     } catch (err) {
       state.submitted = false;
       state.running = true;
@@ -1202,6 +1421,7 @@
     clearPersist();
     leaveExamChrome();
     el.done.classList.add("hidden");
+    if (el.doneResult) el.doneResult.classList.add("hidden");
     el.setup.classList.remove("hidden");
   }
 

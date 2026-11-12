@@ -58,6 +58,12 @@ NOTION_DATABASE_ID = (os.environ.get("NOTION_DATABASE_ID") or "").strip()
 access.bind(DATA_DIR)
 
 
+@app.template_filter("duration")
+def jinja_duration(seconds):
+    return report_pdf.format_duration(seconds)
+
+
+
 def notion_enabled() -> bool:
     return bool(NOTION_TOKEN and NOTION_DATABASE_ID)
 
@@ -483,6 +489,75 @@ def api_submit():
     )
 
 
+
+PART_TIME_KEYS = ("1", "2", "3")
+HIGHLIGHTS_MAX_BYTES = 400_000
+
+
+def normalize_part_times(raw, duration_seconds: int = 0) -> dict[str, int]:
+    """Sanitize client part-time payloads into {"1": int, "2": int, "3": int}."""
+    out = {key: 0 for key in PART_TIME_KEYS}
+    if not isinstance(raw, dict):
+        return out
+    try:
+        cap = max(0, int(duration_seconds or 0)) or (3 * 60 * 60)
+    except (TypeError, ValueError):
+        cap = 3 * 60 * 60
+    for key, value in raw.items():
+        token = str(key).strip().lower().replace(" ", "").replace("_", "")
+        token = token.replace("passage", "")
+        if token not in out:
+            continue
+        try:
+            seconds = int(value)
+        except (TypeError, ValueError):
+            continue
+        out[token] = max(0, min(seconds, cap))
+    return out
+
+
+def normalize_highlights(raw, max_bytes: int = HIGHLIGHTS_MAX_BYTES) -> dict | None:
+    """Optionally keep student highlight HTML with the submission (size-capped)."""
+    if not isinstance(raw, dict):
+        return None
+    cleaned: dict = {}
+    passage = raw.get("passage") or raw.get("passages")
+    if isinstance(passage, dict):
+        passage_out: dict[str, str] = {}
+        for key, html in passage.items():
+            token = str(key).strip()
+            if token not in PART_TIME_KEYS or not isinstance(html, str):
+                continue
+            passage_out[token] = html
+        if passage_out:
+            cleaned["passage"] = passage_out
+    questions = raw.get("questions")
+    if isinstance(questions, str) and questions:
+        cleaned["questions"] = questions
+    if not cleaned:
+        return None
+    encoded = json.dumps(cleaned, ensure_ascii=False)
+    if len(encoded.encode("utf-8")) > max_bytes:
+        return None
+    return cleaned
+
+
+def student_reading_result(record: dict) -> dict:
+    """Student-facing submit result: score and times, never keys or marking."""
+    return {
+        "ok": True,
+        "id": record["id"],
+        "timestamp": record["timestamp"],
+        "score": record["score"],
+        "total": record["total"],
+        "band_estimate": record["band_estimate"],
+        "time_used_seconds": record["time_used_seconds"],
+        "part_times": record.get("part_times") or {key: 0 for key in PART_TIME_KEYS},
+        "mode": record.get("mode"),
+        "auto_submitted": bool(record.get("auto_submitted", False)),
+    }
+
+
 @app.route("/api/reading/submit", methods=["POST"])
 def api_reading_submit():
     ensure_storage()
@@ -501,6 +576,8 @@ def api_reading_submit():
     if not isinstance(answers, dict):
         answers = {}
     flags = data.get("flags") or []
+    if not isinstance(flags, list):
+        flags = []
 
     duration_seconds = int(data.get("duration_seconds") or rs.MODES[mode]["seconds"])
     time_remaining_seconds = int(data.get("time_remaining_seconds") or 0)
@@ -510,6 +587,8 @@ def api_reading_submit():
     )
     auto_submitted = bool(data.get("auto_submitted", False))
     paused_total_seconds = int(data.get("paused_total_seconds") or 0)
+    part_times = normalize_part_times(data.get("part_times"), duration_seconds)
+    highlights = normalize_highlights(data.get("highlights"))
 
     result = rs.score_paper(answers, mode=mode, keys=load_reading_keys())
 
@@ -532,10 +611,13 @@ def api_reading_submit():
         "time_remaining_seconds": time_remaining_seconds,
         "time_used_seconds": time_used_seconds,
         "paused_total_seconds": paused_total_seconds,
+        "part_times": part_times,
         "auto_submitted": auto_submitted,
         "user_id": ident.get("user_id"),
         "invite_code_id": ident.get("invite_code_id"),
     }
+    if highlights:
+        record["highlights"] = highlights
 
     out_path = SUBMISSIONS_DIR / f"{sid}.json"
     with out_path.open("w", encoding="utf-8") as f:
@@ -555,6 +637,7 @@ def api_reading_submit():
             "total": record["total"],
             "band_estimate": record["band_estimate"],
             "time_used_seconds": time_used_seconds,
+            "part_times": part_times,
             "auto_submitted": auto_submitted,
             "file": f"submissions/{sid}.json",
             "user_id": ident.get("user_id"),
@@ -576,13 +659,7 @@ def api_reading_submit():
 
     # Intentionally skip Notion for reading so a missing property cannot
     # interfere. Local JSON is the source of truth.
-    return jsonify(
-        {
-            "ok": True,
-            "id": sid,
-            "timestamp": record["timestamp"],
-        }
-    )
+    return jsonify(student_reading_result(record))
 
 
 def safe_admin_next(raw: str | None) -> str:
@@ -736,6 +813,7 @@ def admin_submission(sid: str):
         record=record,
         is_reading=record_module(record) == "reading",
         band_label=rs.format_band(record.get("band_estimate")),
+        part_times_label=report_pdf.part_times_summary(record.get("part_times")),
         invite=invite,
     )
 

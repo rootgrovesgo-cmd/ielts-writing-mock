@@ -143,18 +143,21 @@ body.reading-page.exam-on .topbar {
   text-align: justify;
   hyphens: auto;
 }
-.passage-body mark.hl {
+.passage-body mark.hl,
+.question-scroll mark.hl {
   background: #ffe566;
   color: inherit;
   padding: 0 .08em;
   border-radius: 1px;
   cursor: pointer;
 }
-.passage-body mark.hl.has-note {
+.passage-body mark.hl.has-note,
+.question-scroll mark.hl.has-note {
   background: #ffd27a;
   box-shadow: inset 0 -2px 0 #c4923a;
 }
-.passage-body mark.hl .note-dot {
+.passage-body mark.hl .note-dot,
+.question-scroll mark.hl .note-dot {
   display: inline-block;
   width: 0;
   height: 0;
@@ -555,3 +558,54 @@ body.reading-page.exam-on .topbar {
 
 body.reading-page.exam-on.reviewing .reading-split,
 body.reading-page.exam-on.reviewing .pane-toggle { display: none; }
+
+
+/* Post-submit score and part times */
+.done-result {
+  margin: 18px auto 0;
+  max-width: 420px;
+  text-align: center;
+}
+.done-score-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.done-score {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--accent-deep);
+  line-height: 1.15;
+}
+.done-band {
+  margin-top: 6px;
+  font-size: 14px;
+}
+.done-parts {
+  margin: 18px auto 0;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.done-parts th,
+.done-parts td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.done-parts th {
+  text-align: left;
+  font-weight: 600;
+}
+.done-parts td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.done-parts tr.total th,
+.done-parts tr.total td {
+  border-bottom: none;
+  font-weight: 700;
+}

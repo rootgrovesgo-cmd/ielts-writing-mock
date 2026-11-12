@@ -264,7 +264,7 @@ class RouteTests(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertFalse(res.get_json()["ok"])
 
-    def test_submit_success_does_not_return_score(self):
+    def test_submit_success_returns_score_and_part_times_not_keys(self):
         self._create_code()
         started = self._start()
         self.assertEqual(started.status_code, 200)
@@ -278,6 +278,7 @@ class RouteTests(unittest.TestCase):
                 "duration_seconds": 3600,
                 "time_remaining_seconds": 120,
                 "time_used_seconds": 3480,
+                "part_times": {"1": 700, "2": 1100, "3": 1680},
                 "auto_submitted": False,
             },
         )
@@ -285,9 +286,19 @@ class RouteTests(unittest.TestCase):
         data = res.get_json()
         self.assertTrue(data["ok"])
         self.assertIn("id", data)
-        self.assertNotIn("score", data)
-        self.assertNotIn("band_estimate", data)
+        self.assertEqual(data["score"], 40)
+        self.assertEqual(data["total"], 40)
+        self.assertEqual(data["band_estimate"], 9)
+        self.assertEqual(data["time_used_seconds"], 3480)
+        self.assertEqual(data["part_times"], {"1": 700, "2": 1100, "3": 1680})
         self.assertNotIn("marking", data)
+        self.assertNotIn("answers", data)
+        self.assertNotIn("explanation", data)
+        raw = res.get_data(as_text=True).lower()
+        for word in FORBIDDEN:
+            self.assertNotIn(word, raw)
+        self.assertNotIn("解析", res.get_data(as_text=True))
+        self.assertNotIn("标准答案", res.get_data(as_text=True))
 
         sid = data["id"]
         saved = json.loads((appmod.SUBMISSIONS_DIR / f"{sid}.json").read_text(encoding="utf-8"))
@@ -295,10 +306,75 @@ class RouteTests(unittest.TestCase):
         self.assertEqual(saved["score"], 40)
         self.assertEqual(saved["band_estimate"], 9)
         self.assertEqual(saved["total"], 40)
+        self.assertEqual(saved["part_times"], {"1": 700, "2": 1100, "3": 1680})
+        self.assertIn("marking", saved)
 
         index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
         self.assertEqual(index["submissions"][0]["module"], "reading")
         self.assertEqual(index["submissions"][0]["score"], 40)
+        self.assertEqual(index["submissions"][0]["part_times"], {"1": 700, "2": 1100, "3": 1680})
+
+    def test_submit_without_part_times_defaults_to_zero(self):
+        self._create_code()
+        started = self._start()
+        self.assertEqual(started.status_code, 200)
+        res = self.client.post(
+            "/api/reading/submit",
+            json={
+                "candidate_name": "Test Candidate",
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "answers": {str(q): a for q, a in OFFICIAL.items()},
+                "duration_seconds": 3600,
+                "time_remaining_seconds": 120,
+                "time_used_seconds": 3480,
+            },
+        )
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()
+        self.assertEqual(data["score"], 40)
+        self.assertEqual(data["part_times"], {"1": 0, "2": 0, "3": 0})
+        self.assertNotIn("marking", data)
+        saved = json.loads(
+            (appmod.SUBMISSIONS_DIR / f"{data['id']}.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(saved["part_times"], {"1": 0, "2": 0, "3": 0})
+
+    def test_submit_sanitizes_part_times_and_rejects_wrong_invite(self):
+        self._create_code()
+        started = self._start()
+        self.assertEqual(started.status_code, 200)
+        res = self.client.post(
+            "/api/reading/submit",
+            json={
+                "candidate_name": "Test Candidate",
+                "mode": "full",
+                "answers": {"1": "sand"},
+                "duration_seconds": 1200,
+                "time_used_seconds": 900,
+                "part_times": {"passage1": -5, "2": "400", "99": 12, "3": 99999},
+            },
+        )
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()
+        # Negative clamped to 0; "400" parsed; unknown keys dropped; 99999 capped to duration.
+        self.assertEqual(data["part_times"], {"1": 0, "2": 400, "3": 1200})
+
+        outsider = appmod.app.test_client()
+        denied = outsider.post(
+            "/api/reading/submit",
+            json={
+                "candidate_name": "Intruder",
+                "invite_code": "WRONGCODE",
+                "mode": "full",
+                "answers": {"1": "sand"},
+            },
+        )
+        self.assertIn(denied.status_code, (400, 403))
+        body = denied.get_json()
+        self.assertFalse(body["ok"])
+        self.assertNotIn("score", body)
+        self.assertNotIn("marking", body)
 
     def test_writing_submit_still_works(self):
         self._create_code()

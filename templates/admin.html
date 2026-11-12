@@ -95,7 +95,7 @@
               <td>
                 {% set used = s.get('time_used_seconds') %}
                 {% if used is not none %}
-                  {{ (used // 60) }}:{{ '%02d' % (used % 60) }}
+                  {{ used | duration }}
                 {% else %}
                   —
                 {% endif %}

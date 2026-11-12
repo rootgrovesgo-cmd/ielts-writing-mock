@@ -68,7 +68,7 @@
       <div class="actions start-actions">
         <button type="button" id="btnStart" class="btn btn-start">Start test</button>
       </div>
-      <p class="hint" style="margin-top:14px">There are 40 questions. Each question carries one mark. The test auto-submits when time is up. Answers are not shown after you submit.</p>
+      <p class="hint" style="margin-top:14px">There are 40 questions. Each question carries one mark. The test auto-submits when time is up. Your score and the time spent on each passage will be shown after you submit. Standard answers are not shown.</p>
       <div class="teacher-entry">
         <a class="btn ghost" href="/">返回首页</a>
         <a class="btn ghost" href="/admin">Root Login</a>
@@ -152,7 +152,13 @@
       <div class="done-icon" aria-hidden="true">✓</div>
       <h2>Submitted</h2>
       <div id="doneMsg" class="banner success"></div>
-      <p class="muted" style="text-align:center;margin-top:8px">Your answers have been saved. You may close this page.</p>
+      <div id="doneResult" class="done-result hidden">
+        <div class="done-score-label">Score</div>
+        <div class="done-score" id="doneScore"></div>
+        <div class="done-band muted" id="doneBand"></div>
+        <table class="done-parts" id="doneParts"></table>
+      </div>
+      <p class="muted" style="text-align:center;margin-top:8px">Your answers have been saved. Standard answers are not shown. You may close this page.</p>
       <div class="actions" style="justify-content:center">
         <button type="button" id="btnAgain" class="btn ghost">Take again</button>
         <a class="btn ghost" href="/">Back to home</a>

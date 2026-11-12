@@ -83,23 +83,28 @@ class ReportPdfTests(unittest.TestCase):
             },
         )
 
-    def _submit_reading(self, name="HE", answers=None):
+    def _submit_reading(self, name="HE", answers=None, part_times=None):
         payload_answers = {str(q): a for q, a in rs.official_answers().items()}
         if answers is not None:
             payload_answers = answers
+        payload = {
+            "candidate_name": name,
+            "mode": "full",
+            "prompt_set_id": "set-a",
+            "answers": payload_answers,
+            "duration_seconds": 3600,
+            "time_remaining_seconds": 1372,
+            "time_used_seconds": 2228,
+            "paused_total_seconds": 0,
+            "auto_submitted": False,
+        }
+        if part_times is not None:
+            payload["part_times"] = part_times
+        else:
+            payload["part_times"] = {"1": 600, "2": 800, "3": 828}
         res = self.client.post(
             "/api/reading/submit",
-            json={
-                "candidate_name": name,
-                "mode": "full",
-                "prompt_set_id": "set-a",
-                "answers": payload_answers,
-                "duration_seconds": 3600,
-                "time_remaining_seconds": 1372,
-                "time_used_seconds": 2228,
-                "paused_total_seconds": 0,
-                "auto_submitted": False,
-            },
+            json=payload,
         )
         self.assertEqual(res.status_code, 200, res.get_data(as_text=True))
         return res.get_json()["id"]
@@ -135,6 +140,23 @@ class ReportPdfTests(unittest.TestCase):
             )
         finally:
             Path(path).unlink(missing_ok=True)
+
+    def test_format_duration(self):
+        self.assertEqual(report_pdf.format_duration(None), "—")
+        self.assertEqual(report_pdf.format_duration(0), "0s")
+        self.assertEqual(report_pdf.format_duration(12), "12s")
+        self.assertEqual(report_pdf.format_duration(59), "59s")
+        self.assertEqual(report_pdf.format_duration(60), "1min0s")
+        self.assertEqual(report_pdf.format_duration(72), "1min12s")
+        self.assertEqual(report_pdf.format_duration(2228), "37min8s")
+        self.assertEqual(report_pdf.format_duration(1372), "22min52s")
+        self.assertEqual(report_pdf.format_duration(3480), "58min0s")
+        self.assertEqual(
+            report_pdf.part_times_summary({"1": 600, "2": 800, "3": 828}),
+            "Passage 1 10min0s · Passage 2 13min20s · Passage 3 13min48s",
+        )
+        self.assertIsNone(report_pdf.part_times_summary(None))
+        self.assertIsNone(report_pdf.part_times_summary({}))
 
     def test_filename_pattern(self):
         name = report_pdf.report_filename(
@@ -223,6 +245,22 @@ class ReportPdfTests(unittest.TestCase):
         self.assertIn("阅读", text)
         self.assertIn("逐题批改", text)
         self.assertIn("生成时间", text)
+        self.assertIn("37min8s", text)
+        self.assertIn("22min52s", text)
+        self.assertIn("暂停累计 0s", text)
+        self.assertNotIn("2228s", text)
+        self.assertNotIn("1372s", text)
+        self.assertIn("各部分用时", text)
+        self.assertIn("Passage 1 10min0s", text)
+        self.assertIn("Passage 2 13min20s", text)
+        self.assertIn("Passage 3 13min48s", text)
+
+        self.assertIn("37min8s", html)
+        self.assertIn("22min52s", html)
+        self.assertNotIn("2228s", html)
+        self.assertNotIn("1372s", html)
+        self.assertIn("各部分用时", html)
+        self.assertIn("Passage 1 10min0s", html)
 
     def test_writing_report_has_metadata_and_essay_only(self):
         self._set_admin()
@@ -248,6 +286,38 @@ class ReportPdfTests(unittest.TestCase):
         self.assertIn("This is a short writing sample about a chart.", text)
         self.assertIn("Task 1", text)
         self.assertNotIn("逐题批改", text)
+        self.assertIn("19min50s", text)
+        self.assertIn("10s", text)
+        self.assertNotIn("1190s", text)
+
+        self.assertIn("19min50s", html)
+        self.assertNotIn("1190s", html)
+
+    def test_old_reading_submission_without_part_times_still_renders(self):
+        self._set_admin()
+        self._create_code()
+        started = self._start()
+        self.assertEqual(started.status_code, 200)
+        sid = self._submit_reading()
+        path = appmod.SUBMISSIONS_DIR / f"{sid}.json"
+        saved = json.loads(path.read_text(encoding="utf-8"))
+        saved.pop("part_times", None)
+        path.write_text(json.dumps(saved, ensure_ascii=False, indent=2), encoding="utf-8")
+
+        self._login_admin()
+        detail = self.client.get(f"/admin/submission/{sid}")
+        self.assertEqual(detail.status_code, 200)
+        html = detail.get_data(as_text=True)
+        self.assertIn("37min8s", html)
+        self.assertNotIn("各部分用时", html)
+        self.assertNotIn("2228s", html)
+
+        res = self.client.get(f"/admin/submission/{sid}/report.pdf")
+        self.assertEqual(res.status_code, 200)
+        text = self._pdf_text(res.get_data())
+        self.assertIn("37min8s", text)
+        self.assertNotIn("各部分用时", text)
+        self.assertNotIn("2228s", text)
 
     def test_missing_submission_is_404_for_admin(self):
         self._set_admin()

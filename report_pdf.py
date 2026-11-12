@@ -332,6 +332,43 @@ def _styles() -> dict[str, ParagraphStyle]:
     }
 
 
+
+def format_duration(seconds) -> str:
+    """Format a duration for students and teachers, e.g. 45min12s.
+
+    Values under one minute are shown as 12s; zero is 0s. None is —.
+    """
+    if seconds is None or seconds is False:
+        return "—"
+    try:
+        total = int(seconds)
+    except (TypeError, ValueError):
+        return "—"
+    total = max(0, total)
+    if total < 60:
+        return f"{total}s"
+    minutes, rem = divmod(total, 60)
+    return f"{minutes}min{rem}s"
+
+
+def part_times_summary(part_times) -> str | None:
+    """Human-readable Passage 1/2/3 times, or None if the field is absent."""
+    if not isinstance(part_times, dict) or not part_times:
+        return None
+    labels = []
+    found = False
+    for key in ("1", "2", "3"):
+        raw = part_times.get(key, part_times.get(int(key)))
+        if raw is None:
+            continue
+        found = True
+        labels.append(f"Passage {key} {format_duration(raw)}")
+    if not found:
+        return None
+    # If only some passages were recorded, still show the ones present.
+    return " · ".join(labels)
+
+
 def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
     reading = _is_reading(record)
     invite_text = "—"
@@ -384,9 +421,15 @@ def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
     pairs.append(
         (
             "用时",
-            f"用时 {used if used is not None else '—'}s · 剩余 {remain if remain is not None else '—'}s · 暂停累计 {paused}s",
+            (
+                f"用时 {format_duration(used)} · 剩余 {format_duration(remain)}"
+                f" · 暂停累计 {format_duration(paused)}"
+            ),
         )
     )
+    part_label = part_times_summary(record.get("part_times"))
+    if part_label:
+        pairs.append(("各部分用时", part_label))
     pairs.append(("自动提交", "是" if record.get("auto_submitted") else "否"))
     pairs.append(("答卷 ID", str(record.get("id") or "—")))
     return pairs

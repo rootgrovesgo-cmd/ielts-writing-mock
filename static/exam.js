@@ -108,6 +108,14 @@
     return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
   }
 
+  function formatDuration(sec) {
+    sec = Math.max(0, Math.floor(Number(sec) || 0));
+    if (sec < 60) return sec + "s";
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return m + "min" + s + "s";
+  }
+
   function renderTimer() {
     el.timer.textContent = formatTime(state.remaining);
     el.timer.classList.toggle("warn", state.remaining <= 300 && state.remaining > 60);
@@ -536,7 +544,7 @@
 
       el.exam.classList.add("hidden");
       el.done.classList.remove("hidden");
-      const used = formatTime(payload.time_used_seconds);
+      const used = formatDuration(payload.time_used_seconds);
       el.doneMsg.innerHTML =
         (auto ? "时间到，系统已自动交卷。" : "提交成功！") +
         `<br/>姓名：${escapeHtml(payload.candidate_name || "")}` +

@@ -35,7 +35,8 @@
         {% else %}
         Task1 题：{{ record.task1_prompt_id }} · Task2 题：{{ record.task2_prompt_id }}<br/>
         {% endif %}
-        用时 {{ record.time_used_seconds }}s · 剩余 {{ record.time_remaining_seconds }}s · 暂停累计 {{ record.paused_total_seconds or 0 }}s<br/>
+        用时 {{ record.time_used_seconds | duration }} · 剩余 {{ record.time_remaining_seconds | duration }} · 暂停累计 {{ (record.paused_total_seconds or 0) | duration }}<br/>
+        {% if part_times_label %}各部分用时：{{ part_times_label }}<br/>{% endif %}
         自动提交：{{ "是" if record.auto_submitted else "否" }}
       </p>
     </section>

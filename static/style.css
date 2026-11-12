@@ -142,6 +142,19 @@ a:hover { text-decoration: underline; }
 }
 
 .card h1, .card h2, .card h3 { margin: 0 0 10px; font-weight: 700; color: var(--ink); }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.section-head h1, .section-head h2, .section-head h3 { margin: 0; }
+a.btn { text-decoration: none; }
+a.btn:hover { text-decoration: none; }
+
 .eyebrow {
   margin: 0 0 6px;
   font-size: 12px;

@@ -17,7 +17,7 @@
 - **口语练习**：完整练习为 Part 1 → Part 2（1 分钟准备 + 2 分钟陈述）→ Part 3，也可只练 Part 1 或只练 Part 3（Part 3 需先选定对应的 Part 2 话题）；可随机整套或自选话题；不评分、不给答案。题目依据公开回忆的 2026 年 9–12 月题季整理，并非官方材料。
 - 写作内置 3 套原创题目；阅读当前为 Set A（原创练习卷，三篇 + 40 题）；口语题库见 `prompts/speaking_sept2026.json`
 - 本地 JSON 落盘；写作可另同步 Notion（阅读默认只存本地，避免旧数据库缺字段）
-- 教师后台 `/admin`（唯一管理员账号登录；答题情况 / 登录用户 / 进入记录 / 邀请码管理；详情 / 导出 JSON·CSV）
+- 教师后台 `/admin`（唯一管理员账号登录；答题情况 / 登录用户 / 进入记录 / 邀请码管理；详情 / 导出 JSON·CSV / 下载答题 PDF 报告）
 - 健康检查 `/health`（部署探针）
 
 ---
@@ -159,7 +159,7 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
   - **邀请码**：创建、启用或停用邀请码，查看使用次数；可手填或自动生成，可选备注与次数上限
 - 没有已启用的邀请码时，学生不能开始模考。请先在后台创建一枚，再发给学生。
 - 列表含「科目」列（写作 / 阅读）。阅读显示成绩（如 `36/40`）与**参考分数**；写作仍显示 T1 / T2 词数
-- 阅读详情为逐题对照（学生作答 / 标准答案 / ✓✗ / 中文解析），仅教师可见
+- 阅读详情为逐题对照（学生作答 / 标准答案 / ✓✗ / 中文解析），仅教师可见；「逐题批改」处可下载 PDF 答题报告（含元数据、作答与对错、解析）。写作详情也可下载含作文原文的 PDF。学生无法访问该下载。
 - 可导出 JSON / CSV（含 `module`、阅读分数等列，不影响已有写作行）
 - 「模考页」回到首页 `/`
 
@@ -191,6 +191,7 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 | `/api/reading/submit` | 阅读交卷（服务器判分，响应中不含分数；需有效会话或邀请码） |
 | `/api/reading/paper` | 阅读学生卷 JSON（无答案；需已通过邀请码的学生会话） |
 | `/admin` | 教师后台 |
+| `/admin/submission/<id>/report.pdf` | 教师下载答题 PDF 报告（需已登录） |
 | `/health` | 健康检查 |
 
 ---
@@ -202,6 +203,7 @@ ielts-writing-mock/
   app.py
   access.py
   reading_scoring.py
+  report_pdf.py
   requirements.txt
   Procfile
   render.yaml
@@ -213,9 +215,10 @@ ielts-writing-mock/
   tests/test_reading.py
   tests/test_access.py
   tests/test_speaking.py
+  tests/test_report.py
   prompts/speaking_sept2026.json
   templates/
-  static/
+  static/                 # 含 fonts/（Droid Sans Fallback + DejaVu Sans），供 PDF 中英排版
   data/submissions/    # 本地/实例磁盘备份（已 gitignore）
   data/invite_codes.json / users.json / access_log.json  # 邀请码与登录记录（已 gitignore）
 ```

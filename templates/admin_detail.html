@@ -16,7 +16,12 @@
   </header>
   <main class="wrap">
     <section class="card">
-      <h1>元数据</h1>
+      <div class="section-head">
+        <h1>元数据</h1>
+        {% if not is_reading %}
+        <a class="btn ghost sm" href="{{ url_for('admin_submission_report', sid=record.id) }}">下载 PDF 报告</a>
+        {% endif %}
+      </div>
       <p class="muted">
         ID：<code>{{ record.id }}</code><br/>
         时间：{{ record.timestamp }}（Asia/Shanghai）<br/>
@@ -37,7 +42,10 @@
 
     {% if is_reading %}
     <section class="card">
-      <h2>逐题批改</h2>
+      <div class="section-head">
+        <h2>逐题批改</h2>
+        <a class="btn ghost sm" href="{{ url_for('admin_submission_report', sid=record.id) }}">下载 PDF 报告</a>
+      </div>
       <p class="muted">学生答案对照标准答案；解析仅供教师备课使用。</p>
       <div style="overflow-x:auto">
         <table class="admin-table mark-table">

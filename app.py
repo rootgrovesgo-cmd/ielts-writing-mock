@@ -14,6 +14,7 @@ import uuid
 from datetime import datetime, timezone, timedelta
 from functools import wraps
 from pathlib import Path
+from urllib.parse import quote
 
 from flask import (
     Flask,
@@ -30,6 +31,7 @@ from werkzeug.security import check_password_hash
 
 import access
 import reading_scoring as rs
+import report_pdf
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -736,6 +738,41 @@ def admin_submission(sid: str):
         band_label=rs.format_band(record.get("band_estimate")),
         invite=invite,
     )
+
+
+
+
+@app.route("/admin/submission/<sid>/report.pdf")
+@admin_required
+def admin_submission_report(sid: str):
+    path = SUBMISSIONS_DIR / f"{sid}.json"
+    if not path.exists():
+        return "未找到该答卷", 404
+    with path.open(encoding="utf-8") as f:
+        record = json.load(f)
+    invite = access.get_code(record.get("invite_code_id"))
+    pdf_bytes = report_pdf.build_submission_report(record, invite=invite)
+    filename = report_pdf.report_filename(record)
+    return Response(
+        pdf_bytes,
+        mimetype="application/pdf",
+        headers={
+            "Content-Disposition": _content_disposition(filename),
+        },
+    )
+
+
+def _content_disposition(filename: str) -> str:
+    """ASCII fallback plus RFC 5987 UTF-8 filename for CJK candidate names."""
+    ascii_name = filename.encode("ascii", "ignore").decode("ascii")
+    ascii_name = ascii_name.replace('"', "").strip() or "report.pdf"
+    if not ascii_name.lower().endswith(".pdf"):
+        ascii_name = f"{ascii_name}.pdf" if ascii_name else "report.pdf"
+    # Collapse leftover double dashes from stripped CJK, e.g. reading--20261112-report.pdf
+    while "--" in ascii_name:
+        ascii_name = ascii_name.replace("--", "-")
+    quoted = quote(filename)
+    return f'attachment; filename="{ascii_name}"; filename*=UTF-8''{quoted}'
 
 
 @app.route("/admin/export.json")

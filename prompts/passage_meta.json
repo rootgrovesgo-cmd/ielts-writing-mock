@@ -1,0 +1,28 @@
+{
+  "set-a": {
+    "title": "Set A",
+    "passages": {
+      "1": {
+        "title": "Saving the addax",
+        "topic": "撒哈拉濒危羚羊（addax，旋角羚）的保护与种群恢复",
+        "genre": "说明文（自然保护 / 物种专题）",
+        "structure": "问题－解决",
+        "structure_detail": "开篇介绍物种分布与沙漠适应特征，继而按时间线回顾数量兴衰，再分述盗猎、栖息地丧失、疫病与气候等成因，最后写保护行动与复苏前景。"
+      },
+      "2": {
+        "title": "The problems of getting around the city of Ibadan",
+        "topic": "尼日利亚伊巴丹市的城市交通与出行困境",
+        "genre": "说明文（城市交通案例）",
+        "structure": "问题－解决",
+        "structure_detail": "先写城市扩张带来的出行压力、现有交通方式与殖民时期道路格局等成因，再介绍 IBUS 公交走廊方案，并评估其成效、运营问题与后续规划。"
+      },
+      "3": {
+        "title": "Rethinking Early Cities",
+        "topic": "早期城市的考古发现与社会组织再认识",
+        "genre": "议论文（学术论述 / 考古评论）",
+        "structure": "论证型",
+        "structure_detail": "开篇提出早期城市史正被重新思考，随即给出两点总论（早期复杂社会的分布更广，以及对等级、性别角色的误读），再以多处遗址与新研究为证，最后落到对当代城市观念的反思。"
+      }
+    }
+  }
+}

@@ -662,3 +662,50 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
   padding: 1px 6px;
   border-radius: 4px;
 }
+
+.part-time-pill {
+  display: inline-block;
+  margin: 2px 6px 2px 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eee8e0;
+  color: var(--ink);
+  font-size: 13px;
+}
+.passage-profiles {
+  display: grid;
+  gap: 12px;
+}
+.passage-profile {
+  padding: 12px 14px;
+  border: 1px solid #e4ddd4;
+  border-radius: 10px;
+  background: #fbf8f4;
+}
+.passage-profile h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+.passage-profile p {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.review-note {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #e4ddd4;
+  border-radius: 10px;
+  background: #f7f4f0;
+}
+.review-note h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+.review-note p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.review-note p:last-child { margin-bottom: 0; }

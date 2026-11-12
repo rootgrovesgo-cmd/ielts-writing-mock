@@ -17,6 +17,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 import reading_scoring as rs
+import reading_review as rr
 
 BASE_DIR = Path(__file__).resolve().parent
 FONTS_DIR = BASE_DIR / "static" / "fonts"
@@ -329,6 +330,23 @@ def _styles() -> dict[str, ParagraphStyle]:
             textColor=INK,
             borderPadding=4,
         ),
+        "body": ParagraphStyle(
+            "ReportBody",
+            fontName=CJK_FONT,
+            fontSize=9.5,
+            leading=14,
+            textColor=INK,
+            spaceAfter=3,
+        ),
+        "profile_title": ParagraphStyle(
+            "ReportProfileTitle",
+            fontName=CJK_FONT,
+            fontSize=9.5,
+            leading=13,
+            textColor=HEADER,
+            spaceBefore=2,
+            spaceAfter=2,
+        ),
     }
 
 
@@ -427,9 +445,9 @@ def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
             ),
         )
     )
-    part_label = part_times_summary(record.get("part_times"))
-    if part_label:
-        pairs.append(("各部分用时", part_label))
+    if reading:
+        part_label = part_times_summary(record.get("part_times"))
+        pairs.append(("各部分用时", part_label or "本题卷未记录各部分用时"))
     pairs.append(("自动提交", "是" if record.get("auto_submitted") else "否"))
     pairs.append(("答卷 ID", str(record.get("id") or "—")))
     return pairs
@@ -545,6 +563,68 @@ def _draw_chrome(canvas, _doc, generated_label: str) -> None:
     canvas.restoreState()
 
 
+
+def _format_structure(profile: dict) -> str:
+    structure = (profile.get("structure") or "").strip() or "暂未标注"
+    detail = (profile.get("structure_detail") or "").strip()
+    if detail:
+        return f"{structure}。{detail}"
+    return structure
+
+
+def _passage_time_label(profile: dict) -> str:
+    if profile.get("time_recorded"):
+        return format_duration(profile.get("time_seconds"))
+    return "本题卷未记录"
+
+
+def _passage_overview_story(record: dict, styles: dict[str, ParagraphStyle]) -> list:
+    profiles = rr.passage_profiles(record)
+    if not profiles:
+        return []
+    story: list = [
+        Paragraph(mixed_xml("篇章信息"), styles["section"]),
+        Paragraph(
+            mixed_xml("各篇题材、文章类型与结构类型供教师备课参考；各部分用时取自考生在该篇的计时记录。"),
+            styles["muted"],
+        ),
+        Spacer(1, 2 * mm),
+    ]
+    for profile in profiles:
+        title = profile.get("title") or "（无标题）"
+        heading = f"Passage {profile['id']}  {title}    用时 {_passage_time_label(profile)}"
+        story.append(Paragraph(mixed_xml(heading), styles["profile_title"]))
+        topic = (profile.get("topic") or "").strip() or "暂未标注"
+        genre = (profile.get("genre") or "").strip() or "暂未标注"
+        story.append(Paragraph(mixed_xml(f"题材：{topic}"), styles["body"]))
+        story.append(Paragraph(mixed_xml(f"文章类型：{genre}"), styles["body"]))
+        story.append(
+            Paragraph(mixed_xml(f"结构类型：{_format_structure(profile)}"), styles["body"])
+        )
+        story.append(Spacer(1, 2 * mm))
+    story.append(Spacer(1, 3 * mm))
+    return story
+
+
+def _highlight_review_story(record: dict, styles: dict[str, ParagraphStyle]) -> list:
+    review = rr.highlight_review(record)
+    paragraphs = review.get("paragraphs") or []
+    if not paragraphs:
+        return []
+    story: list = [
+        Paragraph(mixed_xml("高亮与扫跳评述"), styles["section"]),
+        Paragraph(
+            mixed_xml("依据学生在文章与题干中的高亮所作的教师评述，不发给学生。"),
+            styles["muted"],
+        ),
+        Spacer(1, 2 * mm),
+    ]
+    for para in paragraphs:
+        story.append(Paragraph(mixed_xml(para), styles["body"]))
+    story.append(Spacer(1, 5 * mm))
+    return story
+
+
 def build_submission_report(
     record: dict,
     invite: dict | None = None,
@@ -580,6 +660,8 @@ def build_submission_report(
     ]
 
     if _is_reading(record):
+        story.extend(_passage_overview_story(record, styles))
+        story.extend(_highlight_review_story(record, styles))
         rows = attach_explanations(record)
         story.append(Paragraph(mixed_xml("逐题批改"), styles["section"]))
         story.append(

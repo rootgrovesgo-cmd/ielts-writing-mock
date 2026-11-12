@@ -36,17 +36,51 @@
         Task1 题：{{ record.task1_prompt_id }} · Task2 题：{{ record.task2_prompt_id }}<br/>
         {% endif %}
         用时 {{ record.time_used_seconds | duration }} · 剩余 {{ record.time_remaining_seconds | duration }} · 暂停累计 {{ (record.paused_total_seconds or 0) | duration }}<br/>
-        {% if part_times_label %}各部分用时：{{ part_times_label }}<br/>{% endif %}
+        {% if is_reading %}
+        各部分用时：
+        {% if part_times_label %}
+          {% for profile in passage_profiles %}<span class="part-time-pill">Passage {{ profile.id }} {{ profile.time_label }}</span>{% endfor %}
+        {% else %}
+          本题卷未记录各部分用时
+        {% endif %}
+        <br/>
+        {% endif %}
         自动提交：{{ "是" if record.auto_submitted else "否" }}
       </p>
     </section>
 
     {% if is_reading %}
+    {% if passage_profiles %}
+    <section class="card">
+      <h2>篇章信息</h2>
+      <p class="muted">各篇题材、文章类型与结构类型仅供教师备课参考。</p>
+      <div class="passage-profiles">
+        {% for profile in passage_profiles %}
+        <article class="passage-profile">
+          <h3>Passage {{ profile.id }}{% if profile.title %} · {{ profile.title }}{% endif %}</h3>
+          <p>用时：{{ profile.time_label }}</p>
+          <p>题材：{{ profile.topic or "暂未标注" }}</p>
+          <p>文章类型：{{ profile.genre or "暂未标注" }}</p>
+          <p>结构类型：{{ profile.structure or "暂未标注" }}{% if profile.structure_detail %}。{{ profile.structure_detail }}{% endif %}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
     <section class="card">
       <div class="section-head">
         <h2>逐题批改</h2>
         <a class="btn ghost sm" href="{{ url_for('admin_submission_report', sid=record.id) }}">下载 PDF 报告</a>
       </div>
+      {% if highlight_review and highlight_review.paragraphs %}
+      <div class="review-note">
+        <h3>高亮与扫跳评述</h3>
+        <p class="muted">依据学生高亮所作的教师评述，不发给学生。</p>
+        {% for para in highlight_review.paragraphs %}
+        <p>{{ para }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
       <p class="muted">学生答案对照标准答案；解析仅供教师备课使用。</p>
       <div style="overflow-x:auto">
         <table class="admin-table mark-table">

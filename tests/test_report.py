@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
 import access as accessmod  # noqa: E402
 import app as appmod  # noqa: E402
 import report_pdf  # noqa: E402
+import reading_review as rr  # noqa: E402
 import reading_scoring as rs  # noqa: E402
 
 TEST_ADMIN_USER = "TestAdmin"
@@ -83,7 +84,7 @@ class ReportPdfTests(unittest.TestCase):
             },
         )
 
-    def _submit_reading(self, name="HE", answers=None, part_times=None):
+    def _submit_reading(self, name="HE", answers=None, part_times=None, highlights=None):
         payload_answers = {str(q): a for q, a in rs.official_answers().items()}
         if answers is not None:
             payload_answers = answers
@@ -102,6 +103,8 @@ class ReportPdfTests(unittest.TestCase):
             payload["part_times"] = part_times
         else:
             payload["part_times"] = {"1": 600, "2": 800, "3": 828}
+        if highlights is not None:
+            payload["highlights"] = highlights
         res = self.client.post(
             "/api/reading/submit",
             json=payload,
@@ -254,6 +257,27 @@ class ReportPdfTests(unittest.TestCase):
         self.assertIn("Passage 1 10min0s", text)
         self.assertIn("Passage 2 13min20s", text)
         self.assertIn("Passage 3 13min48s", text)
+        self.assertIn("篇章信息", text)
+        self.assertIn("Saving the addax", text)
+        self.assertIn("The problems of getting around the city of Ibadan", text)
+        self.assertIn("Rethinking Early Cities", text)
+        self.assertIn("题材", text)
+        self.assertIn("文章类型", text)
+        self.assertIn("结构类型", text)
+        self.assertIn("撒哈拉濒危羚羊", text)
+        self.assertIn("说明文（自然保护", text)
+        self.assertIn("问题－解决", text)
+        self.assertIn("伊巴丹", text)
+        self.assertIn("城市交通", text)
+        self.assertIn("早期城市", text)
+        self.assertIn("议论文", text)
+        self.assertIn("论证型", text)
+        self.assertIn("用时 10min0s", text)
+        self.assertIn("用时 13min20s", text)
+        self.assertIn("用时 13min48s", text)
+        self.assertIn("高亮与扫跳评述", text)
+        self.assertIn("未保存高亮记录", text)
+        self.assertIn("扫读与跳读", text)
 
         self.assertIn("37min8s", html)
         self.assertIn("22min52s", html)
@@ -261,6 +285,13 @@ class ReportPdfTests(unittest.TestCase):
         self.assertNotIn("1372s", html)
         self.assertIn("各部分用时", html)
         self.assertIn("Passage 1 10min0s", html)
+        self.assertIn("Passage 2 13min20s", html)
+        self.assertIn("Passage 3 13min48s", html)
+        self.assertIn("篇章信息", html)
+        self.assertIn("Saving the addax", html)
+        self.assertIn("高亮与扫跳评述", html)
+        self.assertIn("未保存高亮记录", html)
+        self.assertNotIn("<mark", html)
 
     def test_writing_report_has_metadata_and_essay_only(self):
         self._set_admin()
@@ -292,6 +323,13 @@ class ReportPdfTests(unittest.TestCase):
 
         self.assertIn("19min50s", html)
         self.assertNotIn("1190s", html)
+        self.assertNotIn("各部分用时", html)
+        self.assertNotIn("篇章信息", html)
+        self.assertNotIn("高亮与扫跳评述", html)
+
+        self.assertNotIn("各部分用时", text)
+        self.assertNotIn("篇章信息", text)
+        self.assertNotIn("高亮与扫跳评述", text)
 
     def test_old_reading_submission_without_part_times_still_renders(self):
         self._set_admin()
@@ -309,15 +347,217 @@ class ReportPdfTests(unittest.TestCase):
         self.assertEqual(detail.status_code, 200)
         html = detail.get_data(as_text=True)
         self.assertIn("37min8s", html)
-        self.assertNotIn("各部分用时", html)
+        self.assertIn("各部分用时", html)
+        self.assertIn("本题卷未记录各部分用时", html)
+        self.assertNotIn("Passage 1 10min0s", html)
         self.assertNotIn("2228s", html)
 
         res = self.client.get(f"/admin/submission/{sid}/report.pdf")
         self.assertEqual(res.status_code, 200)
         text = self._pdf_text(res.get_data())
         self.assertIn("37min8s", text)
-        self.assertNotIn("各部分用时", text)
+        self.assertIn("各部分用时", text)
+        self.assertIn("本题卷未记录各部分用时", text)
+        self.assertIn("本题卷未记录", text)
+        self.assertNotIn("Passage 1 10min0s", text)
         self.assertNotIn("2228s", text)
+        self.assertIn("篇章信息", text)
+        self.assertIn("Saving the addax", text)
+
+
+    def _mark(self, text):
+        return f'<mark class="hl">{text}</mark>'
+
+    def _passage_html(self, passage_id, spans):
+        paper = rs.load_paper()
+        paragraphs = []
+        for item in paper["passages"]:
+            if str(item["id"]) == str(passage_id):
+                paragraphs = list(item["paragraphs"])
+                break
+        html_parts = []
+        remaining = list(spans)
+        for para in paragraphs:
+            rendered = para
+            still = []
+            for span in remaining:
+                if span in rendered:
+                    rendered = rendered.replace(span, self._mark(span), 1)
+                else:
+                    still.append(span)
+            remaining = still
+            html_parts.append(f"<p>{rendered}</p>")
+        self.assertFalse(remaining, f"spans not found in passage {passage_id}: {remaining}")
+        return "".join(html_parts)
+
+    def test_format_duration_and_part_times_helpers(self):
+        self.assertTrue(rr.part_times_recorded({"1": 0, "2": 0, "3": 0}))
+        self.assertFalse(rr.part_times_recorded(None))
+        self.assertFalse(rr.part_times_recorded({}))
+        self.assertEqual(rr.part_time_seconds({"1": 600, "2": 800, "3": 828}, "2"), 800)
+        self.assertIsNone(rr.part_time_seconds(None, "1"))
+
+    def test_highlight_parser_ignores_script_and_extracts_marks(self):
+        html = (
+            "<p>Hello <mark class=\"hl\">Niger</mark>"
+            "<script>alert(1)</script>"
+            "<mark class=\"hl has-note\">ninety per cent"
+            "<span class=\"note-dot\"></span></mark></p>"
+        )
+        marks = rr.extract_highlight_marks(html)
+        self.assertEqual(marks, ["Niger", "ninety per cent"])
+        self.assertNotIn("alert", " ".join(marks))
+
+    def test_highlight_review_without_highlights_skips_diagnosis(self):
+        review = rr.highlight_review({"module": "reading", "prompt_set_id": "set-a", "mode": "full"})
+        self.assertFalse(review["has_highlights"])
+        self.assertIn("未保存高亮记录", review["text"])
+        self.assertNotIn("呈现出扫读与跳读结合", review["text"])
+
+    def test_highlight_review_balanced_skim_and_scan(self):
+        paper = rs.load_paper()
+        p1 = paper["passages"][0]["paragraphs"]
+        p2 = paper["passages"][1]["paragraphs"]
+        p3 = paper["passages"][2]["paragraphs"]
+        highlights = {
+            "passage": {
+                "1": self._passage_html(
+                    "1",
+                    [
+                        p1[0].split(". ")[0] + ".",
+                        "Niger",
+                        "well over ninety per cent",
+                    ],
+                ),
+                "2": self._passage_html(
+                    "2",
+                    [
+                        p2[0].split(". ")[0] + ".",
+                        "okada",
+                        "eight million",
+                    ],
+                ),
+                "3": self._passage_html(
+                    "3",
+                    [
+                        p3[0].split(". ")[0] + ".",
+                        "Palace-First",
+                        "Tell Sefira",
+                    ],
+                ),
+            },
+            "questions": f"<p>Look at {self._mark('Adedayo Okunola')} and {self._mark('Ain Tazaght')}.</p>",
+        }
+        review = rr.highlight_review(
+            {
+                "module": "reading",
+                "prompt_set_id": "set-a",
+                "mode": "full",
+                "highlights": highlights,
+            }
+        )
+        self.assertTrue(review["has_highlights"])
+        self.assertTrue(review["both"])
+        self.assertIn("扫读与跳读结合", review["text"])
+        self.assertIn("Passage 1", review["text"])
+        self.assertIn("题干中另有 2 处标注", review["text"])
+        self.assertNotIn("<script", review["text"])
+        self.assertNotIn("<mark", review["text"])
+
+    def test_highlight_review_dense_and_concentrated(self):
+        paper = rs.load_paper()
+        almost_all = paper["passages"][0]["paragraphs"]
+        highlights = {
+            "passage": {
+                "1": "".join(f"<p>{self._mark(para)}</p>" for para in almost_all),
+                "2": "<p>Ibadan is large.</p>",
+                "3": "<p>Cities changed.</p>",
+            }
+        }
+        review = rr.highlight_review(
+            {
+                "module": "reading",
+                "prompt_set_id": "set-a",
+                "mode": "full",
+                "highlights": highlights,
+            }
+        )
+        self.assertTrue(review["dense"])
+        self.assertTrue(review["concentrated"])
+        self.assertIn("高亮过密", review["text"])
+        self.assertIn("集中在 Passage 1", review["text"])
+
+    def test_highlight_review_almost_none(self):
+        highlights = {"passage": {"1": f"<p>Today the wild population is in {self._mark('Niger')}.</p>"}}
+        review = rr.highlight_review(
+            {
+                "module": "reading",
+                "prompt_set_id": "set-a",
+                "mode": "full",
+                "highlights": highlights,
+            }
+        )
+        self.assertTrue(review["sparse"])
+        self.assertIn("极为稀疏", review["text"])
+        self.assertNotIn("呈现出扫读与跳读结合", review["text"])
+
+    def test_pdf_and_admin_include_highlight_analysis(self):
+        paper = rs.load_paper()
+        p1 = paper["passages"][0]["paragraphs"][0]
+        first = p1.split(". ")[0] + "."
+        highlights = {
+            "passage": {
+                "1": self._passage_html("1", [first, "Niger", "well over ninety per cent"]),
+                "2": self._passage_html(
+                    "2",
+                    [
+                        paper["passages"][1]["paragraphs"][0].split(". ")[0] + ".",
+                        "okada",
+                    ],
+                ),
+                "3": self._passage_html(
+                    "3",
+                    [
+                        paper["passages"][2]["paragraphs"][0].split(". ")[0] + ".",
+                        "Tell Sefira",
+                    ],
+                ),
+            },
+            "questions": (
+                f"<p>{self._mark('Adedayo Okunola')}</p>"
+                "<script>alert(document.cookie)</script>"
+                "<img src=x onerror=alert(1) />"
+            ),
+        }
+        self._set_admin()
+        self._create_code()
+        started = self._start(name="HE")
+        self.assertEqual(started.status_code, 200)
+        sid = self._submit_reading(name="HE", highlights=highlights)
+
+        self._login_admin()
+        detail = self.client.get(f"/admin/submission/{sid}")
+        self.assertEqual(detail.status_code, 200)
+        html = detail.get_data(as_text=True)
+        self.assertIn("高亮与扫跳评述", html)
+        self.assertIn("扫读与跳读结合", html)
+        self.assertIn("各部分用时", html)
+        self.assertIn("Passage 1 10min0s", html)
+        self.assertNotIn("alert(document.cookie)", html)
+        self.assertNotIn("onerror=alert", html)
+        self.assertNotIn("<script>alert", html)
+
+        res = self.client.get(f"/admin/submission/{sid}/report.pdf")
+        self.assertEqual(res.status_code, 200)
+        text = self._pdf_text(res.get_data())
+        self.assertIn("高亮与扫跳评述", text)
+        self.assertIn("扫读与跳读结合", text)
+        self.assertIn("篇章信息", text)
+        self.assertIn("问题－解决", text)
+        self.assertIn("论证型", text)
+        self.assertIn("Passage 1 10min0s", text)
+        self.assertNotIn("alert(document.cookie)", text)
+        self.assertNotIn("未保存高亮记录", text)
 
     def test_missing_submission_is_404_for_admin(self):
         self._set_admin()

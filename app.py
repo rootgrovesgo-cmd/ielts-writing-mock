@@ -32,6 +32,7 @@ from werkzeug.security import check_password_hash
 import access
 import reading_scoring as rs
 import report_pdf
+import reading_review as rr
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -808,12 +809,27 @@ def admin_submission(sid: str):
         for row in record.get("marking") or []:
             row["explanation"] = explanations.get(int(row.get("q") or 0), "")
     invite = access.get_code(record.get("invite_code_id"))
+    is_reading = record_module(record) == "reading"
+    part_times_label = None
+    passage_profiles = []
+    highlight_review = None
+    if is_reading:
+        part_times_label = report_pdf.part_times_summary(record.get("part_times"))
+        passage_profiles = rr.passage_profiles(record)
+        for profile in passage_profiles:
+            if profile.get("time_recorded"):
+                profile["time_label"] = report_pdf.format_duration(profile.get("time_seconds"))
+            else:
+                profile["time_label"] = "本题卷未记录"
+        highlight_review = rr.highlight_review(record)
     return render_template(
         "admin_detail.html",
         record=record,
-        is_reading=record_module(record) == "reading",
+        is_reading=is_reading,
         band_label=rs.format_band(record.get("band_estimate")),
-        part_times_label=report_pdf.part_times_summary(record.get("part_times")),
+        part_times_label=part_times_label,
+        passage_profiles=passage_profiles,
+        highlight_review=highlight_review,
         invite=invite,
     )
 

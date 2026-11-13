@@ -8,6 +8,7 @@ from typing import Any
 
 import access
 import reading_scoring as rs
+import reading_review as rr
 import report_pdf
 
 MODULE_LABELS = {
@@ -710,6 +711,7 @@ def attempt_review_payload(
                 "questions": _slim_question_rows(detail.get("questions") or []),
                 "mistake_count": detail.get("mistake_count") or 0,
                 "total_questions": detail.get("total_questions") or 0,
+                "review_highlights": rr.review_highlights(record, paper=paper),
             }
         )
         return payload

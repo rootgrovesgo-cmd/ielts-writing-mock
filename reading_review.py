@@ -1,13 +1,16 @@
-"""Teacher-facing passage labels and highlight (skim/scan) review.
+"""Passage labels, highlight parsing, and safe highlight re-application.
 
-Highlights are stored as HTML on the submission, but this module only parses
-them as text. Nothing here should be rendered as raw HTML in the admin UI.
+Highlights are stored as HTML snapshots on the submission. This module only
+parses <mark class="hl"> text (ignoring script/style) and can wrap those
+texts onto trusted official paper HTML. Raw stored snapshots must not be
+rendered in the admin UI or the student review UI.
 """
 
 from __future__ import annotations
 
 import json
 import re
+from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -299,6 +302,168 @@ def extract_highlight_marks(html: str | None) -> list[str]:
         # Malformed fragments should not break the teacher report.
         return list(parser.marks)
     return list(parser.marks)
+
+
+def highlight_texts_from_record(record: dict | None) -> dict:
+    """Extract highlight texts from a stored snapshot. Never returns raw HTML."""
+    payload = _highlight_payload(record or {})
+    passage_out: dict[str, list[str]] = {}
+    raw_passages = payload.get("passage") or payload.get("passages") or {}
+    if isinstance(raw_passages, dict):
+        for key in PASSAGE_IDS:
+            html = raw_passages.get(key)
+            if html is None and key.isdigit():
+                html = raw_passages.get(int(key))
+            marks = extract_highlight_marks(html if isinstance(html, str) else "")
+            if marks:
+                passage_out[key] = marks
+    questions = []
+    qhtml = payload.get("questions")
+    if isinstance(qhtml, str) and qhtml:
+        questions = extract_highlight_marks(qhtml)
+    return {"passage": passage_out, "questions": questions}
+
+
+def official_passage_html(passage: dict | None) -> str:
+    """Trusted passage HTML, matching the exam page (<p>escaped paragraphs</p>)."""
+    if not passage:
+        return ""
+    parts = []
+    for para in passage.get("paragraphs") or []:
+        parts.append(f"<p>{escape(str(para), quote=True)}</p>")
+    return "".join(parts)
+
+
+def apply_highlights_to_html(html: str | None, marks: list[str] | None) -> str:
+    """Wrap the first unused occurrence of each mark text in trusted HTML.
+
+    Only inserts clean <mark class="hl"> tags. If a mark no longer lines up
+    with the trusted text, that mark is skipped and the rest are still applied.
+    """
+    source = html or ""
+    if not source or not marks:
+        return source
+
+    tokens: list[tuple[str, str]] = []
+    for piece in re.split(r"(<[^>]+>)", source):
+        if not piece:
+            continue
+        if len(piece) >= 2 and piece.startswith("<") and piece.endswith(">"):
+            tokens.append(("tag", piece))
+        else:
+            tokens.append(("text", unescape(piece)))
+
+    flat: list[tuple[int, int]] = []
+    chars: list[str] = []
+    for i, (kind, val) in enumerate(tokens):
+        if kind != "text":
+            continue
+        for j, ch in enumerate(val):
+            flat.append((i, j))
+            chars.append(ch)
+    if not flat:
+        return source
+
+    def is_space(ch: str) -> bool:
+        return ch.isspace() or ch == "\xa0"
+
+    norm: list[str] = []
+    norm_to_flat: list[int] = []
+    prev_space = False
+    for fi, ch in enumerate(chars):
+        if is_space(ch):
+            if not prev_space:
+                norm.append(" ")
+                norm_to_flat.append(fi)
+            prev_space = True
+        else:
+            norm.append(ch)
+            norm_to_flat.append(fi)
+            prev_space = False
+    norm_s = "".join(norm)
+
+    used = [False] * len(flat)
+    open_at = [0] * (len(flat) + 1)
+    close_at = [0] * (len(flat) + 1)
+    applied = False
+    for mark in marks:
+        needle = _norm(mark)
+        if not needle:
+            continue
+        start = 0
+        found = None
+        while True:
+            pos = norm_s.find(needle, start)
+            if pos < 0:
+                break
+            a = norm_to_flat[pos]
+            b = norm_to_flat[pos + len(needle) - 1] + 1
+            if any(used[i] for i in range(a, b)):
+                start = pos + 1
+                continue
+            found = (a, b)
+            break
+        if not found:
+            continue
+        a, b = found
+        for i in range(a, b):
+            used[i] = True
+        open_at[a] += 1
+        close_at[b] += 1
+        applied = True
+    if not applied:
+        return source
+
+    out: list[str] = []
+    depth = 0
+    fi = 0
+    open_tag = '<mark class="hl">'
+    close_tag = "</mark>"
+    for kind, val in tokens:
+        if kind == "tag":
+            if depth:
+                out.append(close_tag * depth)
+            out.append(val)
+            if depth:
+                out.append(open_tag * depth)
+            continue
+        buf: list[str] = []
+        for _ch in val:
+            if close_at[fi]:
+                buf.append(close_tag * close_at[fi])
+                depth -= close_at[fi]
+            if open_at[fi]:
+                buf.append(open_tag * open_at[fi])
+                depth += open_at[fi]
+            buf.append(escape(_ch, quote=True))
+            fi += 1
+        out.append("".join(buf))
+    if close_at[fi]:
+        out.append(close_tag * close_at[fi])
+        depth -= close_at[fi]
+    return "".join(out)
+
+
+def review_highlights(record: dict | None, paper: dict | None = None) -> dict:
+    """Student-review highlight payload: texts plus trusted passage HTML.
+
+    Never includes the raw stored snapshot or teacher skim/scan commentary.
+    """
+    texts = highlight_texts_from_record(record)
+    passage_html: dict[str, str] = {}
+    if paper:
+        for passage in paper.get("passages") or []:
+            pid = str(passage.get("id") or "")
+            if pid not in PASSAGE_IDS:
+                continue
+            official = official_passage_html(passage)
+            marks = texts.get("passage", {}).get(pid) or []
+            passage_html[pid] = apply_highlights_to_html(official, marks) if marks else official
+    return {
+        "passage": texts.get("passage") or {},
+        "questions": list(texts.get("questions") or []),
+        "passage_html": passage_html,
+    }
 
 
 def _norm(text: str | None) -> str:

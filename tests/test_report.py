@@ -408,6 +408,75 @@ class ReportPdfTests(unittest.TestCase):
         self.assertEqual(marks, ["Niger", "ninety per cent"])
         self.assertNotIn("alert", " ".join(marks))
 
+    def test_apply_highlights_wraps_first_unused_occurrence_and_skips_missing(self):
+        html = "<p>Hello Niger and Chad and Niger again</p>"
+        out = rr.apply_highlights_to_html(html, ["Niger", "Niger"])
+        self.assertEqual(
+            out,
+            '<p>Hello <mark class="hl">Niger</mark> and Chad and '
+            '<mark class="hl">Niger</mark> again</p>',
+        )
+        # A third copy has no unused occurrence; earlier marks stay applied.
+        out3 = rr.apply_highlights_to_html(html, ["Niger", "Niger", "Niger"])
+        self.assertEqual(out3.count('<mark class="hl">Niger</mark>'), 2)
+        mixed = rr.apply_highlights_to_html("<p>Hello Niger</p>", ["missing phrase", "Niger"])
+        self.assertIn('<mark class="hl">Niger</mark>', mixed)
+        self.assertNotIn("missing", mixed)
+        self.assertEqual(rr.apply_highlights_to_html(html, []), html)
+
+    def test_apply_highlights_strips_script_and_handlers_from_snapshots(self):
+        dirty = (
+            '<p>Hello <mark class="hl" onclick="alert(1)">Niger</mark>'
+            '<script>alert(1)</script>'
+            '<img src=x onerror="alert(1)"></p>'
+        )
+        marks = rr.extract_highlight_marks(dirty)
+        self.assertEqual(marks, ["Niger"])
+        trusted = "<p>Hello Niger and Chad</p>"
+        clean = rr.apply_highlights_to_html(trusted, marks)
+        self.assertEqual(clean, '<p>Hello <mark class="hl">Niger</mark> and Chad</p>')
+        self.assertNotIn("script", clean)
+        self.assertNotIn("onerror", clean)
+        self.assertNotIn("onclick", clean)
+        self.assertNotIn("alert", clean)
+
+    def test_review_highlights_payload_is_trusted_and_empty_when_none(self):
+        paper = rs.load_paper()
+        phrase = "spiral-horned antelope"
+        record = {
+            "module": "reading",
+            "highlights": {
+                "passage": {
+                    "1": (
+                        f'<p>xx <mark class="hl">{phrase}</mark></p>'
+                        '<script>alert(1)</script><img onerror="alert(1)">'
+                    )
+                },
+                "questions": (
+                    '<div><mark class="hl">Today addax are evenly distributed '
+                    "across Niger and Chad.</mark></div>"
+                    "<script>document.cookie</script>"
+                ),
+            },
+        }
+        payload = rr.review_highlights(record, paper=paper)
+        self.assertEqual(payload["passage"]["1"], [phrase])
+        self.assertEqual(
+            payload["questions"],
+            ["Today addax are evenly distributed across Niger and Chad."],
+        )
+        html1 = payload["passage_html"]["1"]
+        self.assertIn(f'<mark class="hl">{phrase}</mark>', html1)
+        self.assertTrue(html1.startswith("<p>For centuries"))
+        self.assertNotIn("<script", html1)
+        self.assertNotIn("onerror", html1)
+        self.assertNotIn("alert", html1)
+        empty = rr.review_highlights({"module": "reading"}, paper=paper)
+        self.assertEqual(empty["passage"], {})
+        self.assertEqual(empty["questions"], [])
+        self.assertIn("1", empty["passage_html"])
+        self.assertNotIn("<mark", empty["passage_html"]["1"])
+
     def test_highlight_review_without_highlights_skips_diagnosis(self):
         review = rr.highlight_review({"module": "reading", "prompt_set_id": "set-a", "mode": "full"})
         self.assertFalse(review["has_highlights"])

@@ -109,6 +109,7 @@
     mistakesOnly: false,
     reviewByQ: {},
     reviewMistakeQs: [],
+    reviewHighlights: { passage: {}, questions: [] },
     allowPause: false,
     pendingNoteRange: null,
     pendingNoteMark: null,
@@ -323,6 +324,21 @@
   }
 
   function renderPassage(id, forceClean) {
+    if (state.attemptReview) {
+      const p = findPassage(id);
+      if (!p) return;
+      state.currentPassage = id;
+      setActivePart(id);
+      el.passageLabel.textContent = p.label || ("Reading Passage " + id);
+      el.passageGuidance.textContent = p.time_guidance || "";
+      el.passageTitle.textContent = p.title || "";
+      el.passageBody.innerHTML = (p.paragraphs || [])
+        .map((para) => "<p>" + escapeHtml(para) + "</p>")
+        .join("");
+      applyReviewHighlightsTo(el.passageBody, reviewHighlightTexts("passage", id));
+      el.passageScroll.scrollTop = 0;
+      return;
+    }
     if (state.currentPassage && el.passageBody && state.currentPassage !== id) {
       state.passageHtml[state.currentPassage] = el.passageBody.innerHTML;
     }
@@ -541,7 +557,10 @@
     el.questionScroll.innerHTML = html;
     bindQuestionInputs();
     checkMatchingDups();
-    if (state.attemptReview) decorateReviewKeys();
+    if (state.attemptReview) {
+      applyReviewHighlightsTo(el.questionScroll, reviewHighlightTexts("questions"));
+      decorateReviewKeys();
+    }
     updateCurrentHighlight();
   }
 
@@ -804,6 +823,7 @@
   }
 
   function applyHighlight(range) {
+    if (state.attemptReview) return null;
     const mark = document.createElement("mark");
     mark.className = "hl";
     state.hlSeq += 1;
@@ -1545,6 +1565,97 @@
     );
   }
 
+
+  function reviewHighlightTexts(kind, passageId) {
+    const hl = state.reviewHighlights || {};
+    if (kind === "questions") return Array.isArray(hl.questions) ? hl.questions : [];
+    const map = hl.passage || {};
+    const key = String(passageId);
+    return map[key] || map[passageId] || [];
+  }
+
+  function normalizeHighlightText(s) {
+    return String(s || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function applyReviewHighlightsTo(root, marks) {
+    if (!root || !marks || !marks.length) return;
+    marks.forEach((raw) => {
+      const needle = normalizeHighlightText(raw);
+      if (needle) wrapReviewHighlight(root, needle);
+    });
+  }
+
+  function wrapReviewHighlight(root, needle) {
+    const skipSel = "script,style,textarea,select,button,input,mark.hl,.q-review-key,.hl-tools";
+    const nodes = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        if (parent.closest(skipSel)) return NodeFilter.FILTER_REJECT;
+        if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+    if (!nodes.length) return false;
+
+    let orig = "";
+    const map = [];
+    nodes.forEach((n) => {
+      const text = n.nodeValue;
+      for (let i = 0; i < text.length; i++) {
+        map.push({ node: n, offset: i });
+        orig += text[i];
+      }
+    });
+
+    let norm = "";
+    const normMap = [];
+    let prevSpace = false;
+    for (let i = 0; i < orig.length; i++) {
+      const ch = orig[i];
+      const isSpace = ch === "\u00a0" || /\s/.test(ch);
+      if (isSpace) {
+        if (!prevSpace) {
+          norm += " ";
+          normMap.push(i);
+        }
+        prevSpace = true;
+      } else {
+        norm += ch;
+        normMap.push(i);
+        prevSpace = false;
+      }
+    }
+
+    const pos = norm.indexOf(needle);
+    if (pos < 0) return false;
+    const origStart = normMap[pos];
+    const origLast = normMap[pos + needle.length - 1];
+    const start = map[origStart];
+    const end = map[origLast];
+    if (!start || !end) return false;
+    const range = document.createRange();
+    range.setStart(start.node, start.offset);
+    range.setEnd(end.node, end.offset + 1);
+    const mark = document.createElement("mark");
+    mark.className = "hl";
+    try {
+      range.surroundContents(mark);
+    } catch (err) {
+      try {
+        mark.appendChild(range.extractContents());
+        range.insertNode(mark);
+      } catch (err2) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   function lockReviewInputs() {
     if (!el.questionScroll) return;
     el.questionScroll.querySelectorAll("input, select, textarea").forEach((node) => {
@@ -1668,6 +1779,11 @@
       state.flags = {};
       state.passageHtml = {};
       state.questionHtml = "";
+      const rh = data.review_highlights || {};
+      state.reviewHighlights = {
+        passage: rh.passage || {},
+        questions: Array.isArray(rh.questions) ? rh.questions : [],
+      };
       state.duration = data.time_used_seconds || 0;
       state.remaining = 0;
       state.currentQ = state.questions[0];

@@ -833,3 +833,35 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
   justify-content: center;
   margin-top: 8px;
 }
+
+/* Read-only attempt review (exam UI) */
+.review-mode-banner {
+  background: #e4ddd5;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  padding: 8px 16px;
+}
+.review-mode-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  max-width: 1180px;
+  margin: 0 auto;
+  font-size: 14px;
+}
+.review-mode-inner strong {
+  letter-spacing: .04em;
+  color: var(--accent-deep);
+}
+#reviewModeMeta { color: var(--muted); }
+.review-mode-links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+body.attempt-review .timer-label,
+body.attempt-review #timer,
+body.attempt-review #btnPause { display: none !important; }
+body.attempt-review textarea.answer[readonly],
+body.attempt-review textarea.answer:disabled {
+  background: #f7f4f0;
+  color: var(--ink);
+  cursor: default;
+}

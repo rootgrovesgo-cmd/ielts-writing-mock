@@ -435,6 +435,36 @@ def student_logout():
     return redirect(url_for("index"))
 
 
+def _review_context(record: dict, *, mistakes_only: bool = False) -> dict:
+    return {
+        "sid": record.get("id"),
+        "mistakes_only": bool(mistakes_only),
+        "module": sp.module_of(record),
+    }
+
+
+def render_attempt_exam(record: dict, *, mistakes_only: bool = False):
+    """Render the live exam templates in read-only review mode."""
+    review = _review_context(record, mistakes_only=mistakes_only)
+    if sp.module_of(record) == "reading":
+        return render_template("reading.html", review=review)
+    return render_template(
+        "exam.html",
+        sets=prompt_set_summaries(),
+        notion_on=notion_enabled(),
+        review=review,
+    )
+
+
+def reject_review_submit(data: dict):
+    """Block a client that tries to submit or overwrite from a review view."""
+    if not isinstance(data, dict):
+        return None
+    if data.get("review") or data.get("review_mode") or data.get("review_sid") or data.get("attempt_review"):
+        return jsonify({"ok": False, "error": "回顾模式不可交卷"}), 403
+    return None
+
+
 @app.route("/me/submission/<sid>")
 def student_submission(sid: str):
     ident = current_student()
@@ -443,21 +473,7 @@ def student_submission(sid: str):
     record = load_owned_submission(sid, ident)
     if record is None:
         return "未找到该答卷", 404
-    if sp.module_of(record) == "reading":
-        view = sp.reading_detail_view(record, load_reading_paper(), load_reading_keys())
-        return render_template(
-            "student_detail.html",
-            view=view,
-            sid=record.get("id") or sid,
-            is_reading=True,
-        )
-    view = sp.writing_view(record, load_prompts())
-    return render_template(
-        "student_detail.html",
-        view=view,
-        sid=record.get("id") or sid,
-        is_reading=False,
-    )
+    return render_attempt_exam(record, mistakes_only=False)
 
 
 @app.route("/me/submission/<sid>/review")
@@ -468,12 +484,26 @@ def student_submission_review(sid: str):
     record = load_owned_submission(sid, ident)
     if record is None or sp.module_of(record) != "reading":
         return "未找到该答卷", 404
-    view = sp.reading_mistakes_view(record, load_reading_paper(), load_reading_keys())
-    return render_template(
-        "student_review.html",
-        view=view,
-        sid=record.get("id") or sid,
-    )
+    return render_attempt_exam(record, mistakes_only=True)
+
+
+@app.route("/api/me/submission/<sid>")
+def api_me_submission(sid: str):
+    ident = current_student()
+    if not ident:
+        return jsonify({"ok": False, "error": "请先登录后查看记录"}), 401
+    record = load_owned_submission(sid, ident)
+    if record is None:
+        return jsonify({"ok": False, "error": "未找到该答卷"}), 404
+    if sp.module_of(record) == "reading":
+        payload = sp.attempt_review_payload(
+            record,
+            paper=load_reading_paper(),
+            keys=load_reading_keys(),
+        )
+    else:
+        payload = sp.attempt_review_payload(record, prompts_data=load_prompts())
+    return jsonify(payload)
 
 
 @app.route("/api/session/start", methods=["POST"])
@@ -544,6 +574,9 @@ def api_speaking_bank():
 def api_submit():
     ensure_storage()
     data = request.get_json(silent=True) or {}
+    blocked = reject_review_submit(data)
+    if blocked:
+        return blocked
     ident, err = ident_for_submit(data, "writing")
     if err:
         return err
@@ -715,6 +748,9 @@ def student_reading_result(record: dict) -> dict:
 def api_reading_submit():
     ensure_storage()
     data = request.get_json(silent=True) or {}
+    blocked = reject_review_submit(data)
+    if blocked:
+        return blocked
     ident, err = ident_for_submit(data, "reading")
     if err:
         return err

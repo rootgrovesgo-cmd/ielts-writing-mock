@@ -35,6 +35,8 @@
     doneMsg: document.getElementById("doneMsg"),
     taskTabs: document.getElementById("taskTabs"),
     nameError: document.getElementById("nameError"),
+    reviewModeBanner: document.getElementById("reviewModeBanner"),
+    reviewModeMeta: document.getElementById("reviewModeMeta"),
   };
 
   const state = {
@@ -50,6 +52,7 @@
     submitted: false,
     warned5: false,
     warned1: false,
+    attemptReview: false,
   };
 
   // Mode pill UI
@@ -488,6 +491,7 @@
   }
 
   function togglePause() {
+    if (state.attemptReview) return;
     if (!state.running || state.submitted) return;
     if (!state.paused) {
       state.paused = true;
@@ -506,6 +510,7 @@
   }
 
   async function submitAnswers(auto) {
+    if (state.attemptReview) return;
     if (state.submitted) return;
     state.submitted = true;
     state.running = false;
@@ -562,6 +567,10 @@
   }
 
   function resetToSetup() {
+    if (state.attemptReview) {
+      window.location.href = "/me";
+      return;
+    }
     if (state.running && !state.submitted) {
       if (!confirm("确定放弃当前答卷并重置？")) return;
     }
@@ -587,4 +596,94 @@
   });
   el.btnReset.addEventListener("click", resetToSetup);
   el.btnAgain.addEventListener("click", resetToSetup);
+
+  function lockWritingReview() {
+    if (el.task1Answer) {
+      el.task1Answer.readOnly = true;
+      el.task1Answer.setAttribute("readonly", "readonly");
+    }
+    if (el.task2Answer) {
+      el.task2Answer.readOnly = true;
+      el.task2Answer.setAttribute("readonly", "readonly");
+    }
+    if (el.btnSubmit) el.btnSubmit.classList.add("hidden");
+    if (el.btnReset) {
+      el.btnReset.textContent = "返回我的记录";
+    }
+    if (el.btnPause) el.btnPause.classList.add("hidden");
+    if (el.modeLabel) el.modeLabel.textContent = "回顾模式";
+    if (el.reviewModeBanner) el.reviewModeBanner.classList.remove("hidden");
+  }
+
+  async function enterAttemptReview() {
+    const cfg = window.REVIEW_CONFIG || {};
+    const sid = cfg.sid;
+    if (!sid) return;
+    state.attemptReview = true;
+    state.running = false;
+    state.submitted = true;
+    state.paused = false;
+    window.onbeforeunload = null;
+    try {
+      const res = await fetch("/api/me/submission/" + encodeURIComponent(sid), {
+        credentials: "same-origin",
+      });
+      if (res.status === 401 || res.status === 403) {
+        window.location.href = "/me?next=/me/submission/" + encodeURIComponent(sid);
+        return;
+      }
+      if (res.status === 404) {
+        document.body.innerHTML = "<p style='padding:24px'>未找到该答卷</p>";
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error((data && data.error) || "review load failed");
+      if (data.set) {
+        state.set = data.set;
+        sets = [data.set];
+      }
+      state.mode = data.mode || "full";
+      state.duration = data.time_used_seconds || 0;
+      state.remaining = 0;
+      if (!state.set || !state.set.task1) {
+        showSetupError("未能加载本题的写作题目。");
+        if (el.setup) el.setup.classList.remove("hidden");
+        return;
+      }
+      loadPromptIntoUI();
+      el.task1Answer.value = data.task1_text || "";
+      el.task2Answer.value = data.task2_text || "";
+      updateWordCounts();
+      const only1 = state.mode === "task1";
+      const only2 = state.mode === "task2";
+      el.taskTabs.classList.toggle("hidden", only1 || only2);
+      if (only2) {
+        switchTask(2);
+        el.task1Panel.classList.add("hidden");
+      } else {
+        switchTask(1);
+        if (only1) el.task2Panel.classList.add("hidden");
+      }
+      if (el.setup) el.setup.classList.add("hidden");
+      if (el.done) el.done.classList.add("hidden");
+      el.exam.classList.remove("hidden");
+      lockWritingReview();
+      if (el.reviewModeMeta) {
+        const bits = [];
+        if (data.duration) bits.push("用时 " + data.duration);
+        if (state.mode !== "task2") bits.push("Task 1 " + (data.task1_word_count || 0) + " 词");
+        if (state.mode !== "task1") bits.push("Task 2 " + (data.task2_word_count || 0) + " 词");
+        el.reviewModeMeta.textContent = bits.join(" · ");
+      }
+    } catch (err) {
+      console.error(err);
+      showSetupError("无法加载这套已交答卷，请返回我的记录后重试。");
+      if (el.setup) el.setup.classList.remove("hidden");
+    }
+  }
+
+  if (window.REVIEW_CONFIG && window.REVIEW_CONFIG.sid) {
+    enterAttemptReview();
+  }
+
 })();

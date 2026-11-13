@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='reading.css') }}" />
 </head>
-<body class="reading-page">
+<body class="reading-page{% if review %} attempt-review{% endif %}">
   <header class="topbar">
     <div class="brand-block">
       <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
@@ -21,7 +21,7 @@
     </div>
   </header>
 
-  <main id="setupPanel" class="wrap">
+  <main id="setupPanel" class="wrap{% if review %} hidden{% endif %}">
     <section class="card setup-card">
       <p class="eyebrow">Candidate check-in</p>
       <h1>Start your reading test</h1>
@@ -76,7 +76,18 @@
     </section>
   </main>
 
-  <section id="examPanel" class="reading-shell hidden">
+  <div id="reviewModeBanner" class="review-mode-banner{% if not review %} hidden{% endif %}">
+    <div class="review-mode-inner">
+      <strong>回顾模式</strong>
+      <span id="reviewModeMeta"></span>
+      <span class="review-mode-links">
+        <a class="btn secondary sm" href="/me">返回我的记录</a>
+        <a class="btn secondary sm" href="/reading">再做一套新题</a>
+      </span>
+    </div>
+  </div>
+
+  <section id="examPanel" class="reading-shell{% if not review %} hidden{% endif %}">
     <div id="statusBanner" class="banner info hidden reading-status"></div>
     <div class="pane-toggle" id="paneToggle">
       <button type="button" class="active" data-pane="passage">Passage</button>
@@ -160,7 +171,8 @@
       </div>
       <p class="muted" style="text-align:center;margin-top:8px">Your answers have been saved. You can review your mistakes and explanations, or close this page.</p>
       <div class="actions done-actions">
-        <a id="btnReviewMistakes" class="btn hidden" href="#">Review mistakes</a>
+        <a id="btnReviewPaper" class="btn hidden" href="#">Review paper</a>
+        <a id="btnReviewMistakes" class="btn ghost hidden" href="#">Review mistakes</a>
         <button type="button" id="btnAgain" class="btn ghost">Take again</button>
         <a class="btn ghost" href="/">Back to home</a>
       </div>
@@ -173,6 +185,15 @@
     <a href="/admin" class="footer-admin">Teacher</a>
   </footer>
 
+  {% if review %}
+  <script>
+    window.REVIEW_CONFIG = {
+      sid: {{ review.sid | tojson }},
+      module: "reading",
+      mistakesOnly: {{ review.mistakes_only | tojson }}
+    };
+  </script>
+  {% endif %}
   <script src="{{ url_for('static', filename='reading.js') }}"></script>
 </body>
 </html>

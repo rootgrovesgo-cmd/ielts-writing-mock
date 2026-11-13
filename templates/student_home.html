@@ -24,7 +24,7 @@
     <section class="card setup-card hub-hero">
       <p class="eyebrow">My records</p>
       <h1>你好，{{ student_name }}</h1>
-      <p class="muted lead">这里只列出你已经交过的写作和阅读答卷。点进去可查看题目、自己的作答、标准答案和解析。口语练习不会保存在此。</p>
+      <p class="muted lead">这里只列出你已经交过的写作和阅读答卷。点「查看整卷」会回到原来的机考界面回顾，答案已填入且不可修改；阅读还可查看标准答案、解析和错题。口语练习不会保存在此。</p>
       <div class="student-start-links">
         <a class="btn ghost sm" href="/writing">写作模考</a>
         <a class="btn ghost sm" href="/reading">阅读模考</a>
@@ -54,7 +54,7 @@
           </p>
         </div>
         <div class="attempt-actions">
-          <a class="btn sm" href="{{ url_for('student_submission', sid=item.id) }}">查看作答</a>
+          <a class="btn sm" href="{{ url_for('student_submission', sid=item.id) }}">查看整卷</a>
           {% if item.module == 'reading' %}
           <a class="btn ghost sm" href="{{ url_for('student_submission_review', sid=item.id) }}">查看错题</a>
           {% endif %}

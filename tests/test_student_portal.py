@@ -237,8 +237,9 @@ class ListAndSecurityTests(StudentPortalTestCase):
         self.assertIn("还没有交过卷", html)
         self.assertIn("/writing", html)
         self.assertIn("/reading", html)
-        self.assertNotIn("查看作答", html)
-        self.assertNotIn("查看错题", html)
+        # Help text may mention 查看整卷; there must be no attempt links yet.
+        self.assertNotIn("/me/submission/", html)
+        self.assertNotIn('class="attempt-card"', html)
         # Generic copy may mention that explanations appear after submit;
         # the empty account must not include any paper, keys, or stems.
         for word in ("Saving the addax", "saiga", "sand", "定位第", "The addax"):
@@ -263,6 +264,11 @@ class ListAndSecurityTests(StudentPortalTestCase):
         raw = paper.get_data(as_text=True)
         self.assertNotIn("explanation", raw)
         self.assertNotIn("解析", raw)
+
+        api_miss = self.client.get("/api/me/submission/set-a")
+        self.assertEqual(api_miss.status_code, 404)
+        self.assertNotIn("解析", api_miss.get_data(as_text=True))
+        self.assertNotIn("sand", api_miss.get_data(as_text=True).lower())
 
     def test_list_only_own_attempts_and_idor_is_404(self):
         self._create_code(code="SHARED1")
@@ -303,7 +309,7 @@ class ListAndSecurityTests(StudentPortalTestCase):
         lin_sid = lin_write.get_json()["id"]
 
         ada_list = ada.get("/me").get_data(as_text=True)
-        self.assertIn("查看作答", ada_list)
+        self.assertIn("查看整卷", ada_list)
         self.assertIn("查看错题", ada_list)
         self.assertIn(ada_sid, ada_list)
         self.assertNotIn(lin_sid, ada_list)
@@ -327,6 +333,13 @@ class ListAndSecurityTests(StudentPortalTestCase):
         stolen_review = lin.get(f"/me/submission/{ada_sid}/review")
         self.assertEqual(stolen_review.status_code, 404)
         self.assertNotIn("解析", stolen_review.get_data(as_text=True))
+
+        stolen_api = lin.get(f"/api/me/submission/{ada_sid}")
+        self.assertEqual(stolen_api.status_code, 404)
+        stolen_api_body = stolen_api.get_data(as_text=True)
+        self.assertNotIn("解析", stolen_api_body)
+        self.assertNotIn("stone", stolen_api_body)
+        self.assertNotIn("explanation", stolen_api_body)
 
         # Unauthenticated visitors are sent to student login, not admin login, and see no keys.
         guest = appmod.app.test_client()
@@ -359,7 +372,7 @@ class ReviewContentTests(StudentPortalTestCase):
 
         home = self.client.get("/me")
         home_html = home.get_data(as_text=True)
-        self.assertIn("查看作答", home_html)
+        self.assertIn("查看整卷", home_html)
         self.assertIn("查看错题", home_html)
         self.assertIn(sid, home_html)
         self.assertIn(f"{data['score']}/{data['total']}", home_html)
@@ -368,44 +381,81 @@ class ReviewContentTests(StudentPortalTestCase):
         detail = self.client.get(f"/me/submission/{sid}")
         self.assertEqual(detail.status_code, 200)
         html = detail.get_data(as_text=True)
-        self.assertIn("Saving the addax", html)
-        self.assertIn("你的作答", html)
-        self.assertIn("标准答案", html)
-        self.assertIn("解析", html)
-        self.assertIn("TRUE", html)  # student answer for Q8
-        self.assertIn("FALSE", html)  # standard answer for Q8
-        self.assertIn("（未作答）", html)
-        self.assertIn("定位第", html)  # typical explanation lead-in
-        self.assertIn("58min0s", html)
-        self.assertIn("查看错题", html)
+        self.assertIn("REVIEW_CONFIG", html)
+        self.assertIn(sid, html)
+        self.assertIn("回顾模式", html)
+        self.assertIn("reading-shell", html)
+        self.assertIn("passage-pane", html)
+        self.assertIn("question-pane", html)
+        self.assertIn("reading.js", html)
+        self.assertIn("mistakesOnly: false", html)
+        # Keys and explanations are not embedded in the page; they come from the owner API.
+        self.assertNotIn("定位第", html)
         self.assertNotIn("下载 PDF", html)
         self.assertNotIn("高亮与扫跳评述", html)
         self.assertNotIn("文章类型", html)
         self.assertNotIn("结构类型", html)
-        self.assertNotIn("题材：", html)
+
+        api = self.client.get(f"/api/me/submission/{sid}")
+        self.assertEqual(api.status_code, 200)
+        payload = api.get_json()
+        self.assertTrue(payload["ok"])
+        self.assertEqual(payload["module"], "reading")
+        self.assertEqual(payload["answers"]["8"], "TRUE")
+        self.assertEqual(payload["answers"]["2"], "")
+        self.assertIn("paper", payload)
+        self.assertEqual(payload["paper"]["passages"][0]["title"], "Saving the addax")
+        by_q = {row["q"]: row for row in payload["questions"]}
+        self.assertEqual(by_q[8]["student"], "TRUE")
+        self.assertEqual(by_q[8]["correct"], "FALSE")
+        self.assertFalse(by_q[8]["ok"])
+        self.assertTrue(by_q[8]["explanation"])
+        self.assertTrue(by_q[2]["student_blank"])
+        self.assertTrue(by_q[1]["ok"])
+        self.assertEqual(by_q[1]["correct"], "sand")
+        self.assertIn("定位第", by_q[1]["explanation"])
+        raw_api = api.get_data(as_text=True)
+        self.assertIn("解析", "".join(row["explanation"] and "解析" or "" for row in payload["questions"]) or "解析")
+        self.assertIn("explanation", raw_api)
 
         review = self.client.get(f"/me/submission/{sid}/review")
         self.assertEqual(review.status_code, 200)
         rev = review.get_data(as_text=True)
-        self.assertIn("错题回顾", rev)
-        self.assertIn("Question 8", rev)
-        self.assertIn("Question 2", rev)
-        self.assertIn("你的作答", rev)
-        self.assertIn("标准答案", rev)
-        self.assertIn("解析", rev)
-        self.assertIn("（未作答）", rev)
-        # A known-correct item (Q1 = sand, left unchanged) must not appear as a mistake.
-        self.assertNotIn("Question 1", rev)
-        self.assertIn("mistakes", rev.lower())
+        self.assertIn("REVIEW_CONFIG", rev)
+        self.assertIn("mistakesOnly: true", rev)
+        self.assertIn("回顾模式", rev)
+        self.assertIn("reading-shell", rev)
+        self.assertNotIn("定位第", rev)
 
-        # Result page chrome includes the review entrance (shown after submit).
+        # Result page chrome includes the exam-UI review entrances.
         page = self.client.get("/reading").get_data(as_text=True)
+        self.assertNotIn("REVIEW_CONFIG", page)
         self.assertIn("btnReviewMistakes", page)
+        self.assertIn("btnReviewPaper", page)
         self.assertIn("Review mistakes", page)
-        self.assertNotIn("Standard answers are not shown", page)
+        self.assertIn("Review paper", page)
         js = (ROOT / "static" / "reading.js").read_text(encoding="utf-8")
+        self.assertIn("enterAttemptReview", js)
+        self.assertIn("lockReviewInputs", js)
         self.assertIn("/me/submission/", js)
-        self.assertIn("/review", js)
+        self.assertIn("enterAttemptReview", js)
+
+        blocked = self.client.post(
+            "/api/reading/submit",
+            json={
+                "candidate_name": "Ada Student",
+                "mode": "full",
+                "answers": {"1": "hack"},
+                "review_mode": True,
+                "review_sid": sid,
+            },
+        )
+        self.assertEqual(blocked.status_code, 403)
+        blocked_body = blocked.get_json()
+        self.assertFalse(blocked_body["ok"])
+        self.assertIn("回顾模式", blocked_body["error"])
+        self.assertNotIn("score", blocked_body)
+        self.assertNotIn("marking", blocked_body)
 
     def test_all_correct_review_is_empty_and_does_not_dump_the_key(self):
         self._create_code()
@@ -415,14 +465,15 @@ class ReviewContentTests(StudentPortalTestCase):
         sid = res.get_json()["id"]
         review = self.client.get(f"/me/submission/{sid}/review")
         html = review.get_data(as_text=True)
-        self.assertIn("全部答对，没有错题", html)
-        self.assertNotIn("Question 1", html)
-        self.assertNotIn("标准答案", html)
-        # The full detail, however, may show keys because this attempt was completed.
-        detail = self.client.get(f"/me/submission/{sid}").get_data(as_text=True)
-        self.assertIn("标准答案", detail)
-        self.assertIn("解析", detail)
-        self.assertIn("sand", detail)
+        self.assertIn("mistakesOnly: true", html)
+        self.assertIn("回顾模式", html)
+        # The HTML shell itself does not dump keys; the API includes them because
+        # this attempt was completed, and the client only displays mistakes.
+        self.assertNotIn("定位第", html)
+        api = self.client.get(f"/api/me/submission/{sid}").get_json()
+        self.assertEqual(api["mistake_count"], 0)
+        self.assertTrue(all(row["ok"] for row in api["questions"]))
+        self.assertIn("sand", api["questions"][0]["correct"])
 
     def test_paper_api_and_pre_submit_remain_key_free(self):
         self._create_code()
@@ -435,8 +486,13 @@ class ReviewContentTests(StudentPortalTestCase):
         self.assertNotIn('"answer": "sand"', raw)
 
         reading_page = self.client.get("/reading").get_data(as_text=True)
+        self.assertNotIn("REVIEW_CONFIG", reading_page)
         self.assertNotIn("解析", reading_page)
         self.assertNotIn("Saving the addax", reading_page)
+
+        unauth = appmod.app.test_client().get("/api/me/submission/whatever")
+        self.assertIn(unauth.status_code, (401, 404))
+        self.assertNotIn("explanation", unauth.get_data(as_text=True))
 
     def test_writing_detail_has_prompt_and_essay_but_no_official_score(self):
         self._create_code()
@@ -454,7 +510,7 @@ class ReviewContentTests(StudentPortalTestCase):
         path.write_text(json.dumps(record, ensure_ascii=False), encoding="utf-8")
 
         home = self.client.get("/me").get_data(as_text=True)
-        self.assertIn("查看作答", home)
+        self.assertIn("查看整卷", home)
         self.assertNotIn("查看错题", home)
         self.assertIn("55min12s", home)
         self.assertNotIn("7.5", home)
@@ -463,19 +519,48 @@ class ReviewContentTests(StudentPortalTestCase):
         detail = self.client.get(f"/me/submission/{sid}")
         self.assertEqual(detail.status_code, 200)
         html = detail.get_data(as_text=True)
-        self.assertIn("The bar charts below show the information about the population", html)
-        self.assertIn("/static/images/set-a-town-population.png", html)
-        self.assertIn("The charts compare the town population", html)
-        self.assertIn("Older people often lack accessible exercise programmes", html)
-        self.assertIn("你的作答", html)
+        self.assertIn("REVIEW_CONFIG", html)
+        self.assertIn("回顾模式", html)
+        self.assertIn("exam-shell", html)
+        self.assertIn("task1Answer", html)
+        self.assertIn("exam.js", html)
         self.assertNotIn("7.5", html)
         self.assertNotIn("official_score", html)
         self.assertNotIn("参考分数", html)
         self.assertNotIn("下载 PDF", html)
-        self.assertNotIn("解析", html)
+
+        api = self.client.get(f"/api/me/submission/{sid}")
+        self.assertEqual(api.status_code, 200)
+        payload = api.get_json()
+        self.assertEqual(payload["module"], "writing")
+        self.assertIn("The bar charts below show the information about the population", payload["set"]["task1"]["instruction"])
+        self.assertEqual(payload["set"]["task1"]["image"]["src"], "/static/images/set-a-town-population.png")
+        self.assertIn("The charts compare the town population", payload["task1_text"])
+        self.assertIn("Older people often lack accessible exercise programmes", payload["task2_text"])
+        self.assertNotIn("band_estimate", payload)
+        self.assertNotIn("official_score", payload)
+        self.assertNotIn("task1_band", payload)
+        self.assertNotIn("7.5", api.get_data(as_text=True))
+        self.assertNotIn("解析", api.get_data(as_text=True))
 
         review = self.client.get(f"/me/submission/{sid}/review")
         self.assertEqual(review.status_code, 404)
+
+        blocked = self.client.post(
+            "/api/submit",
+            json={
+                "candidate_name": "Ada Student",
+                "mode": "full",
+                "task1_text": "should not save",
+                "review_mode": True,
+            },
+        )
+        self.assertEqual(blocked.status_code, 403)
+        self.assertIn("回顾模式", blocked.get_json()["error"])
+
+        exam_js = (ROOT / "static" / "exam.js").read_text(encoding="utf-8")
+        self.assertIn("enterAttemptReview", exam_js)
+        self.assertIn("readOnly", exam_js)
 
     def test_older_record_without_user_id_matches_name_and_code(self):
         rec = self._create_code()
@@ -520,7 +605,10 @@ class ReviewContentTests(StudentPortalTestCase):
         self.assertIn("12s", home)
         detail = self.client.get(f"/me/submission/{sid}")
         self.assertEqual(detail.status_code, 200)
-        self.assertIn("Legacy essay without a user id.", detail.get_data(as_text=True))
+        self.assertIn("REVIEW_CONFIG", detail.get_data(as_text=True))
+        api = self.client.get(f"/api/me/submission/{sid}")
+        self.assertEqual(api.status_code, 200)
+        self.assertIn("Legacy essay without a user id.", api.get_json()["task2_text"])
 
 
 if __name__ == "__main__":

@@ -35,6 +35,9 @@
     btnQuit: document.getElementById("btnQuit"),
     btnAgain: document.getElementById("btnAgain"),
     btnReviewMistakes: document.getElementById("btnReviewMistakes"),
+    btnReviewPaper: document.getElementById("btnReviewPaper"),
+    reviewModeBanner: document.getElementById("reviewModeBanner"),
+    reviewModeMeta: document.getElementById("reviewModeMeta"),
     btnPrev: document.getElementById("btnPrev"),
     btnNext: document.getElementById("btnNext"),
     btnFlag: document.getElementById("btnFlag"),
@@ -102,6 +105,10 @@
     warned5: false,
     warned1: false,
     reviewing: false,
+    attemptReview: false,
+    mistakesOnly: false,
+    reviewByQ: {},
+    reviewMistakeQs: [],
     allowPause: false,
     pendingNoteRange: null,
     pendingNoteMark: null,
@@ -225,6 +232,7 @@
   }
 
   function persist() {
+    if (state.attemptReview) return;
     if (!state.running || state.submitted) return;
     creditPartTime();
     const payload = {
@@ -533,12 +541,14 @@
     el.questionScroll.innerHTML = html;
     bindQuestionInputs();
     checkMatchingDups();
+    if (state.attemptReview) decorateReviewKeys();
     updateCurrentHighlight();
   }
 
   function bindQuestionInputs() {
     el.questionScroll.querySelectorAll("input[data-q], select[data-q]").forEach((node) => {
       const handler = () => {
+        if (state.attemptReview) return;
         const q = Number(node.getAttribute("data-q"));
         let val = "";
         if (node.type === "radio") {
@@ -619,6 +629,13 @@
     updatePalette();
   }
 
+  function reviewNavList() {
+    if (state.attemptReview && state.mistakesOnly && state.reviewMistakeQs.length) {
+      return state.reviewMistakeQs;
+    }
+    return state.questions;
+  }
+
   function updatePalette() {
     state.questions.forEach((q) => {
       const btn = document.getElementById("pal-" + q);
@@ -626,12 +643,19 @@
       btn.classList.toggle("current", q === state.currentQ);
       btn.classList.toggle("answered", isAnswered(q));
       btn.classList.toggle("flagged", !!state.flags[q]);
+      if (state.attemptReview) {
+        const row = state.reviewByQ[q];
+        const ok = !!(row && row.ok);
+        btn.classList.toggle("rev-ok", ok);
+        btn.classList.toggle("rev-bad", !ok);
+      }
     });
     el.btnFlag.classList.toggle("flagged", !!state.flags[state.currentQ]);
     el.btnFlag.textContent = state.flags[state.currentQ] ? "Flagged" : "Flag";
-    const idx = state.questions.indexOf(state.currentQ);
+    const nav = reviewNavList();
+    const idx = nav.indexOf(state.currentQ);
     el.btnPrev.disabled = idx <= 0;
-    el.btnNext.disabled = idx < 0 || idx >= state.questions.length - 1;
+    el.btnNext.disabled = idx < 0 || idx >= nav.length - 1;
   }
 
   function updateCurrentHighlight() {
@@ -826,6 +850,7 @@
   }
 
   function doHighlight() {
+    if (state.attemptReview) return;
     const ctx = selectionInHighlightable();
     if (!ctx) return;
     applyHighlight(ctx.range);
@@ -833,6 +858,7 @@
   }
 
   function doClearHighlight() {
+    if (state.attemptReview) return;
     const ctx = selectionInHighlightable();
     if (ctx) {
       marksInRange(ctx.range).forEach(unwrapMark);
@@ -881,6 +907,7 @@
   }
 
   function doAddNote() {
+    if (state.attemptReview) return;
     hideHlMenu();
     const active = activeMark();
     const ctx = selectionInHighlightable();
@@ -1253,6 +1280,7 @@
   }
 
   function togglePause() {
+    if (state.attemptReview) return;
     if (!state.running || state.submitted || !state.allowPause) return;
     if (!state.paused) {
       creditPartTime();
@@ -1275,6 +1303,7 @@
   }
 
   function toggleFlag() {
+    if (state.attemptReview) return;
     const q = state.currentQ;
     if (!q) return;
     if (state.flags[q]) delete state.flags[q];
@@ -1343,8 +1372,16 @@
       "</td></tr>";
     el.doneResult.classList.remove("hidden");
 
+    const sid = data && data.id;
+    if (el.btnReviewPaper) {
+      if (sid) {
+        el.btnReviewPaper.href = "/me/submission/" + encodeURIComponent(sid);
+        el.btnReviewPaper.classList.remove("hidden");
+      } else {
+        el.btnReviewPaper.classList.add("hidden");
+      }
+    }
     if (el.btnReviewMistakes) {
-      const sid = data && data.id;
       if (sid) {
         el.btnReviewMistakes.href = "/me/submission/" + encodeURIComponent(sid) + "/review";
         el.btnReviewMistakes.classList.remove("hidden");
@@ -1355,6 +1392,7 @@
   }
 
   async function submitAnswers(auto) {
+    if (state.attemptReview) return;
     if (state.submitted) return;
     state.submitted = true;
     state.running = false;
@@ -1439,20 +1477,28 @@
   el.btnStart.addEventListener("click", () => startExam(false));
   el.btnPause.addEventListener("click", togglePause);
   el.btnFlag.addEventListener("click", toggleFlag);
-  el.btnReview.addEventListener("click", toggleReview);
+  el.btnReview.addEventListener("click", () => {
+    if (state.attemptReview) {
+      setMistakesFilter(!state.mistakesOnly);
+      return;
+    }
+    toggleReview();
+  });
   el.btnBackToTest.addEventListener("click", leaveReview);
   el.btnPrev.addEventListener("click", () => {
-    const idx = state.questions.indexOf(state.currentQ);
+    const nav = reviewNavList();
+    const idx = nav.indexOf(state.currentQ);
     if (idx > 0) {
       leaveReview();
-      setCurrent(state.questions[idx - 1], true);
+      setCurrent(nav[idx - 1], true);
     }
   });
   el.btnNext.addEventListener("click", () => {
-    const idx = state.questions.indexOf(state.currentQ);
-    if (idx >= 0 && idx < state.questions.length - 1) {
+    const nav = reviewNavList();
+    const idx = nav.indexOf(state.currentQ);
+    if (idx >= 0 && idx < nav.length - 1) {
       leaveReview();
-      setCurrent(state.questions[idx + 1], true);
+      setCurrent(nav[idx + 1], true);
     }
   });
   el.btnSubmit.addEventListener("click", () => {
@@ -1470,7 +1516,186 @@
   el.btnQuit.addEventListener("click", resetToSetup);
   el.btnAgain.addEventListener("click", resetToSetup);
 
+
+  function reviewRow(q) {
+    return state.reviewByQ[q] || state.reviewByQ[String(q)] || null;
+  }
+
+  function renderReviewKey(q) {
+    const row = reviewRow(q);
+    if (!row) return "";
+    const ok = !!row.ok;
+    const student = row.student_blank || !(row.student || "").trim() ? "（未作答）" : escapeHtml(row.student);
+    const correct = escapeHtml(row.correct || "");
+    const expl = row.explanation ? escapeHtml(row.explanation) : "";
+    return (
+      '<div class="q-review-key ' +
+      (ok ? "is-ok" : "is-wrong") +
+      '" data-review-q="' +
+      q +
+      '"><dl>' +
+      '<div class="q-rev-student"><dt>你的作答</dt><dd>' +
+      student +
+      "</dd></div>" +
+      "<div><dt>标准答案</dt><dd>" +
+      correct +
+      "</dd></div></dl>" +
+      (expl ? '<div class="q-explain"><h4>解析</h4><p>' + expl + "</p></div>" : "") +
+      "</div>"
+    );
+  }
+
+  function lockReviewInputs() {
+    if (!el.questionScroll) return;
+    el.questionScroll.querySelectorAll("input, select, textarea").forEach((node) => {
+      node.setAttribute("readonly", "readonly");
+      node.disabled = true;
+      node.tabIndex = -1;
+    });
+  }
+
+  function decorateReviewKeys() {
+    if (!state.attemptReview || !el.questionScroll) return;
+    const placed = {};
+    state.questions.forEach((q) => {
+      const html = renderReviewKey(q);
+      if (!html) return;
+      const item = document.getElementById("q-" + q);
+      const wrap = document.createElement("div");
+      wrap.innerHTML = html;
+      const box = wrap.firstChild;
+      const row = reviewRow(q);
+      if (item) {
+        item.classList.toggle("is-ok", !!(row && row.ok));
+        item.classList.toggle("is-wrong", !(row && row.ok));
+        item.appendChild(box);
+      } else {
+        const input = document.getElementById("ans-" + q);
+        const notes = input && input.closest(".notes-box");
+        const group = input && input.closest(".q-group");
+        const host = notes || group || (input && input.parentNode);
+        if (host) host.insertAdjacentElement("afterend", box);
+      }
+      if (row && row.ok) placed[q] = "ok";
+      else placed[q] = "bad";
+    });
+    lockReviewInputs();
+  }
+
+  function setMistakesFilter(on) {
+    state.mistakesOnly = !!on && state.reviewMistakeQs.length > 0;
+    document.body.classList.toggle("mistakes-only", state.mistakesOnly);
+    if (el.btnReview) {
+      el.btnReview.textContent = state.mistakesOnly ? "查看整卷" : "查看错题";
+    }
+    if (state.mistakesOnly) {
+      const nav = reviewNavList();
+      if (nav.length && nav.indexOf(state.currentQ) === -1) setCurrent(nav[0], true);
+      else updatePalette();
+    } else {
+      updatePalette();
+    }
+  }
+
+  function applyReviewChrome(data) {
+    document.body.classList.add("attempt-review", "exam-on");
+    if (el.reviewModeBanner) el.reviewModeBanner.classList.remove("hidden");
+    if (el.reviewModeMeta) {
+      const bits = [];
+      if (data.score_label) bits.push("成绩 " + data.score_label);
+      if (data.band_label) bits.push("参考分数 " + data.band_label);
+      else if (data.score_label && data.mode && data.mode !== "full") bits.push("单篇模式仅记原始分");
+      if (data.duration) bits.push("用时 " + data.duration);
+      if (data.mistake_count != null) bits.push(data.mistake_count + " mistakes");
+      el.reviewModeMeta.textContent = bits.join(" · ");
+    }
+    if (el.modeLabel) el.modeLabel.textContent = "回顾模式";
+    if (el.btnPause) el.btnPause.classList.add("hidden");
+    if (el.btnSubmit) el.btnSubmit.classList.add("hidden");
+    if (el.btnQuit) el.btnQuit.classList.add("hidden");
+    if (el.btnFlag) el.btnFlag.classList.add("hidden");
+    if (el.btnReview) {
+      el.btnReview.classList.remove("hidden");
+      el.btnReview.textContent = "查看错题";
+    }
+    const tools = document.querySelector(".hl-tools");
+    if (tools) tools.classList.add("hidden");
+  }
+
+  async function enterAttemptReview() {
+    const cfg = window.REVIEW_CONFIG || {};
+    const sid = cfg.sid;
+    if (!sid) return;
+    state.attemptReview = true;
+    state.running = false;
+    state.submitted = true;
+    state.paused = false;
+    state.allowPause = false;
+    window.onbeforeunload = null;
+    try {
+      const res = await fetch("/api/me/submission/" + encodeURIComponent(sid), {
+        credentials: "same-origin",
+      });
+      if (res.status === 401 || res.status === 403) {
+        window.location.href = "/me?next=/me/submission/" + encodeURIComponent(sid);
+        return;
+      }
+      if (res.status === 404) {
+        document.body.innerHTML = "<p style='padding:24px'>未找到该答卷</p>";
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error((data && data.error) || "review load failed");
+      paper = data.paper;
+      state.name = "";
+      state.mode = data.mode || "full";
+      state.setId = (data.paper && data.paper.id) || "set-a";
+      state.questions = questionList(state.mode);
+      state.answers = {};
+      state.reviewByQ = {};
+      (data.answers || {});
+      Object.keys(data.answers || {}).forEach((k) => {
+        const q = Number(k);
+        state.answers[q] = data.answers[k] == null ? "" : String(data.answers[k]);
+      });
+      (data.questions || []).forEach((row) => {
+        state.reviewByQ[row.q] = row;
+        if (row.student != null && state.answers[row.q] == null) state.answers[row.q] = row.student;
+      });
+      state.reviewMistakeQs = (data.questions || [])
+        .filter((row) => !row.ok || row.student_blank)
+        .map((row) => row.q);
+      state.flags = {};
+      state.passageHtml = {};
+      state.questionHtml = "";
+      state.duration = data.time_used_seconds || 0;
+      state.remaining = 0;
+      state.currentQ = state.questions[0];
+      state.currentPassage = 0;
+      applyReviewChrome(data);
+      enterExamChrome();
+      renderPassage(passageForQuestion(state.currentQ), true);
+      renderQuestions();
+      renderPalette();
+      const startQ =
+        cfg.mistakesOnly && state.reviewMistakeQs.length ? state.reviewMistakeQs[0] : state.questions[0];
+      setCurrent(startQ, true);
+      if (cfg.mistakesOnly) {
+        if (state.reviewMistakeQs.length) setMistakesFilter(true);
+        else showBanner("全部答对，没有错题。正在查看整卷。", "info");
+      }
+    } catch (err) {
+      console.error(err);
+      showSetupError("无法加载这套已交答卷，请返回我的记录后重试。");
+      if (el.setup) el.setup.classList.remove("hidden");
+    }
+  }
+
   startSplitter();
   showMobilePane("passage");
-  resumeIfNeeded();
+  if (window.REVIEW_CONFIG && window.REVIEW_CONFIG.sid) {
+    enterAttemptReview();
+  } else {
+    resumeIfNeeded();
+  }
 })();

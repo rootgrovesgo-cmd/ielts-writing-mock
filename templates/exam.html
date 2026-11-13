@@ -6,7 +6,7 @@
   <title>Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
-<body>
+<body class="{% if review %}attempt-review{% endif %}">
   <header class="topbar">
     <div class="brand-block">
       <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
@@ -22,7 +22,7 @@
 
   <main class="wrap">
     <!-- Setup -->
-    <section id="setupPanel" class="card setup-card">
+    <section id="setupPanel" class="card setup-card{% if review %} hidden{% endif %}">
       <p class="eyebrow">Candidate check-in</p>
       <h1>Start your writing test</h1>
       <p class="muted lead">填写姓名和邀请码后开始。界面仿照雅思机考 Writing：左侧题目，右侧答题区。</p>
@@ -76,7 +76,18 @@
     </section>
 
     <!-- Exam: CD IELTS-style split -->
-    <section id="examPanel" class="exam-shell hidden">
+    <div id="reviewModeBanner" class="review-mode-banner{% if not review %} hidden{% endif %}">
+      <div class="review-mode-inner">
+        <strong>回顾模式</strong>
+        <span id="reviewModeMeta"></span>
+        <span class="review-mode-links">
+          <a class="btn secondary sm" href="/me">返回我的记录</a>
+          <a class="btn secondary sm" href="/writing">再做一套新题</a>
+        </span>
+      </div>
+    </div>
+
+    <section id="examPanel" class="exam-shell{% if not review %} hidden{% endif %}">
       <div id="statusBanner" class="banner info hidden"></div>
 
       <div class="task-tabs" id="taskTabs" role="tablist">
@@ -139,6 +150,15 @@
     <a href="/admin" class="footer-admin">Teacher</a>
   </footer>
 
+  {% if review %}
+  <script>
+    window.REVIEW_CONFIG = {
+      sid: {{ review.sid | tojson }},
+      module: "writing",
+      mistakesOnly: false
+    };
+  </script>
+  {% endif %}
   <script src="{{ url_for('static', filename='exam.js') }}"></script>
 </body>
 </html>

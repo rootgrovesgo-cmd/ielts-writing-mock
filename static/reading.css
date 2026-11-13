@@ -609,3 +609,83 @@ body.reading-page.exam-on.reviewing .pane-toggle { display: none; }
   border-bottom: none;
   font-weight: 700;
 }
+
+/* Read-only reading review */
+body.reading-page.attempt-review.exam-on {
+  overflow: hidden;
+  height: 100vh;
+}
+body.reading-page.attempt-review.exam-on .review-mode-banner { flex-shrink: 0; }
+body.reading-page.attempt-review.exam-on .reading-shell {
+  height: calc(100vh - 64px - 48px);
+}
+body.attempt-review .hl-tools,
+body.attempt-review #hlMenu,
+body.attempt-review #noteModal,
+body.attempt-review #btnFlag,
+body.attempt-review #btnSubmit,
+body.attempt-review #btnQuit,
+body.attempt-review #btnPause { display: none !important; }
+body.attempt-review .pal-btn.rev-ok {
+  background: #e2ebe4;
+  border-color: var(--ok);
+  color: #3f5c48;
+}
+body.attempt-review .pal-btn.rev-bad {
+  background: #f0e0e0;
+  border-color: var(--danger);
+  color: #7a4040;
+}
+body.attempt-review .pal-btn.current.rev-ok,
+body.attempt-review .pal-btn.current.rev-bad {
+  color: #fff;
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+}
+body.attempt-review .q-review-key {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7f4f0;
+}
+body.attempt-review .q-review-key.is-wrong { border-color: #e0c8c8; background: #f8f1f1; }
+body.attempt-review .q-review-key.is-ok { border-color: #d5e3d8; background: #f3f7f4; }
+body.attempt-review .q-review-key dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin: 0 0 8px;
+}
+body.attempt-review .q-review-key dt {
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+body.attempt-review .q-review-key dd { margin: 0; font-weight: 600; }
+body.attempt-review .q-review-key.is-wrong .q-rev-student dd { color: var(--danger); }
+body.attempt-review .q-review-key .q-explain h4 {
+  margin: 0 0 4px;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+body.attempt-review .q-review-key .q-explain p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+body.attempt-review.mistakes-only .q-item.is-ok,
+body.attempt-review.mistakes-only .q-review-key.is-ok { display: none; }
+body.attempt-review input:disabled,
+body.attempt-review select:disabled {
+  background: #f3efe9;
+  color: var(--ink);
+  cursor: default;
+  opacity: 1;
+}

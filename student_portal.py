@@ -655,3 +655,82 @@ def reading_mistakes_view(record: dict, paper: dict, keys: dict) -> dict:
 
 def writing_has_official_score(view: dict) -> bool:
     return any(view.get(key) not in (None, "", []) for key in WRITING_SCORE_KEYS)
+
+
+def _slim_question_rows(rows: list[dict]) -> list[dict]:
+    slim = []
+    for row in rows:
+        slim.append(
+            {
+                "q": row.get("q"),
+                "student": row.get("student") or "",
+                "student_blank": bool(row.get("student_blank")),
+                "correct": row.get("correct") or "",
+                "explanation": row.get("explanation") or "",
+                "ok": bool(row.get("ok")),
+            }
+        )
+    return slim
+
+
+def attempt_review_payload(
+    record: dict,
+    *,
+    paper: dict | None = None,
+    keys: dict | None = None,
+    prompts_data: dict | None = None,
+) -> dict:
+    """Owner-scoped payload for the read-only exam-UI review. No teacher extras."""
+    module = module_of(record)
+    payload = {
+        "ok": True,
+        "id": record.get("id"),
+        "module": module,
+        "module_label": module_label(module),
+        "mode": (record.get("mode") or "full"),
+        "mode_label": mode_label(module, record.get("mode")),
+        "timestamp": record.get("timestamp") or "",
+        "when": format_shanghai(record.get("timestamp")),
+        "time_used_seconds": record.get("time_used_seconds") or 0,
+        "duration": duration_label(record.get("time_used_seconds")),
+        "auto_submitted": bool(record.get("auto_submitted")),
+    }
+    if module == "reading":
+        detail = reading_detail_view(record, paper or {}, keys or {})
+        payload.update(
+            {
+                "score": detail.get("score"),
+                "total": detail.get("total"),
+                "score_label": detail.get("score_label"),
+                "band_label": detail.get("band_label"),
+                "part_times": detail.get("part_times") or [],
+                "answers": _answer_map(record),
+                "flags": record.get("flags") or [],
+                "paper": paper or {},
+                "questions": _slim_question_rows(detail.get("questions") or []),
+                "mistake_count": detail.get("mistake_count") or 0,
+                "total_questions": detail.get("total_questions") or 0,
+            }
+        )
+        return payload
+
+    task1, task2, prompt_set = writing_prompts_for(record, prompts_data or {})
+    set_payload = None
+    if prompt_set:
+        set_payload = {
+            "id": prompt_set.get("id"),
+            "title": prompt_set.get("title"),
+            "task1": task1,
+            "task2": task2,
+        }
+    payload.update(
+        {
+            "prompt_set_id": record.get("prompt_set_id") or "",
+            "set": set_payload,
+            "task1_text": record.get("task1_text") or "",
+            "task2_text": record.get("task2_text") or "",
+            "task1_word_count": int(record.get("task1_word_count") or 0),
+            "task2_word_count": int(record.get("task2_word_count") or 0),
+        }
+    )
+    return payload

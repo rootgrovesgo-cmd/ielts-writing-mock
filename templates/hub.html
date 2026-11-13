@@ -13,7 +13,14 @@
       <div class="brand-sub">IELTS Academic · Computer-delivered style</div>
     </div>
     <div class="meta">
+      {% if student_logged_in %}
+      <span class="student-chip">{{ student_name }}</span>
+      {% endif %}
       <a class="btn secondary sm" href="/speaking">口语题库</a>
+      <a class="btn secondary sm" href="/me">我的记录</a>
+      {% if student_logged_in %}
+      <a class="btn secondary sm" href="{{ url_for('student_logout') }}">退出</a>
+      {% endif %}
     </div>
   </header>
 

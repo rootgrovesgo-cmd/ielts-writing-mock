@@ -466,6 +466,88 @@ def start_student(
         }
 
 
+
+def login_student(
+    *,
+    candidate_name: str | None,
+    invite_code: str | None,
+    ip: str | None = None,
+    user_agent: str | None = None,
+) -> dict:
+    """Open the student portal without consuming an invitation use.
+
+    Validates name plus an *enabled* invite code (max_uses is not checked,
+    matching session_is_valid). Does not increment use_count, start_count,
+    or *_started. A user record may be created so the session has a user_id.
+    """
+    name = " ".join((candidate_name or "").split())
+    if not name:
+        raise AccessError("请输入姓名", 400)
+    if not (invite_code or "").strip():
+        raise AccessError("请输入邀请码", 400)
+
+    ip_val, ua = _client_meta(ip, user_agent)
+
+    with _locked():
+        rec = find_code(load_codes(), invite_code)
+        if not rec or not rec.get("enabled"):
+            raise AccessError("邀请码无效或已失效", 403)
+
+        users = load_users()
+        user = _find_user(users, name, rec["id"])
+        ts = now_iso()
+        if user is None:
+            user = {
+                "id": str(uuid.uuid4()),
+                "key": _user_key(name, rec["id"]),
+                "name": name,
+                "invite_code_id": rec["id"],
+                "invite_code": rec.get("code") or "",
+                "first_seen": ts,
+                "last_seen": ts,
+                "start_count": 0,
+                "writing_started": 0,
+                "writing_submitted": 0,
+                "reading_started": 0,
+                "reading_submitted": 0,
+                "last_submission_id": None,
+                "last_writing_submission_id": None,
+                "last_reading_submission_id": None,
+            }
+            users.setdefault("users", []).insert(0, user)
+        else:
+            user["name"] = name
+            user["invite_code"] = rec.get("code") or user.get("invite_code") or ""
+            user["last_seen"] = ts
+            if not user.get("first_seen"):
+                user["first_seen"] = ts
+        save_users(users)
+
+        log = load_log()
+        log.setdefault("events", []).append(
+            {
+                "id": str(uuid.uuid4()),
+                "timestamp": ts,
+                "action": "login",
+                "candidate_name": name,
+                "user_id": user["id"],
+                "invite_code_id": rec["id"],
+                "module": "",
+                "mode": "",
+                "ip": ip_val,
+                "user_agent": ua,
+            }
+        )
+        save_log(log)
+
+        return {
+            "ok": True,
+            "user_id": user["id"],
+            "candidate_name": name,
+            "invite_code_id": rec["id"],
+        }
+
+
 def get_code(code_id: str | None) -> dict | None:
     return get_code_by_id(load_codes(), code_id)
 

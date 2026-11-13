@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>错题回顾 · 我的记录</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
+      <div class="brand-sub">我的记录 · 错题回顾</div>
+    </div>
+    <div class="meta">
+      <span class="student-chip">{{ student_name }}</span>
+      <a class="btn secondary sm" href="{{ url_for('student_submission', sid=sid) }}">查看整卷</a>
+      <a class="btn secondary sm" href="{{ url_for('student_home') }}">返回列表</a>
+      <a class="btn secondary sm" href="{{ url_for('student_logout') }}">退出</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <p class="eyebrow">{{ view.module_label }} · {{ view.mode_label }}</p>
+      <h1>错题回顾</h1>
+      <p class="muted">
+        {{ view.when }} · Asia/Shanghai · 用时 {{ view.duration }}
+        {% if view.score_label %}<br/>成绩：{{ view.score_label }}{% if view.band_label %} · 参考分数：{{ view.band_label }}{% endif %}{% endif %}
+      </p>
+      {% if view.all_correct %}
+      <p class="lead">全部答对，没有错题。</p>
+      {% else %}
+      <p class="lead">{{ view.mistake_count }} mistakes{% if view.total_questions %} / {{ view.total_questions }}{% endif %}</p>
+      {% endif %}
+    </section>
+
+    {% if not view.all_correct %}
+    {% for q in view.mistakes %}
+    <article class="card q-review is-wrong">
+      <h2>Question {{ q.q }}{% if q.heading %} · {{ q.heading }}{% endif %}</h2>
+      {% if q.notes_title %}<p class="notes-title">{{ q.notes_title }}</p>{% endif %}
+      {% if q.stem %}<p class="q-stem">{{ q.stem }}</p>{% endif %}
+      {% if q.options %}
+      <ul class="q-options">
+        {% for key, label in q.options.items() %}
+        <li><strong>{{ key }}.</strong> {{ label }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if q.endings %}
+      <ul class="q-options">
+        {% for key, label in q.endings.items() %}
+        <li><strong>{{ key }}.</strong> {{ label }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <dl class="q-key">
+        <div>
+          <dt>你的作答</dt>
+          <dd>{% if q.student_blank %}（未作答）{% else %}{{ q.student }}{% endif %}</dd>
+        </div>
+        <div>
+          <dt>标准答案</dt>
+          <dd>{{ q.correct }}</dd>
+        </div>
+      </dl>
+      {% if q.explanation %}
+      <div class="q-explain">
+        <h3>解析</h3>
+        <p>{{ q.explanation }}</p>
+      </div>
+      {% endif %}
+    </article>
+    {% endfor %}
+    {% endif %}
+
+    <p class="student-back">
+      <a href="{{ url_for('student_submission', sid=sid) }}">← 查看整卷</a>
+      ·
+      <a href="{{ url_for('student_home') }}">返回我的记录</a>
+    </p>
+  </main>
+</body>
+</html>

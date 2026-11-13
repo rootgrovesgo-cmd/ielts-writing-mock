@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>我的记录 · Rosette Exclusive Mock Exam</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
+      <div class="brand-sub">IELTS Academic · Computer-delivered style</div>
+    </div>
+    <div class="meta">
+      <a class="btn secondary sm" href="/speaking">口语题库</a>
+      <a class="btn secondary sm" href="/me">我的记录</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card setup-card">
+      <p class="eyebrow">Candidate check-in</p>
+      <h1>查看我的记录</h1>
+      <p class="muted lead">填写姓名和老师提供的邀请码，查看自己已经交过的写作和阅读答卷。</p>
+
+      <form method="post" action="{{ url_for('student_login') }}" class="student-login-form">
+        {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="setup-grid" style="margin-top:18px">
+          <label class="field">
+            Candidate name <span class="req">*</span>
+            <input type="text" name="candidate_name" placeholder="请输入真实姓名" maxlength="80" required autocomplete="name" />
+          </label>
+          <label class="field">
+            Invitation code <span class="req">*</span>
+            <input type="text" name="invite_code" placeholder="Enter invitation code" maxlength="32" required autocomplete="off" />
+          </label>
+        </div>
+        {% if error %}
+        <div class="banner error" style="margin-top:14px">{{ error }}</div>
+        {% endif %}
+        <div class="actions start-actions">
+          <button type="submit" class="btn btn-start">进入我的记录</button>
+        </div>
+      </form>
+      <p class="hint" style="margin-top:14px">只有已经交卷的写作和阅读会出现在列表里。口语练习不会保存在此。</p>
+      <div class="teacher-entry">
+        <a class="btn ghost" href="/">返回首页</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Rosette Exclusive Mock Exam</span>
+    <a href="/" class="footer-admin">Home</a>
+  </footer>
+</body>
+</html>

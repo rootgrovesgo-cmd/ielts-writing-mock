@@ -192,6 +192,7 @@
               <td>{{ ev.timestamp }}</td>
               <td>
                 {% if ev.action == 'start' %}进入
+                {% elif ev.action == 'login' %}登录
                 {% elif ev.action == 'submit' %}交卷
                 {% elif ev.action == 'denied' %}拒绝
                 {% else %}{{ ev.action }}{% endif %}

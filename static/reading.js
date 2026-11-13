@@ -34,6 +34,7 @@
     btnSubmit: document.getElementById("btnSubmit"),
     btnQuit: document.getElementById("btnQuit"),
     btnAgain: document.getElementById("btnAgain"),
+    btnReviewMistakes: document.getElementById("btnReviewMistakes"),
     btnPrev: document.getElementById("btnPrev"),
     btnNext: document.getElementById("btnNext"),
     btnFlag: document.getElementById("btnFlag"),
@@ -1341,6 +1342,16 @@
       formatDuration(used) +
       "</td></tr>";
     el.doneResult.classList.remove("hidden");
+
+    if (el.btnReviewMistakes) {
+      const sid = data && data.id;
+      if (sid) {
+        el.btnReviewMistakes.href = "/me/submission/" + encodeURIComponent(sid) + "/review";
+        el.btnReviewMistakes.classList.remove("hidden");
+      } else {
+        el.btnReviewMistakes.classList.add("hidden");
+      }
+    }
   }
 
   async function submitAnswers(auto) {

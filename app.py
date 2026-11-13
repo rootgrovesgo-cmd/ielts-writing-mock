@@ -33,6 +33,7 @@ import access
 import reading_scoring as rs
 import report_pdf
 import reading_review as rr
+import student_portal as sp
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -192,6 +193,73 @@ def request_client_ip() -> str:
     return (request.remote_addr or "").strip()
 
 
+STUDENT_SESSION_KEYS = (
+    "student_ok",
+    "student_name",
+    "student_user_id",
+    "invite_code_id",
+    "student_module",
+)
+
+
+@app.context_processor
+def inject_student_nav():
+    if access.session_is_valid(session):
+        return {
+            "student_logged_in": True,
+            "student_name": session.get("student_name") or "",
+        }
+    return {"student_logged_in": False, "student_name": ""}
+
+
+def current_student() -> dict | None:
+    if not access.session_is_valid(session):
+        return None
+    return {
+        "user_id": session.get("student_user_id"),
+        "candidate_name": session.get("student_name"),
+        "invite_code_id": session.get("invite_code_id"),
+    }
+
+
+def apply_student_login(result: dict, *, keep_module: bool = False) -> None:
+    session["student_ok"] = True
+    session["student_name"] = result["candidate_name"]
+    session["student_user_id"] = result["user_id"]
+    session["invite_code_id"] = result["invite_code_id"]
+    if keep_module and result.get("module"):
+        session["student_module"] = result["module"]
+    elif not keep_module:
+        session.pop("student_module", None)
+
+
+def clear_student_session() -> None:
+    for key in STUDENT_SESSION_KEYS:
+        session.pop(key, None)
+
+
+def safe_student_next(raw: str | None) -> str:
+    nxt = (raw or "").strip()
+    if nxt.startswith("/me") and not nxt.startswith("//") and "\\" not in nxt and ":" not in nxt:
+        return nxt
+    return url_for("student_home")
+
+
+def load_owned_submission(sid: str, ident: dict) -> dict | None:
+    """Return a submission only if it exists and belongs to this student."""
+    token = (sid or "").strip()
+    if not token or any(ch in token for ch in ("/", "\\", "..")):
+        return None
+    path = SUBMISSIONS_DIR / f"{token}.json"
+    if not path.is_file() or path.resolve().parent != SUBMISSIONS_DIR.resolve():
+        return None
+    with path.open(encoding="utf-8") as f:
+        record = json.load(f)
+    if not sp.owns_record(record, ident):
+        return None
+    return record
+
+
 def save_to_notion(record: dict) -> dict | None:
     """Create a Notion database row. Returns page meta or None if disabled/failed."""
     if not notion_enabled():
@@ -322,6 +390,90 @@ def reading():
 @app.route("/speaking")
 def speaking():
     return render_template("speaking.html")
+
+
+@app.route("/me")
+def student_home():
+    ident = current_student()
+    if not ident:
+        return render_template(
+            "student_login.html",
+            error=None,
+            next=safe_student_next(request.args.get("next")),
+        )
+    attempts = sp.list_own_attempts(load_index(), ident)
+    return render_template(
+        "student_home.html",
+        student_name=ident.get("candidate_name") or "",
+        attempts=attempts,
+    )
+
+
+@app.route("/me/login", methods=["POST"])
+def student_login():
+    nxt = safe_student_next(request.form.get("next") or request.args.get("next"))
+    try:
+        result = access.login_student(
+            candidate_name=request.form.get("candidate_name"),
+            invite_code=request.form.get("invite_code"),
+            ip=request_client_ip(),
+            user_agent=request.headers.get("User-Agent"),
+        )
+    except access.AccessError as exc:
+        return render_template(
+            "student_login.html",
+            error=exc.message,
+            next=nxt,
+        )
+    apply_student_login(result)
+    return redirect(nxt)
+
+
+@app.route("/me/logout")
+def student_logout():
+    clear_student_session()
+    return redirect(url_for("index"))
+
+
+@app.route("/me/submission/<sid>")
+def student_submission(sid: str):
+    ident = current_student()
+    if not ident:
+        return redirect(url_for("student_home", next=f"/me/submission/{sid}"))
+    record = load_owned_submission(sid, ident)
+    if record is None:
+        return "未找到该答卷", 404
+    if sp.module_of(record) == "reading":
+        view = sp.reading_detail_view(record, load_reading_paper(), load_reading_keys())
+        return render_template(
+            "student_detail.html",
+            view=view,
+            sid=record.get("id") or sid,
+            is_reading=True,
+        )
+    view = sp.writing_view(record, load_prompts())
+    return render_template(
+        "student_detail.html",
+        view=view,
+        sid=record.get("id") or sid,
+        is_reading=False,
+    )
+
+
+@app.route("/me/submission/<sid>/review")
+def student_submission_review(sid: str):
+    ident = current_student()
+    if not ident:
+        return redirect(url_for("student_home", next=f"/me/submission/{sid}/review"))
+    record = load_owned_submission(sid, ident)
+    if record is None or sp.module_of(record) != "reading":
+        return "未找到该答卷", 404
+    view = sp.reading_mistakes_view(record, load_reading_paper(), load_reading_keys())
+    return render_template(
+        "student_review.html",
+        view=view,
+        sid=record.get("id") or sid,
+    )
 
 
 @app.route("/api/session/start", methods=["POST"])
@@ -970,6 +1122,7 @@ def main() -> None:
     print(f"Writing → http://{host}:{port}/writing")
     print(f"Reading → http://{host}:{port}/reading")
     print(f"Speaking → http://{host}:{port}/speaking")
+    print(f"学生记录 → http://{host}:{port}/me")
     print(f"Health → http://{host}:{port}/health")
     print(f"教师后台 → http://{host}:{port}/admin")
     print(f"Notion sync: {'ON' if notion_enabled() else 'OFF'}")

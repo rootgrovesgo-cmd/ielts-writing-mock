@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ view.module_label }} · {{ view.mode_label }} · 我的记录</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
+      <div class="brand-sub">我的记录 · 已交答卷</div>
+    </div>
+    <div class="meta">
+      <span class="student-chip">{{ student_name }}</span>
+      <a class="btn secondary sm" href="{{ url_for('student_home') }}">返回列表</a>
+      <a class="btn secondary sm" href="{{ url_for('student_logout') }}">退出</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">{{ view.module_label }}</p>
+          <h1>{{ view.mode_label }}</h1>
+        </div>
+        {% if is_reading %}
+        <a class="btn ghost sm" href="{{ url_for('student_submission_review', sid=sid) }}">查看错题</a>
+        {% endif %}
+      </div>
+      <p class="muted">
+        {{ view.when }} · Asia/Shanghai<br/>
+        用时 {{ view.duration }}{% if view.auto_submitted %} · 到点自动交卷{% endif %}
+        {% if is_reading %}
+        <br/>
+        {% if view.score_label %}成绩：{{ view.score_label }}{% endif %}
+        {% if view.band_label %} · 参考分数：{{ view.band_label }}
+        {% elif view.score_label %} · 参考分数：—（单篇模式仅记原始分）
+        {% endif %}
+        {% if view.part_times %}
+        <br/>各部分用时：
+        {% for pill in view.part_times %}<span class="part-time-pill">{{ pill.label }}</span>{% endfor %}
+        {% endif %}
+        {% endif %}
+      </p>
+    </section>
+
+    {% if is_reading %}
+      {% for passage in view.passages %}
+      <section class="card student-passage">
+        <p class="eyebrow">{{ passage.label }}</p>
+        <h2>{{ passage.title }}</h2>
+        {% for para in passage.paragraphs %}
+        <p class="passage-para">{{ para }}</p>
+        {% endfor %}
+      </section>
+      {% endfor %}
+
+      {% for group in view.groups %}
+      <section class="card student-qgroup">
+        <h2>{{ group.heading }}</h2>
+        {% if group.instructions %}
+        <div class="q-instructions muted">
+          {% for line in group.instructions %}<p>{{ line }}</p>{% endfor %}
+        </div>
+        {% endif %}
+        {% if group.notes_title %}<p class="notes-title">{{ group.notes_title }}</p>{% endif %}
+        {% for q in group.questions %}
+        <article class="q-review {{ 'is-wrong' if not q.ok else 'is-ok' }}" id="q-{{ q.q }}">
+          <h3>Question {{ q.q }}</h3>
+          {% if q.stem %}<p class="q-stem">{{ q.stem }}</p>{% endif %}
+          {% if q.options %}
+          <ul class="q-options">
+            {% for key, label in q.options.items() %}
+            <li><strong>{{ key }}.</strong> {{ label }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% if q.endings %}
+          <ul class="q-options">
+            {% for key, label in q.endings.items() %}
+            <li><strong>{{ key }}.</strong> {{ label }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <dl class="q-key">
+            <div>
+              <dt>你的作答</dt>
+              <dd>{% if q.student_blank %}（未作答）{% else %}{{ q.student }}{% endif %}</dd>
+            </div>
+            <div>
+              <dt>标准答案</dt>
+              <dd>{{ q.correct }}</dd>
+            </div>
+          </dl>
+          {% if q.explanation %}
+          <div class="q-explain">
+            <h4>解析</h4>
+            <p>{{ q.explanation }}</p>
+          </div>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </section>
+      {% endfor %}
+
+    {% else %}
+      {% if view.show_task1 %}
+      <section class="card">
+        <h2>Task 1（{{ view.task1_word_count }} 词）</h2>
+        {% if view.task1_instruction %}
+        <div class="prompt-box">{{ view.task1_instruction }}</div>
+        {% endif %}
+        {% if view.task1_visual %}
+        <div class="task-visual">{{ view.task1_visual | safe }}</div>
+        {% endif %}
+        <h3 class="answer-heading">你的作答</h3>
+        <div class="answer-preview">{{ view.task1_text or "（未作答）" }}</div>
+      </section>
+      {% endif %}
+      {% if view.show_task2 %}
+      <section class="card">
+        <h2>Task 2（{{ view.task2_word_count }} 词）</h2>
+        {% if view.task2_instruction %}
+        <div class="prompt-box">{{ view.task2_instruction }}</div>
+        {% endif %}
+        <h3 class="answer-heading">你的作答</h3>
+        <div class="answer-preview">{{ view.task2_text or "（未作答）" }}</div>
+      </section>
+      {% endif %}
+    {% endif %}
+
+    <p class="student-back"><a href="{{ url_for('student_home') }}">← 返回我的记录</a></p>
+  </main>
+</body>
+</html>

@@ -709,3 +709,127 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
   line-height: 1.6;
 }
 .review-note p:last-child { margin-bottom: 0; }
+
+/* Student portal */
+.student-chip {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  opacity: .9;
+}
+.student-start-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.attempt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.attempt-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+.attempt-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.attempt-card h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.attempt-card .muted { margin: 0 0 4px; }
+.attempt-stats {
+  margin: 0;
+  font-size: 14px;
+}
+.attempt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.empty-attempts { text-align: center; padding: 32px 22px; }
+.empty-attempts .student-start-links { justify-content: center; }
+.student-passage .passage-para {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+.student-qgroup .q-instructions p { margin: 0 0 4px; }
+.notes-title { font-weight: 700; margin: 8px 0 12px; }
+.q-review {
+  padding: 14px 0 16px;
+  border-top: 1px solid var(--line);
+}
+.q-review:first-of-type { border-top: none; padding-top: 8px; }
+.card.q-review { padding: 18px 20px; border-top: 1px solid var(--line); }
+.q-review h3, .q-review h2 { margin: 0 0 8px; font-size: 16px; }
+.q-review .q-stem { margin: 0 0 10px; font-size: 15px; }
+.q-options {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 14px;
+}
+.q-options li { margin: 3px 0; }
+.q-key {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  margin: 0 0 10px;
+}
+@media (max-width: 640px) {
+  .q-key { grid-template-columns: 1fr; }
+}
+.q-key div {
+  background: #fffefb;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.q-key dt {
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+.q-key dd { margin: 0; font-weight: 600; }
+.q-review.is-wrong .q-key div:first-child dd { color: var(--danger); }
+.q-explain {
+  background: #f3efe9;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.q-explain h4, .q-explain h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+.q-explain p { margin: 0; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+.answer-heading { margin: 16px 0 8px; font-size: 15px; }
+.student-back { margin: 8px 0 24px; }
+.done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}

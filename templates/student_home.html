@@ -34,6 +34,26 @@
       </div>
     </section>
 
+    <section class="card pikachu-progress{% if pikachu.complete %} is-complete{% endif %}">
+      <div
+        class="pikachu-sprite"
+        role="img"
+        aria-label="{% if pikachu.complete %}像素皮卡丘，已经全部点亮{% else %}像素皮卡丘，已点亮 {{ pikachu.lit }}/{{ pikachu.total }} 块{% endif %}"
+        style="--pikachu-cols: {{ pikachu.cols }};"
+      >
+        {% for cell in pikachu.cells %}
+        <span class="pikachu-cell{% if cell.empty %} is-empty{% elif cell.lit %} is-lit pikachu-{{ cell.color }}{% else %} is-unlit{% endif %}"></span>
+        {% endfor %}
+      </div>
+      <p class="pikachu-caption">
+        {% if pikachu.complete %}
+        整只皮卡丘都点亮啦
+        {% else %}
+        已点亮 {{ pikachu.lit }}/{{ pikachu.total }} 块，每做完一套点亮一小块
+        {% endif %}
+      </p>
+    </section>
+
     {% if attempts %}
     <section class="attempt-list" aria-label="已交答卷">
       {% for item in attempts %}

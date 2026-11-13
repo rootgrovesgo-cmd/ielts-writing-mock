@@ -36,6 +36,7 @@ import listening_scoring as ls
 import report_pdf
 import reading_review as rr
 import student_portal as sp
+import pikachu
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -422,10 +423,13 @@ def student_home():
             next=safe_student_next(request.args.get("next")),
         )
     attempts = sp.list_own_attempts(load_index(), ident)
+    pikachu_lit = len(attempts)
     return render_template(
         "student_home.html",
         student_name=ident.get("candidate_name") or "",
         attempts=attempts,
+        pikachu_lit=pikachu_lit,
+        pikachu=pikachu.progress(pikachu_lit),
     )
 
 

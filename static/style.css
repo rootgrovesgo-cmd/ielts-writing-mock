@@ -774,6 +774,40 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
 }
 .empty-attempts { text-align: center; padding: 32px 22px; }
 .empty-attempts .student-start-links { justify-content: center; }
+
+.pikachu-progress {
+  text-align: center;
+  padding: 20px 18px 16px;
+  margin-bottom: 16px;
+}
+.pikachu-sprite {
+  display: grid;
+  grid-template-columns: repeat(var(--pikachu-cols, 18), 1fr);
+  width: min(288px, 72vw);
+  margin: 0 auto;
+  image-rendering: pixelated;
+}
+.pikachu-cell {
+  aspect-ratio: 1;
+  background: #c4bdb4;
+  transition: background .25s ease;
+}
+.pikachu-cell.is-empty { background: transparent; }
+.pikachu-cell.is-lit.pikachu-Y { background: #e6c24d; }
+.pikachu-cell.is-lit.pikachu-D { background: #c49a3a; }
+.pikachu-cell.is-lit.pikachu-R { background: #c45c4a; }
+.pikachu-cell.is-lit.pikachu-K { background: #2f2c2a; }
+.pikachu-cell.is-lit.pikachu-B { background: #8a5a32; }
+.pikachu-cell.is-lit.pikachu-W { background: #f7f4f0; }
+.pikachu-progress.is-complete .pikachu-sprite {
+  filter: drop-shadow(0 0 10px rgba(230, 194, 77, 0.45));
+}
+.pikachu-caption {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .student-passage .passage-para {
   font-size: 15px;
   line-height: 1.7;

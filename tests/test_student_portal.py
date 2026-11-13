@@ -19,6 +19,7 @@ import app as appmod  # noqa: E402
 import student_portal as sp  # noqa: E402
 import reading_scoring as rs  # noqa: E402
 import listening_scoring as ls  # noqa: E402
+import pikachu  # noqa: E402
 
 # Throwaway credentials used only in tests. Not production values.
 TEST_ADMIN_USER = "TestAdmin"
@@ -741,6 +742,140 @@ class ListeningPortalTests(StudentPortalTestCase):
                 "time_used_seconds": 1500,
             },
         )
+
+
+
+class PikachuProgressTests(StudentPortalTestCase):
+    def _lit_count(self, html):
+        return html.count("is-lit")
+
+    def _expected_lit_cells(self, lit):
+        return sum(1 for cell in pikachu.progress(lit)["cells"] if cell["lit"])
+
+    def _submit_listening(self, name="Ada Student"):
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        return self.client.post(
+            "/api/listening/submit",
+            json={
+                "candidate_name": name,
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "answers": answers,
+                "duration_seconds": 1800,
+                "time_used_seconds": 1500,
+            },
+        )
+
+    def _seed_attempts(self, count, rec, name="Ada Student"):
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        submissions = index.setdefault("submissions", [])
+        modules = ("writing", "reading", "listening")
+        for i in range(count):
+            sid = f"pika-{i:04d}-bbbb-cccc-dddd-eeeeeeeeeeee"
+            module = modules[i % 3]
+            record = {
+                "id": sid,
+                "timestamp": f"2026-11-{(i % 28) + 1:02d}T09:15:00+08:00",
+                "candidate_name": name,
+                "module": module,
+                "mode": "full",
+                "time_used_seconds": 12,
+                "invite_code_id": rec["id"],
+            }
+            (appmod.SUBMISSIONS_DIR / f"{sid}.json").write_text(
+                json.dumps(record, ensure_ascii=False), encoding="utf-8"
+            )
+            submissions.insert(0, {
+                "id": sid,
+                "timestamp": record["timestamp"],
+                "candidate_name": name,
+                "module": module,
+                "mode": "full",
+                "time_used_seconds": 12,
+                "invite_code_id": rec["id"],
+            })
+        appmod.save_index(index)
+
+    def test_sprite_groups_cover_every_silhouette_cell(self):
+        filled = {
+            (row, col)
+            for row, line in enumerate(pikachu.SPRITE)
+            for col, color in enumerate(line)
+            if color != "."
+        }
+        assigned = {
+            cell
+            for block in pikachu.BLOCKS
+            for cell in block
+        }
+        self.assertEqual(filled, assigned)
+        self.assertGreaterEqual(pikachu.block_count(), 16)
+        self.assertLessEqual(pikachu.block_count(), 24)
+        self.assertEqual(len(set(len(line) for line in pikachu.SPRITE)), 1)
+        width = len(pikachu.SPRITE[0])
+        self.assertGreaterEqual(width, 14)
+        self.assertLessEqual(width, 18)
+
+    def test_empty_records_still_show_unlit_pikachu(self):
+        self._create_code()
+        self._login()
+        home = self.client.get("/me")
+        self.assertEqual(home.status_code, 200)
+        html = home.get_data(as_text=True)
+        total = pikachu.block_count()
+        self.assertIn("还没有交过卷", html)
+        self.assertIn("开始写作模考", html)
+        self.assertIn("开始阅读模考", html)
+        self.assertIn("开始听力模考", html)
+        self.assertIn("pikachu-progress", html)
+        self.assertIn('role="img"', html)
+        self.assertIn(f"已点亮 0/{total} 块，每做完一套点亮一小块", html)
+        self.assertIn(f"像素皮卡丘，已点亮 0/{total} 块", html)
+        self.assertNotIn("整只皮卡丘都点亮啦", html)
+        self.assertNotIn("is-complete", html)
+        self.assertEqual(self._lit_count(html), 0)
+
+    def test_each_submitted_paper_lights_one_more_block(self):
+        self._create_code()
+        total = pikachu.block_count()
+
+        self._start(module="writing")
+        writing = self._submit_writing()
+        self.assertEqual(writing.status_code, 200)
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertNotIn("还没有交过卷", home)
+        self.assertIn("pikachu-progress", home)
+        self.assertIn(f"已点亮 1/{total} 块，每做完一套点亮一小块", home)
+        self.assertEqual(self._lit_count(home), self._expected_lit_cells(1))
+
+        self._start(module="reading")
+        reading = self._submit_reading()
+        self.assertEqual(reading.status_code, 200)
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn(f"已点亮 2/{total} 块，每做完一套点亮一小块", home)
+        self.assertEqual(self._lit_count(home), self._expected_lit_cells(2))
+
+        self._start(module="listening")
+        listening = self._submit_listening()
+        self.assertEqual(listening.status_code, 200)
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn(f"已点亮 3/{total} 块，每做完一套点亮一小块", home)
+        self.assertEqual(self._lit_count(home), self._expected_lit_cells(3))
+        self.assertIn("写作", home)
+        self.assertIn("阅读", home)
+        self.assertIn("听力", home)
+
+    def test_fully_lit_when_attempts_reach_block_count(self):
+        rec = self._create_code()
+        self._login()
+        total = pikachu.block_count()
+        self._seed_attempts(total, rec)
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("整只皮卡丘都点亮啦", home)
+        self.assertIn("像素皮卡丘，已经全部点亮", home)
+        self.assertIn("is-complete", home)
+        self.assertNotIn(f"已点亮 {total}/{total} 块", home)
+        self.assertEqual(self._lit_count(home), self._expected_lit_cells(total))
 
 
 class WritingSetTests(StudentPortalTestCase):

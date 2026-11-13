@@ -217,7 +217,8 @@ class ListAndSecurityTests(StudentPortalTestCase):
         self.assertIn("Candidate check-in", html)
         self.assertNotIn("Root Login", html)
         self.assertNotIn("/admin/login", html)
-        self.assertNotIn("用户名", html)
+        self.assertNotIn("教师后台登录", html)
+        self.assertNotIn("用户名或密码错误", html)
         for word in READING_LEAKS:
             self.assertNotIn(word, html)
 

@@ -132,13 +132,20 @@
   margin: 8px 0;
 }
 
-.q-item .qnum, .blank .qnum {
+.q-item .qnum {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 1.6em;
   font-weight: 700;
   color: var(--accent-deep, #3f5c48);
+}
+
+/* Keep the reading-style dark badge so blank numbers stay visible
+   (Q1–10 notes table and Q31–40 notes). Do not inherit the dark text above. */
+.blank .qnum {
+  color: #fff;
+  background: var(--accent-deep, #5c6b73);
 }
 
 .q-item select,

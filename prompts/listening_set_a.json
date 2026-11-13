@@ -9,7 +9,7 @@
       "context": "A conversation in which a woman asks a colleague for recommendations of independent bookshops.",
       "audio": {
         "file": "section1.mp3",
-        "duration_seconds": 397
+        "duration_seconds": 331
       },
       "groups": [
         {
@@ -166,7 +166,7 @@
       "context": "A welcome talk by the leader of a community beekeeping workshop.",
       "audio": {
         "file": "section2.mp3",
-        "duration_seconds": 423
+        "duration_seconds": 345
       },
       "groups": [
         {
@@ -279,7 +279,7 @@
       "context": "Two university students discussing research for a presentation on academic burnout.",
       "audio": {
         "file": "section3.mp3",
-        "duration_seconds": 574
+        "duration_seconds": 465
       },
       "groups": [
         {
@@ -392,7 +392,7 @@
       "context": "A lecture on reclaiming urban rooftops.",
       "audio": {
         "file": "section4.mp3",
-        "duration_seconds": 400
+        "duration_seconds": 326
       },
       "groups": [
         {

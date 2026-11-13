@@ -27,6 +27,9 @@ FFMPEG = "ffmpeg"
 SAMPLE_RATE = 24000
 BITRATE = "72k"
 TURN_PAD = 0.15
+# 1.25x of the default edge-tts rate. Look-at/check silences are unchanged;
+# do not speed the finished section files with atempo/playbackRate.
+TTS_RATE = "+25%"
 
 
 def run(cmd: list[str]) -> None:
@@ -130,7 +133,7 @@ async def tts_to_file(text: str, voice: str, dest: Path, attempts: int = 4) -> N
     for attempt in range(1, attempts + 1):
         try:
             tmp.unlink(missing_ok=True)
-            communicate = edge_tts.Communicate(text, voice, rate="-5%")
+            communicate = edge_tts.Communicate(text, voice, rate=TTS_RATE)
             await communicate.save(str(tmp))
             if tmp.stat().st_size < 200:
                 raise RuntimeError(f"TTS wrote an empty clip for {dest.name}")

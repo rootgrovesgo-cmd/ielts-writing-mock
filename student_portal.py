@@ -166,6 +166,12 @@ def writing_visual_html(task: dict | None) -> str:
         return ""
     if task.get("image"):
         return _render_image(task["image"])
+    if task.get("table") and task.get("line_chart"):
+        return (
+            '<div class="combined-visual">'
+            f"{_render_table(task['table'])}{_render_line_chart(task['line_chart'])}"
+            "</div>"
+        )
     if task.get("line_chart"):
         return _render_line_chart(task["line_chart"])
     if task.get("flowchart"):
@@ -194,7 +200,11 @@ def _render_image(image: dict) -> str:
 def _render_table(table: dict) -> str:
     headers = table.get("headers") or []
     rows = table.get("rows") or []
-    parts = ['<div class="table-wrap"><table class="data"><thead><tr>']
+    caption = table.get("caption") or table.get("title") or ""
+    parts = ['<div class="table-wrap"><table class="data">']
+    if caption:
+        parts.append(f"<caption>{escape(str(caption))}</caption>")
+    parts.append("<thead><tr>")
     for h in headers:
         parts.append(f"<th>{escape(str(h))}</th>")
     parts.append("</tr></thead><tbody>")
@@ -239,12 +249,15 @@ def _render_line_chart(chart: dict) -> str:
     labels = chart.get("xLabels") or []
     series = chart.get("series") or []
     values = [v for ser in series for v in (ser.get("values") or [])]
-    max_val = max(values) if values else 1
+    if chart.get("yMax") is not None:
+        max_val = float(chart["yMax"])
+    else:
+        max_val = max(values) if values else 1
     width, height = 560, 280
     pad_l, pad_b, pad_t, pad_r = 48, 40, 24, 20
     plot_w = width - pad_l - pad_r
     plot_h = height - pad_t - pad_b
-    colors = ["#5c6b73", "#a67c52", "#6f8f7a", "#7d8b99"]
+    colors = ["#5c6b73", "#a67c52", "#6f8f7a", "#7d8b99", "#8a6a9a"]
     n = max(len(labels) - 1, 1)
     ticks = []
     for t in range(5):

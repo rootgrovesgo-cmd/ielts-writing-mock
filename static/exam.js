@@ -194,7 +194,10 @@
   function renderTable(table) {
     const headers = table.headers || [];
     const rows = table.rows || [];
-    let html = '<div class="table-wrap"><table class="data"><thead><tr>';
+    const caption = table.caption || table.title || "";
+    let html = '<div class="table-wrap"><table class="data">';
+    if (caption) html += `<caption>${escapeHtml(caption)}</caption>`;
+    html += "<thead><tr>";
     headers.forEach((h) => {
       html += `<th>${escapeHtml(h)}</th>`;
     });
@@ -231,11 +234,11 @@
   function renderLineChart(chart) {
     const labels = chart.xLabels || [];
     const series = chart.series || [];
-    const maxVal = Math.max(...series.flatMap((s) => s.values), 1);
+    const maxVal = chart.yMax != null ? Number(chart.yMax) : Math.max(...series.flatMap((s) => s.values), 1);
     const W = 560, H = 280, padL = 48, padB = 40, padT = 24, padR = 20;
     const plotW = W - padL - padR;
     const plotH = H - padT - padB;
-    const colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444"];
+    const colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"];
     const n = Math.max(labels.length - 1, 1);
 
     let ticks = "";
@@ -319,6 +322,9 @@
 
   function renderTask1Visual(t1) {
     if (t1.image) return renderImage(t1.image);
+    if (t1.table && t1.line_chart) {
+      return `<div class="combined-visual">${renderTable(t1.table)}${renderLineChart(t1.line_chart)}</div>`;
+    }
     if (t1.line_chart) return renderLineChart(t1.line_chart);
     if (t1.flowchart) return renderFlowchart(t1.flowchart);
     if (t1.chart) return renderBarChart(t1.chart);

@@ -742,5 +742,30 @@ class ListeningPortalTests(StudentPortalTestCase):
         )
 
 
+class WritingSetTests(StudentPortalTestCase):
+    def test_writing_set_d_combines_table_and_line_chart(self):
+        prompts = appmod.load_prompts()
+        ids = [item.get("id") for item in prompts.get("sets") or []]
+        self.assertIn("set-d", ids)
+        found = next(item for item in prompts["sets"] if item["id"] == "set-d")
+        self.assertIn("food delivery orders in Australia", found["task1"]["instruction"])
+        self.assertIn("ban dangerous sports", found["task2"]["instruction"])
+        self.assertNotIn("internet searches in the US", found["task1"]["instruction"])
+        html = sp.writing_visual_html(found["task1"])
+        self.assertIn("combined-visual", html)
+        self.assertIn("Total number of food delivery orders", html)
+        self.assertIn("3.2 million", html)
+        self.assertIn("QuickBite", html)
+        self.assertIn("<svg", html)
+        self.assertIn("18 million", html)
+
+        self._create_code()
+        self._login()
+        api = self.client.get("/api/prompts")
+        self.assertEqual(api.status_code, 200)
+        payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d"])
+
+
 if __name__ == "__main__":
     unittest.main()

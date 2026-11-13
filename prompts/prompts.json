@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "sets": [
     {
       "id": "set-a",
@@ -145,6 +145,121 @@
         "id": "c-t2",
         "title": "Task 2",
         "instruction": "Some people think that the best way to improve road safety is to increase the minimum legal age for driving a car or a motorbike.\n\nTo what extent do you agree or disagree?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+      }
+    },
+    {
+      "id": "set-d",
+      "title": "Set D — Food Delivery Orders & Dangerous Sports",
+      "task1": {
+        "id": "d-t1",
+        "type": "table_line",
+        "title": "Task 1",
+        "instruction": "The table and graph below give information about food delivery orders in Australia between 2014 and 2022.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "table": {
+          "caption": "Total number of food delivery orders",
+          "headers": [
+            "April 2014",
+            "September 2022"
+          ],
+          "rows": [
+            [
+              "3.2 million",
+              "18 million"
+            ]
+          ]
+        },
+        "line_chart": {
+          "yLabel": "% of orders placed through different delivery platforms (Australia, 2014-2022)",
+          "yMax": 70,
+          "xLabels": [
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022"
+          ],
+          "series": [
+            {
+              "name": "QuickBite",
+              "values": [
+                22,
+                28,
+                35,
+                42,
+                48,
+                52,
+                58,
+                62,
+                65
+              ]
+            },
+            {
+              "name": "MealRun",
+              "values": [
+                30,
+                28,
+                25,
+                22,
+                20,
+                18,
+                16,
+                14,
+                13
+              ]
+            },
+            {
+              "name": "FreshDrop",
+              "values": [
+                18,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                12,
+                11
+              ]
+            },
+            {
+              "name": "NiteEats",
+              "values": [
+                12,
+                14,
+                13,
+                12,
+                11,
+                10,
+                8,
+                7,
+                6
+              ]
+            },
+            {
+              "name": "LocalCart",
+              "values": [
+                18,
+                14,
+                12,
+                10,
+                8,
+                8,
+                7,
+                5,
+                5
+              ]
+            }
+          ]
+        }
+      },
+      "task2": {
+        "id": "d-t2",
+        "title": "Task 2",
+        "instruction": "Some people think that the government should ban dangerous sports, but others think that people should have the freedom to do whatever sport activities they choose.\n\nDiscuss both views and give your own opinion.\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
       }
     }
   ]

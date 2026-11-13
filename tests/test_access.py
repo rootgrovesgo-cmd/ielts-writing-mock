@@ -214,11 +214,22 @@ class InviteAndSessionTests(AccessTestCase):
         self.assertEqual(reading.status_code, 403)
         self.assertFalse(reading.get_json()["ok"])
 
+        listening = self.client.post(
+            "/api/listening/submit",
+            json={"candidate_name": "Ada Student", "mode": "full", "answers": {"1": "KERRIDGE"}},
+        )
+        self.assertEqual(listening.status_code, 403)
+        self.assertFalse(listening.get_json()["ok"])
+
     def test_paper_and_prompts_require_session(self):
         prompts = self.client.get("/api/prompts")
         self.assertEqual(prompts.status_code, 403)
         paper = self.client.get("/api/reading/paper")
         self.assertEqual(paper.status_code, 403)
+        listening_paper = self.client.get("/api/listening/paper")
+        self.assertEqual(listening_paper.status_code, 403)
+        listening_audio = self.client.get("/api/listening/audio/1")
+        self.assertEqual(listening_audio.status_code, 403)
 
         accessmod.create_code(code="CLASS01")
         started = self._start(module="writing")

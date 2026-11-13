@@ -178,6 +178,14 @@ class ReportPdfTests(unittest.TestCase):
             }
         )
         self.assertEqual(chinese, "reading-小何-20261112-report.pdf")
+        listening = report_pdf.report_filename(
+            {
+                "module": "listening",
+                "candidate_name": "HE",
+                "timestamp": "2026-11-13T19:00:00+08:00",
+            }
+        )
+        self.assertEqual(listening, "listening-HE-20261113-report.pdf")
 
     def test_unauthenticated_request_is_rejected(self):
         self._create_code()
@@ -633,6 +641,53 @@ class ReportPdfTests(unittest.TestCase):
         self._login_admin()
         res = self.client.get("/admin/submission/does-not-exist/report.pdf")
         self.assertEqual(res.status_code, 404)
+
+    def test_admin_can_download_listening_report(self):
+        import listening_scoring as ls
+
+        self._set_admin()
+        self._create_code()
+        started = self._start(name="HE", module="listening")
+        self.assertEqual(started.status_code, 200)
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        answers["1"] = "wrong"
+        res = self.client.post(
+            "/api/listening/submit",
+            json={
+                "candidate_name": "HE",
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "answers": answers,
+                "duration_seconds": 1800,
+                "time_used_seconds": 1500,
+                "part_times": {"1": 300, "2": 400, "3": 400, "4": 400},
+            },
+        )
+        self.assertEqual(res.status_code, 200, res.get_data(as_text=True))
+        sid = res.get_json()["id"]
+
+        self._login_admin()
+        detail = self.client.get(f"/admin/submission/{sid}")
+        self.assertEqual(detail.status_code, 200)
+        html = detail.get_data(as_text=True)
+        self.assertIn("听力", html)
+        self.assertIn("逐题批改", html)
+        self.assertIn("下载 PDF 报告", html)
+        self.assertIn("录音文本", html)
+        self.assertIn("/api/listening/audio/1", html)
+
+        report = self.client.get(f"/admin/submission/{sid}/report.pdf")
+        self.assertEqual(report.status_code, 200)
+        self.assertTrue((report.headers.get("Content-Type") or "").startswith("application/pdf"))
+        self.assertIn("listening-HE-", report.headers.get("Content-Disposition", ""))
+        data = report.get_data()
+        self.assertTrue(data.startswith(b"%PDF"))
+        text = self._pdf_text(data)
+        self.assertIn("听力", text)
+        self.assertIn("逐题批改", text)
+        self.assertIn("录音文本", text)
+        self.assertIn("KERRIDGE", text)
+
 
 
 if __name__ == "__main__":

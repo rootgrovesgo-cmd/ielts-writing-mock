@@ -16,7 +16,9 @@ if str(ROOT) not in sys.path:
 
 import access as accessmod  # noqa: E402
 import app as appmod  # noqa: E402
+import student_portal as sp  # noqa: E402
 import reading_scoring as rs  # noqa: E402
+import listening_scoring as ls  # noqa: E402
 
 # Throwaway credentials used only in tests. Not production values.
 TEST_ADMIN_USER = "TestAdmin"
@@ -688,6 +690,56 @@ class ReviewContentTests(StudentPortalTestCase):
         api = self.client.get(f"/api/me/submission/{sid}")
         self.assertEqual(api.status_code, 200)
         self.assertIn("Legacy essay without a user id.", api.get_json()["task2_text"])
+
+
+
+class ListeningPortalTests(StudentPortalTestCase):
+    def test_module_of_does_not_treat_listening_as_writing(self):
+        self.assertEqual(sp.module_of({"module": "listening"}), "listening")
+        self.assertEqual(sp.module_label("listening"), "听力")
+        self.assertEqual(sp.mode_label("listening", "section3"), "Section 3")
+        self.assertEqual(sp.module_of({"module": "writing"}), "writing")
+        self.assertEqual(sp.module_of({}), "writing")
+
+    def test_portal_lists_listening_score_and_review_includes_keys(self):
+        self._create_code()
+        self._start(name="Ada Student", module="listening")
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        answers["7"] = ""
+        res = self._client_submit_listening(answers)
+        self.assertEqual(res.status_code, 200)
+        sid = res.get_json()["id"]
+
+        home = self.client.get("/me")
+        self.assertEqual(home.status_code, 200)
+        html = home.get_data(as_text=True)
+        self.assertIn("听力", html)
+        self.assertIn("39/40", html)
+        self.assertIn(f"/me/submission/{sid}/review", html)
+
+        api = self.client.get(f"/api/me/submission/{sid}")
+        self.assertEqual(api.status_code, 200)
+        payload = api.get_json()
+        self.assertEqual(payload["module"], "listening")
+        self.assertTrue(payload["questions"])
+        self.assertTrue(any((row.get("explanation") or "") for row in payload["questions"]))
+        self.assertIn("1", payload.get("transcripts") or {})
+        review = self.client.get(f"/me/submission/{sid}/review")
+        self.assertEqual(review.status_code, 200)
+        self.assertIn("listening.js", review.get_data(as_text=True))
+
+    def _client_submit_listening(self, answers):
+        return self.client.post(
+            "/api/listening/submit",
+            json={
+                "candidate_name": "Ada Student",
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "answers": answers,
+                "duration_seconds": 1800,
+                "time_used_seconds": 1500,
+            },
+        )
 
 
 if __name__ == "__main__":

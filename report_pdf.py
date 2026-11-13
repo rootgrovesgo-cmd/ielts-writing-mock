@@ -1,4 +1,4 @@
-"""Teacher-only PDF answer reports for reading and writing submissions."""
+"""Teacher-only PDF answer reports for reading, listening and writing submissions."""
 
 from __future__ import annotations
 
@@ -17,6 +17,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 import reading_scoring as rs
+import listening_scoring as ls
 import reading_review as rr
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -211,7 +212,7 @@ def draw_mixed_string(canvas, x: float, y: float, text: str, size: float, align:
 
 
 def report_filename(record: dict) -> str:
-    module = "reading" if _is_reading(record) else "writing"
+    module = _record_module(record)
     raw_name = (record.get("candidate_name") or "candidate").strip() or "candidate"
     safe = re.sub(r"[^\w\u4e00-\u9fff\-]+", "", raw_name, flags=re.UNICODE)
     safe = safe.strip("._-") or "candidate"
@@ -230,6 +231,20 @@ def _is_reading(record: dict | None) -> bool:
     if not record:
         return False
     return (record.get("module") or "").strip().lower() == "reading"
+
+
+def _is_listening(record: dict | None) -> bool:
+    if not record:
+        return False
+    return (record.get("module") or "").strip().lower() == "listening"
+
+
+def _record_module(record: dict | None) -> str:
+    if _is_reading(record):
+        return "reading"
+    if _is_listening(record):
+        return "listening"
+    return "writing"
 
 
 def attach_explanations(record: dict, keys: dict | None = None) -> list[dict]:
@@ -369,26 +384,28 @@ def format_duration(seconds) -> str:
     return f"{minutes}min{rem}s"
 
 
-def part_times_summary(part_times) -> str | None:
-    """Human-readable Passage 1/2/3 times, or None if the field is absent."""
+def part_times_summary(part_times, label: str = "Passage") -> str | None:
+    """Human-readable part times, or None if the field is absent."""
     if not isinstance(part_times, dict) or not part_times:
         return None
     labels = []
     found = False
-    for key in ("1", "2", "3"):
+    keys = ("1", "2", "3", "4") if label == "Section" else ("1", "2", "3")
+    for key in keys:
         raw = part_times.get(key, part_times.get(int(key)))
         if raw is None:
             continue
         found = True
-        labels.append(f"Passage {key} {format_duration(raw)}")
+        labels.append(f"{label} {key} {format_duration(raw)}")
     if not found:
         return None
-    # If only some passages were recorded, still show the ones present.
     return " · ".join(labels)
 
 
 def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
     reading = _is_reading(record)
+    listening = _is_listening(record)
+    scored = reading or listening
     invite_text = "—"
     if invite:
         code = invite.get("code") or ""
@@ -397,7 +414,12 @@ def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
     elif record.get("invite_code_id"):
         invite_text = str(record.get("invite_code_id"))
 
-    subject = "阅读" if reading else "写作"
+    if listening:
+        subject = "听力"
+    elif reading:
+        subject = "阅读"
+    else:
+        subject = "写作"
     pairs: list[tuple[str, str]] = [
         ("考生", (record.get("candidate_name") or "—")),
         ("邀请码", invite_text),
@@ -406,17 +428,21 @@ def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
         ("套卷", str(record.get("prompt_set_id") or "—")),
         ("交卷时间", f"{record.get('timestamp') or '—'}（Asia/Shanghai）"),
     ]
-    if reading:
+    if scored:
         score = record.get("score")
         total = record.get("total")
         score_text = "—"
         if score is not None and total is not None:
             score_text = f"{score}/{total}"
-        band = rs.format_band(record.get("band_estimate"))
+        band_fn = ls.format_band if listening else rs.format_band
+        band = band_fn(record.get("band_estimate"))
         if band:
             band_text = band
         elif record.get("mode") != "full":
-            band_text = "—（单篇模式仅记原始分）"
+            if listening:
+                band_text = "—（单部分模式仅记原始分）"
+            else:
+                band_text = "—（单篇模式仅记原始分）"
         else:
             band_text = "—"
         pairs.append(("成绩", score_text))
@@ -445,8 +471,11 @@ def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
             ),
         )
     )
-    if reading:
-        part_label = part_times_summary(record.get("part_times"))
+    if scored:
+        part_label = part_times_summary(
+            record.get("part_times"),
+            label="Section" if listening else "Passage",
+        )
         pairs.append(("各部分用时", part_label or "本题卷未记录各部分用时"))
     pairs.append(("自动提交", "是" if record.get("auto_submitted") else "否"))
     pairs.append(("答卷 ID", str(record.get("id") or "—")))
@@ -675,6 +704,31 @@ def build_submission_report(
             story.append(_marking_table(rows, styles))
         else:
             story.append(Paragraph(mixed_xml("本题卷没有逐题记录。"), styles["muted"]))
+    elif _is_listening(record):
+        rows = attach_explanations(record, keys=ls.load_keys())
+        story.append(Paragraph(mixed_xml("逐题批改"), styles["section"]))
+        story.append(
+            Paragraph(
+                mixed_xml("学生答案对照标准答案；解析与录音文本仅供教师备课使用。"),
+                styles["muted"],
+            )
+        )
+        story.append(Spacer(1, 2 * mm))
+        if rows:
+            story.append(_marking_table(rows, styles))
+        else:
+            story.append(Paragraph(mixed_xml("本题卷没有逐题记录。"), styles["muted"]))
+        transcripts = ls.transcripts()
+        if transcripts:
+            story.append(Spacer(1, 6 * mm))
+            story.append(Paragraph(mixed_xml("录音文本"), styles["section"]))
+            for sid in ("1", "2", "3", "4"):
+                text = transcripts.get(sid) or ""
+                if not text:
+                    continue
+                story.extend(
+                    _essay_block(f"Section {sid}", text, styles)
+                )
     else:
         story.extend(
             _essay_block(

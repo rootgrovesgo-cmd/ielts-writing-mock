@@ -24,10 +24,11 @@
     <section class="card setup-card hub-hero">
       <p class="eyebrow">My records</p>
       <h1>你好，{{ student_name }}</h1>
-      <p class="muted lead">这里只列出你已经交过的写作和阅读答卷。点「查看整卷」会回到原来的机考界面回顾，答案已填入且不可修改；阅读还可查看标准答案、解析和错题。口语练习不会保存在此。</p>
+      <p class="muted lead">这里只列出你已经交过的写作、阅读和听力答卷。点「查看整卷」会回到原来的机考界面回顾，答案已填入且不可修改；阅读和听力还可查看标准答案、解析和错题。口语练习不会保存在此。</p>
       <div class="student-start-links">
         <a class="btn ghost sm" href="/writing">写作模考</a>
         <a class="btn ghost sm" href="/reading">阅读模考</a>
+        <a class="btn ghost sm" href="/listening">听力模考</a>
         <a class="btn ghost sm" href="/speaking">口语题库</a>
         <a class="btn ghost sm" href="/">返回首页</a>
       </div>
@@ -45,7 +46,7 @@
           <p class="muted">{{ item.when }} · Asia/Shanghai</p>
           <p class="attempt-stats">
             用时 {{ item.duration }}
-            {% if item.module == 'reading' and item.score_label %}
+            {% if item.module in ['reading', 'listening'] and item.score_label %}
               · {{ item.score_label }}{% if item.band_label %} · 参考分数 {{ item.band_label }}{% endif %}
             {% elif item.module == 'writing' %}
               {% if item.task1_word_count is not none %} · Task 1 {{ item.task1_word_count }} 词{% endif %}
@@ -55,7 +56,7 @@
         </div>
         <div class="attempt-actions">
           <a class="btn sm" href="{{ url_for('student_submission', sid=item.id) }}">查看整卷</a>
-          {% if item.module == 'reading' %}
+          {% if item.module in ['reading', 'listening'] %}
           <a class="btn ghost sm" href="{{ url_for('student_submission_review', sid=item.id) }}">查看错题</a>
           {% endif %}
         </div>
@@ -69,6 +70,7 @@
       <div class="student-start-links">
         <a class="btn btn-start" href="/writing">开始写作模考</a>
         <a class="btn btn-start" href="/reading">开始阅读模考</a>
+        <a class="btn btn-start" href="/listening">开始听力模考</a>
       </div>
     </section>
     {% endif %}

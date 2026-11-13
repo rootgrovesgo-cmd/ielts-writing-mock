@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Academic Listening · Rosette Exclusive Mock Exam</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='reading.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='listening.css') }}" />
+</head>
+<body class="listening-page{% if review %} attempt-review{% endif %}">
+  <header class="topbar">
+    <div class="brand-block">
+      <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
+      <div class="brand-sub">IELTS Academic Listening · Computer-delivered style</div>
+    </div>
+    <div class="meta">
+      <span id="modeLabel" class="mode-chip">Ready</span>
+      <span class="timer-label">Time remaining</span>
+      <span id="timer" class="timer">--:--</span>
+      <button type="button" id="btnPause" class="btn secondary sm hidden">Pause</button>
+    </div>
+  </header>
+
+  <main id="setupPanel" class="wrap{% if review %} hidden{% endif %}">
+    <section class="card setup-card">
+      <p class="eyebrow">Candidate check-in</p>
+      <h1>Start your listening test</h1>
+      <p class="muted lead">填写姓名和邀请码后开始。界面仿照雅思机考 Listening：听音过程中不可回放或拖动进度，可调节音量。完整测试在第四部分结束后有 2 分钟检查时间。</p>
+
+      <div class="setup-grid" style="margin-top:18px">
+        <label class="field">
+          Candidate name <span class="req">*</span>
+          <input type="text" id="candidateName" placeholder="请输入真实姓名" maxlength="80" required autocomplete="name" />
+        </label>
+        <label class="field">
+          Invitation code <span class="req">*</span>
+          <input type="text" id="inviteCode" placeholder="Enter invitation code" maxlength="32" required autocomplete="off" />
+        </label>
+        <label class="field">
+          Question set
+          <select id="promptSet">
+            <option value="set-a">Set A · Academic Listening</option>
+          </select>
+        </label>
+      </div>
+
+      <div style="margin-top:18px">
+        <div class="muted" style="margin-bottom:8px;font-weight:600">Test mode</div>
+        <div class="mode-pills" id="modePills">
+          <label class="active"><input type="radio" name="mode" value="full" checked /> Full test · ~30 min + 2 min check · Questions 1–40</label>
+          <label><input type="radio" name="mode" value="section1" /> Section 1 only · Q1–10</label>
+          <label><input type="radio" name="mode" value="section2" /> Section 2 only · Q11–20</label>
+          <label><input type="radio" name="mode" value="section3" /> Section 3 only · Q21–30</label>
+          <label><input type="radio" name="mode" value="section4" /> Section 4 only · Q31–40</label>
+        </div>
+      </div>
+
+      <details class="teacher-opt" style="margin-top:14px">
+        <summary class="muted">Teacher options</summary>
+        <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;margin-top:8px">
+          <input type="checkbox" id="teacherPause" />
+          Allow pause
+        </label>
+      </details>
+
+      <div id="nameError" class="banner error hidden" style="margin-top:14px">Please enter your name and invitation code before starting.</div>
+      <div id="resumeBanner" class="banner info hidden" style="margin-top:14px"></div>
+
+      <div class="actions start-actions">
+        <button type="button" id="btnStart" class="btn btn-start">Start test</button>
+      </div>
+      <p class="hint" style="margin-top:14px">There are 40 questions. Each question carries one mark. The recording plays once. The test auto-submits when time is up. Your score will be shown after you submit. You can then review your answers, the recording, the transcript, and explanations.</p>
+      <div class="teacher-entry">
+        <a class="btn ghost" href="/">返回首页</a>
+        <a class="btn ghost" href="/admin">Root Login</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="reviewModeBanner" class="review-mode-banner{% if not review %} hidden{% endif %}">
+    <div class="review-mode-inner">
+      <strong>回顾模式</strong>
+      <span id="reviewModeMeta"></span>
+      <span class="review-mode-links">
+        <a class="btn secondary sm" href="/me">返回我的记录</a>
+        <a class="btn secondary sm" href="/listening">再做一套新题</a>
+      </span>
+    </div>
+  </div>
+
+  <section id="examPanel" class="listening-shell reading-shell{% if not review %} hidden{% endif %}">
+    <div id="statusBanner" class="banner info hidden listening-status"></div>
+    <div class="section-tabs" id="sectionTabs" role="tablist" aria-label="Sections"></div>
+    <div class="listening-main">
+      <div class="question-scroll" id="questionScroll"></div>
+    </div>
+    <div id="reviewScreen" class="review-screen hidden">
+      <div class="review-head">
+        <h2>Review</h2>
+        <button type="button" id="btnBackToTest" class="btn ghost sm">Back to questions</button>
+      </div>
+      <p class="muted review-lead">Click a question to return to it. You can keep changing your answers until you submit.</p>
+      <div id="reviewList" class="review-list"></div>
+    </div>
+    <div class="audio-bar" id="audioBar">
+      <div class="audio-meta">
+        <span id="audioLabel">Audio</span>
+        <span id="audioPhase" class="audio-phase">Ready</span>
+      </div>
+      <div class="audio-progress" id="audioProgress" aria-hidden="true"><div id="audioFill" class="audio-fill"></div></div>
+      <span id="audioTime" class="audio-time">00:00 / 00:00</span>
+      <label class="volume-ctl">Volume
+        <input type="range" id="volume" min="0" max="100" value="80" />
+      </label>
+      <button type="button" id="btnUnlockAudio" class="btn sm hidden">Start audio</button>
+      <button type="button" id="btnToggleTranscript" class="btn ghost sm hidden">Transcript</button>
+      <audio id="examAudio" preload="auto"></audio>
+    </div>
+    <div id="transcriptPanel" class="transcript-panel hidden"></div>
+    <footer class="reading-palette">
+      <div class="pal-row pal-row-nav">
+        <button type="button" id="btnPrev" class="btn ghost sm pal-nav">Previous</button>
+        <div class="palette-nums" id="paletteNums" role="navigation" aria-label="Question numbers"></div>
+        <button type="button" id="btnNext" class="btn ghost sm pal-nav">Next</button>
+      </div>
+      <div class="pal-row pal-row-actions">
+        <div class="pal-actions-left">
+          <button type="button" id="btnFlag" class="btn ghost sm" title="Flag for review">Flag</button>
+          <button type="button" id="btnReview" class="btn ghost sm">Review</button>
+        </div>
+        <div class="pal-actions-right">
+          <button type="button" id="btnQuit" class="btn ghost sm">Quit</button>
+          <button type="button" id="btnSubmit" class="btn ok sm">Submit test</button>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <section id="donePanel" class="wrap hidden">
+    <div class="card done-card">
+      <div class="done-icon" aria-hidden="true">✓</div>
+      <h2>Submitted</h2>
+      <div id="doneMsg" class="banner success"></div>
+      <div id="doneResult" class="done-result hidden">
+        <div class="done-score-label">Score</div>
+        <div class="done-score" id="doneScore"></div>
+        <div class="done-band muted" id="doneBand"></div>
+        <table class="done-parts" id="doneParts"></table>
+      </div>
+      <p class="muted" style="text-align:center;margin-top:8px">Your answers have been saved. You can review the paper, your mistakes, the recording and the transcript, or close this page.</p>
+      <div class="actions done-actions">
+        <a id="btnReviewPaper" class="btn hidden" href="#">Review paper</a>
+        <a id="btnReviewMistakes" class="btn ghost hidden" href="#">Review mistakes</a>
+        <button type="button" id="btnAgain" class="btn ghost">Take again</button>
+        <a class="btn ghost" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="siteFooter" class="site-footer">
+    <span>Rosette Exclusive Mock Exam</span>
+    <a href="/" class="footer-admin">Home</a>
+    <a href="/admin" class="footer-admin">Teacher</a>
+  </footer>
+
+  {% if review %}
+  <script>
+    window.REVIEW_CONFIG = {
+      sid: {{ review.sid | tojson }},
+      module: "listening",
+      mistakesOnly: {{ review.mistakes_only | tojson }}
+    };
+  </script>
+  {% endif %}
+  <script src="{{ url_for('static', filename='listening.js') }}"></script>
+</body>
+</html>

@@ -8,12 +8,14 @@ from typing import Any
 
 import access
 import reading_scoring as rs
+import listening_scoring as ls
 import reading_review as rr
 import report_pdf
 
 MODULE_LABELS = {
     "writing": "写作",
     "reading": "阅读",
+    "listening": "听力",
 }
 
 MODE_LABELS = {
@@ -27,6 +29,13 @@ MODE_LABELS = {
         "passage1": "Passage 1",
         "passage2": "Passage 2",
         "passage3": "Passage 3",
+    },
+    "listening": {
+        "full": "完整测试",
+        "section1": "Section 1",
+        "section2": "Section 2",
+        "section3": "Section 3",
+        "section4": "Section 4",
     },
 }
 
@@ -51,8 +60,8 @@ def module_of(record: dict | None) -> str:
     if not record:
         return "writing"
     mod = (record.get("module") or "").strip().lower()
-    if mod == "reading":
-        return "reading"
+    if mod in {"reading", "listening"}:
+        return mod
     return "writing"
 
 
@@ -116,12 +125,13 @@ def summarize_attempt(item: dict) -> dict:
     module = module_of(item)
     band = None
     score_label = None
-    if module == "reading":
+    if module in {"reading", "listening"}:
         score = item.get("score")
         total = item.get("total")
         if score is not None and total is not None:
             score_label = f"{score}/{total}"
-        band = rs.format_band(item.get("band_estimate"))
+        band_fn = ls.format_band if module == "listening" else rs.format_band
+        band = band_fn(item.get("band_estimate"))
     return {
         "id": item.get("id"),
         "module": module,
@@ -352,7 +362,7 @@ def _answer_map(record: dict) -> dict[str, str]:
     return {str(k): ("" if v is None else str(v)) for k, v in answers.items()}
 
 
-def _marking_by_q(record: dict, keys: dict | None = None) -> dict[int, dict]:
+def _marking_by_q(record: dict, keys: dict | None = None, module: str | None = None) -> dict[int, dict]:
     by_q: dict[int, dict] = {}
     for row in record.get("marking") or []:
         try:
@@ -364,7 +374,8 @@ def _marking_by_q(record: dict, keys: dict | None = None) -> dict[int, dict]:
         return by_q
     # Older or partial records: re-score from saved answers, never from the client.
     mode = (record.get("mode") or "full").strip().lower()
-    result = rs.score_paper(_answer_map(record), mode=mode, keys=keys)
+    scorer = ls if (module or module_of(record)) == "listening" else rs
+    result = scorer.score_paper(_answer_map(record), mode=mode, keys=keys)
     for row in result.get("marking") or []:
         by_q[int(row["q"])] = dict(row)
     return by_q
@@ -385,7 +396,9 @@ def _explanation_map(keys: dict) -> dict[int, str]:
     return out
 
 
-def _question_range(mode: str) -> set[int]:
+def _question_range(mode: str, module: str = "reading") -> set[int]:
+    if (module or "reading") == "listening":
+        return set(ls.mode_question_numbers(mode))
     info = rs.MODES.get(mode) or rs.MODES["full"]
     return set(info["questions"])
 
@@ -456,17 +469,62 @@ def _is_blank(answer: str | None) -> bool:
     return not (answer or "").strip()
 
 
+def listening_question_context(paper: dict, qnum: int) -> dict:
+    """Stem and surrounding context from a listening paper (no keys)."""
+    for section in paper.get("sections") or []:
+        for group in section.get("groups") or []:
+            start, end = group.get("from"), group.get("to")
+            if start is None or end is None or not (start <= qnum <= end):
+                continue
+            ctx = {
+                "q": qnum,
+                "type": group.get("type") or "",
+                "heading": group.get("heading") or "",
+                "instructions": list(group.get("instructions") or []),
+                "section": section.get("id"),
+                "stem": "",
+                "options": None,
+                "legend": None,
+            }
+            gtype = group.get("type")
+            if gtype == "notes":
+                ctx["stem"] = _walk_notes_for_q(group.get("notes"), qnum) or ""
+                title = (group.get("notes") or {}).get("title")
+                if title:
+                    ctx["notes_title"] = title
+            elif gtype == "form":
+                for row in group.get("rows") or []:
+                    if row.get("q") == qnum:
+                        ctx["stem"] = row.get("label") or ""
+                        break
+            else:
+                for item in group.get("items") or []:
+                    if item.get("q") == qnum:
+                        ctx["stem"] = item.get("stem") or ""
+                        if item.get("options"):
+                            ctx["options"] = item.get("options")
+                        break
+                if group.get("legend"):
+                    ctx["legend"] = group.get("legend")
+                if group.get("options") and not ctx["options"]:
+                    ctx["choice_letters"] = list(group.get("options") or [])
+            return ctx
+    return {"q": qnum, "type": "", "heading": "", "instructions": [], "stem": ""}
+
+
 def _question_rows(
     record: dict,
     paper: dict,
     keys: dict,
     *,
     mistakes_only: bool,
+    module: str | None = None,
 ) -> list[dict]:
     mode = (record.get("mode") or "full").strip().lower()
-    allowed = _question_range(mode)
+    module = module or module_of(record)
+    allowed = _question_range(mode, module)
     answers = _answer_map(record)
-    marking = _marking_by_q(record, keys)
+    marking = _marking_by_q(record, keys, module=module)
     explanations = _explanation_map(keys)
     rows: list[dict] = []
     for q in sorted(allowed):
@@ -488,7 +546,10 @@ def _question_rows(
         ok = bool(mark.get("ok")) and not _is_blank(student)
         if mistakes_only and ok:
             continue
-        ctx = question_context(paper, q)
+        if module == "listening":
+            ctx = listening_question_context(paper, q)
+        else:
+            ctx = question_context(paper, q)
         rows.append(
             {
                 "q": q,
@@ -567,17 +628,24 @@ def _groups_for_detail(paper: dict, record: dict, keys: dict) -> list[dict]:
     return groups
 
 
-def part_time_pills(record: dict) -> list[dict]:
+def part_time_pills(record: dict, *, part_label: str | None = None) -> list[dict]:
     times = record.get("part_times") or {}
     if not isinstance(times, dict):
         return []
     mode = (record.get("mode") or "full").strip().lower()
-    if mode == "passage1":
+    module = module_of(record)
+    if part_label is None:
+        part_label = "Section" if module == "listening" else "Passage"
+    if mode in {"passage1", "section1"}:
         keys = ("1",)
-    elif mode == "passage2":
+    elif mode in {"passage2", "section2"}:
         keys = ("2",)
-    elif mode == "passage3":
+    elif mode in {"passage3", "section3"}:
         keys = ("3",)
+    elif mode == "section4":
+        keys = ("4",)
+    elif module == "listening":
+        keys = ("1", "2", "3", "4")
     else:
         keys = ("1", "2", "3")
     has_any = any(int(times.get(k) or times.get(int(k) or 0) or 0) for k in keys)
@@ -593,7 +661,7 @@ def part_time_pills(record: dict) -> list[dict]:
         pills.append(
             {
                 "id": key,
-                "label": f"Passage {key} {duration_label(seconds) if has_any else '本题卷未记录'}",
+                "label": f"{part_label} {key} {duration_label(seconds) if has_any else '本题卷未记录'}",
                 "recorded": has_any,
             }
         )
@@ -651,6 +719,60 @@ def reading_mistakes_view(record: dict, paper: dict, keys: dict) -> dict:
         "mistake_count": len(mistakes),
         "total_questions": len(allowed),
         "all_correct": len(mistakes) == 0,
+    }
+
+
+def listening_detail_view(record: dict, paper: dict, keys: dict) -> dict:
+    """Post-submit listening review for the owner: paper, answers, keys, transcript."""
+    mode = (record.get("mode") or "full").strip().lower()
+    score = record.get("score")
+    total = record.get("total")
+    questions = _question_rows(record, paper, keys, mistakes_only=False, module="listening")
+    mistakes = [row for row in questions if not row["ok"] or row["student_blank"]]
+    return {
+        "module": "listening",
+        "module_label": "听力",
+        "mode_label": mode_label("listening", mode),
+        "set_title": paper.get("title") or record.get("prompt_set_id") or "",
+        "when": format_shanghai(record.get("timestamp")),
+        "duration": duration_label(record.get("time_used_seconds")),
+        "auto_submitted": bool(record.get("auto_submitted")),
+        "score": score,
+        "total": total,
+        "score_label": f"{score}/{total}" if score is not None and total is not None else None,
+        "band_label": ls.format_band(record.get("band_estimate")),
+        "part_times": part_time_pills(record, part_label="Section"),
+        "questions": questions,
+        "mistake_count": len(mistakes),
+        "total_questions": len(questions),
+        "transcripts": ls.transcripts(keys),
+    }
+
+
+def listening_mistakes_view(record: dict, paper: dict, keys: dict) -> dict:
+    """Wrong and unanswered listening items, with the student's answer, key, and 解析."""
+    mode = (record.get("mode") or "full").strip().lower()
+    mistakes = _question_rows(record, paper, keys, mistakes_only=True, module="listening")
+    allowed = _question_range(mode, "listening")
+    return {
+        "module": "listening",
+        "module_label": "听力",
+        "mode_label": mode_label("listening", mode),
+        "when": format_shanghai(record.get("timestamp")),
+        "duration": duration_label(record.get("time_used_seconds")),
+        "score": record.get("score"),
+        "total": record.get("total"),
+        "score_label": (
+            f"{record.get('score')}/{record.get('total')}"
+            if record.get("score") is not None and record.get("total") is not None
+            else None
+        ),
+        "band_label": ls.format_band(record.get("band_estimate")),
+        "mistakes": mistakes,
+        "mistake_count": len(mistakes),
+        "total_questions": len(allowed),
+        "all_correct": len(mistakes) == 0,
+        "transcripts": ls.transcripts(keys),
     }
 
 
@@ -712,6 +834,25 @@ def attempt_review_payload(
                 "mistake_count": detail.get("mistake_count") or 0,
                 "total_questions": detail.get("total_questions") or 0,
                 "review_highlights": rr.review_highlights(record, paper=paper),
+            }
+        )
+        return payload
+    if module == "listening":
+        detail = listening_detail_view(record, paper or {}, keys or {})
+        payload.update(
+            {
+                "score": detail.get("score"),
+                "total": detail.get("total"),
+                "score_label": detail.get("score_label"),
+                "band_label": detail.get("band_label"),
+                "part_times": detail.get("part_times") or [],
+                "answers": _answer_map(record),
+                "flags": record.get("flags") or [],
+                "paper": paper or {},
+                "questions": _slim_question_rows(detail.get("questions") or []),
+                "mistake_count": detail.get("mistake_count") or 0,
+                "total_questions": detail.get("total_questions") or 0,
+                "transcripts": detail.get("transcripts") or {},
             }
         )
         return payload

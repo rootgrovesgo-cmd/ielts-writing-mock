@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""IELTS Academic Writing, Reading, and Speaking practice — Flask app (local + online)."""
+"""IELTS Academic Writing, Reading, Listening, and Speaking practice — Flask app (local + online)."""
 
 from __future__ import annotations
 
@@ -24,6 +24,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_file,
     session,
     url_for,
 )
@@ -31,6 +32,7 @@ from werkzeug.security import check_password_hash
 
 import access
 import reading_scoring as rs
+import listening_scoring as ls
 import report_pdf
 import reading_review as rr
 import student_portal as sp
@@ -42,6 +44,9 @@ INDEX_PATH = DATA_DIR / "index.json"
 PROMPTS_PATH = BASE_DIR / "prompts" / "prompts.json"
 READING_PAPER_PATH = BASE_DIR / "prompts" / "reading_set_a.json"
 READING_KEYS_PATH = BASE_DIR / "prompts" / "reading_keys.json"
+LISTENING_PAPER_PATH = BASE_DIR / "prompts" / "listening_set_a.json"
+LISTENING_KEYS_PATH = BASE_DIR / "prompts" / "listening_keys.json"
+LISTENING_AUDIO_DIR = BASE_DIR / "static" / "audio" / "listening_set_a"
 SPEAKING_BANK_PATH = BASE_DIR / "prompts" / "speaking_sept2026.json"
 
 TZ_SHANGHAI = timezone(timedelta(hours=8))
@@ -147,6 +152,16 @@ def load_reading_keys() -> dict:
     return rs.load_keys(READING_KEYS_PATH)
 
 
+def load_listening_paper() -> dict:
+    paper = ls.load_paper(LISTENING_PAPER_PATH)
+    ls.refresh_modes(paper)
+    return paper
+
+
+def load_listening_keys() -> dict:
+    return ls.load_keys(LISTENING_KEYS_PATH)
+
+
 def load_speaking_bank() -> dict:
     with SPEAKING_BANK_PATH.open(encoding="utf-8") as f:
         return json.load(f)
@@ -181,8 +196,8 @@ def record_module(record: dict | None) -> str:
     if not record:
         return "writing"
     mod = (record.get("module") or "").strip().lower()
-    if mod == "reading":
-        return "reading"
+    if mod in {"reading", "listening", "speaking"}:
+        return mod
     return "writing"
 
 
@@ -265,7 +280,7 @@ def save_to_notion(record: dict) -> dict | None:
     if not notion_enabled():
         return None
     # Reading submissions skip Notion: existing DBs lack reading properties.
-    if record_module(record) == "reading":
+    if record_module(record) in {"reading", "listening"}:
         return None
     try:
         from notion_client import Client
@@ -362,7 +377,7 @@ def health():
         {
             "ok": True,
             "service": "ielts-writing-mock",
-            "modules": ["writing", "reading", "speaking"],
+            "modules": ["writing", "reading", "speaking", "listening"],
             "notion": notion_enabled(),
         }
     )
@@ -385,6 +400,11 @@ def writing():
 @app.route("/reading")
 def reading():
     return render_template("reading.html")
+
+
+@app.route("/listening")
+def listening():
+    return render_template("listening.html")
 
 
 @app.route("/speaking")
@@ -448,6 +468,8 @@ def render_attempt_exam(record: dict, *, mistakes_only: bool = False):
     review = _review_context(record, mistakes_only=mistakes_only)
     if sp.module_of(record) == "reading":
         return render_template("reading.html", review=review)
+    if sp.module_of(record) == "listening":
+        return render_template("listening.html", review=review)
     return render_template(
         "exam.html",
         sets=prompt_set_summaries(),
@@ -482,7 +504,7 @@ def student_submission_review(sid: str):
     if not ident:
         return redirect(url_for("student_home", next=f"/me/submission/{sid}/review"))
     record = load_owned_submission(sid, ident)
-    if record is None or sp.module_of(record) != "reading":
+    if record is None or sp.module_of(record) not in {"reading", "listening"}:
         return "未找到该答卷", 404
     return render_attempt_exam(record, mistakes_only=True)
 
@@ -495,11 +517,18 @@ def api_me_submission(sid: str):
     record = load_owned_submission(sid, ident)
     if record is None:
         return jsonify({"ok": False, "error": "未找到该答卷"}), 404
-    if sp.module_of(record) == "reading":
+    module = sp.module_of(record)
+    if module == "reading":
         payload = sp.attempt_review_payload(
             record,
             paper=load_reading_paper(),
             keys=load_reading_keys(),
+        )
+    elif module == "listening":
+        payload = sp.attempt_review_payload(
+            record,
+            paper=load_listening_paper(),
+            keys=load_listening_keys(),
         )
     else:
         payload = sp.attempt_review_payload(record, prompts_data=load_prompts())
@@ -549,6 +578,32 @@ def api_reading_paper():
     if err:
         return err
     return jsonify(load_reading_paper())
+
+
+@app.route("/api/listening/paper")
+def api_listening_paper():
+    """Student-facing listening paper only — never includes keys or transcripts."""
+    err = student_session_error()
+    if err:
+        return err
+    return jsonify(load_listening_paper())
+
+
+@app.route("/api/listening/audio/<section>")
+def api_listening_audio(section: str):
+    """Stream a section mp3. Requires a student session or a teacher login."""
+    token = (section or "").strip().lower().replace("section", "")
+    if token not in {"1", "2", "3", "4"}:
+        return jsonify({"ok": False, "error": "未找到该音频"}), 404
+    is_admin = bool(session.get("admin_ok") and admin_credentials_configured())
+    if not is_admin:
+        err = student_session_error()
+        if err:
+            return err
+    path = (LISTENING_AUDIO_DIR / f"section{token}.mp3").resolve()
+    if path.parent != LISTENING_AUDIO_DIR.resolve() or not path.is_file():
+        return jsonify({"ok": False, "error": "未找到该音频"}), 404
+    return send_file(path, mimetype="audio/mpeg", conditional=True, max_age=0, download_name=f"section{token}.mp3")
 
 
 @app.route("/api/speaking/bank")
@@ -677,12 +732,14 @@ def api_submit():
 
 
 PART_TIME_KEYS = ("1", "2", "3")
+LISTENING_PART_TIME_KEYS = ("1", "2", "3", "4")
 HIGHLIGHTS_MAX_BYTES = 400_000
 
 
-def normalize_part_times(raw, duration_seconds: int = 0) -> dict[str, int]:
-    """Sanitize client part-time payloads into {"1": int, "2": int, "3": int}."""
-    out = {key: 0 for key in PART_TIME_KEYS}
+def normalize_part_times(raw, duration_seconds: int = 0, keys=None) -> dict[str, int]:
+    """Sanitize client part-time payloads into a fixed key map of seconds."""
+    part_keys = tuple(keys) if keys else PART_TIME_KEYS
+    out = {key: 0 for key in part_keys}
     if not isinstance(raw, dict):
         return out
     try:
@@ -691,7 +748,7 @@ def normalize_part_times(raw, duration_seconds: int = 0) -> dict[str, int]:
         cap = 3 * 60 * 60
     for key, value in raw.items():
         token = str(key).strip().lower().replace(" ", "").replace("_", "")
-        token = token.replace("passage", "")
+        token = token.replace("passage", "").replace("section", "")
         if token not in out:
             continue
         try:
@@ -851,6 +908,128 @@ def api_reading_submit():
     return jsonify(student_reading_result(record))
 
 
+def normalize_listening_part_times(raw, cap: int) -> dict:
+    return normalize_part_times(raw, cap, keys=LISTENING_PART_TIME_KEYS)
+
+
+def student_listening_result(record: dict) -> dict:
+    """Student-facing submit result: score and times, never keys or transcripts."""
+    return {
+        "ok": True,
+        "id": record["id"],
+        "timestamp": record["timestamp"],
+        "score": record["score"],
+        "total": record["total"],
+        "band_estimate": record["band_estimate"],
+        "time_used_seconds": record["time_used_seconds"],
+        "part_times": record.get("part_times") or {key: 0 for key in LISTENING_PART_TIME_KEYS},
+        "mode": record.get("mode"),
+        "auto_submitted": bool(record.get("auto_submitted", False)),
+    }
+
+
+@app.route("/api/listening/submit", methods=["POST"])
+def api_listening_submit():
+    ensure_storage()
+    data = request.get_json(silent=True) or {}
+    blocked = reject_review_submit(data)
+    if blocked:
+        return blocked
+    ident, err = ident_for_submit(data, "listening")
+    if err:
+        return err
+
+    candidate_name = ident["candidate_name"]
+    paper = load_listening_paper()
+    modes = ls.modes_info(paper)
+    mode = data.get("mode") or "full"
+    if mode not in modes:
+        mode = "full"
+    prompt_set_id = data.get("prompt_set_id") or "set-a"
+    answers = data.get("answers") or {}
+    if not isinstance(answers, dict):
+        answers = {}
+    flags = data.get("flags") or []
+    if not isinstance(flags, list):
+        flags = []
+
+    duration_seconds = int(data.get("duration_seconds") or modes[mode]["seconds"])
+    time_remaining_seconds = int(data.get("time_remaining_seconds") or 0)
+    time_used_seconds = int(
+        data.get("time_used_seconds")
+        or max(0, duration_seconds - time_remaining_seconds)
+    )
+    auto_submitted = bool(data.get("auto_submitted", False))
+    paused_total_seconds = int(data.get("paused_total_seconds") or 0)
+    part_times = normalize_listening_part_times(data.get("part_times"), duration_seconds)
+
+    result = ls.score_paper(answers, mode=mode, keys=load_listening_keys())
+
+    now = datetime.now(TZ_SHANGHAI)
+    sid = str(uuid.uuid4())
+    record = {
+        "id": sid,
+        "timestamp": now.isoformat(timespec="seconds"),
+        "candidate_name": candidate_name,
+        "module": "listening",
+        "mode": mode,
+        "prompt_set_id": prompt_set_id,
+        "answers": {str(k): ("" if v is None else str(v)) for k, v in answers.items()},
+        "flags": flags,
+        "marking": result["marking"],
+        "score": result["score"],
+        "total": result["total"],
+        "band_estimate": result["band_estimate"],
+        "duration_seconds": duration_seconds,
+        "time_remaining_seconds": time_remaining_seconds,
+        "time_used_seconds": time_used_seconds,
+        "paused_total_seconds": paused_total_seconds,
+        "part_times": part_times,
+        "auto_submitted": auto_submitted,
+        "user_id": ident.get("user_id"),
+        "invite_code_id": ident.get("invite_code_id"),
+    }
+
+    out_path = SUBMISSIONS_DIR / f"{sid}.json"
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(record, f, ensure_ascii=False, indent=2)
+
+    index = load_index()
+    index.setdefault("submissions", []).insert(
+        0,
+        {
+            "id": sid,
+            "timestamp": record["timestamp"],
+            "candidate_name": candidate_name,
+            "module": "listening",
+            "mode": mode,
+            "prompt_set_id": prompt_set_id,
+            "score": record["score"],
+            "total": record["total"],
+            "band_estimate": record["band_estimate"],
+            "time_used_seconds": time_used_seconds,
+            "part_times": part_times,
+            "auto_submitted": auto_submitted,
+            "file": f"submissions/{sid}.json",
+            "user_id": ident.get("user_id"),
+            "invite_code_id": ident.get("invite_code_id"),
+        },
+    )
+    save_index(index)
+
+    access.record_submit(
+        user_id=ident.get("user_id"),
+        module="listening",
+        submission_id=sid,
+        candidate_name=candidate_name,
+        invite_code_id=ident.get("invite_code_id"),
+        ip=request_client_ip(),
+        user_agent=request.headers.get("User-Agent"),
+        mode=mode,
+    )
+    return jsonify(student_listening_result(record))
+
+
 def safe_admin_next(raw: str | None) -> str:
     nxt = (raw or "").strip()
     if nxt.startswith("/") and not nxt.startswith("//") and "\\" not in nxt and ":" not in nxt:
@@ -989,15 +1168,24 @@ def admin_submission(sid: str):
     with path.open(encoding="utf-8") as f:
         record = json.load(f)
     explanations = {}
-    if record_module(record) == "reading":
+    transcripts = {}
+    module = record_module(record)
+    if module == "reading":
         keys = load_reading_keys().get("questions", {})
         for q, meta in keys.items():
             explanations[int(q)] = meta.get("explanation") or ""
-        # Attach explanation onto each marking row for the template.
         for row in record.get("marking") or []:
             row["explanation"] = explanations.get(int(row.get("q") or 0), "")
+    elif module == "listening":
+        keys = load_listening_keys()
+        for q, meta in (keys.get("questions") or {}).items():
+            explanations[int(q)] = meta.get("explanation") or ""
+        for row in record.get("marking") or []:
+            row["explanation"] = explanations.get(int(row.get("q") or 0), "")
+        transcripts = ls.transcripts(keys)
     invite = access.get_code(record.get("invite_code_id"))
-    is_reading = record_module(record) == "reading"
+    is_reading = module == "reading"
+    is_listening = module == "listening"
     part_times_label = None
     passage_profiles = []
     highlight_review = None
@@ -1010,14 +1198,21 @@ def admin_submission(sid: str):
             else:
                 profile["time_label"] = "本题卷未记录"
         highlight_review = rr.highlight_review(record)
+    elif is_listening:
+        part_times_label = report_pdf.part_times_summary(
+            record.get("part_times"), label="Section"
+        )
+    band_fmt = rs.format_band if is_reading else ls.format_band
     return render_template(
         "admin_detail.html",
         record=record,
         is_reading=is_reading,
-        band_label=rs.format_band(record.get("band_estimate")),
+        is_listening=is_listening,
+        band_label=band_fmt(record.get("band_estimate")),
         part_times_label=part_times_label,
         passage_profiles=passage_profiles,
         highlight_review=highlight_review,
+        transcripts=transcripts,
         invite=invite,
     )
 
@@ -1130,15 +1325,15 @@ def admin_export_csv():
                 r.get("prompt_set_id"),
                 r.get("task1_word_count") if module == "writing" else "",
                 r.get("task2_word_count") if module == "writing" else "",
-                r.get("score") if module == "reading" else "",
-                r.get("total") if module == "reading" else "",
-                r.get("band_estimate") if module == "reading" else "",
+                r.get("score") if module in {"reading", "listening"} else "",
+                r.get("total") if module in {"reading", "listening"} else "",
+                r.get("band_estimate") if module in {"reading", "listening"} else "",
                 r.get("time_used_seconds"),
                 r.get("time_remaining_seconds"),
                 r.get("auto_submitted"),
                 (r.get("task1_text") or "").replace("\n", "\\n") if module == "writing" else "",
                 (r.get("task2_text") or "").replace("\n", "\\n") if module == "writing" else "",
-                _answers_summary(r) if module == "reading" else "",
+                _answers_summary(r) if module in {"reading", "listening"} else "",
                 r.get("user_id") or "",
                 r.get("invite_code_id") or "",
             ]
@@ -1157,6 +1352,7 @@ def main() -> None:
     print(f"Rosette Exclusive Mock Exam → http://{host}:{port}/")
     print(f"Writing → http://{host}:{port}/writing")
     print(f"Reading → http://{host}:{port}/reading")
+    print(f"Listening → http://{host}:{port}/listening")
     print(f"Speaking → http://{host}:{port}/speaking")
     print(f"学生记录 → http://{host}:{port}/me")
     print(f"Health → http://{host}:{port}/health")

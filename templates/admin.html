@@ -70,6 +70,8 @@
               <td>
                 {% if module == 'reading' %}
                 <span class="mod-badge reading">阅读</span>
+                {% elif module == 'listening' %}
+                <span class="mod-badge listening">听力</span>
                 {% else %}
                 <span class="mod-badge writing">写作</span>
                 {% endif %}
@@ -79,14 +81,14 @@
               <td>{% if module == 'writing' %}{{ s.task1_word_count }}{% else %}—{% endif %}</td>
               <td>{% if module == 'writing' %}{{ s.task2_word_count }}{% else %}—{% endif %}</td>
               <td>
-                {% if module == 'reading' and s.get('score') is not none %}
+                {% if module in ['reading', 'listening'] and s.get('score') is not none %}
                   {{ s.score }}/{{ s.total }}
                 {% else %}
                   —
                 {% endif %}
               </td>
               <td>
-                {% if module == 'reading' and s.get('band_estimate') is not none %}
+                {% if module in ['reading', 'listening'] and s.get('band_estimate') is not none %}
                   {{ s.band_estimate }}
                 {% else %}
                   —
@@ -101,7 +103,7 @@
                 {% endif %}
               </td>
               <td>{{ "是" if s.auto_submitted else "否" }}</td>
-              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看{% if module == 'reading' %}详批{% else %}全文{% endif %}</a></td>
+              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看{% if module in ['reading', 'listening'] %}详批{% else %}全文{% endif %}</a></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -131,6 +133,7 @@
               <th>进入次数</th>
               <th>写作</th>
               <th>阅读</th>
+              <th>听力</th>
               <th>答卷</th>
             </tr>
           </thead>
@@ -146,10 +149,11 @@
               <td>{{ u.start_count or 0 }}</td>
               <td>{{ u.writing_started or 0 }} 次进入 / {{ u.writing_submitted or 0 }} 份交卷</td>
               <td>{{ u.reading_started or 0 }} 次进入 / {{ u.reading_submitted or 0 }} 份交卷</td>
+              <td>{{ u.get('listening_started', 0) or 0 }} 次进入 / {{ u.get('listening_submitted', 0) or 0 }} 份交卷</td>
               <td>
                 {% if row.submissions %}
                   {% for s in row.submissions %}
-                  <a href="{{ url_for('admin_submission', sid=s.id) }}">{% if (s.get('module') or 'writing') == 'reading' %}阅读{% else %}写作{% endif %}</a>{% if not loop.last %}、{% endif %}
+                  <a href="{{ url_for('admin_submission', sid=s.id) }}">{% if (s.get('module') or 'writing') == 'reading' %}阅读{% elif s.get('module') == 'listening' %}听力{% else %}写作{% endif %}</a>{% if not loop.last %}、{% endif %}
                   {% endfor %}
                 {% else %}
                   —

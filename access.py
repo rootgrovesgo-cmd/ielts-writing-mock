@@ -24,11 +24,13 @@ _DATA_DIR: Path | None = None
 WRITING_MODES = {"full", "task1", "task2"}
 READING_MODES = {"full", "passage1", "passage2", "passage3"}
 SPEAKING_MODES = {"full", "topic", "part1", "part3"}
-MODULES = {"writing", "reading", "speaking"}
+LISTENING_MODES = {"full", "section1", "section2", "section3", "section4"}
+MODULES = {"writing", "reading", "speaking", "listening"}
 MODULE_MODES = {
     "writing": WRITING_MODES,
     "reading": READING_MODES,
     "speaking": SPEAKING_MODES,
+    "listening": LISTENING_MODES,
 }
 
 
@@ -423,9 +425,12 @@ def start_student(
                 "writing_submitted": 0,
                 "reading_started": 0,
                 "reading_submitted": 0,
+                "listening_started": 0,
+                "listening_submitted": 0,
                 "last_submission_id": None,
                 "last_writing_submission_id": None,
                 "last_reading_submission_id": None,
+                "last_listening_submission_id": None,
             }
             users.setdefault("users", []).insert(0, user)
         else:
@@ -510,9 +515,12 @@ def login_student(
                 "writing_submitted": 0,
                 "reading_started": 0,
                 "reading_submitted": 0,
+                "listening_started": 0,
+                "listening_submitted": 0,
                 "last_submission_id": None,
                 "last_writing_submission_id": None,
                 "last_reading_submission_id": None,
+                "last_listening_submission_id": None,
             }
             users.setdefault("users", []).insert(0, user)
         else:

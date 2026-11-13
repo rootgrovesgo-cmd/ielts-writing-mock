@@ -1169,6 +1169,7 @@ def admin_submission(sid: str):
         record = json.load(f)
     explanations = {}
     transcripts = {}
+    listening_layouts = []
     module = record_module(record)
     if module == "reading":
         keys = load_reading_keys().get("questions", {})
@@ -1183,6 +1184,7 @@ def admin_submission(sid: str):
         for row in record.get("marking") or []:
             row["explanation"] = explanations.get(int(row.get("q") or 0), "")
         transcripts = ls.transcripts(keys)
+        listening_layouts = sp.listening_layout_blocks(ls.load_paper(), record, keys)
     invite = access.get_code(record.get("invite_code_id"))
     is_reading = module == "reading"
     is_listening = module == "listening"
@@ -1213,6 +1215,7 @@ def admin_submission(sid: str):
         passage_profiles=passage_profiles,
         highlight_review=highlight_review,
         transcripts=transcripts,
+        listening_layouts=listening_layouts,
         invite=invite,
     )
 

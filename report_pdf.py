@@ -518,6 +518,78 @@ def _meta_table(record: dict, invite: dict | None, styles: dict[str, ParagraphSt
     return table
 
 
+
+def _plain_parts(parts, answers: dict[str, str], official: dict[int, str]) -> str:
+    bits: list[str] = []
+    for part in parts or []:
+        if isinstance(part, dict) and part.get("q") is not None:
+            qn = int(part["q"])
+            prefix = part.get("prefix") or ""
+            student = (answers.get(str(qn)) or "").strip() or "______"
+            correct = official.get(qn) or ""
+            bits.append(f"{prefix}[{qn}] {student}")
+            if correct:
+                bits.append(f"（标准答案：{correct}）")
+        else:
+            bits.append("" if part is None else str(part))
+    return "".join(bits)
+
+
+def _listening_notes_tables(record: dict, styles: dict[str, ParagraphStyle]) -> list:
+    """Filled Section 1 notes table for the teacher PDF."""
+    paper = ls.load_paper()
+    official = ls.official_answers()
+    answers = {}
+    raw = record.get("answers") or {}
+    if isinstance(raw, dict):
+        answers = {str(k): "" if v is None else str(v) for k, v in raw.items()}
+    story: list = []
+    usable = A4[0] - 32 * mm
+    for section in paper.get("sections") or []:
+        for group in section.get("groups") or []:
+            if group.get("type") != "notes_table":
+                continue
+            table = group.get("table") or {}
+            headers = table.get("headers") or []
+            if not headers:
+                continue
+            title = table.get("title") or group.get("heading") or "Notes"
+            story.append(Paragraph(mixed_xml(str(title)), styles["section"]))
+            col_w = usable / max(len(headers), 1)
+            data = [[Paragraph(mixed_xml(h), styles["th"]) for h in headers]]
+            for row in table.get("rows") or []:
+                cells = []
+                for cell in row or []:
+                    lines = cell if isinstance(cell, list) else [cell]
+                    chunks = []
+                    for line in lines:
+                        line_parts = line if isinstance(line, list) else [line]
+                        chunks.append(_plain_parts(line_parts, answers, official))
+                    cells.append(Paragraph(mixed_xml("\n".join(chunks), newlines=True), styles["td"]))
+                while len(cells) < len(headers):
+                    cells.append(Paragraph("", styles["td"]))
+                data.append(cells[: len(headers)])
+            pdf_table = Table(data, colWidths=[col_w] * len(headers))
+            pdf_table.setStyle(
+                TableStyle(
+                    [
+                        ("BACKGROUND", (0, 0), (-1, 0), HEADER),
+                        ("TEXTCOLOR", (0, 0), (-1, 0), HEADER_INK),
+                        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                        ("GRID", (0, 0), (-1, -1), 0.3, LINE),
+                        ("LEFTPADDING", (0, 0), (-1, -1), 3),
+                        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+                        ("TOPPADDING", (0, 0), (-1, -1), 3),
+                        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+                        ("BACKGROUND", (0, 1), (-1, -1), CARD),
+                    ]
+                )
+            )
+            story.append(pdf_table)
+            story.append(Spacer(1, 5 * mm))
+    return story
+
+
 def _marking_table(rows: list[dict], styles: dict[str, ParagraphStyle]) -> Table:
     usable = A4[0] - 32 * mm
     widths = [14 * mm, 30 * mm, 30 * mm, 16 * mm, usable - 90 * mm]
@@ -705,6 +777,7 @@ def build_submission_report(
         else:
             story.append(Paragraph(mixed_xml("本题卷没有逐题记录。"), styles["muted"]))
     elif _is_listening(record):
+        story.extend(_listening_notes_tables(record, styles))
         rows = attach_explanations(record, keys=ls.load_keys())
         story.append(Paragraph(mixed_xml("逐题批改"), styles["section"]))
         story.append(

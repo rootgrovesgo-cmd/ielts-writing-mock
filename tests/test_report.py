@@ -686,7 +686,8 @@ class ReportPdfTests(unittest.TestCase):
         self.assertIn("听力", text)
         self.assertIn("逐题批改", text)
         self.assertIn("录音文本", text)
-        self.assertIn("KERRIDGE", text)
+        self.assertIn("Pellam", text)
+        self.assertIn("Bookshop recommendations", text)
 
 
 

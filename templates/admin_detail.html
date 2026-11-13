@@ -110,6 +110,15 @@
       </div>
     </section>
     {% elif is_listening %}
+    {% if listening_layouts %}
+    {% for block in listening_layouts %}
+    <section class="card">
+      <h2>{{ block.heading }}</h2>
+      {% if block.title %}<p class="notes-title">{{ block.title }}</p>{% endif %}
+      {{ block.html | safe }}
+    </section>
+    {% endfor %}
+    {% endif %}
     <section class="card">
       <div class="section-head">
         <h2>逐题批改</h2>

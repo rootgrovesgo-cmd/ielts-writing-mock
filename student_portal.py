@@ -416,24 +416,34 @@ def _question_range(mode: str, module: str = "reading") -> set[int]:
     return set(info["questions"])
 
 
+def _parts_to_stem(parts: list, qnum: int) -> str | None:
+    if not any(isinstance(p, dict) and p.get("q") == qnum for p in parts):
+        return None
+    bits: list[str] = []
+    for part in parts:
+        if isinstance(part, str):
+            bits.append(part)
+        elif isinstance(part, dict) and "q" in part:
+            prefix = part.get("prefix") or ""
+            bits.append(f"{prefix}______")
+    return "".join(bits).strip()
+
+
 def _walk_notes_for_q(node: Any, qnum: int) -> str | None:
     if isinstance(node, dict):
         parts = node.get("parts")
-        if isinstance(parts, list) and any(
-            isinstance(p, dict) and p.get("q") == qnum for p in parts
-        ):
-            bits: list[str] = []
-            for part in parts:
-                if isinstance(part, str):
-                    bits.append(part)
-                elif isinstance(part, dict) and "q" in part:
-                    bits.append("______")
-            return "".join(bits).strip()
-        for key in ("sections", "items", "children", "notes"):
+        if isinstance(parts, list):
+            found = _parts_to_stem(parts, qnum)
+            if found:
+                return found
+        for key in ("sections", "items", "children", "notes", "table", "rows", "lines"):
             found = _walk_notes_for_q(node.get(key), qnum)
             if found:
                 return found
     elif isinstance(node, list):
+        found = _parts_to_stem(node, qnum)
+        if found:
+            return found
         for item in node:
             found = _walk_notes_for_q(item, qnum)
             if found:
@@ -500,11 +510,16 @@ def listening_question_context(paper: dict, qnum: int) -> dict:
                 "legend": None,
             }
             gtype = group.get("type")
-            if gtype == "notes":
-                ctx["stem"] = _walk_notes_for_q(group.get("notes"), qnum) or ""
-                title = (group.get("notes") or {}).get("title")
+            if gtype in {"notes", "notes_table"}:
+                source = group.get("notes") if gtype == "notes" else group.get("table")
+                ctx["stem"] = _walk_notes_for_q(source, qnum) or ""
+                title = (source or {}).get("title")
                 if title:
                     ctx["notes_title"] = title
+            elif gtype == "choose_two":
+                ctx["stem"] = group.get("stem") or ""
+                if group.get("options"):
+                    ctx["options"] = group.get("options")
             elif gtype == "form":
                 for row in group.get("rows") or []:
                     if row.get("q") == qnum:
@@ -735,6 +750,88 @@ def reading_mistakes_view(record: dict, paper: dict, keys: dict) -> dict:
     }
 
 
+
+def _escape(text: Any) -> str:
+    return (
+        str(text or "")
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def _fill_parts_html(parts: list, answers: dict[str, str], official: dict[int, str]) -> str:
+    bits: list[str] = []
+    for part in parts:
+        if isinstance(part, dict) and part.get("q") is not None:
+            qn = int(part["q"])
+            prefix = _escape(part.get("prefix") or "")
+            student = (answers.get(str(qn)) or answers.get(qn) or "").strip()
+            correct = official.get(qn) or ""
+            shown = _escape(student or "______")
+            bits.append(
+                f'{prefix}<span class="filled-blank" data-q="{qn}">'
+                f'<span class="qnum">{qn}</span> {shown}</span>'
+            )
+            if correct:
+                bits.append(f' <span class="muted">（标准答案：{_escape(correct)}）</span>')
+        else:
+            bits.append(_escape(part))
+    return "".join(bits)
+
+
+def notes_table_html(
+    group: dict,
+    answers: dict | None = None,
+    official: dict[int, str] | None = None,
+) -> str:
+    """Render a listening notes table with answers filled, not raw JSON."""
+    table = group.get("table") or {}
+    answers = {str(k): ("" if v is None else str(v)) for k, v in (answers or {}).items()}
+    official = official or {}
+    parts = ['<div class="notes-table-wrap">']
+    title = table.get("title") or ""
+    if title:
+        parts.append(f'<div class="notes-title">{_escape(title)}</div>')
+    parts.append('<table class="notes-table data"><thead><tr>')
+    for header in table.get("headers") or []:
+        parts.append(f"<th>{_escape(header)}</th>")
+    parts.append("</tr></thead><tbody>")
+    for row in table.get("rows") or []:
+        parts.append("<tr>")
+        for cell in row or []:
+            lines = cell if isinstance(cell, list) else [cell]
+            parts.append("<td>")
+            for line in lines:
+                line_parts = line if isinstance(line, list) else [line]
+                parts.append(f'<div class="cell-line">{_fill_parts_html(line_parts, answers, official)}</div>')
+            parts.append("</td>")
+        parts.append("</tr>")
+    parts.append("</tbody></table></div>")
+    return "".join(parts)
+
+
+def listening_layout_blocks(paper: dict, record: dict, keys: dict | None = None) -> list[dict]:
+    """Teacher/PDF-friendly layouts (notes tables) with answers filled."""
+    official = ls.official_answers(keys)
+    answers = _answer_map(record)
+    blocks: list[dict] = []
+    for section in paper.get("sections") or []:
+        for group in section.get("groups") or []:
+            if group.get("type") != "notes_table":
+                continue
+            blocks.append(
+                {
+                    "heading": group.get("heading") or f"Section {section.get('id')}",
+                    "title": (group.get("table") or {}).get("title") or "",
+                    "html": notes_table_html(group, answers, official),
+                    "table": group.get("table") or {},
+                }
+            )
+    return blocks
+
+
 def listening_detail_view(record: dict, paper: dict, keys: dict) -> dict:
     """Post-submit listening review for the owner: paper, answers, keys, transcript."""
     mode = (record.get("mode") or "full").strip().lower()
@@ -759,6 +856,7 @@ def listening_detail_view(record: dict, paper: dict, keys: dict) -> dict:
         "mistake_count": len(mistakes),
         "total_questions": len(questions),
         "transcripts": ls.transcripts(keys),
+        "layout_blocks": listening_layout_blocks(paper, record, keys),
     }
 
 

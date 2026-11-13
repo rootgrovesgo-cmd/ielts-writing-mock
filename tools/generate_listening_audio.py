@@ -122,14 +122,29 @@ def probe_duration(path: Path) -> float:
     return float(out.strip())
 
 
-async def tts_to_file(text: str, voice: str, dest: Path) -> None:
+async def tts_to_file(text: str, voice: str, dest: Path, attempts: int = 4) -> None:
     import edge_tts
 
     tmp = dest.with_suffix(".raw.mp3")
-    communicate = edge_tts.Communicate(text, voice, rate="-5%")
-    await communicate.save(str(tmp))
-    normalize(tmp, dest)
-    tmp.unlink(missing_ok=True)
+    last_error: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            tmp.unlink(missing_ok=True)
+            communicate = edge_tts.Communicate(text, voice, rate="-5%")
+            await communicate.save(str(tmp))
+            if tmp.stat().st_size < 200:
+                raise RuntimeError(f"TTS wrote an empty clip for {dest.name}")
+            normalize(tmp, dest)
+            tmp.unlink(missing_ok=True)
+            return
+        except Exception as exc:  # noqa: BLE001 — retry network/TTS flakiness
+            last_error = exc
+            tmp.unlink(missing_ok=True)
+            dest.unlink(missing_ok=True)
+            if attempt >= attempts:
+                break
+            await asyncio.sleep(2 * attempt)
+    raise last_error or RuntimeError("TTS failed")
 
 
 async def build_section(section_id: int, work: Path, force: bool) -> Path:

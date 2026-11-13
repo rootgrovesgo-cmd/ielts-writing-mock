@@ -2,335 +2,372 @@
   "set_id": "set-a",
   "questions": {
     "1": {
-      "answer": "KERRIDGE",
-      "type": "form",
-      "explanation": "Harriet 先说成 Carridge，随即更正并拼写 K-E-R-R-I-D-G-E。不要填 Carridge 或 Harriet。",
-      "alternatives": [
-        "Kerridge"
-      ],
+      "answer": "poetry",
+      "type": "notes_table",
+      "explanation": "Fraser 承认位置方便，但明确说 that’s not necessarily why I’d recommend it。人们专程来是因为诗歌（poetry）收藏。不要填 location / tram / centre。",
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "2": {
-      "answer": "07754 629183",
-      "type": "form",
-      "explanation": "她先报 07754 629813，随即更正为 07754 629183。后四位是 6183 的干扰不可用。",
-      "alternatives": [
-        "07754629183",
-        "07754-629183",
-        "07754 629 183"
-      ],
+      "answer": "courtyard",
+      "type": "notes_table",
+      "explanation": "后部有 courtyard，适合坐着阅读。需要订位、能看到古城墙只是附加信息，不是空格要填的场所名词。不要填 wall 或 table。",
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "3": {
-      "answer": "18 May",
-      "type": "form",
-      "explanation": "她原想订 11 May，但 Marcus 说那一期已满，改订 18 May。不要填 11 May 或 25 May（候补日期）。",
-      "alternatives": [
-        "18th May",
-        "May 18",
-        "May 18th",
-        "18 May"
-      ],
+      "answer": "academic",
+      "type": "notes_table",
+      "explanation": "Naomi 以为是二手书店；Fraser 说明那是店主以前工作的 Canal Row 旧店。他用确认问句后给出 Harbour Folio 的定位：academic 库存。不要填 second-hand。",
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "4": {
-      "answer": "2.15",
-      "type": "form",
-      "explanation": "宣传是 2 o’clock，但 Marcus 说明实际从 2.15 开始，以便先做安全须知。不要填 2.00 或 2 o’clock。",
+      "answer": "comics",
+      "type": "notes_table",
+      "explanation": "Naomi 问起给十几岁侄女的读物。店里为青少年只保留有限的 comics，同时强调学术书并不短缺。不要填 academic 或 books，也不要理解成主库存不足。",
       "alternatives": [
-        "2:15",
-        "14.15",
-        "14:15",
-        "2.15 pm",
-        "2:15 pm",
-        "2.15pm",
-        "2:15pm"
+        "comic"
       ],
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "5": {
-      "answer": "wheel throwing",
-      "type": "form",
-      "explanation": "工作日才有 hand-building；她要订的周六课是 wheel throwing。不要填 hand-building 或 pottery。",
+      "answer": "Pellam",
+      "type": "notes_table",
+      "explanation": "店名 The Pellam，逐字母拼写为 P-E-L-L-A-M，并纠正人们常误写成 Pelham（多一个 H）。只接受此拼写（大小写不限）。",
       "alternatives": [
-        "wheel-throwing"
+        "PELLAM"
       ],
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "6": {
-      "answer": "37.50",
-      "type": "form",
-      "explanation": "标准费用是 £37.50。优惠价 £29 仅给学生和六十岁以上人士，她不符合。不要填 29 或 45（材料押金）。",
+      "answer": "staircase",
+      "type": "notes_table",
+      "explanation": "空格是 at the top of a 后面的名词。博物馆旁的咖啡馆是他人混淆的地点，不是书店位置。不要填 museum、café 或 arch。",
       "alternatives": [
-        "£37.50",
-        "37.50 pounds",
-        "£37.50 pounds"
+        "stair"
       ],
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "7": {
-      "answer": "old shirt",
-      "type": "form",
-      "explanation": "中心提供围裙和粘土，不要自带粘土。Marcus 建议带一件 old shirt 以免溅到衣服。不要填 apron 或 clay。超过两个词（如 an old shirt）按词数限制判错。",
+      "answer": "reviews",
+      "type": "notes_table",
+      "explanation": "原文是 the reviews are excellent, from all the local papers and from customers online，对应笔记 All the reviews are very good。须用复数 reviews，与空格前后语法一致。不要填 staff、papers 或 owner。",
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "8": {
-      "answer": "library poster",
-      "type": "form",
-      "explanation": "她说朋友提起过网站，但她实际是在图书馆海报上看到课程。不要填 website 或 friend。",
+      "answer": "handmade",
+      "type": "notes_table",
+      "explanation": "他们已停用廉价进口包装纸，改为只用本地作坊生产的 handmade paper。空格是 already printed 的 paper 前的形容词。不要填 imported 或 cheap。",
       "alternatives": [
-        "library posters"
+        "hand-made",
+        "hand made"
       ],
       "word_limit": {
-        "max_words": 2,
+        "max_words": 1,
         "allow_number": true
       }
     },
     "9": {
-      "answer": "A",
-      "type": "mcq",
-      "explanation": "Marcus 先提到中心收费停车场，随后说明周六下午 1 点后 Maple Street 路边免费，并建议她把车停在那里。超市停车场只给顾客用。故选 A。"
+      "answer": "30",
+      "type": "notes_table",
+      "explanation": "年费本身是 thirty pounds / 30。十五镑是预留初版的押金，二十镑是学生优惠价，四十五镑是 Ink & Timber 的收费。题干已印英镑符号，填数字即可。",
+      "alternatives": [
+        "thirty",
+        "30.00",
+        "£30",
+        "£30.00"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
     },
     "10": {
-      "answer": "C",
-      "type": "mcq",
-      "explanation": "姐姐喜欢陶艺只是闲聊；她明确说想先试一次，再决定要不要参加周二晚的常规课。不是为了做生日礼物或开店。故选 C。"
+      "answer": "average",
+      "type": "notes_table",
+      "explanation": "两人原先都觉得房间太小；Fraser 用 I'd say / probably 修正为 average in size，并说价格还算合理。空格对应的是房间大小，不要填 small、tiny 或 fair。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
     },
     "11": {
-      "answer": "A",
-      "type": "map",
-      "explanation": "咖啡馆紧挨主楼东侧，对应图上 A。不要与主楼内的咨询台混淆。"
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "与其他户外活动的真正区别是：你在与已经自我组织的蜂群合作。周末可安排、入门工具比预想便宜都被提及，但那不是蜜蜂养殖的独特之处。"
     },
     "12": {
-      "answer": "B",
-      "type": "map",
-      "explanation": "展览厅在主楼正北、通往木栈道的路上，对应 B。"
+      "answer": "C",
+      "type": "mcq",
+      "explanation": "检查员是根据降落板（landing board）上的划痕/磨痕判断蜂箱过去的用途。油漆颜色、材质和基本形状都被当作不可靠的判断依据。"
     },
     "13": {
-      "answer": "C",
-      "type": "map",
-      "explanation": "观鸟屋在泻湖北岸东端，对应 C。不要把北面沙嘴上的瞭望塔 F 当成观鸟屋。"
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "卖蜂蜜、仿效邻居都是部分人的动机；演讲者强调相当一部分人是为了把蜂箱传给子女或孙辈，这才是题目问的 longer-term / legacy 动机。"
     },
     "14": {
-      "answer": "D",
-      "type": "map",
-      "explanation": "野餐草坪在主楼西侧，对应 D。西北角的 Play area 已标出，不是本题。"
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "孩子喜欢messy、退休学员看重体力活动，但演讲者自己最珍视的是查看蜂箱时的平静感（calming）。注意 MOST / personally prize most。"
     },
     "15": {
-      "answer": "E",
-      "type": "map",
-      "explanation": "船库在东岸，靠近泻湖，对应 E。"
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "有人结伴而来，也有人急于尝试高级技法，但大多数来访者是第一次来的初学者。不要把少数情况当成 majority fact。"
     },
     "16": {
-      "answer": "F",
-      "type": "map",
-      "explanation": "瞭望塔在北面沙嘴上，对应 F。与观鸟屋 C 是两处不同地点。"
+      "answer": "C",
+      "type": "mcq",
+      "explanation": "珠宝和束发已在上周邮件里说明，点火器用法要等到上午晚些时候。现在立刻要做的是戴上身后长凳上的面罩（veil）。"
     },
     "17": {
       "answer": "B",
-      "type": "matching",
-      "explanation": "Guided beach walks 只在周末进行。不是会员专属，也不需要提前预约。"
+      "type": "choose_two",
+      "explanation": "17–18 题选 B 和 D，顺序不限。演讲者解释了烟雾的作用（掩盖蜜蜂的警报气味），以及有人改用水喷雾代替点火器。他只顺带提到发明很早，但没说发明时间（A 是陷阱）；说在家里放点火器不方便，但没有说明该放在哪里（C）；破损风箱的修理要以后再讲（E）。",
+      "pair": [
+        17,
+        18
+      ]
     },
     "18": {
-      "answer": "A",
-      "type": "matching",
-      "explanation": "Kayak hire 必须提前预订，因为名额有限。不要选周末才有或会员专属。"
+      "answer": "D",
+      "type": "choose_two",
+      "explanation": "17–18 题选 B 和 D，顺序不限。演讲者解释了烟雾的作用（掩盖蜜蜂的警报气味），以及有人改用水喷雾代替点火器。他只顺带提到发明很早，但没说发明时间（A 是陷阱）；说在家里放点火器不方便，但没有说明该放在哪里（C）；破损风箱的修理要以后再讲（E）。",
+      "pair": [
+        17,
+        18
+      ]
     },
     "19": {
       "answer": "C",
-      "type": "matching",
-      "explanation": "望远镜可凭入场票免费借用。先提到押金是干扰，随后说明凭票即可。"
+      "type": "choose_two",
+      "explanation": "19–20 题选 C 和 D，顺序不限。他明确指出有些工具是从油漆或抹灰等其他行业改来的，而且有些工具每次离开养蜂场后都需要清洁。名称只是被拿来开玩笑，他并不认为难记（A）；他也否认工具难拿或很重（B）；停产只是谣言，他予以否定（E）。",
+      "pair": [
+        19,
+        20
+      ]
     },
     "20": {
       "answer": "D",
-      "type": "matching",
-      "explanation": "Evening talks 只在七月和八月举办。今年没有取消。"
+      "type": "choose_two",
+      "explanation": "19–20 题选 C 和 D，顺序不限。他明确指出有些工具是从油漆或抹灰等其他行业改来的，而且有些工具每次离开养蜂场后都需要清洁。名称只是被拿来开玩笑，他并不认为难记（A）；他也否认工具难拿或很重（B）；停产只是谣言，他予以否定（E）。",
+      "pair": [
+        19,
+        20
+      ]
     },
     "21": {
-      "answer": "B",
-      "type": "mcq",
-      "explanation": "Tomás 提到电脑出过问题，Jade 说只做了两周，但导师指出真正的问题是数据只覆盖午餐、没有晚餐。故选 B。"
+      "answer": "A",
+      "type": "choose_two",
+      "explanation": "21–22 题选 A 和 C，顺序不限。两人明确同意评估负担加重（I think you're right）以及通勤变长（That's true）。社交媒体被 Jonah 否定为主要原因；学期日期变动发生在多年前，无法解释近期上升；经济压力由 Lila 提出，但 Jonah 拒绝把它当作近期增加的原因，不能算双方共识。",
+      "pair": [
+        21,
+        22
+      ]
     },
     "22": {
-      "answer": "A",
-      "type": "mcq",
-      "explanation": "Tomás 先建议称未上桌的食物，讨论后他们决定称盘子里剩下的食物。故选 A。"
+      "answer": "C",
+      "type": "choose_two",
+      "explanation": "21–22 题选 A 和 C，顺序不限。两人明确同意评估负担加重（I think you're right）以及通勤变长（That's true）。社交媒体被 Jonah 否定为主要原因；学期日期变动发生在多年前，无法解释近期上升；经济压力由 Lila 提出，但 Jonah 拒绝把它当作近期增加的原因，不能算双方共识。",
+      "pair": [
+        21,
+        22
+      ]
     },
     "23": {
-      "answer": "C",
-      "type": "mcq",
-      "explanation": "导师反对在排队时采访，也反对把问卷做得太长，要求采访不超过十分钟。故选 C。"
+      "answer": "A",
+      "type": "choose_two",
+      "explanation": "23–24 题选 A 和 C，顺序不限。退学率有坚实的队列研究，双方接受；短期记忆一项在 Lila 引用 York 实验室 2021 年研究后两人同意证据充分。抑郁的定义含糊，不能说有直接因果关系；成绩永久下降的研究结果互相矛盾；小组活动无法进行只是 Lila 的个案，不能当作证据。",
+      "pair": [
+        23,
+        24
+      ]
     },
     "24": {
-      "answer": "B",
-      "type": "mcq",
-      "explanation": "问卷由 Aisha 来写；Jade 主动承担海报设计。联系厨房经理尚未有人接下。故选 B。"
+      "answer": "C",
+      "type": "choose_two",
+      "explanation": "23–24 题选 A 和 C，顺序不限。退学率有坚实的队列研究，双方接受；短期记忆一项在 Lila 引用 York 实验室 2021 年研究后两人同意证据充分。抑郁的定义含糊，不能说有直接因果关系；成绩永久下降的研究结果互相矛盾；小组活动无法进行只是 Lila 的个案，不能当作证据。",
+      "pair": [
+        23,
+        24
+      ]
     },
     "25": {
-      "answer": "C",
-      "type": "mcq",
-      "explanation": "系研讨会名额已满；他们改在校园可持续发展集市上展示。不是投稿学生期刊。故选 C。"
+      "answer": "A",
+      "type": "choose_two",
+      "explanation": "25–26 题选 A 和 E，顺序不限。两人都说该模型难以理解，并且没什么实际用处。misleading 只是 Jonah 更进一步的看法，Lila 并不赞同；更广泛接受被 Lila 明确拒绝；需要进一步研究由 Lila 提起，Jonah 不愿把它作为两人的共同观点。",
+      "pair": [
+        25,
+        26
+      ]
     },
     "26": {
-      "answer": "A",
-      "type": "mcq",
-      "explanation": "秤已经可以借用，学生参与也不太令他们担心；最大的顾虑是厨房员工是否合作。故选 A。"
+      "answer": "E",
+      "type": "choose_two",
+      "explanation": "25–26 题选 A 和 E，顺序不限。两人都说该模型难以理解，并且没什么实际用处。misleading 只是 Jonah 更进一步的看法，Lila 并不赞同；更广泛接受被 Lila 明确拒绝；需要进一步研究由 Lila 提起，Jonah 不愿把它作为两人的共同观点。",
+      "pair": [
+        25,
+        26
+      ]
     },
     "27": {
-      "answer": "B",
-      "type": "matching",
-      "explanation": "文献综述由 Tomás 来写。他先推给 Aisha，后接受了。"
+      "answer": "C",
+      "type": "mcq",
+      "explanation": "比较 burnout 与 ordinary stress 时，两人都表达frustrated：学校不当回事。Lila 明确说联系并非被夸大，也不讨论有没有cure。不要选 A 或 B。"
     },
     "28": {
-      "answer": "C",
-      "type": "matching",
-      "explanation": "伦理表格由 Aisha 完成，因为她做过类似表格。"
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "用自身例子开头是为了让听众 recognise the situation / see themselves in it。严重程度统计和性别差异可以稍后用，不是开场的理由。"
     },
     "29": {
-      "answer": "A",
-      "type": "matching",
-      "explanation": "预研究（pilot study）由 Jade 来做。"
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "两人同意短时散步有效，是因为能 interrupt / break the cycle。有人赞散步能激发新想法，Jonah 否定这一点，因此 A 不是双方同意的理由。"
     },
     "30": {
-      "answer": "B",
-      "type": "matching",
-      "explanation": "Aisha 先说她去订会议室，后因要交伦理表改由 Tomás 预订。不要选 C。"
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "两人都不理解何以在压力下工作会被视为 enjoyable；他们自己并不喜欢压力，尽管研究认为它可能有益。题目问的是被视为怎样，不是 necessary 或 similar to burnout。"
     },
     "31": {
-      "answer": "drains",
+      "answer": "bitumen",
       "type": "notes",
-      "explanation": "泥炭地变干是因为十九世纪修建了 drains。后面出现的 ditches 是早期田间沟，不是本题所要的词。",
-      "alternatives": [
-        "drain"
-      ],
+      "explanation": "后来诸多问题被追溯到二十世纪初把 bitumen 当作标准防水材料。chimneys、water tanks 是十九世纪屋顶上已有的东西，不是后来问题的成因。",
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "32": {
-      "answer": "carbon",
+      "answer": "sterile",
       "type": "notes",
-      "explanation": "干泥炭会向空气中释放 carbon。同句提到 heat 和 dust，但笔记对应 releases ... into the air 的是 carbon。",
+      "explanation": "1974 年政府调查的结论是典型内城屋顶被宣布为 sterile。不要填 dead、empty 或 industrial。",
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "33": {
-      "answer": "roads",
+      "answer": "lizards",
       "type": "notes",
-      "explanation": "讲者先说 buildings，随即更正为 roads，并补充 bridges。笔记是 local ______，标准答案为 roads。填 roads and bridges 超过两个词，判错。",
+      "explanation": "出乎意料出现在种植屋顶上的是 lizards。pigeons 和 fox 是调查人员原本预期会看到的，不是 unexpected sighting。",
       "alternatives": [
-        "road"
+        "lizard"
       ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "34": {
-      "answer": "2009",
+      "answer": "gyms",
       "type": "notes",
-      "explanation": "有人以为是 2011 年，但讲者说明水泵实际在 2009 年关闭。不要填 2011 或 2012。",
+      "explanation": "旧屋顶房间被改成 studios 或 gyms。studios 已在笔记中给出，不要再填 studio。",
+      "alternatives": [
+        "gym"
+      ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "35": {
-      "answer": "sluice gates",
+      "answer": "theatre",
       "type": "notes",
-      "explanation": "水位现由 sluice gates 控制。pumps 已经关掉，不是现行控制方式。",
+      "explanation": "Tampere 计划建造屋顶 theatre（露天小剧场）。不要填 auditorium 或 store。",
       "alternatives": [
-        "sluice gate"
+        "theater"
       ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "36": {
-      "answer": "lapwings",
+      "answer": "pilot",
       "type": "notes",
-      "explanation": "工程暂停是因为 lapwings 正在筑巢。geese 很多但不是停工原因。",
-      "alternatives": [
-        "lapwing"
-      ],
+      "explanation": "该市还计划公开展示 pilot projects，供其他城区仿效。不要填 public、community 或 design。",
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "37": {
-      "answer": "hay",
+      "answer": "cinemas",
       "type": "notes",
-      "explanation": "农民得到的补偿是湿草甸上的 hay，可以出售；不是现金补贴。",
+      "explanation": "Coimbra 每年夏天在屋顶举办 cinemas。与 Tampere 的长期建设项目不同，这是夏季临时活动。语法上需要复数。",
+      "alternatives": [
+        "cinema"
+      ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "38": {
-      "answer": "eels",
+      "answer": "playground",
       "type": "notes",
-      "explanation": "出乎意料回归的是 eels。otters 是预期中的，不是 unexpected。",
+      "explanation": "许多城市学校已经拥有屋顶 playground，这是现有做法，不是未来设想。不要填 garden 或 greenhouse。",
       "alternatives": [
-        "eel"
+        "playgrounds"
       ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "39": {
-      "answer": "methane",
+      "answer": "lamps",
       "type": "notes",
-      "explanation": "当前研究在测量 methane 排放。carbon 已在前面作为干泥炭的问题出现，不是正在测量的对象。",
+      "explanation": "现在可用土壤苗床和 electric lamps 在屋顶种植；lamps 是当前已在室内园艺中使用的方式。不要填 glasshouses 或 trucks。",
+      "alternatives": [
+        "lights",
+        "lamp",
+        "light"
+      ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     },
     "40": {
-      "answer": "boardwalk",
+      "answer": "robots",
       "type": "notes",
-      "explanation": "访客中心的资金被取消，改为修建一条 boardwalk。不要填 visitor centre。",
+      "explanation": "未来则可由 robots（小型自动机械臂）完成种植与收获。这是 in future 的手段，不要与当前的 lamps 填反。",
       "alternatives": [
-        "board walk",
-        "board-walk"
+        "robot"
       ],
       "word_limit": {
-        "max_words": 2,
-        "allow_number": true
+        "max_words": 1,
+        "allow_number": false
       }
     }
   },
   "transcripts": {
-    "1": "Narrator: This is the Academic Listening practice test, Set A.\n\nNarrator: Section 1. You will hear a telephone conversation between a woman and a receptionist at a community arts centre.\n\nNarrator: First, you have some time to look at questions 1 to 5.\n\nNarrator: Now listen carefully and answer questions 1 to 5.\n\nMarcus: Good morning, Elmwood Community Arts Centre, Marcus speaking. How can I help you?\n\nHarriet: Oh, hello. I'd like to book a place on one of your weekend pottery workshops, please.\n\nMarcus: Of course. Let me take a few details. Can I start with your name?\n\nHarriet: Yes. It's Harriet Carridge. Sorry — not Carridge. It's Kerridge. That's K-E-R-R-I-D-G-E.\n\nMarcus: Kerridge. Thank you. And a contact number, in case we have to change anything?\n\nHarriet: My mobile is 0 7 7 5 4, 6 2 9 8 1 3. No, wait, I've got that back to front. It's 0 7 7 5 4, 6 2 9 1 8 3.\n\nMarcus: 0 7 7 5 4, 6 2 9 1 8 3. I've got that. Now, the workshops. We still have space on the 18th of May, and there's a later date, the 25th, if you'd rather.\n\nHarriet: I was hoping for the 11th of May, actually. That's the first Saturday I have free.\n\nMarcus: I'm afraid the 11th is already full. We keep a short waiting list, but I wouldn't count on a place. The 18th of May is the next one, and that's the one I'd recommend.\n\nHarriet: That's fine. Please put me down for the 18th of May.\n\nMarcus: Done. The advertised start time is 2 o'clock, but I should tell you that we actually begin at 2.15. We use the first quarter of an hour for a safety briefing, and we found people were turning up just as that finished. So please arrive by 2.15, not 2 o'clock.\n\nHarriet: 2.15. That's helpful, thank you. And is it a hand-building class? That's what a friend of mine did on a weekday.\n\nMarcus: The weekday evenings are hand-building, yes. The Saturday workshop is wheel throwing. You get a proper go at the potter's wheel, with a tutor beside you. We don't mix the two on the same day.\n\nHarriet: Wheel throwing. That's exactly what I wanted.\n\nNarrator: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n\nNarrator: Now listen and answer questions 6 to 10.\n\nHarriet: Can I just check the price? I thought I saw 29 pounds somewhere.\n\nMarcus: The concession fee is 29 pounds, but that's only for full-time students and for people over 60. The standard fee is 37 pounds 50. There's also a 45-pound materials deposit on the wall chart, but you can ignore that — we stopped taking a deposit last year.\n\nHarriet: I'm not a student, and I'm certainly not 60, so it'll be 37 pounds 50 then.\n\nMarcus: That's right. You can pay when you arrive. Now, what to bring. We supply aprons, and we supply all the clay, so please don't bring your own — it can clog the wheels. The one thing I do suggest is an old shirt, because even with an apron you can get splashes on your sleeves.\n\nHarriet: An old shirt. Easy enough. Oh, and you asked on the website how people find you. A friend did mention your site, but I didn't actually book from there. I saw a poster in the library and rang you from that.\n\nMarcus: A library poster. That's useful to know — we've just put those up. A couple of last things. Parking: we do have a small paid car park behind the building, but on Saturdays after 1 p.m. you can park for nothing on Maple Street, right beside the entrance. I'd use that. The supermarket across the road looks convenient, but they only allow their own customers to park there, and they do check.\n\nHarriet: Maple Street after 1. Perfect. I'll do that.\n\nMarcus: And just out of interest, is this a one-off, or are you thinking of joining a regular group?\n\nHarriet: My sister is the one who loves pottery — it's her birthday soon, and she keeps making bowls. I did think about making her something, but I'm not at that stage. I'm not planning to sell anything either. I really just want to try the wheel and see whether I'd enjoy the Tuesday evening class later in the year.\n\nMarcus: That's a very good way to start. I'll email your confirmation this afternoon. We look forward to seeing you on the 18th.\n\nHarriet: Thank you very much. Goodbye.\n\nMarcus: Goodbye.\n\nNarrator: That is the end of Section 1. You now have 30 seconds to check your answers.",
-    "2": "Narrator: Section 2. You will hear a welcome talk for visitors at a newly opened coastal visitor centre.\n\nNarrator: First, you have some time to look at questions 11 to 16.\n\nNarrator: Now listen carefully and answer questions 11 to 16.\n\nLena Pritchard: Good morning, everyone, and welcome to the Saltmarsh Coastal Visitor Centre. My name is Lena Pritchard, and I'm the visitor services officer here. The centre only opened in March, so you're among our first guests, and I'm going to start by walking you through the plan you have in front of you, so you can find your way around.\n\nLena Pritchard: You come in at the south, at the bottom of the plan, past the entrance, and the first building you reach, in the middle of the site, is the main building. That's where the information desk is, and it's already labelled. If you go just to the right of that building, to the east, you'll see a smaller, low structure attached to it. That's the café. It's marked A on your plan. We serve drinks and light meals there until 4 o'clock, and you can sit inside or on the terrace.\n\nLena Pritchard: Directly north of the main building, on the path that leads up towards the water, is a long, low hall. That's the exhibition hall, letter B. It tells the story of the saltmarsh and the people who have worked here, and I do recommend you start there before you walk out to the lagoon.\n\nLena Pritchard: Now, the lagoon itself fills most of the north of the site, at the top of your plan. If you follow the boardwalk — that's already labelled — along the water, you'll come to a small wooden shelter on the north-east shore. That's the bird hide, letter C. It's a quiet place, and we ask you not to use flash photography in there. People sometimes assume the hide is the tall structure on the little spit of land further north, but it isn't. I'll come to that in a moment.\n\nLena Pritchard: Coming back inland, to the west of the main building, there's an open grassy area. That's the picnic lawn, letter D. It's the best place for a packed lunch, and it's more sheltered than it looks. Please don't picnic on the play area just north-west of it — that's already labelled, and it's for children. There's also a first-aid post near the entrance, which is marked on your plan, and the car park is in the south-west corner.\n\nLena Pritchard: Two more outdoor buildings. On the eastern shore of the lagoon, along the path that leaves the exhibition hall, you'll find the boat shed, letter E. That's where we keep the kayaks and the shallow-water boats. And finally, on that narrow spit of land that sticks out into the lagoon at the very north of the plan, there's a slim wooden tower. That's the lookout tower, letter F. You get a wide view of the incoming tide from the top, and, as I said, it isn't the bird hide — the hide is the low shelter to the east.\n\nNarrator: Before you hear the rest of the talk, you have some time to look at questions 17 to 20.\n\nNarrator: Now listen and answer questions 17 to 20.\n\nLena Pritchard: Let me tell you briefly about some of the activities you can join while you're here. First, the guided beach walks. These are popular, and we used to offer them every weekday, but we simply don't have the rangers for that now. They run at weekends only. You don't need to be a member, and you can just turn up at the entrance at 10 o'clock — no booking is required.\n\nLena Pritchard: Kayak hire is a different matter. We have only a small number of kayaks, and for safety we need a staff member on the water with you. So kayak hire must be booked in advance, either at the desk or on the website. It isn't limited to members, and we do hire them on weekdays as well as at weekends, provided a guide is free.\n\nLena Pritchard: If you want a closer look at the wading birds, we lend out telescopes. I should have said we were going to charge a deposit for those, but we dropped that idea. Telescope loans are free with the admission ticket. Just leave your ticket at the desk and collect it when you bring the telescope back. Members don't get any extra privilege there — the same rule applies to everyone.\n\nLena Pritchard: And finally, our evening talks. A few people have asked whether these have been cancelled this season. They have not. What we have done is concentrate them in the summer, when the days are longer and the café can stay open afterwards. So the evening talks run in July and August only. They're included in a separate small fee, and they're open to visitors as well as members.\n\nLena Pritchard: That's all I wanted to cover this morning. Please come and find me if you have any questions, and enjoy your visit to Saltmarsh.\n\nNarrator: That is the end of Section 2. You now have 30 seconds to check your answers.",
-    "3": "Narrator: Section 3. You will hear a tutor, Dr Brennan, and three students, Jade, Tomás and Aisha, discussing a research project on food waste in a university cafeteria.\n\nNarrator: First, you have some time to look at questions 21 to 26.\n\nNarrator: Now listen carefully and answer questions 21 to 26.\n\nDr Brennan: Thank you for coming in. You've chosen to follow up last year's study of food waste in the cafeteria, which is a good idea, but I want to be sure you don't repeat its mistakes. Tomás, you looked at the old data. What was the main problem?\n\nTomás: Well, their laptop did crash at one point, and they had to re-enter some figures, but I don't think they actually lost the file. And Jade noticed they only sampled two weeks, which is short, but they did both weeks properly.\n\nJade: Yes, two weeks in November. The real gap, though, is what you pointed out in your notes, Dr Brennan.\n\nDr Brennan: Go on.\n\nJade: They only collected data at lunchtime. The cafeteria is open for dinner as well, and the amount of waste might be quite different then. So the set is incomplete.\n\nDr Brennan: Exactly. The main weakness is that the data were collected at lunchtime only. If you run this again, you must cover the evening service too. Now, how do you want to measure the waste?\n\nTomás: I thought we could weigh the food that never leaves the kitchen — the trays that are prepared and then thrown away unsold. That seemed tidy.\n\nAisha: It's tidy, but it doesn't tell us what students actually leave. I'd rather weigh the leftovers on the plates when they come back.\n\nJade: I agree with Aisha. The kitchen already has a rough idea about unserved food. The interesting question is what people put on a plate and then don't eat.\n\nTomás: Fair enough. Let's do the leftovers on the plates. We can still glance at the unserved trays, but we won't use them as the official measure.\n\nDr Brennan: Good. And interviews? Aisha, you wanted to talk to students in the queue.\n\nAisha: I thought we might catch them while they're waiting, and I drafted about twenty-five questions so we wouldn't miss anything.\n\nDr Brennan: Two problems there. People in a queue are in a hurry, and a long interview will irritate them and give you poor answers. Keep the interviews to no more than ten minutes, and do them at a table, after they've sat down, not in the line. You can cut that list of questions in half.\n\nAisha: Ten minutes. I'll trim it.\n\nDr Brennan: Who is doing what, practically? The questionnaire, the poster for the fair, contacting the kitchen?\n\nAisha: I'll write the questionnaire, since I'm cutting it down anyway.\n\nJade: Then I'll design the project poster. I did the poster for the geography display last term, so I already know the template.\n\nTomás: We still need someone to speak to the kitchen manager. I can try, but I haven't met her.\n\nDr Brennan: Leave that for now — I may be able to introduce you. Let's talk about where you'll present the findings. The departmental seminar would have been ideal, but those slots are already full this term.\n\nTomás: Could we send it to the student journal? They sometimes take short research notes.\n\nAisha: They take months to reply. The campus sustainability fair is in May, and they'll give us a stand if we apply this week.\n\nJade: That's better. We'll present at the sustainability fair.\n\nDr Brennan: Good choice. And what's the thing that still worries you most?\n\nTomás: Borrowing the weighing scales was my worry, but the lab technicians have already said yes.\n\nJade: I'm not too concerned about student numbers either. People like being asked about food.\n\nAisha: The kitchen staff are the unknown. If they think we're criticising their work, they may not let us stand by the racks and weigh anything. That's what I keep thinking about.\n\nDr Brennan: That's a fair concern, and it's the one I'd watch too. I'll help with that introduction. All right, let's assign the remaining tasks.\n\nNarrator: Before you hear the rest of the discussion, you have some time to look at questions 27 to 30.\n\nNarrator: Now listen and answer questions 27 to 30.\n\nDr Brennan: You still need a short literature review, an ethics form, a pilot study, and a room to meet in each week. Let's not leave those hanging.\n\nTomás: Aisha is better at the reading than I am. Could she do the literature review?\n\nAisha: I've already got the questionnaire and the ethics form in my head. I really can't take the review as well.\n\nDr Brennan: Tomás, the review isn't a huge piece of writing. I'd like you to do it. You've already looked at last year's study, so you're halfway there.\n\nTomás: All right. I'll write the literature review.\n\nAisha: And I will complete the ethics form. I submitted one for my interview project last year, so I know the wording they want.\n\nDr Brennan: Good. The pilot study — a short trial in the cafeteria, maybe two days, before the main count. Jade?\n\nJade: Yes, I'll run the pilot study. I can do that in the first week of April, before the main data collection.\n\nAisha: And I'll book the meeting room. I pass the office every morning.\n\nTomás: Are you sure? Once you start on the ethics form, you usually disappear for a week.\n\nAisha: That's true. I might be chasing signatures. Tomás, could you book the meeting room instead? You're in that building on Tuesdays anyway.\n\nTomás: Yes, I'll book the meeting room. Leave it with me.\n\nDr Brennan: Excellent. Email me the plan by Friday, and we'll meet again after the pilot.\n\nJade: Thank you, Dr Brennan.\n\nNarrator: That is the end of Section 3. You now have 30 seconds to check your answers.",
-    "4": "Narrator: Section 4. You will hear a lecture about a peatland restoration project on the Fenmere Levels.\n\nNarrator: First, you have some time to look at questions 31 to 40.\n\nNarrator: Now listen carefully and answer questions 31 to 40.\n\nProfessor Whitby: Good afternoon. In this lecture I want to examine a restoration project on the Fenmere Levels, a lowland peat landscape about thirty kilometres from here, and to consider what it can tell us about the wider problem of drying peat soils.\n\nProfessor Whitby: Let me begin with some background. For centuries the Levels were wet. Farmers cut small ditches by hand to move water short distances, and those early ditches are still visible in places. The real change came in the nineteenth century, when engineers constructed a network of drains — deep, straight channels that carried water off the land and into the river. Once those drains were in place, the peat began to dry.\n\nProfessor Whitby: A dry peat soil has several costs. It blows away as dust in a warm spring, and it no longer holds the cool moisture that neighbouring fields depend on. Most seriously, dried peat releases carbon into the air, as the plant material that was locked up under water begins to break down. That carbon loss is now a measurable part of the region's emissions.\n\nProfessor Whitby: There is a physical cost as well. As the peat dries, the ground shrinks and sinks. I nearly said this had damaged local buildings, and in a few villages garden walls have cracked, but the more serious and widespread damage has been to local roads. Several stretches have had to be rebuilt, and a couple of small bridges have been affected too. When you complete the notes, the word you want for that damaged infrastructure is roads.\n\nProfessor Whitby: Now to the project itself. People often date it to 2011, because that was when the first public report appeared, or even to 2012, when the visitor signs went up. In fact the pumps were switched off in 2009. That is the year the restoration really began, quietly, by allowing water to stay on the land instead of being lifted away.\n\nProfessor Whitby: The pumps have not been used since. Water levels are now controlled by sluice gates, which can be raised or lowered to hold a steady depth across each block of land. That is a gentler and cheaper method than pumping, and it has proved surprisingly precise.\n\nProfessor Whitby: The work has not been without interruption. The Levels are full of geese in winter, and visitors often assume that the geese caused the main delay, because they graze the new shoots. In fact the project had to pause because of nesting lapwings. These birds nest on the bare, wet ground in spring, and a construction team cannot move in beside them. The lapwings, not the geese, were the reason work stopped for two seasons.\n\nProfessor Whitby: Farmers, naturally, wanted to know how they would be paid. An early proposal offered a cash subsidy for every hectare left wet, but that scheme was never adopted. Instead, farmers are compensated with a crop of hay. The wet meadows produce a late, high-quality hay which they can sell on, and that has turned out to be more popular than a cheque, because it keeps them in the farming business.\n\nProfessor Whitby: The wildlife response has been encouraging. Otters were expected to return, and they have done so, along the main channels. The unexpected arrival has been eels. Nobody had recorded eels on the Levels for nearly forty years, and they appeared in the second summer after the pumps stopped. That is the species to note as unexpected.\n\nProfessor Whitby: Research is still going on. We already know, as I said, that dry peat releases carbon, so that is not the current question. What the team is measuring now is methane emissions. A wet peatland can give off methane, and we need to be sure that we are not simply trading one greenhouse gas for another. The early figures are reassuring, but the measurements will continue for several years.\n\nProfessor Whitby: Finally, access for the public. The original plan included a small visitor centre at the eastern car park. That funding was withdrawn last year, and the centre will not be built. What is going ahead is a boardwalk, raised above the wettest ground, so that people can reach the lagoon edge without disturbing the birds or sinking into the peat. If you remember only one planned visitor facility, it should be the boardwalk.\n\nProfessor Whitby: I'll stop there, and in the seminar we'll look at how these lessons are being applied to two other lowland sites.\n\nNarrator: That is the end of Section 4. You now have 30 seconds to check your answers.\n\nNarrator: That is the end of the listening test. In the full test you will now have two minutes to check all your answers."
+    "1": "Narrator: This is the Academic Listening practice test, Set A.\n\nNarrator: Section 1. You will hear a conversation between a woman and a colleague who is recommending independent bookshops.\n\nNarrator: First, you have some time to look at questions 1 to 5.\n\nNarrator: Now listen carefully and answer questions 1 to 5.\n\nNaomi: Fraser, have you got a minute? I want to buy some presents this weekend, and I'd rather go to independent bookshops than one of the big chains. Can you recommend a few?\n\nFraser: Of course. There are three I'd suggest, all quite different from each other.\n\nNaomi: Great. What's the first one?\n\nFraser: Ink and Timber. It's the one opposite the tram stop, so it's easy if you're already in the centre.\n\nNaomi: That's convenient. Is that why you like it so much?\n\nFraser: The location is handy, I'll give you that, but that's not necessarily why I'd recommend it. What people actually come in for is the poetry — they've built up this remarkably wide poetry section, and that's what the shop is known for.\n\nNaomi: Poetry. Okay. Any drawbacks?\n\nFraser: It can be noisy because of the trams going past. But they've opened a courtyard at the back, and it's a lovely place if you want to sit and read. You sometimes have to book a table if you plan to work there, and you get a view of the old city wall, but the thing itself is the courtyard.\n\nNaomi: Nice. And the second shop?\n\nFraser: Harbour Folio, in the covered market.\n\nNaomi: Is that the second-hand one? I think I went to a second-hand bookshop with a similar name.\n\nFraser: You're probably thinking of the place the owner used to work — it was a second-hand shop on Canal Row. Harbour Folio itself is different. Let me just check I've got this right for you: the stock is academic, isn't it? Yes — academic titles, university texts, monographs, that kind of thing.\n\nNaomi: Academic. Good. My nephew's starting university, but I've also got a teenage niece who likes graphic stuff. Do they have anything for her?\n\nFraser: The staff are extremely friendly, and if a title isn't in, they'll take a small deposit and order it. They do keep a limited selection of comics for teenage customers. That doesn't mean the academic shelves are thin — those are as comprehensive as ever. It's just a small comics corner.\n\nNaomi: That's helpful. And the third one?\n\nFraser: The last one I'd mention is called The Pellam.\n\nNaomi: The Pellam? How do you spell that?\n\nFraser: P-E-L-L-A-M. The Pellam. Not Pelham — people often add an H.\n\nNaomi: P-E-L-L-A-M. Got it.\n\nNarrator: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n\nNarrator: Now listen carefully and answer questions 6 to 10.\n\nNaomi: So where is The Pellam, exactly? A friend said something about the museum.\n\nFraser: People often mix it up with the café beside the museum, but that's a completely different place. The Pellam is at the top of a staircase — you go through the arch on Silver Lane and then up. Once you're at the top of the staircase, you can't miss the dark green door.\n\nNaomi: At the top of a staircase. And why do you recommend it?\n\nFraser: The owner is quite well-known — she used to present a book programme on local radio. And I have to say, the reviews are excellent, from all the local papers and from customers online. All the reviews are very good.\n\nNaomi: That's reassuring. Anything unusual about the way they operate?\n\nFraser: They've stopped using the cheap imported wrapping. Everything they wrap purchases in is produced by a workshop just outside town, so they only use handmade paper. It sounds like a small thing, but they are quite particular about it.\n\nNaomi: Handmade paper. Do they have a membership scheme? I thought Ink and Timber charged forty-five pounds.\n\nFraser: They do. There's a fifteen-pound deposit if you want them to reserve a first edition, and students can join at a concession rate of twenty pounds. The membership itself, though, is thirty pounds a year.\n\nNaomi: Thirty. I used to walk past The Pellam and think the rooms looked too small, and a bit pricey.\n\nFraser: I thought the same until I went back last month. The prices are fair enough, and as for the space, I'd say the rooms are probably average in size — not tiny at all once you're inside.\n\nNaomi: Average. That's all really useful, Fraser. Thank you.\n\nFraser: Enjoy your weekend. If you start at Ink and Timber, you can do all three in an afternoon.\n\nNarrator: That is the end of Section 1. You now have 30 seconds to check your answers.",
+    "2": "Narrator: Section 2. You will hear the leader of a community beekeeping workshop giving a welcome talk.\n\nNarrator: First, you have some time to look at questions 11 to 16.\n\nNarrator: Now listen carefully and answer questions 11 to 16.\n\nRowan Hale: Good morning, everyone, and welcome to the Westmere community apiary. My name is Rowan Hale, and I'll be leading today's introductory workshop. I'm delighted so many of you have come, some from quite a distance.\n\nRowan Hale: Before we go out to the hives, I want to say a little about why beekeeping is not quite like other outdoor activities people take up. A lot of you have mentioned gardening, or birdwatching, because those can be fitted into a weekend, and several of you remarked that the starter kit is actually cheaper than you expected, which is true, and I'll come back to cost later. But what really sets beekeeping apart is that you're working with a colony that already organises itself. You don't get that kind of social structure when you're growing vegetables or watching birds. That's the distinctive thing.\n\nRowan Hale: Now, when inspectors visit a site, they sometimes need to work out how a hive was used in the past. People assume you can tell from the colour of the paint — whether it's been given a fresh coat — or from the material, wood versus the newer polystyrene boxes, or even from the basic shape, which is fairly standard anyway. In fact, inspectors often identify a hive's previous use from the scratch marks left on the landing board, those little grooves where earlier colonies wore the wood away. The paint and the material won't tell you that.\n\nRowan Hale: I also wanted to touch on why people join a class like this. A few of you have said you hope to produce honey to sell at the Sunday market, and some are here because a neighbour already keeps bees and made it look straightforward. Those are perfectly good reasons. But a surprising number of people sign up because they want to leave a hive to their children or grandchildren — they see it as something that can be passed on. That longer view is more common than you'd think.\n\nRowan Hale: As for what I value most about being a beekeeper myself: children who visit tend to love how messy and unpredictable it can be, and a lot of our retired members tell me they value the physical work — lifting the boxes keeps them active. Those are real benefits, but they aren't what I personally prize most. What I value most is how calming it is. Once you start inspecting a hive, the rest of the day just drops away.\n\nRowan Hale: You'll notice other visitors here this morning. Some do arrive with a friend, and a few are in a hurry to try advanced techniques before they've learned the basics. I wouldn't encourage that. The fact is, most of the visitors to the apiary are coming for the first time. They're complete beginners, and today's session is designed with that in mind.\n\nRowan Hale: One last reminder before we move. The joining instructions I emailed last week already cover jewellery and tying back long hair, so I won't repeat those now. Later this morning we'll go through how to light the smoker. What I need you to do now, though, is put on the veils that are on the bench behind you. Please don't start the tour without one.\n\nNarrator: Before you hear the rest of the talk, you have some time to look at questions 17 to 20.\n\nNarrator: Now listen carefully and answer questions 17 to 20.\n\nRowan Hale: Let me say something about the smoker, which is the piece of equipment you'll hear most about this morning. Someone — I forget who — came up with the first version of it a long time ago. I won't go into the history, and I couldn't tell you exactly when it was invented. What I will explain is what the smoke actually does: it masks the alarm scent the bees release, so they become less defensive. That's its function. Some of you may have read that a smoker is a nuisance to keep at home; it can be awkward, but I'm not going to tell you where to put one. A number of beekeepers, especially in urban settings, use a water spray instead of a smoker, and that works perfectly well with a calm colony. Don't worry about repairing a torn bellows today — we'll look at maintenance another time.\n\nRowan Hale: A word, too, about the tools on the table. People sometimes laugh at the names — hive tool, uncapping fork — as if they were invented as a joke, but I wouldn't say the names are hard to remember. And despite what you might have heard, they aren't difficult to hold; even the larger ones are quite light. Some of them, like the scraper, are simply adapted from tools used in other trades, painting or plastering. And some do need to be cleaned after every visit to the apiary, particularly anything that's been inside a hive. There's a rumour that one or two items have gone out of production, but that's not the case — you can still buy everything you see here.\n\nRowan Hale: Right. Veils on, please, and we'll walk down to the first hive.\n\nNarrator: That is the end of Section 2. You now have 30 seconds to check your answers.",
+    "3": "Narrator: Section 3. You will hear two university students discussing research for a presentation on academic burnout.\n\nNarrator: First, you have some time to look at questions 21 to 26.\n\nNarrator: Now listen carefully and answer questions 21 to 26.\n\nLila: Jonah, have you had a chance to go through those papers I sent on academic burnout? We need to agree on what we'll actually argue in the presentation.\n\nJonah: I have, and I've got some thoughts. Shall we start with what's driving the increase?\n\nLila: Yes. I think one reason burnout has increased is the sheer number of assessments now. It's continuous — not just a set of exams at the end of the year.\n\nJonah: I think you're right. The assessment load has definitely gone up, and I don't see how students get a break.\n\nLila: And commuting? A lot of people live further out than they used to, because of rents near campus.\n\nJonah: That's true. Longer journeys are leaving people exhausted before they even start work. I'd put that down as a cause as well.\n\nLila: Some of the newspaper articles blame social media.\n\nJonah: I don't think social media is the main thing. People have been on their phones for years, and the rise in burnout looks more recent than that.\n\nLila: Fair point. What about the new term dates? The university changed those, didn't it?\n\nJonah: That change happened years ago. I don't see how it explains an increase that's been reported mainly in the last two or three years.\n\nLila: Okay, we'll leave that out. I'd also be tempted to put financial pressure on the list — rents, longer part-time hours.\n\nJonah: I'm not sure I'd go that far. Plenty of students have always had money worries. Let's not treat that as a reason for the recent rise.\n\nLila: All right. So we're agreed on the assessment load and the commuting.\n\nJonah: Yes.\n\nLila: Now, the effects. We have to be careful about what we can actually support with solid evidence.\n\nJonah: The review we both read said burnout is linked to higher drop-out rates.\n\nLila: That's true — those cohort studies are pretty solid. I'm happy to include that.\n\nJonah: Same here. And what about memory? I was unsure at first; some of the early papers were small.\n\nLila: There's a 2021 study from the York lab that tested working memory under exam conditions. After I looked at that, I changed my mind — the evidence that it reduces short-term memory is actually quite strong.\n\nJonah: Yes, I agree now. That one stands up. We should include it.\n\nLila: Depression, though... a lot of papers treat burnout and depression as if they were the same thing. The definitions are so vague I wouldn't say we have solid evidence that burnout directly causes it.\n\nJonah: Agreed. We can't present that as established. And the claim that it permanently lowers academic grades — the studies contradict each other. One shows a dip, the next doesn't.\n\nLila: Exactly, they're inconsistent. As for group work, my seminar last term fell apart, but that's just one group. We can't treat that as evidence.\n\nJonah: No. Anecdotes won't do.\n\nLila: Okay. We should also say something about Merrow's threshold model. Have you had a proper look at it?\n\nJonah: I have, and I have to say I find it difficult to understand. The way he defines the threshold keeps shifting from chapter to chapter.\n\nLila: I find it difficult to understand as well. And I don't think it has much practical relevance. It doesn't tell a student what to do on a Sunday evening when they're exhausted.\n\nJonah: That's true — little practical relevance. I'd almost go further: I think the model is misleading, because it implies there's a single point where burnout begins, which isn't how it feels.\n\nLila: I'm not sure I'd call it misleading. And I wouldn't say it should be more widely accepted either — not until the evidence is clearer. I did wonder whether it just needs further investigation; he only tested it on medical interns.\n\nJonah: Maybe, but I wouldn't put 'needs further investigation' forward as a shared view. We can say it's hard to follow, and that it has little practical use, and leave it there.\n\nLila: Agreed.\n\nNarrator: Before you hear the rest of the discussion, you have some time to look at questions 27 to 30.\n\nNarrator: Now listen carefully and answer questions 27 to 30.\n\nJonah: When we compare burnout to ordinary stress, I get frustrated. Universities still treat it as a busy week. It isn't taken seriously.\n\nLila: I feel the same. It's frustrating that tutors still say everyone gets stressed. I don't think the link between the two is overstated, actually; if anything, people underplay how different they are. And I'm not going to claim there's no cure — that's not a question we can settle in a ten-minute presentation.\n\nJonah: Right. We'll register that frustration, but we won't get into whether a cure exists.\n\nLila: For the opening, we could start with the statistics on how severe cases can become, or with that study on how the pattern differs for men and women.\n\nJonah: Those are useful later. If we start with an example from our own experience — like last term, when we both stopped sleeping before the research methods deadline — people in the room will recognise the situation. That's why I want to open with it.\n\nLila: Yes. So the audience sees themselves in it, not so we can dramatise how bad it was, and not to make a point about gender. I'll write that example up.\n\nJonah: Thanks. Now, coping strategies. I think short walks between study sessions are a good strategy.\n\nLila: So do I. Some guides say walks are useful because they help you come up with new ideas.\n\nJonah: I don't buy that — I never get any ideas from walking. I do agree they're a good strategy because they interrupt the cycle before it builds, as you said in your notes.\n\nLila: Exactly. That's the reason we should give. They break the cycle, not because they generate ideas.\n\nJonah: One last thing I find hard to understand is why working under pressure is considered to be enjoyable. The papers say some students actually like a tight deadline, and that it can be beneficial.\n\nLila: I find that difficult to understand too. I don't enjoy pressure at all, even though the research says it can help performance. We should flag that as a puzzle, not as something we feel ourselves.\n\nJonah: Good. I think we have a shape for the presentation now. Shall we meet on Thursday to write the slides?\n\nLila: Thursday works. I'll bring the York paper and the drop-out figures.\n\nNarrator: That is the end of Section 3. You now have 30 seconds to check your answers.",
+    "4": "Narrator: Section 4. You will hear a lecture on reclaiming urban rooftops.\n\nNarrator: First, you have some time to look at questions 31 to 35.\n\nNarrator: Now listen carefully and answer questions 31 to 35.\n\nProfessor Bram Ellerby: In this lecture I want to consider how cities have begun to reclaim their rooftops — not as leftover space above a building, but as a resource in their own right. I'll start with some historical background, then look at recent improvements, and finally at some practical possibilities for the next decade.\n\nProfessor Bram Ellerby: For much of the nineteenth century, city roofs were largely reserved for chimneys and water tanks, and they attracted little official attention. The difficulties that came later are often traced to a single cause. In the early twentieth century, bitumen became the standard waterproofing material. It was cheap and easy to apply, but it trapped heat and later cracked, and a great many of the leaks, temperature spikes and drainage failures that followed can be attributed to that material. So the source of those later problems, in the view of most historians of the built environment, was bitumen.\n\nProfessor Bram Ellerby: Public concern grew slowly. Then, in 1974, a government survey of industrial and commercial roofs delivered a blunt verdict: the typical inner-city roof was declared sterile. That word — sterile — was deliberate. The surveyors weren't only talking about a lack of plants; they meant a surface that supported no useful activity and no habitat of any kind. The phrase stuck, and it shaped funding decisions for years afterwards.\n\nProfessor Bram Ellerby: Let me now turn to more recent improvements, because the picture today is very different. Planted roofs, once experimental, have become relatively common in parts of northern Europe, and they have brought some surprises. Wildlife surveys expected pigeons, and perhaps the occasional fox using a fire escape. What they did not expect was the appearance of lizards, which have been recorded on planted roofs in several inland cities, well away from their usual habitats. That unexpected sighting has been widely reported.\n\nProfessor Bram Ellerby: There has also been a change in how leftover roof rooms are used. Former lift-motor rooms and top-floor workshops, which used to stand empty, have been converted into studios, and, in other cases, into gyms. The studios tend to get the attention in design magazines, but the conversion into gyms has been just as widespread, particularly in dense residential districts.\n\nProfessor Bram Ellerby: At the city scale, some municipalities have started to plan more ambitiously. The city of Tampere, for example, has announced plans to build a rooftop theatre — a small open-air auditorium on a former department store — and I'll come to their other proposal in a moment, because it belongs with a slightly later set of projects.\n\nNarrator: Before you hear the rest of the lecture, you have some time to look at questions 36 to 40.\n\nNarrator: Now listen carefully and answer questions 36 to 40.\n\nProfessor Bram Ellerby: Tampere's second commitment is to display pilot projects — modest, carefully monitored installations that other districts can copy. So: a rooftop theatre, and a public display of pilot projects. A different approach can be seen in Coimbra, where cinemas are created on rooftops every summer. Temporary screens go up in June and come down in early September, and the event has become part of the city's cultural calendar. I mention Coimbra because it shows what can be done with very little permanent structure.\n\nProfessor Bram Ellerby: Finally, I want to look at practical possibilities, some of which are already with us. A surprising number of city schools already have a rooftop playground. That is not a future idea; it is current practice, and the schools that have them report better break-time activity and, interestingly, calmer afternoon lessons.\n\nProfessor Bram Ellerby: Changing eating habits, particularly the demand for fresh salad crops in northern cities, have increased the pressure to grow food much closer to where it is eaten. The old method was to truck lettuce in from rural glasshouses. Instead of relying on that, leafy crops could be produced on roofs by soil beds and electric lamps — the lamps already used in indoor horticulture — or, in future, by robots, meaning small automated arms that plant, thin and harvest without a person standing on the roof all day.\n\nProfessor Bram Ellerby: To recap: the historical problems associated with bitumen; a 1974 verdict that roofs were sterile; unexpected lizards; conversions to studios and gyms; Tampere's theatre and pilot projects; Coimbra's summer cinemas; playgrounds already in use; and a shift from rural glasshouses towards lamps now, and robots later. I'll stop there, and in the seminar we'll look at two case studies in more detail.\n\nNarrator: That is the end of Section 4. You now have 30 seconds to check your answers.\n\nNarrator: That is the end of the listening test. In the full test you will now have two minutes to check all your answers."
   }
 }

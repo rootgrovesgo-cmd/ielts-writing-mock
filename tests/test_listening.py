@@ -21,11 +21,11 @@ import student_portal as sp  # noqa: E402
 OFFICIAL = ls.official_answers()
 
 FORBIDDEN = (
-    "kerridge",
-    "07754 629183",
-    "sluice gates",
-    "elmwood community arts centre, marcus speaking",
-    "fenmere levels, a lowland peat",
+    "pellam",
+    "bitumen became the standard",
+    "merrow's threshold model",
+    "westmere community apiary, my name is rowan hale",
+    "fraser, have you got a minute",
 )
 
 STUDENT_PATHS = [
@@ -58,24 +58,46 @@ class ScoringTests(unittest.TestCase):
 
     def test_case_and_listed_alternative(self):
         answers = {str(q): a for q, a in OFFICIAL.items()}
-        answers["1"] = "kerridge"
-        answers["6"] = "£37.50"
-        answers["17"] = "b"
+        answers["5"] = "pellam"
+        answers["9"] = "£30"
+        answers["11"] = "b"
         result = ls.score_paper(answers, mode="full")
         by_q = {row["q"]: row for row in result["marking"]}
-        self.assertTrue(by_q[1]["ok"])
-        self.assertTrue(by_q[6]["ok"], by_q[6])
-        self.assertTrue(by_q[17]["ok"])
+        self.assertTrue(by_q[5]["ok"])
+        self.assertTrue(by_q[9]["ok"], by_q[9])
+        self.assertTrue(by_q[11]["ok"])
         self.assertEqual(result["score"], 40)
 
     def test_word_limit_violation_is_wrong(self):
-        result = ls.score_paper({7: "an old shirt"}, mode="full")
+        result = ls.score_paper({1: "poetry books"}, mode="full")
         by_q = {row["q"]: row for row in result["marking"]}
-        self.assertFalse(by_q[7]["ok"])
-        # The official two-word answer still passes.
-        result2 = ls.score_paper({7: "old shirt"}, mode="full")
+        self.assertFalse(by_q[1]["ok"])
+        # The official one-word answer still passes.
+        result2 = ls.score_paper({1: "poetry"}, mode="full")
         by_q2 = {row["q"]: row for row in result2["marking"]}
-        self.assertTrue(by_q2[7]["ok"])
+        self.assertTrue(by_q2[1]["ok"])
+
+    def test_choose_two_either_order_and_partial(self):
+        # Official 17-18 are B and D. Reversed order still scores 2.
+        result = ls.score_paper({17: "D", 18: "B"}, mode="full")
+        by_q = {row["q"]: row for row in result["marking"]}
+        self.assertTrue(by_q[17]["ok"])
+        self.assertTrue(by_q[18]["ok"])
+        self.assertEqual(result["score"], 2)
+        # One of two correct.
+        result2 = ls.score_paper({17: "B", 18: "C"}, mode="full")
+        by_q2 = {row["q"]: row for row in result2["marking"]}
+        self.assertTrue(by_q2[17]["ok"])
+        self.assertFalse(by_q2[18]["ok"])
+        self.assertEqual(result2["score"], 1)
+        # Duplicate official letter scores 1.
+        result3 = ls.score_paper({17: "B", 18: "B"}, mode="full")
+        by_q3 = {row["q"]: row for row in result3["marking"]}
+        self.assertEqual(sum(1 for row in (by_q3[17], by_q3[18]) if row["ok"]), 1)
+        self.assertEqual(result3["score"], 1)
+        # Both wrong.
+        result4 = ls.score_paper({17: "A", 18: "C"}, mode="full")
+        self.assertEqual(result4["score"], 0)
 
     def test_section_only_has_no_band(self):
         answers = {str(q): OFFICIAL[q] for q in range(1, 11)}
@@ -109,16 +131,46 @@ class LeakTests(unittest.TestCase):
         self.assertNotIn("explanation", dumped)
         self.assertNotIn("transcript", dumped.lower())
         self.assertNotIn("correct_answer", dumped)
-        self.assertNotIn('"answer": "KERRIDGE"', dumped)
-        self.assertNotIn('"answer": "37.50"', dumped)
+        self.assertNotIn('"answer": "Pellam"', dumped)
+        self.assertNotIn('"answer": "poetry"', dumped)
+        self.assertNotIn('"answer": "bitumen"', dumped)
 
-    def test_paper_has_four_sections_and_map(self):
+    def test_paper_has_cambridge20_test1_shape(self):
         paper = ls.load_paper()
         self.assertEqual(paper["id"], "set-a")
         self.assertEqual(len(paper["sections"]), 4)
         sections = {s["id"]: s for s in paper["sections"]}
-        self.assertEqual(sections[2]["groups"][0]["type"], "map")
-        self.assertIn("<svg", sections[2]["groups"][0]["map"]["svg"])
+
+        s1 = sections[1]["groups"]
+        self.assertEqual(len(s1), 1)
+        self.assertEqual(s1[0]["type"], "notes_table")
+        self.assertEqual((s1[0]["from"], s1[0]["to"]), (1, 10))
+        self.assertEqual(len(s1[0]["table"]["headers"]), 4)
+        self.assertEqual(len(s1[0]["table"]["rows"]), 3)
+        self.assertTrue(any("ONE WORD AND/OR A NUMBER" in line for line in s1[0]["instructions"]))
+
+        types2 = [g["type"] for g in sections[2]["groups"]]
+        self.assertEqual(types2, ["mcq", "choose_two", "choose_two"])
+        self.assertEqual((sections[2]["groups"][0]["from"], sections[2]["groups"][0]["to"]), (11, 16))
+        self.assertEqual((sections[2]["groups"][1]["from"], sections[2]["groups"][1]["to"]), (17, 18))
+        self.assertEqual((sections[2]["groups"][2]["from"], sections[2]["groups"][2]["to"]), (19, 20))
+
+        types3 = [g["type"] for g in sections[3]["groups"]]
+        self.assertEqual(types3, ["choose_two", "choose_two", "choose_two", "mcq"])
+        self.assertEqual((sections[3]["groups"][0]["from"], sections[3]["groups"][0]["to"]), (21, 22))
+        self.assertEqual((sections[3]["groups"][1]["from"], sections[3]["groups"][1]["to"]), (23, 24))
+        self.assertEqual((sections[3]["groups"][2]["from"], sections[3]["groups"][2]["to"]), (25, 26))
+        self.assertEqual((sections[3]["groups"][3]["from"], sections[3]["groups"][3]["to"]), (27, 30))
+
+        s4 = sections[4]["groups"]
+        self.assertEqual(s4[0]["type"], "notes")
+        self.assertEqual((s4[0]["from"], s4[0]["to"]), (31, 40))
+        headings = [sec.get("heading") for sec in s4[0]["notes"]["sections"]]
+        self.assertEqual(len(headings), 3)
+        self.assertTrue(all(headings))
+        self.assertTrue(any("ONE WORD ONLY" in line for line in s4[0]["instructions"]))
+        dumped = json.dumps(paper)
+        self.assertNotIn('"type": "map"', dumped)
 
 
 class RouteTests(unittest.TestCase):
@@ -224,7 +276,7 @@ class RouteTests(unittest.TestCase):
             self.assertEqual(audio.status_code, 200)
             self.assertTrue((audio.headers.get("Content-Type") or "").startswith("audio/mpeg"))
             self.assertGreater(len(audio.get_data()), 1000)
-            self.assertNotIn(b"KERRIDGE", audio.get_data()[:200])
+            self.assertNotIn(b"PELLAM", audio.get_data()[:200])
         else:
             self.assertEqual(audio.status_code, 404)
         bad = self.client.get("/api/listening/audio/9")
@@ -235,8 +287,8 @@ class RouteTests(unittest.TestCase):
         started = self._start()
         self.assertEqual(started.status_code, 200)
         answers = {str(q): a for q, a in OFFICIAL.items()}
-        answers["6"] = "£37.50"
-        answers["7"] = "an old shirt"
+        answers["9"] = "£30"
+        answers["1"] = "poetry books"
         res = self.client.post(
             "/api/listening/submit",
             json={
@@ -274,8 +326,8 @@ class RouteTests(unittest.TestCase):
         self.assertEqual(saved["module"], "listening")
         self.assertEqual(saved["score"], 39)
         by_q = {row["q"]: row for row in saved["marking"]}
-        self.assertTrue(by_q[6]["ok"])
-        self.assertFalse(by_q[7]["ok"])
+        self.assertTrue(by_q[9]["ok"])
+        self.assertFalse(by_q[1]["ok"])
 
     def test_section_only_submit_has_no_band(self):
         self._create_code()
@@ -352,7 +404,7 @@ class RouteTests(unittest.TestCase):
         self.assertTrue(payload["questions"][0]["correct"])
         self.assertTrue(payload["questions"][0]["explanation"])
         self.assertIn("1", payload.get("transcripts") or {})
-        self.assertIn("Marcus", json.dumps(payload["transcripts"]))
+        self.assertIn("Fraser", json.dumps(payload["transcripts"]))
         self.assertEqual(sp.module_of({"module": "listening"}), "listening")
 
         review_html = self.client.get(f"/me/submission/{sid}")

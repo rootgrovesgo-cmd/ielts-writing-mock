@@ -15,7 +15,7 @@
   height: 100%;
   overflow: auto;
   padding: 18px 22px 28px;
-  max-width: 860px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
@@ -73,7 +73,7 @@
   letter-spacing: .02em;
 }
 
-.form-box, .notes-box, .map-box, .match-box, .mcq-box {
+.form-box, .notes-box, .notes-table-wrap, .map-box, .match-box, .mcq-box, .choose-two-box {
   background: #f7f4f0;
   border: 1px solid var(--line, #d6d0c8);
   border-radius: 10px;
@@ -256,6 +256,66 @@
 }
 
 .listening-status { margin: 0; border-radius: 0; }
+
+
+.notes-table-wrap {
+  overflow-x: auto;
+}
+
+.notes-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 13.5px;
+  min-width: 640px;
+}
+
+.notes-table th,
+.notes-table td {
+  border: 1px solid #c8c2b8;
+  padding: 8px 8px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.notes-table th {
+  background: #efeae3;
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+.notes-table .cell-line + .cell-line {
+  margin-top: 4px;
+}
+
+.notes-table .blank input[type="text"] {
+  min-width: 6.2em;
+  width: 7.2em;
+}
+
+.notes-table .q-review-key {
+  margin-top: 8px;
+}
+
+.choose-two-box {
+  margin: 0 0 16px;
+}
+
+.choose-two-stem {
+  display: grid;
+  grid-template-columns: 3.2em 1fr;
+  gap: 8px;
+  align-items: start;
+  margin: 0 0 8px;
+}
+
+.choose-two-box.is-current,
+.notes-table td.is-current,
+.notes-table .blank.is-current {
+  outline: 2px solid #c9d6b8;
+  outline-offset: 1px;
+  border-radius: 4px;
+}
 
 @media (max-width: 720px) {
   .listening-shell .question-scroll { padding: 14px 12px 20px; }

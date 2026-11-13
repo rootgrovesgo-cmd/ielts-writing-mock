@@ -6,327 +6,381 @@
     {
       "id": 1,
       "title": "Section 1",
-      "context": "A telephone conversation about booking a weekend pottery workshop at a community arts centre.",
+      "context": "A conversation in which a woman asks a colleague for recommendations of independent bookshops.",
       "audio": {
         "file": "section1.mp3",
-        "duration_seconds": 430
+        "duration_seconds": 397
       },
       "groups": [
         {
-          "id": "s1-form",
+          "id": "s1-table",
           "from": 1,
-          "to": 8,
-          "type": "form",
-          "heading": "Questions 1–8",
+          "to": 10,
+          "type": "notes_table",
+          "heading": "Questions 1–10",
           "instructions": [
-            "Complete the form below.",
-            "Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer."
+            "Complete the notes below.",
+            "Write ONE WORD AND/OR A NUMBER for each answer."
           ],
           "word_limit": {
-            "max_words": 2,
+            "max_words": 1,
             "allow_number": true
           },
-          "form_title": "Weekend pottery workshop — booking form",
-          "rows": [
-            {
-              "label": "Surname",
-              "q": 1,
-              "hint": "please spell"
-            },
-            {
-              "label": "Contact number",
-              "q": 2
-            },
-            {
-              "label": "Workshop date",
-              "q": 3
-            },
-            {
-              "label": "Start time",
-              "q": 4
-            },
-            {
-              "label": "Type of class",
-              "q": 5
-            },
-            {
-              "label": "Fee payable",
-              "prefix": "£",
-              "q": 6
-            },
-            {
-              "label": "Please bring",
-              "q": 7
-            },
-            {
-              "label": "How she heard about the centre",
-              "q": 8
-            }
-          ]
-        },
-        {
-          "id": "s1-mcq",
-          "from": 9,
-          "to": 10,
-          "type": "mcq",
-          "heading": "Questions 9–10",
-          "instructions": [
-            "Choose the correct letter, A, B or C."
-          ],
-          "items": [
-            {
-              "q": 9,
-              "stem": "Where should Harriet park on Saturday?",
-              "options": {
-                "A": "On Maple Street, which is free after 1 p.m.",
-                "B": "In the centre’s own paid car park",
-                "C": "In the supermarket car park across the road"
-              }
-            },
-            {
-              "q": 10,
-              "stem": "Why does Harriet want to take the workshop?",
-              "options": {
-                "A": "To make a birthday gift for her sister",
-                "B": "To start selling her own pottery",
-                "C": "To see if she would enjoy a regular evening class"
-              }
-            }
-          ]
+          "table": {
+            "title": "Bookshop recommendations",
+            "headers": [
+              "Name of bookshop",
+              "Location",
+              "Reason for recommendation",
+              "Other comments"
+            ],
+            "rows": [
+              [
+                [
+                  [
+                    "Ink & Timber"
+                  ]
+                ],
+                [
+                  [
+                    "opposite the tram stop"
+                  ]
+                ],
+                [
+                  [
+                    "specialist collection of ",
+                    {
+                      "q": 1
+                    }
+                  ]
+                ],
+                [
+                  [
+                    "can be noisy"
+                  ],
+                  [
+                    "has a ",
+                    {
+                      "q": 2
+                    },
+                    " that is good for sitting and reading"
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    "Harbour Folio"
+                  ]
+                ],
+                [
+                  [
+                    "in the covered market"
+                  ]
+                ],
+                [
+                  [
+                    "mostly ",
+                    {
+                      "q": 3
+                    },
+                    " stock"
+                  ]
+                ],
+                [
+                  [
+                    "friendly staff"
+                  ],
+                  [
+                    "will take a deposit to order a title"
+                  ],
+                  [
+                    "limited selection of ",
+                    {
+                      "q": 4
+                    },
+                    " for teenage customers"
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    "The ",
+                    {
+                      "q": 5
+                    }
+                  ]
+                ],
+                [
+                  [
+                    "at the top of a ",
+                    {
+                      "q": 6
+                    }
+                  ]
+                ],
+                [
+                  [
+                    "well-known owner"
+                  ],
+                  [
+                    "All the ",
+                    {
+                      "q": 7
+                    },
+                    " are very good"
+                  ]
+                ],
+                [
+                  [
+                    "Only uses ",
+                    {
+                      "q": 8
+                    },
+                    " paper"
+                  ],
+                  [
+                    "Membership: £",
+                    {
+                      "q": 9
+                    }
+                  ],
+                  [
+                    "The rooms are probably ",
+                    {
+                      "q": 10
+                    },
+                    " in size"
+                  ]
+                ]
+              ]
+            ]
+          }
         }
       ]
     },
     {
       "id": 2,
       "title": "Section 2",
-      "context": "A welcome talk for visitors at the newly opened Saltmarsh Coastal Visitor Centre.",
+      "context": "A welcome talk by the leader of a community beekeeping workshop.",
       "audio": {
         "file": "section2.mp3",
-        "duration_seconds": 407
+        "duration_seconds": 423
       },
       "groups": [
         {
-          "id": "s2-map",
+          "id": "s2-mcq",
           "from": 11,
           "to": 16,
-          "type": "map",
+          "type": "mcq",
           "heading": "Questions 11–16",
           "instructions": [
-            "Label the plan below.",
-            "Choose the correct letter, A–F, for each place."
+            "Choose the correct letter, A, B or C."
           ],
-          "map": {
-            "title": "Saltmarsh Coastal Visitor Centre",
-            "svg": "<svg viewBox=\"0 0 720 540\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Plan of Saltmarsh Coastal Visitor Centre\">\n  <rect width=\"720\" height=\"540\" fill=\"#f3f0ea\"/>\n  <rect x=\"16\" y=\"16\" width=\"688\" height=\"508\" fill=\"#eef3f1\" stroke=\"#c8c2b8\" stroke-width=\"2\"/>\n  <!-- Lagoon -->\n  <ellipse cx=\"400\" cy=\"92\" rx=\"260\" ry=\"78\" fill=\"#c9dbe3\" stroke=\"#7d9aa6\" stroke-width=\"2\"/>\n  <text x=\"400\" y=\"86\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#3f3c3a\">Lagoon</text>\n  <!-- Spit / lookout F -->\n  <path d=\"M430 40 L560 28 L575 70 L510 86 Z\" fill=\"#d9d3c6\" stroke=\"#9a9286\" stroke-width=\"1.5\"/>\n  <!-- Boardwalk (labelled) -->\n  <rect x=\"250\" y=\"130\" width=\"230\" height=\"10\" fill=\"#b89b6a\"/>\n  <text x=\"365\" y=\"122\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5c564e\">Boardwalk</text>\n  <!-- Main building -->\n  <rect x=\"300\" y=\"260\" width=\"150\" height=\"110\" fill=\"#dfe6ea\" stroke=\"#5c6b73\" stroke-width=\"2\"/>\n  <text x=\"375\" y=\"318\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3f3c3a\">Main</text>\n  <text x=\"375\" y=\"336\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3f3c3a\">building</text>\n  <!-- Cafe A, east of main -->\n  <rect x=\"470\" y=\"280\" width=\"90\" height=\"70\" fill=\"#efe6d6\" stroke=\"#8a7a5c\" stroke-width=\"2\"/>\n  <!-- Exhibition hall B, north of main -->\n  <rect x=\"310\" y=\"190\" width=\"130\" height=\"58\" fill=\"#e4e0d6\" stroke=\"#5c6b73\" stroke-width=\"2\"/>\n  <!-- Bird hide C, NE lagoon -->\n  <rect x=\"575\" y=\"115\" width=\"70\" height=\"40\" fill=\"#d5e0d4\" stroke=\"#5d6f5e\" stroke-width=\"2\"/>\n  <!-- Picnic lawn D, west -->\n  <ellipse cx=\"170\" cy=\"250\" rx=\"80\" ry=\"55\" fill=\"#d5e4c9\" stroke=\"#7a9268\" stroke-width=\"2\"/>\n  <!-- Boat shed E, east shore -->\n  <rect x=\"600\" y=\"210\" width=\"72\" height=\"48\" fill=\"#e8d7c4\" stroke=\"#8a6d52\" stroke-width=\"2\"/>\n  <!-- Play area, prelabelled NW -->\n  <rect x=\"70\" y=\"150\" width=\"100\" height=\"55\" fill=\"#efe3c8\" stroke=\"#a08952\" stroke-width=\"1.5\"/>\n  <text x=\"120\" y=\"182\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#3f3c3a\">Play area</text>\n  <!-- Car park SW -->\n  <rect x=\"60\" y=\"390\" width=\"150\" height=\"90\" fill=\"#d8d4cf\" stroke=\"#8a847c\" stroke-width=\"2\" stroke-dasharray=\"6 4\"/>\n  <text x=\"135\" y=\"440\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3f3c3a\">Car park</text>\n  <!-- Entrance S -->\n  <path d=\"M360 430 L375 510 L345 510 Z\" fill=\"#c5c0b8\" stroke=\"#8a847c\"/>\n  <text x=\"375\" y=\"528\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#3f3c3a\">Entrance</text>\n  <!-- First aid near entrance, prelabelled -->\n  <rect x=\"410\" y=\"430\" width=\"70\" height=\"36\" fill=\"#f3e0e0\" stroke=\"#a66a6a\" stroke-width=\"1.5\"/>\n  <text x=\"445\" y=\"452\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"700\" fill=\"#3f3c3a\">First aid</text>\n  <!-- Path lines -->\n  <path d=\"M360 430 L375 370 L375 260\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"8\"/>\n  <path d=\"M375 310 L470 310\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"6\"/>\n  <path d=\"M375 220 L375 140\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"6\"/>\n  <path d=\"M170 300 L300 310\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"6\"/>\n  <path d=\"M150 390 L150 310 L170 280\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"6\"/>\n  <path d=\"M450 220 L620 230\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"6\"/>\n  <path d=\"M600 150 L610 210\" fill=\"none\" stroke=\"#b7b1a8\" stroke-width=\"5\"/>\n  <!-- Letter markers -->\n  <g font-family=\"Georgia, serif\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">\n    <circle cx=\"515\" cy=\"315\" r=\"14\" fill=\"#fff\" stroke=\"#3f3c3a\" stroke-width=\"2\"/>\n    <text x=\"515\" y=\"321\" fill=\"#3f3c3a\">A</text>\n    <circle cx=\"375\" cy=\"219\" r=\"14\" fill=\"#fff\" stroke=\"#3f3c3a\" stroke-width=\"2\"/>\n    <text x=\"375\" y=\"225\" fill=\"#3f3c3a\">B</text>\n    <circle cx=\"610\" cy=\"135\" r=\"14\" fill=\"#fff\" stroke=\"#3f3c3a\" stroke-width=\"2\"/>\n    <text x=\"610\" y=\"141\" fill=\"#3f3c3a\">C</text>\n    <circle cx=\"170\" cy=\"250\" r=\"14\" fill=\"#fff\" stroke=\"#3f3c3a\" stroke-width=\"2\"/>\n    <text x=\"170\" y=\"256\" fill=\"#3f3c3a\">D</text>\n    <circle cx=\"636\" cy=\"234\" r=\"14\" fill=\"#fff\" stroke=\"#3f3c3a\" stroke-width=\"2\"/>\n    <text x=\"636\" y=\"240\" fill=\"#3f3c3a\">E</text>\n    <circle cx=\"545\" cy=\"48\" r=\"14\" fill=\"#fff\" stroke=\"#3f3c3a\" stroke-width=\"2\"/>\n    <text x=\"545\" y=\"54\" fill=\"#3f3c3a\">F</text>\n  </g>\n  <text x=\"360\" y=\"36\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#3f3c3a\">Saltmarsh Coastal Visitor Centre</text>\n</svg>"
-          },
           "items": [
             {
               "q": 11,
-              "stem": "Café"
+              "stem": "The speaker says beekeeping differs from other outdoor activities because",
+              "options": {
+                "A": "it can easily be fitted into a weekend",
+                "B": "it involves working with a self-organising colony",
+                "C": "the starter equipment is unusually cheap"
+              }
             },
             {
               "q": 12,
-              "stem": "Exhibition hall"
+              "stem": "Inspectors sometimes identify a hive’s previous use from",
+              "options": {
+                "A": "the colour of the paint",
+                "B": "the material the hive is made from",
+                "C": "marks left on the landing board"
+              }
             },
             {
               "q": 13,
-              "stem": "Bird hide"
+              "stem": "Some people join the class because they want to",
+              "options": {
+                "A": "sell honey at a local market",
+                "B": "pass a hive on to their family",
+                "C": "copy a neighbour who already keeps bees"
+              }
             },
             {
               "q": 14,
-              "stem": "Picnic lawn"
+              "stem": "What does the speaker value most about being a beekeeper?",
+              "options": {
+                "A": "the calming effect of inspecting a hive",
+                "B": "the physical work of lifting the boxes",
+                "C": "the messy and unpredictable nature of the activity"
+              }
             },
             {
               "q": 15,
-              "stem": "Boat shed"
+              "stem": "Most of the visitors to the apiary",
+              "options": {
+                "A": "come with a friend",
+                "B": "are visiting for the first time",
+                "C": "want to try advanced techniques immediately"
+              }
             },
             {
               "q": 16,
-              "stem": "Lookout tower"
+              "stem": "The speaker reminds visitors that they should",
+              "options": {
+                "A": "remove jewellery and tie back long hair",
+                "B": "learn how to light the smoker before the tour",
+                "C": "put on a veil before leaving the bench area"
+              }
             }
-          ],
-          "options": [
-            "A",
-            "B",
-            "C",
-            "D",
-            "E",
-            "F"
           ]
         },
         {
-          "id": "s2-matching",
+          "id": "s2-ct-1718",
           "from": 17,
-          "to": 20,
-          "type": "matching",
-          "heading": "Questions 17–20",
+          "to": 18,
+          "type": "choose_two",
+          "heading": "Questions 17 and 18",
           "instructions": [
-            "What information is given about each of the following activities?",
-            "Choose the correct letter, A–F.",
-            "NB You may use any letter more than once."
+            "Choose TWO letters, A–E."
           ],
-          "legend": [
-            {
-              "key": "A",
-              "text": "must be booked in advance"
-            },
-            {
-              "key": "B",
-              "text": "available at weekends only"
-            },
-            {
-              "key": "C",
-              "text": "free with the admission ticket"
-            },
-            {
-              "key": "D",
-              "text": "runs in July and August only"
-            },
-            {
-              "key": "E",
-              "text": "cancelled for this season"
-            },
-            {
-              "key": "F",
-              "text": "restricted to centre members"
-            }
+          "stem": "Which TWO things does the speaker explain about the smoker?",
+          "options": {
+            "A": "when the first version of it was invented",
+            "B": "what the smoke actually does to the bees",
+            "C": "where a spare smoker should be kept at home",
+            "D": "what some beekeepers use instead of a smoker",
+            "E": "how to repair a damaged bellows"
+          }
+        },
+        {
+          "id": "s2-ct-1920",
+          "from": 19,
+          "to": 20,
+          "type": "choose_two",
+          "heading": "Questions 19 and 20",
+          "instructions": [
+            "Choose TWO letters, A–E."
           ],
-          "items": [
-            {
-              "q": 17,
-              "stem": "Guided beach walks"
-            },
-            {
-              "q": 18,
-              "stem": "Kayak hire"
-            },
-            {
-              "q": 19,
-              "stem": "Telescope loans"
-            },
-            {
-              "q": 20,
-              "stem": "Evening talks"
-            }
-          ]
+          "stem": "Which TWO points does the speaker make about beekeeping tools?",
+          "options": {
+            "A": "Some have names that are difficult to remember.",
+            "B": "Some are surprisingly heavy to hold.",
+            "C": "Some are adapted from tools used in other trades.",
+            "D": "Some need to be cleaned after every visit to the apiary.",
+            "E": "Some are no longer being manufactured."
+          }
         }
       ]
     },
     {
       "id": 3,
       "title": "Section 3",
-      "context": "A tutor and three students discussing a research project on food waste in a university cafeteria.",
+      "context": "Two university students discussing research for a presentation on academic burnout.",
       "audio": {
         "file": "section3.mp3",
-        "duration_seconds": 491
+        "duration_seconds": 574
       },
       "groups": [
         {
-          "id": "s3-mcq",
+          "id": "s3-ct-2122",
           "from": 21,
-          "to": 26,
-          "type": "mcq",
-          "heading": "Questions 21–26",
+          "to": 22,
+          "type": "choose_two",
+          "heading": "Questions 21 and 22",
           "instructions": [
-            "Choose the correct letter, A, B or C."
+            "Choose TWO letters, A–E."
           ],
-          "items": [
-            {
-              "q": 21,
-              "stem": "The main weakness of last year’s data was that they",
-              "options": {
-                "A": "covered only a two-week period",
-                "B": "were collected at lunchtime only",
-                "C": "were damaged when a computer failed"
-              }
-            },
-            {
-              "q": 22,
-              "stem": "The group decides to measure",
-              "options": {
-                "A": "the weight of leftovers left on plates",
-                "B": "the amount of food that is never served",
-                "C": "the number of meals students refuse"
-              }
-            },
-            {
-              "q": 23,
-              "stem": "Dr Brennan says the student interviews should",
-              "options": {
-                "A": "be carried out in the cafeteria queue",
-                "B": "include at least twenty questions",
-                "C": "last no more than ten minutes"
-              }
-            },
-            {
-              "q": 24,
-              "stem": "Jade agrees to",
-              "options": {
-                "A": "write the questionnaire",
-                "B": "design the project poster",
-                "C": "contact the kitchen manager"
-              }
-            },
-            {
-              "q": 25,
-              "stem": "They will present their findings",
-              "options": {
-                "A": "at a departmental seminar",
-                "B": "in a journal for students",
-                "C": "at the campus sustainability fair"
-              }
-            },
-            {
-              "q": 26,
-              "stem": "Their greatest remaining concern is",
-              "options": {
-                "A": "whether the kitchen staff will cooperate",
-                "B": "whether they can borrow weighing scales",
-                "C": "whether enough students will take part"
-              }
-            }
-          ]
+          "stem": "Which TWO things do the students both believe are responsible for the increase in academic burnout?",
+          "options": {
+            "A": "longer commuting times",
+            "B": "the growing use of social media",
+            "C": "a heavier assessment load",
+            "D": "a recent change in term dates",
+            "E": "greater financial pressure on students"
+          }
         },
         {
-          "id": "s3-matching",
+          "id": "s3-ct-2324",
+          "from": 23,
+          "to": 24,
+          "type": "choose_two",
+          "heading": "Questions 23 and 24",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO findings associated with burnout do the students agree are based on solid evidence?",
+          "options": {
+            "A": "It reduces short-term memory.",
+            "B": "It is a direct cause of depression.",
+            "C": "It is linked to higher drop-out rates.",
+            "D": "It permanently lowers academic grades.",
+            "E": "It makes group work impossible."
+          }
+        },
+        {
+          "id": "s3-ct-2526",
+          "from": 25,
+          "to": 26,
+          "type": "choose_two",
+          "heading": "Questions 25 and 26",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO opinions do both the students express about Merrow’s threshold model of burnout?",
+          "options": {
+            "A": "It has little practical relevance.",
+            "B": "It needs further investigation.",
+            "C": "It is misleading.",
+            "D": "It should be more widely accepted.",
+            "E": "It is difficult to understand."
+          }
+        },
+        {
+          "id": "s3-mcq",
           "from": 27,
           "to": 30,
-          "type": "matching",
+          "type": "mcq",
           "heading": "Questions 27–30",
           "instructions": [
-            "Who will do each of the following tasks?",
             "Choose the correct letter, A, B or C."
-          ],
-          "legend": [
-            {
-              "key": "A",
-              "text": "Jade"
-            },
-            {
-              "key": "B",
-              "text": "Tomás"
-            },
-            {
-              "key": "C",
-              "text": "Aisha"
-            }
           ],
           "items": [
             {
               "q": 27,
-              "stem": "Write the literature review"
+              "stem": "When comparing burnout to ordinary stress, the students",
+              "options": {
+                "A": "doubt that a complete cure for burnout will ever exist",
+                "B": "think the link between the two is overstated",
+                "C": "express frustration that burnout is not taken seriously"
+              }
             },
             {
               "q": 28,
-              "stem": "Complete the ethics form"
+              "stem": "Why do the students decide to start their presentation with an example from their own experience?",
+              "options": {
+                "A": "to show how severe burnout can become",
+                "B": "so the audience will recognise the situation",
+                "C": "to illustrate a difference between men and women"
+              }
             },
             {
               "q": 29,
-              "stem": "Run the pilot study"
+              "stem": "The students agree that short walks are a good strategy for dealing with burnout because",
+              "options": {
+                "A": "they help students generate new ideas",
+                "B": "they interrupt the cycle before it builds",
+                "C": "they are recommended in most study guides"
+              }
             },
             {
               "q": 30,
-              "stem": "Book the meeting room"
+              "stem": "The students find it difficult to understand why working under pressure is considered to be",
+              "options": {
+                "A": "enjoyable",
+                "B": "necessary",
+                "C": "similar to burnout"
+              }
             }
           ]
         }
@@ -335,10 +389,10 @@
     {
       "id": 4,
       "title": "Section 4",
-      "context": "A lecture on the Fenmere Levels peatland restoration project.",
+      "context": "A lecture on reclaiming urban rooftops.",
       "audio": {
         "file": "section4.mp3",
-        "duration_seconds": 362
+        "duration_seconds": 400
       },
       "groups": [
         {
@@ -349,116 +403,120 @@
           "heading": "Questions 31–40",
           "instructions": [
             "Complete the notes below.",
-            "Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer."
+            "Write ONE WORD ONLY for each answer."
           ],
           "word_limit": {
-            "max_words": 2,
-            "allow_number": true
+            "max_words": 1,
+            "allow_number": false
           },
           "notes": {
-            "title": "The Fenmere Levels restoration",
+            "title": "Reclaiming urban rooftops",
             "sections": [
               {
-                "heading": "Background",
+                "heading": "Historical background",
                 "items": [
                   {
                     "parts": [
-                      "Peat began to dry after nineteenth-century ",
+                      "Nineteenth-century roofs mainly held chimneys and water tanks"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Later problems often traced to the use of ",
                       {
                         "q": 31
                       },
-                      " were constructed."
+                      " as waterproofing"
                     ]
                   },
                   {
                     "parts": [
-                      "Dried peat releases ",
+                      "In 1974, a government survey declared the typical inner-city roof ",
                       {
                         "q": 32
-                      },
-                      " into the air."
-                    ]
-                  },
-                  {
-                    "parts": [
-                      "Shrinking ground has also damaged local ",
-                      {
-                        "q": 33
-                      },
-                      "."
+                      }
                     ]
                   }
                 ]
               },
               {
-                "heading": "The project",
+                "heading": "Recent improvements",
                 "items": [
                   {
                     "parts": [
-                      "Pumps were switched off in ",
+                      "An unexpected sighting on planted roofs: ",
+                      {
+                        "q": 33
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Old roof rooms converted into studios or ",
                       {
                         "q": 34
-                      },
-                      "."
+                      }
                     ]
                   },
                   {
                     "parts": [
-                      "Water levels are now controlled by ",
+                      "Tampere has plans to:"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "– build a rooftop ",
                       {
                         "q": 35
-                      },
-                      "."
+                      }
                     ]
                   },
                   {
                     "parts": [
-                      "Work had to pause because of nesting ",
+                      "– display ",
                       {
                         "q": 36
                       },
-                      "."
+                      " projects"
                     ]
                   },
                   {
                     "parts": [
-                      "Farmers are compensated with a crop of ",
+                      "Coimbra: ",
                       {
                         "q": 37
                       },
-                      "."
+                      " are created on rooftops every summer"
                     ]
                   }
                 ]
               },
               {
-                "heading": "Results and next steps",
+                "heading": "Practical possibilities",
                 "items": [
                   {
                     "parts": [
-                      "An unexpected species to return: ",
+                      "A large number of city schools already have a rooftop ",
                       {
                         "q": 38
-                      },
-                      "."
+                      }
                     ]
                   },
                   {
                     "parts": [
-                      "Researchers are now measuring ",
+                      "Demand for fresh salad crops is increasing"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Instead of trucking produce from rural glasshouses, crops could be grown using soil beds and electric ",
                       {
                         "q": 39
                       },
-                      " emissions."
-                    ]
-                  },
-                  {
-                    "parts": [
-                      "A planned visitor facility: a ",
+                      ", or in future by ",
                       {
                         "q": 40
-                      },
-                      "."
+                      }
                     ]
                   }
                 ]

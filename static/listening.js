@@ -284,10 +284,134 @@
   function renderParts(parts) {
     return (parts || [])
       .map((part) => {
-        if (part && typeof part === "object" && part.q) return renderBlank(part.q);
+        if (part && typeof part === "object" && part.q) return renderBlank(part.q, part.prefix || "");
         return escapeHtml(part == null ? "" : String(part));
       })
       .join("");
+  }
+
+  function renderCellLines(cell) {
+    const lines = Array.isArray(cell) ? cell : cell ? [cell] : [];
+    return lines
+      .map((line) => {
+        const parts = Array.isArray(line) ? line : [line];
+        return '<div class="cell-line">' + renderParts(parts) + "</div>";
+      })
+      .join("");
+  }
+
+  function renderNotesTable(group) {
+    const table = group.table || {};
+    const headers = table.headers || [];
+    let html = '<div class="notes-table-wrap">';
+    if (table.title) html += '<div class="notes-title">' + escapeHtml(table.title) + "</div>";
+    html += '<table class="notes-table"><thead><tr>';
+    headers.forEach((h) => {
+      html += "<th>" + escapeHtml(h) + "</th>";
+    });
+    html += "</tr></thead><tbody>";
+    (table.rows || []).forEach((row) => {
+      html += "<tr>";
+      (row || []).forEach((cell) => {
+        html += "<td>" + renderCellLines(cell);
+        const qs = [];
+        (Array.isArray(cell) ? cell : []).forEach((line) => {
+          (Array.isArray(line) ? line : [line]).forEach((part) => {
+            if (part && typeof part === "object" && part.q) qs.push(part.q);
+          });
+        });
+        if (state.attemptReview) qs.forEach((q) => { html += renderReviewKey(q); });
+        html += "</td>";
+      });
+      html += "</tr>";
+    });
+    html += "</tbody></table></div>";
+    return html;
+  }
+
+  function chosenPairLetters(from, to) {
+    return [state.answers[from], state.answers[to]]
+      .map((v) => (v || "").toString().toUpperCase())
+      .filter(Boolean);
+  }
+
+  function renderChooseTwo(group) {
+    const from = group.from;
+    const to = group.to;
+    const selected = chosenPairLetters(from, to);
+    const ro = state.attemptReview ? " disabled" : "";
+    const options = group.options || {};
+    let html =
+      '<div class="choose-two-box" data-q="' +
+      from +
+      '" data-q-to="' +
+      to +
+      '" data-from="' +
+      from +
+      '" data-to="' +
+      to +
+      '"><div class="choose-two-stem"><span class="qnum">' +
+      from +
+      "–" +
+      to +
+      "</span><div>" +
+      escapeHtml(group.stem || "") +
+      '</div></div><div class="mcq-options choose-two-options">';
+    Object.keys(options).forEach((letter) => {
+      const id = "ans-" + from + "-" + to + "-" + letter;
+      const chk = selected.indexOf(letter) >= 0 ? " checked" : "";
+      html +=
+        '<label for="' +
+        id +
+        '"><input type="checkbox" id="' +
+        id +
+        '" data-pair-from="' +
+        from +
+        '" data-pair-to="' +
+        to +
+        '" value="' +
+        escapeHtml(letter) +
+        '"' +
+        chk +
+        ro +
+        " /> <strong>" +
+        escapeHtml(letter) +
+        "</strong> " +
+        escapeHtml(options[letter]) +
+        "</label>";
+    });
+    html += "</div>" + renderChooseTwoReview(group) + "</div>";
+    return html;
+  }
+
+  function renderChooseTwoReview(group) {
+    if (!state.attemptReview) return "";
+    const from = group.from;
+    const to = group.to;
+    const row = state.reviewByQ[from] || state.reviewByQ[String(from)] || {};
+    const row2 = state.reviewByQ[to] || state.reviewByQ[String(to)] || {};
+    const official = row.correct || row2.correct || "";
+    const studentLetters = [row.student, row2.student]
+      .map((v) => (v || "").toString().trim())
+      .filter(Boolean);
+    const student = studentLetters.length ? escapeHtml(studentLetters.join(", ")) : "（未作答）";
+    const ok = !!row.ok && !!row2.ok;
+    const expl = row.explanation || row2.explanation || "";
+    return (
+      '<div class="q-review-key ' +
+      (ok ? "is-ok" : "is-wrong") +
+      '" data-review-q="' +
+      from +
+      '"><dl>' +
+      '<div class="q-rev-student"><dt>你的作答</dt><dd>' +
+      student +
+      "</dd></div>" +
+      "<div><dt>标准答案</dt><dd>" +
+      escapeHtml(official) +
+      "（顺序不限）</dd></div></dl>" +
+      (expl ? '<div class="q-explain"><h4>解析</h4><p>' + escapeHtml(expl) + "</p></div>" : "") +
+      "</div>"
+    );
   }
 
   function renderNotes(notes) {
@@ -452,7 +576,7 @@
     if (!lines.length) return "";
     let html = '<div class="lis-instructions">';
     lines.forEach((line) => {
-      const upper = /NO MORE THAN|AND\/OR A NUMBER/i.test(line);
+      const upper = /NO MORE THAN|ONE WORD|AND\/OR A NUMBER/i.test(line);
       html += "<p" + (upper ? ' class="word-limit"' : "") + ">" + escapeHtml(line) + "</p>";
     });
     html += "</div>";
@@ -466,6 +590,8 @@
     else if (group.type === "map") body = renderMap(group);
     else if (group.type === "matching") body = renderMatching(group);
     else if (group.type === "notes") body = renderNotes(group.notes) + notesReviewKeys(group);
+    else if (group.type === "notes_table") body = renderNotesTable(group);
+    else if (group.type === "choose_two") body = renderChooseTwo(group);
     else body = "";
     return (
       '<section class="lis-group" data-from="' +
@@ -524,6 +650,40 @@
       node.addEventListener("input", apply);
       node.addEventListener("change", apply);
       node.addEventListener("focus", () => setCurrent(Number(node.getAttribute("data-q")), false));
+    });
+    bindChooseTwo();
+  }
+
+  function bindChooseTwo() {
+    if (!el.questionScroll) return;
+    el.questionScroll.querySelectorAll("input[type=checkbox][data-pair-from]").forEach((node) => {
+      node.addEventListener("change", () => {
+        if (state.attemptReview) return;
+        const from = Number(node.getAttribute("data-pair-from"));
+        const to = Number(node.getAttribute("data-pair-to"));
+        const box = node.closest(".choose-two-box");
+        if (!box) return;
+        const boxes = Array.prototype.slice.call(box.querySelectorAll("input[type=checkbox]"));
+        if (node.checked) node.setAttribute("data-picked-at", String(Date.now()));
+        else node.removeAttribute("data-picked-at");
+        let checked = boxes.filter((b) => b.checked);
+        if (checked.length > 2) {
+          checked.sort(function (a, b) {
+            return Number(a.getAttribute("data-picked-at") || 0) - Number(b.getAttribute("data-picked-at") || 0);
+          });
+          const drop = checked.find((b) => b !== node) || checked[0];
+          drop.checked = false;
+          drop.removeAttribute("data-picked-at");
+          checked = boxes.filter((b) => b.checked);
+        }
+        const letters = checked.map((b) => b.value);
+        state.answers[from] = letters[0] || "";
+        state.answers[to] = letters[1] || "";
+        setCurrent(from, false);
+        updatePalette();
+        persist();
+      });
+      node.addEventListener("focus", () => setCurrent(Number(node.getAttribute("data-pair-from")), false));
     });
   }
 
@@ -595,7 +755,8 @@
     if (!el.questionScroll) return;
     el.questionScroll.querySelectorAll("[data-q]").forEach((node) => {
       const q = Number(node.getAttribute("data-q"));
-      node.classList.toggle("is-current", q === state.currentQ);
+      const qTo = Number(node.getAttribute("data-q-to") || 0);
+      node.classList.toggle("is-current", q === state.currentQ || qTo === state.currentQ);
     });
   }
 

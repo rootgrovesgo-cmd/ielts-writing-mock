@@ -874,3 +874,24 @@ body.attempt-review textarea.answer:disabled {
   color: var(--ink);
   cursor: default;
 }
+
+
+/* Listening notes table in teacher / review views */
+.notes-table-wrap { overflow-x: auto; }
+table.notes-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+  font-size: 13.5px;
+  background: #fff;
+}
+table.notes-table th,
+table.notes-table td {
+  border: 1px solid #c8c2b8;
+  padding: 8px;
+  vertical-align: top;
+  text-align: left;
+}
+table.notes-table th { background: #efeae3; font-weight: 700; }
+table.notes-table .cell-line + .cell-line { margin-top: 4px; }
+.filled-blank { font-weight: 700; }

@@ -81,7 +81,7 @@
       <strong>回顾模式</strong>
       <span id="reviewModeMeta"></span>
       <span class="review-mode-links">
-        <a class="btn secondary sm" href="/me">返回我的记录</a>
+        <a class="btn secondary sm" href="{{ review.back_href if review and review.back_href else '/me' }}">{{ review.back_label if review and review.back_label else '返回我的记录' }}</a>
         <a class="btn secondary sm" href="/reading">再做一套新题</a>
       </span>
     </div>
@@ -190,7 +190,11 @@
     window.REVIEW_CONFIG = {
       sid: {{ review.sid | tojson }},
       module: "reading",
-      mistakesOnly: {{ review.mistakes_only | tojson }}
+      mistakesOnly: {{ review.mistakes_only | tojson }},
+      admin: {{ review.admin | tojson }},
+      apiUrl: {{ review.api_url | tojson }},
+      backHref: {{ review.back_href | tojson }},
+      backLabel: {{ review.back_label | tojson }}
     };
   </script>
   {% endif %}

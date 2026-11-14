@@ -1080,5 +1080,165 @@ class WritingSetTests(StudentPortalTestCase):
         self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d"])
 
 
+
+class AdminPaperViewTests(StudentPortalTestCase):
+    def setUp(self):
+        super().setUp()
+        os.environ["IELTS_ADMIN_USERNAME"] = TEST_ADMIN_USER
+        os.environ["IELTS_ADMIN_PASSWORD"] = TEST_ADMIN_PASS
+
+    def _login_admin(self, client=None):
+        client = client or self.client
+        return client.post(
+            "/admin/login",
+            data={"username": TEST_ADMIN_USER, "password": TEST_ADMIN_PASS},
+        )
+
+    def _submit_listening(self, name="Ada Student"):
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        return self.client.post(
+            "/api/listening/submit",
+            json={
+                "candidate_name": name,
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "answers": answers,
+                "duration_seconds": 1800,
+                "time_used_seconds": 1500,
+            },
+        )
+
+    def test_admin_list_includes_paper_link_after_detail_link(self):
+        self._create_code()
+        self._start(module="writing")
+        writing = self._submit_writing()
+        self.assertEqual(writing.status_code, 200)
+        writing_sid = writing.get_json()["id"]
+        self._start(module="reading")
+        reading = self._submit_reading()
+        self.assertEqual(reading.status_code, 200)
+        reading_sid = reading.get_json()["id"]
+
+        admin = appmod.app.test_client()
+        login = self._login_admin(admin)
+        self.assertEqual(login.status_code, 302)
+        page = admin.get("/admin")
+        self.assertEqual(page.status_code, 200)
+        html = page.get_data(as_text=True)
+        self.assertIn("查看全文", html)
+        self.assertIn("查看详批", html)
+        self.assertIn("查看答题页面", html)
+        for sid, label in ((writing_sid, "查看全文"), (reading_sid, "查看详批")):
+            detail_href = f"/admin/submission/{sid}"
+            paper_href = f"/admin/submission/{sid}/paper"
+            self.assertIn(detail_href, html)
+            self.assertIn(paper_href, html)
+            detail_at = html.index(f'href="{detail_href}"')
+            paper_at = html.index(f'href="{paper_href}"')
+            label_at = html.index(label)
+            self.assertLess(detail_at, paper_at, sid)
+            self.assertLess(label_at, html.index("查看答题页面", label_at), sid)
+
+        detail = admin.get(f"/admin/submission/{writing_sid}")
+        self.assertEqual(detail.status_code, 200)
+        detail_html = detail.get_data(as_text=True)
+        self.assertIn("查看答题页面", detail_html)
+        self.assertIn(f"/admin/submission/{writing_sid}/paper", detail_html)
+
+    def test_admin_can_open_paper_page_and_api_for_each_module(self):
+        self._create_code()
+        self._start(module="writing")
+        writing_sid = self._submit_writing().get_json()["id"]
+        self._start(module="reading")
+        reading_sid = self._submit_reading().get_json()["id"]
+        self._start(module="listening")
+        listening_sid = self._submit_listening().get_json()["id"]
+
+        admin = appmod.app.test_client()
+        self._login_admin(admin)
+        cases = (
+            (writing_sid, "writing", "exam.js"),
+            (reading_sid, "reading", "reading.js"),
+            (listening_sid, "listening", "listening.js"),
+        )
+        for sid, module, script in cases:
+            page = admin.get(f"/admin/submission/{sid}/paper")
+            self.assertEqual(page.status_code, 200, module)
+            html = page.get_data(as_text=True)
+            self.assertIn("REVIEW_CONFIG", html)
+            self.assertIn(f"/api/admin/submission/{sid}", html)
+            self.assertIn("返回教师后台", html)
+            self.assertIn('href="/admin"', html)
+            self.assertIn(script, html)
+            self.assertNotIn("/api/me/submission/", html)
+
+            api = admin.get(f"/api/admin/submission/{sid}")
+            self.assertEqual(api.status_code, 200, module)
+            payload = api.get_json()
+            self.assertTrue(payload.get("ok"))
+            self.assertEqual(payload.get("module"), module)
+            if module == "writing":
+                self.assertIn("The charts compare the town population", payload.get("task1_text") or "")
+            elif module == "reading":
+                self.assertTrue(payload.get("questions"))
+                self.assertIn("review_highlights", payload)
+            else:
+                self.assertTrue(payload.get("questions"))
+                self.assertIn("1", payload.get("transcripts") or {})
+
+            student_api = self.client.get(f"/api/me/submission/{sid}")
+            self.assertEqual(student_api.status_code, 200, module)
+            student_page = self.client.get(f"/me/submission/{sid}")
+            self.assertEqual(student_page.status_code, 200, module)
+            student_html = student_page.get_data(as_text=True)
+            self.assertIn("/api/me/submission/", student_html)
+            self.assertIn("返回我的记录", student_html)
+            self.assertNotIn("/api/admin/submission/", student_html)
+
+        blocked = admin.post(
+            "/api/submit",
+            json={
+                "candidate_name": "Ada Student",
+                "mode": "full",
+                "task1_text": "should not save",
+                "review_mode": True,
+            },
+        )
+        self.assertEqual(blocked.status_code, 403)
+        self.assertIn("回顾模式", blocked.get_json()["error"])
+
+    def test_anonymous_and_student_cannot_load_admin_paper(self):
+        self._create_code()
+        self._start(module="reading")
+        sid = self._submit_reading().get_json()["id"]
+
+        guest = appmod.app.test_client()
+        paper = guest.get(f"/admin/submission/{sid}/paper", follow_redirects=False)
+        self.assertEqual(paper.status_code, 302)
+        self.assertIn("/admin/login", paper.headers.get("Location", ""))
+        api = guest.get(f"/api/admin/submission/{sid}")
+        self.assertEqual(api.status_code, 401)
+        body = api.get_json()
+        self.assertFalse(body.get("ok"))
+        self.assertNotIn("answers", api.get_data(as_text=True))
+        self.assertNotIn("explanation", api.get_data(as_text=True))
+
+        student = self.client
+        paper = student.get(f"/admin/submission/{sid}/paper", follow_redirects=False)
+        self.assertEqual(paper.status_code, 302)
+        self.assertIn("/admin/login", paper.headers.get("Location", ""))
+        api = student.get(f"/api/admin/submission/{sid}")
+        self.assertEqual(api.status_code, 401)
+        self.assertNotIn("explanation", api.get_data(as_text=True))
+
+        own = student.get(f"/me/submission/{sid}")
+        self.assertEqual(own.status_code, 200)
+        own_api = student.get(f"/api/me/submission/{sid}")
+        self.assertEqual(own_api.status_code, 200)
+        self.assertTrue(own_api.get_json().get("ok"))
+
+
+
+
 if __name__ == "__main__":
     unittest.main()

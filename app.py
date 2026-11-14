@@ -261,8 +261,8 @@ def safe_student_next(raw: str | None) -> str:
     return url_for("student_home")
 
 
-def load_owned_submission(sid: str, ident: dict) -> dict | None:
-    """Return a submission only if it exists and belongs to this student."""
+def load_submission(sid: str) -> dict | None:
+    """Load a submission by id with a path-safety check. No ownership filter."""
     token = (sid or "").strip()
     if not token or any(ch in token for ch in ("/", "\\", "..")):
         return None
@@ -270,8 +270,13 @@ def load_owned_submission(sid: str, ident: dict) -> dict | None:
     if not path.is_file() or path.resolve().parent != SUBMISSIONS_DIR.resolve():
         return None
     with path.open(encoding="utf-8") as f:
-        record = json.load(f)
-    if not sp.owns_record(record, ident):
+        return json.load(f)
+
+
+def load_owned_submission(sid: str, ident: dict) -> dict | None:
+    """Return a submission only if it exists and belongs to this student."""
+    record = load_submission(sid)
+    if record is None or not sp.owns_record(record, ident):
         return None
     return record
 
@@ -337,15 +342,21 @@ def save_to_notion(record: dict) -> dict | None:
         return {"error": str(exc)}
 
 
+def _admin_unauthorized():
+    if request.path.startswith("/api/"):
+        return jsonify({"ok": False, "error": "请先登录教师后台"}), 401
+    return redirect(url_for("admin_login", next=request.path))
+
+
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         if not session.get("admin_ok") or not admin_credentials_configured():
-            return redirect(url_for("admin_login", next=request.path))
+            return _admin_unauthorized()
         if session.get("admin_username") != admin_username():
             session.pop("admin_ok", None)
             session.pop("admin_username", None)
-            return redirect(url_for("admin_login", next=request.path))
+            return _admin_unauthorized()
         return fn(*args, **kwargs)
 
     return wrapper
@@ -459,17 +470,30 @@ def student_logout():
     return redirect(url_for("index"))
 
 
-def _review_context(record: dict, *, mistakes_only: bool = False) -> dict:
+def _review_context(record: dict, *, mistakes_only: bool = False, admin: bool = False) -> dict:
+    sid = record.get("id") or ""
+    if admin:
+        api_url = f"/api/admin/submission/{sid}"
+        back_href = "/admin"
+        back_label = "返回教师后台"
+    else:
+        api_url = f"/api/me/submission/{sid}"
+        back_href = "/me"
+        back_label = "返回我的记录"
     return {
-        "sid": record.get("id"),
+        "sid": sid,
         "mistakes_only": bool(mistakes_only),
         "module": sp.module_of(record),
+        "admin": bool(admin),
+        "api_url": api_url,
+        "back_href": back_href,
+        "back_label": back_label,
     }
 
 
-def render_attempt_exam(record: dict, *, mistakes_only: bool = False):
+def render_attempt_exam(record: dict, *, mistakes_only: bool = False, admin: bool = False):
     """Render the live exam templates in read-only review mode."""
-    review = _review_context(record, mistakes_only=mistakes_only)
+    review = _review_context(record, mistakes_only=mistakes_only, admin=admin)
     if sp.module_of(record) == "reading":
         return render_template("reading.html", review=review)
     if sp.module_of(record) == "listening":
@@ -513,6 +537,23 @@ def student_submission_review(sid: str):
     return render_attempt_exam(record, mistakes_only=True)
 
 
+def attempt_review_payload(record: dict) -> dict:
+    module = sp.module_of(record)
+    if module == "reading":
+        return sp.attempt_review_payload(
+            record,
+            paper=load_reading_paper(),
+            keys=load_reading_keys(),
+        )
+    if module == "listening":
+        return sp.attempt_review_payload(
+            record,
+            paper=load_listening_paper(),
+            keys=load_listening_keys(),
+        )
+    return sp.attempt_review_payload(record, prompts_data=load_prompts())
+
+
 @app.route("/api/me/submission/<sid>")
 def api_me_submission(sid: str):
     ident = current_student()
@@ -521,22 +562,7 @@ def api_me_submission(sid: str):
     record = load_owned_submission(sid, ident)
     if record is None:
         return jsonify({"ok": False, "error": "未找到该答卷"}), 404
-    module = sp.module_of(record)
-    if module == "reading":
-        payload = sp.attempt_review_payload(
-            record,
-            paper=load_reading_paper(),
-            keys=load_reading_keys(),
-        )
-    elif module == "listening":
-        payload = sp.attempt_review_payload(
-            record,
-            paper=load_listening_paper(),
-            keys=load_listening_keys(),
-        )
-    else:
-        payload = sp.attempt_review_payload(record, prompts_data=load_prompts())
-    return jsonify(payload)
+    return jsonify(attempt_review_payload(record))
 
 
 @app.route("/api/session/start", methods=["POST"])
@@ -1224,6 +1250,24 @@ def admin_submission(sid: str):
     )
 
 
+
+
+@app.route("/admin/submission/<sid>/paper")
+@admin_required
+def admin_submission_paper(sid: str):
+    record = load_submission(sid)
+    if record is None:
+        return "未找到该答卷", 404
+    return render_attempt_exam(record, mistakes_only=False, admin=True)
+
+
+@app.route("/api/admin/submission/<sid>")
+@admin_required
+def api_admin_submission(sid: str):
+    record = load_submission(sid)
+    if record is None:
+        return jsonify({"ok": False, "error": "未找到该答卷"}), 404
+    return jsonify(attempt_review_payload(record))
 
 
 @app.route("/admin/submission/<sid>/report.pdf")

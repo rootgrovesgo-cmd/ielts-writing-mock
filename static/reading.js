@@ -1733,6 +1733,34 @@
     if (tools) tools.classList.add("hidden");
   }
 
+
+  function reviewConfig() {
+    return window.REVIEW_CONFIG || {};
+  }
+
+  function reviewApiUrl(sid) {
+    const cfg = reviewConfig();
+    if (cfg.apiUrl) return cfg.apiUrl;
+    return "/api/me/submission/" + encodeURIComponent(sid);
+  }
+
+  function reviewAuthRedirect(sid) {
+    const cfg = reviewConfig();
+    if (cfg.admin) return cfg.backHref || "/admin";
+    if (cfg.backHref && String(cfg.backHref).startsWith("/admin")) return cfg.backHref;
+    return "/me?next=/me/submission/" + encodeURIComponent(sid);
+  }
+
+  function reviewBackHref() {
+    const cfg = reviewConfig();
+    return cfg.backHref || "/me";
+  }
+
+  function reviewBackLabel() {
+    const cfg = reviewConfig();
+    return cfg.backLabel || "返回我的记录";
+  }
+
   async function enterAttemptReview() {
     const cfg = window.REVIEW_CONFIG || {};
     const sid = cfg.sid;
@@ -1744,11 +1772,11 @@
     state.allowPause = false;
     window.onbeforeunload = null;
     try {
-      const res = await fetch("/api/me/submission/" + encodeURIComponent(sid), {
+      const res = await fetch(reviewApiUrl(sid), {
         credentials: "same-origin",
       });
       if (res.status === 401 || res.status === 403) {
-        window.location.href = "/me?next=/me/submission/" + encodeURIComponent(sid);
+        window.location.href = reviewAuthRedirect(sid);
         return;
       }
       if (res.status === 404) {

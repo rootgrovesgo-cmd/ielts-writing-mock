@@ -103,7 +103,11 @@
                 {% endif %}
               </td>
               <td>{{ "是" if s.auto_submitted else "否" }}</td>
-              <td><a href="{{ url_for('admin_submission', sid=s.id) }}">查看{% if module in ['reading', 'listening'] %}详批{% else %}全文{% endif %}</a></td>
+              <td>
+                <a href="{{ url_for('admin_submission', sid=s.id) }}">查看{% if module in ['reading', 'listening'] %}详批{% else %}全文{% endif %}</a>
+                <br/>
+                <a href="{{ url_for('admin_submission_paper', sid=s.id) }}">查看答题页面</a>
+              </td>
             </tr>
             {% endfor %}
           </tbody>

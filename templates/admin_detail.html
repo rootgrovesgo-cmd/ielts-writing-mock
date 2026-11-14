@@ -11,6 +11,7 @@
     <div class="brand-block"><div class="brand">Rosette Exclusive Mock Exam</div><div class="brand-sub">Teacher · script detail</div></div>
     <div class="meta">
       <a class="btn secondary sm" href="{{ url_for('admin') }}">返回列表</a>
+      <a class="btn secondary sm" href="{{ url_for('admin_submission_paper', sid=record.id) }}">查看答题页面</a>
       <a class="btn secondary sm" href="{{ url_for('admin_logout') }}">退出</a>
     </div>
   </header>
@@ -18,9 +19,12 @@
     <section class="card">
       <div class="section-head">
         <h1>元数据</h1>
-        {% if not is_reading and not is_listening %}
-        <a class="btn ghost sm" href="{{ url_for('admin_submission_report', sid=record.id) }}">下载 PDF 报告</a>
-        {% endif %}
+        <div>
+          <a class="btn ghost sm" href="{{ url_for('admin_submission_paper', sid=record.id) }}">查看答题页面</a>
+          {% if not is_reading and not is_listening %}
+          <a class="btn ghost sm" href="{{ url_for('admin_submission_report', sid=record.id) }}">下载 PDF 报告</a>
+          {% endif %}
+        </div>
       </div>
       <p class="muted">
         ID：<code>{{ record.id }}</code><br/>

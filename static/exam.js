@@ -290,31 +290,270 @@
     );
   }
 
+  function flowchartNum(value) {
+    const number = Number(value);
+    if (Number.isInteger(number)) return String(number);
+    return String(Math.round(number * 100) / 100);
+  }
+
+  function flowchartWrapText(text, maxChars) {
+    const limit = maxChars == null ? 22 : maxChars;
+    const words = String(text || "").split(/\s+/).filter(Boolean);
+    if (!words.length) return [];
+    const lines = [words[0]];
+    for (let i = 1; i < words.length; i += 1) {
+      const trial = `${lines[lines.length - 1]} ${words[i]}`;
+      if (trial.length <= limit) lines[lines.length - 1] = trial;
+      else lines.push(words[i]);
+    }
+    return lines;
+  }
+
+  function flowchartKind(step, index) {
+    const label = String((step && step.label) || "").toLowerCase();
+    const mapping = [
+      ["collection", "collection"],
+      ["sorting", "sorting"],
+      ["washing", "washing"],
+      ["shred", "washing"],
+      ["melting", "melting"],
+      ["pellet", "melting"],
+      ["manufactur", "manufacturing"],
+      ["distribution", "distribution"],
+    ];
+    for (const [needle, kind] of mapping) {
+      if (label.includes(needle)) return kind;
+    }
+    const fallback = [
+      "collection",
+      "sorting",
+      "washing",
+      "melting",
+      "manufacturing",
+      "distribution",
+    ];
+    return fallback[index] || "collection";
+  }
+
+  const FLOWCHART_BOTTLE = {
+    sm: [6, 2, 4, 5, 10, 16],
+    md: [6, 3, 4, 6, 12, 20],
+    lg: [8, 3, 4, 7, 14, 24],
+  };
+
+  function flowchartBottle(x, y, size, fill, rotate) {
+    const key = size || "md";
+    const color = fill || "#f4f4f4";
+    const [cw, ch, nw, nh, bw, bh] = FLOWCHART_BOTTLE[key];
+    const bodyY = y - bh;
+    const neckY = bodyY - nh;
+    const capY = neckY - ch;
+    const inner =
+      `<rect x="${flowchartNum(x - cw / 2)}" y="${flowchartNum(capY)}" width="${flowchartNum(cw)}" height="${flowchartNum(ch)}" rx="1" fill="#444" stroke="#222" stroke-width="1"/>` +
+      `<rect x="${flowchartNum(x - nw / 2)}" y="${flowchartNum(neckY)}" width="${flowchartNum(nw)}" height="${flowchartNum(nh)}" fill="${color}" stroke="#222" stroke-width="1"/>` +
+      `<rect x="${flowchartNum(x - bw / 2)}" y="${flowchartNum(bodyY)}" width="${flowchartNum(bw)}" height="${flowchartNum(bh)}" rx="2" fill="${color}" stroke="#222" stroke-width="1.3"/>`;
+    if (rotate) {
+      return `<g transform="rotate(${flowchartNum(rotate)} ${flowchartNum(x)} ${flowchartNum(y)})">${inner}</g>`;
+    }
+    return `<g>${inner}</g>`;
+  }
+
+  function flowchartArt(kind) {
+    const bottle = flowchartBottle;
+    if (kind === "collection") {
+      return (
+        `<line x1="16" y1="76" x2="144" y2="76" stroke="#222" stroke-width="1.2"/>` +
+        bottle(36, 48, "md", "#f7f7f7") +
+        bottle(52, 50, "sm", "#e4e4e4") +
+        `<path d="M22,38 L28,76 L64,76 L70,38 Z" fill="#d0d0d0" stroke="#222" stroke-width="1.5"/>` +
+        `<line x1="20" y1="38" x2="72" y2="38" stroke="#222" stroke-width="2"/>` +
+        `<rect x="84" y="48" width="50" height="28" fill="#e6e6e6" stroke="#222" stroke-width="1.5"/>` +
+        `<line x1="97" y1="48" x2="97" y2="76" stroke="#222" stroke-width="1.2"/>` +
+        `<line x1="109" y1="48" x2="109" y2="76" stroke="#222" stroke-width="1.2"/>` +
+        `<line x1="121" y1="48" x2="121" y2="76" stroke="#222" stroke-width="1.2"/>` +
+        bottle(100, 76, "sm", "#fafafa") +
+        bottle(116, 76, "md", "#d8d8d8")
+      );
+    }
+    if (kind === "sorting") {
+      return (
+        `<line x1="16" y1="76" x2="144" y2="76" stroke="#222" stroke-width="1.2"/>` +
+        `<rect x="16" y="58" width="128" height="6" fill="#d6d6d6" stroke="#222" stroke-width="1.3"/>` +
+        `<line x1="22" y1="64" x2="22" y2="76" stroke="#222" stroke-width="1.3"/>` +
+        `<line x1="138" y1="64" x2="138" y2="76" stroke="#222" stroke-width="1.3"/>` +
+        `<line x1="80" y1="26" x2="80" y2="58" stroke="#222" stroke-width="1.2" stroke-dasharray="3 2"/>` +
+        bottle(40, 58, "md", "#ffffff") +
+        bottle(58, 58, "md", "#f2f2f2") +
+        bottle(102, 58, "md", "#c4c4c4") +
+        bottle(122, 58, "lg", "#a8a8a8") +
+        `<rect x="28" y="66" width="40" height="10" rx="1" fill="#f3f3f3" stroke="#222" stroke-width="1.2"/>` +
+        `<rect x="92" y="66" width="40" height="10" rx="1" fill="#cfcfcf" stroke="#222" stroke-width="1.2"/>`
+      );
+    }
+    if (kind === "washing") {
+      return (
+        `<line x1="14" y1="80" x2="146" y2="80" stroke="#222" stroke-width="1.2"/>` +
+        `<path d="M14,50 L18,70 Q40,82 62,70 L66,50" fill="#d9d9d9" stroke="#222" stroke-width="1.5"/>` +
+        `<ellipse cx="40" cy="50" rx="26" ry="8" fill="#f4f4f4" stroke="#222" stroke-width="1.3"/>` +
+        bottle(42, 64, "sm", "#f7f7f7", -26) +
+        `<path d="M24,28 C24,28 20,34 20,36 A4,4 0 0 0 28,36 C28,34 24,28 24,28 Z" fill="#f4f4f4" stroke="#222" stroke-width="1"/>` +
+        `<path d="M54,20 C54,20 51,25 51,27 A3,3 0 0 0 57,27 C57,25 54,20 54,20 Z" fill="#f4f4f4" stroke="#222" stroke-width="1"/>` +
+        `<path d="M90,16 L82,28 L146,28 L138,16 Z" fill="#e8e8e8" stroke="#222" stroke-width="1.4"/>` +
+        `<rect x="90" y="28" width="48" height="24" fill="#d0d0d0" stroke="#222" stroke-width="1.5"/>` +
+        `<rect x="106" y="36" width="16" height="6" fill="#fff" stroke="#222" stroke-width="1.2"/>` +
+        `<line x1="98" y1="32" x2="110" y2="48" stroke="#222" stroke-width="1.3"/>` +
+        `<line x1="114" y1="32" x2="126" y2="48" stroke="#222" stroke-width="1.3"/>` +
+        `<polygon points="94,58 102,56 104,68 92,66" fill="#d8d8d8" stroke="#222" stroke-width="1"/>` +
+        `<polygon points="110,56 120,54 122,66 108,64" fill="#c8c8c8" stroke="#222" stroke-width="1"/>` +
+        `<polygon points="126,60 136,58 134,72 124,70" fill="#e0e0e0" stroke="#222" stroke-width="1"/>` +
+        `<polygon points="104,70 114,68 116,80 102,78" fill="#d0d0d0" stroke="#222" stroke-width="1"/>`
+      );
+    }
+    if (kind === "melting") {
+      return (
+        `<line x1="16" y1="80" x2="144" y2="80" stroke="#222" stroke-width="1.2"/>` +
+        `<rect x="22" y="20" width="52" height="42" fill="#d4d4d4" stroke="#222" stroke-width="1.5"/>` +
+        `<ellipse cx="48" cy="20" rx="26" ry="7" fill="#c4c4c4" stroke="#222" stroke-width="1.4"/>` +
+        `<ellipse cx="48" cy="28" rx="18" ry="5" fill="#f2f2f2" stroke="#222" stroke-width="1.1"/>` +
+        `<path d="M32,76 Q26,68 32,60 Q38,68 32,76 Z" fill="#f0f0f0" stroke="#222" stroke-width="1.2"/>` +
+        `<path d="M48,78 Q40,66 48,54 Q56,66 48,78 Z" fill="#e6e6e6" stroke="#222" stroke-width="1.2"/>` +
+        `<path d="M64,76 Q58,68 64,60 Q70,68 64,76 Z" fill="#f0f0f0" stroke="#222" stroke-width="1.2"/>` +
+        `<path d="M74,40 H88 V52" fill="none" stroke="#222" stroke-width="2"/>` +
+        `<line x1="88" y1="52" x2="88" y2="60" stroke="#222" stroke-width="1.4" stroke-dasharray="2 2"/>` +
+        `<rect x="76" y="60" width="64" height="16" fill="#eeeeee" stroke="#222" stroke-width="1.3"/>` +
+        `<circle cx="86" cy="68" r="4" fill="#c8c8c8" stroke="#222" stroke-width="1"/>` +
+        `<circle cx="98" cy="68" r="4" fill="#d4d4d4" stroke="#222" stroke-width="1"/>` +
+        `<circle cx="110" cy="68" r="4" fill="#c0c0c0" stroke="#222" stroke-width="1"/>` +
+        `<circle cx="122" cy="68" r="4" fill="#d8d8d8" stroke="#222" stroke-width="1"/>` +
+        `<circle cx="134" cy="68" r="4" fill="#bcbcbc" stroke="#222" stroke-width="1"/>`
+      );
+    }
+    if (kind === "manufacturing") {
+      return (
+        `<line x1="12" y1="80" x2="148" y2="80" stroke="#222" stroke-width="1.2"/>` +
+        `<path d="M18,22 L14,12 L54,12 L50,22 Z" fill="#e4e4e4" stroke="#222" stroke-width="1.4"/>` +
+        `<rect x="10" y="22" width="48" height="40" fill="#d2d2d2" stroke="#222" stroke-width="1.5"/>` +
+        `<circle cx="34" cy="42" r="10" fill="#f3f3f3" stroke="#222" stroke-width="1.3"/>` +
+        `<circle cx="34" cy="42" r="3" fill="#c0c0c0" stroke="#222" stroke-width="1"/>` +
+        `<line x1="18" y1="62" x2="18" y2="80" stroke="#222" stroke-width="1.4"/>` +
+        `<line x1="50" y1="62" x2="50" y2="80" stroke="#222" stroke-width="1.4"/>` +
+        `<rect x="58" y="52" width="90" height="6" fill="#c8c8c8" stroke="#222" stroke-width="1.3"/>` +
+        `<circle cx="64" cy="58" r="4" fill="#f0f0f0" stroke="#222" stroke-width="1.1"/>` +
+        `<circle cx="140" cy="58" r="4" fill="#f0f0f0" stroke="#222" stroke-width="1.1"/>` +
+        `<line x1="70" y1="62" x2="70" y2="80" stroke="#222" stroke-width="1.3"/>` +
+        `<line x1="136" y1="62" x2="136" y2="80" stroke="#222" stroke-width="1.3"/>` +
+        bottle(78, 52, "sm", "#ffffff") +
+        `<rect x="92" y="34" width="20" height="18" rx="1" fill="#e8e8e8" stroke="#222" stroke-width="1.2"/>` +
+        `<path d="M92,40 Q97,37 102,40 Q107,43 112,40" fill="none" stroke="#222" stroke-width="1.1"/>` +
+        `<path d="M92,46 Q97,43 102,46 Q107,49 112,46" fill="none" stroke="#222" stroke-width="1.1"/>` +
+        `<rect x="122" y="34" width="20" height="18" fill="#e0e0e0" stroke="#222" stroke-width="1.2"/>` +
+        `<line x1="122" y1="40" x2="142" y2="40" stroke="#222" stroke-width="1.1"/>` +
+        `<line x1="132" y1="34" x2="132" y2="52" stroke="#222" stroke-width="1.1"/>`
+      );
+    }
+    return (
+      `<line x1="12" y1="80" x2="148" y2="80" stroke="#222" stroke-width="1.2"/>` +
+      `<rect x="12" y="52" width="26" height="28" fill="#e6e6e6" stroke="#222" stroke-width="1.3"/>` +
+      `<line x1="12" y1="61" x2="38" y2="61" stroke="#222" stroke-width="1.1"/>` +
+      `<line x1="25" y1="52" x2="25" y2="80" stroke="#222" stroke-width="1.1"/>` +
+      `<rect x="18" y="32" width="26" height="22" fill="#f0f0f0" stroke="#222" stroke-width="1.3"/>` +
+      `<line x1="18" y1="40" x2="44" y2="40" stroke="#222" stroke-width="1.1"/>` +
+      `<line x1="31" y1="32" x2="31" y2="54" stroke="#222" stroke-width="1.1"/>` +
+      `<rect x="56" y="28" width="58" height="32" fill="#d8d8d8" stroke="#222" stroke-width="1.5"/>` +
+      `<line x1="70" y1="28" x2="70" y2="60" stroke="#222" stroke-width="1.1"/>` +
+      `<line x1="86" y1="28" x2="86" y2="60" stroke="#222" stroke-width="1.1"/>` +
+      `<line x1="102" y1="28" x2="102" y2="60" stroke="#222" stroke-width="1.1"/>` +
+      `<path d="M114,38 L134,38 L144,50 L144,60 L114,60 Z" fill="#c8c8c8" stroke="#222" stroke-width="1.5"/>` +
+      `<rect x="122" y="42" width="16" height="10" fill="#fff" stroke="#222" stroke-width="1.1"/>` +
+      `<circle cx="74" cy="68" r="8" fill="#444" stroke="#222" stroke-width="1.3"/>` +
+      `<circle cx="74" cy="68" r="3" fill="#eee" stroke="#222" stroke-width="1"/>` +
+      `<circle cx="128" cy="68" r="8" fill="#444" stroke="#222" stroke-width="1.3"/>` +
+      `<circle cx="128" cy="68" r="3" fill="#eee" stroke="#222" stroke-width="1"/>`
+    );
+  }
+
+  function flowchartLayout(count) {
+    const colW = 160, colGap = 48, rowH = 136, rowGap = 30, padX = 16, padY = 8;
+    let cells;
+    let width;
+    let rows;
+    if (count === 6) {
+      cells = [[0, 0], [1, 0], [1, 1], [0, 1], [0, 2], [1, 2]];
+      width = padX * 2 + colW * 2 + colGap;
+      rows = 3;
+    } else {
+      cells = [];
+      for (let i = 0; i < count; i += 1) cells.push([0, i]);
+      width = padX * 2 + colW;
+      rows = Math.max(count, 1);
+    }
+    const height = padY * 2 + rows * rowH + Math.max(rows - 1, 0) * rowGap;
+    const origins = cells.map(([col, row]) => [
+      padX + col * (colW + colGap),
+      padY + row * (rowH + rowGap),
+    ]);
+    const arrows = [];
+    for (let i = 0; i < count - 1; i += 1) {
+      const [col1, row1] = cells[i];
+      const [col2, row2] = cells[i + 1];
+      const [x1, y1] = origins[i];
+      const [x2, y2] = origins[i + 1];
+      if (row1 === row2) {
+        const midY = y1 + 42;
+        if (col2 > col1) arrows.push([x1 + colW, midY, x2, midY]);
+        else arrows.push([x1, midY, x2 + colW, midY]);
+      } else {
+        const ax = x1 + 80;
+        arrows.push([ax, y1 + rowH, ax, y2]);
+      }
+    }
+    return { width, height, origins, arrows };
+  }
+
+  function flowchartArrow(x1, y1, x2, y2, size) {
+    const head = size == null ? 7 : size;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    if (Math.abs(dx) >= Math.abs(dy)) {
+      const direction = dx > 0 ? 1 : -1;
+      return (
+        `<line x1="${x1}" y1="${y1}" x2="${x2 - direction * head}" y2="${y2}" stroke="#222" stroke-width="1.6"/>` +
+        `<polygon points="${x2},${y2} ${x2 - direction * head},${y2 - 5} ${x2 - direction * head},${y2 + 5}" fill="#222" stroke="#222" stroke-width="0.5"/>`
+      );
+    }
+    const direction = dy > 0 ? 1 : -1;
+    return (
+      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2 - direction * head}" stroke="#222" stroke-width="1.6"/>` +
+      `<polygon points="${x2},${y2} ${x2 - 5},${y2 - direction * head} ${x2 + 5},${y2 - direction * head}" fill="#222" stroke="#222" stroke-width="0.5"/>`
+    );
+  }
+
   function renderFlowchart(flow) {
     const steps = (flow && flow.steps) || [];
-    const boxW = 200, boxH = 70, gap = 28, padX = 40, padY = 20;
-    const W = boxW + padX * 2;
-    const H = padY * 2 + steps.length * boxH + Math.max(steps.length - 1, 0) * gap;
+    const { width, height, origins, arrows } = flowchartLayout(steps.length);
     let shapes = "";
     steps.forEach((step, i) => {
-      const y = padY + i * (boxH + gap);
-      const x = padX;
-      shapes += `<rect x="${x}" y="${y}" width="${boxW}" height="${boxH}" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>`;
-      shapes += `<text x="${x + boxW / 2}" y="${y + 28}" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">${escapeHtml(step.label || "")}</text>`;
-      shapes += `<text x="${x + boxW / 2}" y="${y + 50}" text-anchor="middle" font-size="11" fill="#475569">${escapeHtml(step.detail || "")}</text>`;
-      if (i < steps.length - 1) {
-        const ax = x + boxW / 2;
-        const y1 = y + boxH;
-        const y2 = y + boxH + gap;
-        shapes += `<line x1="${ax}" y1="${y1}" x2="${ax}" y2="${y2 - 8}" stroke="#64748b" stroke-width="2"/>`;
-        shapes += `<polygon points="${ax},${y2} ${ax - 6},${y2 - 10} ${ax + 6},${y2 - 10}" fill="#64748b"/>`;
-      }
+      const [x, y] = origins[i];
+      const kind = flowchartKind(step, i);
+      shapes += `<g class="flowchart-scene" transform="translate(${x} ${y})">`;
+      shapes += flowchartArt(kind);
+      shapes += `<text x="80" y="100" text-anchor="middle" font-size="11" font-weight="700" font-family="Arial, Helvetica, sans-serif" fill="#111">${escapeHtml(step.label || "")}</text>`;
+      const detailLines = flowchartWrapText(step.detail || "");
+      detailLines.forEach((line, lineI) => {
+        const yy = 112 + lineI * 11;
+        shapes += `<text x="80" y="${yy}" text-anchor="middle" font-size="9" font-family="Arial, Helvetica, sans-serif" fill="#555">${escapeHtml(line)}</text>`;
+      });
+      shapes += `</g>`;
     });
-    const title = flow && flow.title ? `<div class="muted" style="text-align:center;margin-bottom:8px">${escapeHtml(flow.title)}</div>` : "";
+    arrows.forEach((arrow) => {
+      shapes += flowchartArrow(arrow[0], arrow[1], arrow[2], arrow[3]);
+    });
+    const title = flow && flow.title ? `<div class="flowchart-title">${escapeHtml(flow.title)}</div>` : "";
     return (
       `<div class="chart-wrap flowchart-wrap">` +
       title +
-      `<div class="flowchart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Process diagram">` +
+      `<div class="flowchart flowchart-comic">` +
+      `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Process diagram">` +
       shapes +
       `</svg></div></div>`
     );

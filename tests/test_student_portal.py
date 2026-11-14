@@ -4,10 +4,12 @@
 from __future__ import annotations
 
 import json
+import re
 import os
 import sys
 import tempfile
 import unittest
+from html import unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1056,6 +1058,56 @@ class PikachuProgressTests(StudentPortalTestCase):
 
 
 class WritingSetTests(StudentPortalTestCase):
+    def test_writing_set_c_renders_comic_flowchart(self):
+        prompts = appmod.load_prompts()
+        ids = [item.get("id") for item in prompts.get("sets") or []]
+        self.assertIn("set-c", ids)
+        found = next(item for item in prompts["sets"] if item["id"] == "set-c")
+        t1 = found["task1"]
+        self.assertEqual(t1["type"], "flowchart")
+        self.assertIn("recycling plastic bottles into new products", t1["instruction"])
+        self.assertEqual(t1["flowchart"]["title"], "Recycling plastic bottles")
+        labels = [
+            "Collection",
+            "Sorting",
+            "Washing & shredding",
+            "Melting & pelletising",
+            "Manufacturing",
+            "Distribution",
+        ]
+        details = [
+            "Used bottles from homes & public bins",
+            "By colour and polymer type",
+            "Cleaned then cut into flakes",
+            "Flakes melted into pellets",
+            "New containers, textiles, packaging",
+            "Finished goods to retailers",
+        ]
+        steps = t1["flowchart"]["steps"]
+        self.assertEqual([step["label"] for step in steps], labels)
+        self.assertEqual([step["detail"] for step in steps], details)
+
+        html = sp.writing_visual_html(t1)
+        self.assertIn("chart-wrap flowchart-wrap", html)
+        self.assertIn("flowchart-comic", html)
+        self.assertIn("<svg", html)
+        self.assertIn("Recycling plastic bottles", html)
+        visible = " ".join(unescape(re.sub(r"<[^>]+>", " ", html)).split())
+        for label in labels:
+            self.assertIn(label, visible)
+        for detail in details:
+            self.assertIn(detail, visible)
+        self.assertNotIn("#2563eb", html)
+        self.assertNotIn('rx="10"', html)
+        self.assertNotIn('fill="#eff6ff"', html)
+
+        self._create_code()
+        self._login()
+        api = self.client.get("/api/prompts")
+        self.assertEqual(api.status_code, 200)
+        payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e", "set-f"])
+
     def test_writing_set_d_combines_table_and_line_chart(self):
         prompts = appmod.load_prompts()
         ids = [item.get("id") for item in prompts.get("sets") or []]

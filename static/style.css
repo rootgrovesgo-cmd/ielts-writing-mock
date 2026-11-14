@@ -542,7 +542,14 @@ textarea.answer {
 }
 .image-wrap { padding: 4px 0; }
 .line-chart svg, .flowchart svg, .pie-chart svg { width: 100%; height: auto; display: block; }
-.flowchart-wrap { max-width: 320px; margin: 0 auto; }
+.flowchart-wrap { max-width: 380px; margin: 0 auto; }
+.flowchart-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: #111;
+  margin: 0 0 8px;
+}
 
 .pie-charts-title {
   text-align: center;

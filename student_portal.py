@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import re
 from datetime import datetime
 from html import escape
 from typing import Any
@@ -338,15 +339,15 @@ def _hex_luminance(color: str) -> float:
 
 def _pie_label_fill(color: str, outside: bool) -> str:
     if outside:
-        return "#1e293b"
-    return "#1e293b" if _hex_luminance(color) >= 0.35 else "#ffffff"
+        return "#111111"
+    return "#111111" if _hex_luminance(color) >= 0.35 else "#ffffff"
 
 
 def _render_pie_charts(data: dict) -> str:
     categories = (data or {}).get("categories") or []
     charts = (data or {}).get("charts") or []
     unit = (data or {}).get("unit") or "%"
-    colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"]
+    colors = ["#1a1a1a", "#4a4a4a", "#8a8a8a", "#c8c8c8", "#ffffff"]
     size, cx, cy, radius = 220, 110, 110, 80
     pies = []
     for chart in charts:
@@ -370,18 +371,20 @@ def _render_pie_charts(data: dict) -> str:
             slices.append(
                 f'<path d="M {_fmt_svg(cx)},{_fmt_svg(cy)} L {_fmt_svg(x1)},{_fmt_svg(y1)} '
                 f'A {radius},{radius} 0 {large_arc} 1 {_fmt_svg(x2)},{_fmt_svg(y2)} Z" '
-                f'fill="{color}" stroke="#fff" stroke-width="1"/>'
+                f'fill="{color}" stroke="#222" stroke-width="1"/>'
             )
             mid = (start + end) / 2
-            outside = value < 10
+            # Keep labels on the slice except when a wedge is too thin to fit text.
+            outside = frac < 0.03
             label_r = radius * (1.18 if outside else 0.62)
             lx = cx + label_r * math.cos(mid)
             ly = cy + label_r * math.sin(mid)
             fill = _pie_label_fill(color, outside)
             number = str(int(value)) if float(value).is_integer() else str(value)
+            font_size = 9 if (not outside and value < 10) else 11
             labels.append(
                 f'<text x="{_fmt_svg(lx)}" y="{_fmt_svg(ly)}" text-anchor="middle" '
-                f'dominant-baseline="middle" font-size="11" font-weight="600" fill="{fill}">'
+                f'dominant-baseline="middle" font-size="{font_size}" font-weight="600" fill="{fill}">'
                 f"{escape(number + str(unit))}</text>"
             )
         aria = escape(str(chart.get("label") or "Pie chart"))
@@ -444,6 +447,38 @@ def _render_flowchart(flow: dict) -> str:
     )
 
 
+
+_TASK2_RUBRIC_RE = re.compile(
+    r"(?i)^\s*(?:"
+    r"Give reasons for your answer\b.*|"
+    r"Write at least 250 words\.?"
+    r")\s*$"
+)
+
+
+def _is_task2_rubric_line(line: str) -> bool:
+    return bool(_TASK2_RUBRIC_RE.match(line or ""))
+
+
+def format_task2_instruction(text: str | None) -> str:
+    """Escape a Task 2 prompt and bold the question, not the standard rubric lines."""
+    raw = "" if text is None else str(text)
+    if not raw:
+        return ""
+    lines = raw.split("\n")
+    idx = next((i for i, line in enumerate(lines) if _is_task2_rubric_line(line)), None)
+    if idx is None:
+        return f'<strong class="task2-question">{escape(raw)}</strong>'
+    question = "\n".join(lines[:idx]).rstrip()
+    rest = "\n".join(lines[idx:])
+    parts = []
+    if question:
+        parts.append(f'<strong class="task2-question">{escape(question)}</strong>')
+    if rest:
+        parts.append(escape(rest))
+    return "\n\n".join(parts) if question and rest else "".join(parts)
+
+
 def writing_view(record: dict, prompts_data: dict) -> dict:
     """Safe writing review: prompts and the student's text, never official scores."""
     task1, task2, prompt_set = writing_prompts_for(record, prompts_data)
@@ -464,7 +499,7 @@ def writing_view(record: dict, prompts_data: dict) -> dict:
         "task1_visual": writing_visual_html(task1) if show_t1 else "",
         "task1_text": record.get("task1_text") or "",
         "task1_word_count": int(record.get("task1_word_count") or 0),
-        "task2_instruction": (task2 or {}).get("instruction") or "",
+        "task2_instruction": format_task2_instruction((task2 or {}).get("instruction") or ""),
         "task2_text": record.get("task2_text") or "",
         "task2_word_count": int(record.get("task2_word_count") or 0),
     }

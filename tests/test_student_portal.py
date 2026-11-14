@@ -1120,6 +1120,13 @@ class WritingSetTests(StudentPortalTestCase):
             self.assertIn(name, html)
         self.assertIn("32%", html)
         self.assertIn("8%", html)
+        self.assertIn("#1a1a1a", html)
+        self.assertIn("#4a4a4a", html)
+        self.assertIn("#8a8a8a", html)
+        self.assertIn("#c8c8c8", html)
+        self.assertIn("#ffffff", html)
+        self.assertNotIn("#2563eb", html)
+        self.assertIn('stroke="#222"', html)
 
         self._create_code()
         self._login()
@@ -1127,6 +1134,64 @@ class WritingSetTests(StudentPortalTestCase):
         self.assertEqual(api.status_code, 200)
         payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
         self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e", "set-f"])
+
+    def test_task2_instruction_bolds_question_not_rubric(self):
+        sample = (
+            "Some people think that mathematics is the most important subject "
+            "for school children to study, while others believe there are more "
+            "important subjects. Discuss both views and give your own opinion.\n\n"
+            "Give reasons for your answer and include any relevant examples from "
+            "your own knowledge or experience.\n\n"
+            "Write at least 250 words."
+        )
+        html = sp.format_task2_instruction(sample)
+        self.assertIn('<strong class="task2-question">', html)
+        start = html.find("<strong")
+        end = html.find("</strong>")
+        self.assertNotEqual(start, -1)
+        self.assertNotEqual(end, -1)
+        inner = html[start:end]
+        self.assertIn("mathematics is the most important subject", inner)
+        self.assertIn("Discuss both views and give your own opinion.", inner)
+        self.assertNotIn("Write at least 250 words", inner)
+        self.assertNotIn("Give reasons for your answer", inner)
+        self.assertIn("Write at least 250 words.", html)
+        self.assertIn("Give reasons for your answer", html)
+        # Rubric stays outside the strong tag, after it.
+        self.assertGreater(html.find("Write at least 250 words."), end)
+
+        escaped = sp.format_task2_instruction(
+            'A <topic> & "quote"\n\nWrite at least 250 words.'
+        )
+        self.assertIn("&lt;topic&gt;", escaped)
+        self.assertIn("&amp;", escaped)
+        self.assertNotIn("<topic>", escaped)
+
+        only_question = sp.format_task2_instruction(
+            "To what extent do you agree or disagree?"
+        )
+        self.assertTrue(only_question.startswith('<strong class="task2-question">'))
+        self.assertTrue(only_question.endswith("</strong>"))
+        self.assertIn("To what extent do you agree or disagree?", only_question)
+
+        prompts = appmod.load_prompts()
+        for item in prompts.get("sets") or []:
+            formatted = sp.format_task2_instruction(item["task2"]["instruction"])
+            self.assertIn('<strong class="task2-question">', formatted)
+            close = formatted.find("</strong>")
+            self.assertNotEqual(close, -1)
+            self.assertNotIn("Write at least 250 words", formatted[:close])
+            self.assertIn("Write at least 250 words", formatted[close:])
+            view = sp.writing_view(
+                {
+                    "mode": "task2",
+                    "prompt_set_id": item["id"],
+                    "task2_text": "Sample essay.",
+                    "task2_word_count": 3,
+                },
+                prompts,
+            )
+            self.assertEqual(view["task2_instruction"], formatted)
 
     def test_writing_set_f_renders_charity_swim_table(self):
         prompts = appmod.load_prompts()

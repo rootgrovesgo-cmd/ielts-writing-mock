@@ -321,7 +321,7 @@
   }
 
   function pieLabelFill(color, outside) {
-    if (outside) return "#1e293b";
+    if (outside) return "#111111";
     const raw = String(color || "").replace("#", "");
     if (raw.length !== 6) return "#ffffff";
     const lin = (c) => {
@@ -332,7 +332,7 @@
     const g = lin(parseInt(raw.slice(2, 4), 16));
     const b = lin(parseInt(raw.slice(4, 6), 16));
     const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    return luminance >= 0.35 ? "#1e293b" : "#ffffff";
+    return luminance >= 0.35 ? "#111111" : "#ffffff";
   }
 
   function fmtNum(n) {
@@ -343,7 +343,7 @@
     const categories = (data && data.categories) || [];
     const charts = (data && data.charts) || [];
     const unit = (data && data.unit) || "%";
-    const colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"];
+    const colors = ["#1a1a1a", "#4a4a4a", "#8a8a8a", "#c8c8c8", "#ffffff"];
     const size = 220;
     const cx = 110;
     const cy = 110;
@@ -371,17 +371,19 @@
           slices +=
             `<path d="M ${fmtNum(cx)},${fmtNum(cy)} L ${fmtNum(x1)},${fmtNum(y1)} ` +
             `A ${radius},${radius} 0 ${largeArc} 1 ${fmtNum(x2)},${fmtNum(y2)} Z" ` +
-            `fill="${color}" stroke="#fff" stroke-width="1"/>`;
+            `fill="${color}" stroke="#222" stroke-width="1"/>`;
           const mid = (start + end) / 2;
-          const outside = value < 10;
+          // Keep labels on the slice except when a wedge is too thin to fit text.
+          const outside = frac < 0.03;
           const lr = radius * (outside ? 1.18 : 0.62);
           const lx = cx + lr * Math.cos(mid);
           const ly = cy + lr * Math.sin(mid);
           const fill = pieLabelFill(color, outside);
           const pct = `${Number.isInteger(value) ? value : value}${unit}`;
+          const fontSize = !outside && value < 10 ? 9 : 11;
           labels +=
             `<text x="${fmtNum(lx)}" y="${fmtNum(ly)}" text-anchor="middle" ` +
-            `dominant-baseline="middle" font-size="11" font-weight="600" fill="${fill}">` +
+            `dominant-baseline="middle" font-size="${fontSize}" font-weight="600" fill="${fill}">` +
             `${escapeHtml(pct)}</text>`;
         });
         const aria = escapeHtml(chart.label || "Pie chart");
@@ -427,10 +429,34 @@
     return "";
   }
 
+
+  function isTask2RubricLine(line) {
+    const t = String(line || "").trim();
+    if (/^give reasons for your answer\b/i.test(t)) return true;
+    if (/^write at least 250 words\.?$/i.test(t)) return true;
+    return false;
+  }
+
+  function formatTask2Instruction(text) {
+    const raw = text == null ? "" : String(text);
+    if (!raw) return "";
+    const lines = raw.split("\n");
+    const idx = lines.findIndex(isTask2RubricLine);
+    if (idx === -1) {
+      return `<strong class="task2-question">${escapeHtml(raw)}</strong>`;
+    }
+    const question = lines.slice(0, idx).join("\n").replace(/[ \t\r\n]+$/, "");
+    const rest = lines.slice(idx).join("\n");
+    const parts = [];
+    if (question) parts.push(`<strong class="task2-question">${escapeHtml(question)}</strong>`);
+    if (rest) parts.push(escapeHtml(rest));
+    return question && rest ? parts.join("\n\n") : parts.join("");
+  }
+
   function loadPromptIntoUI() {
     const set = state.set;
     el.task1Instruction.textContent = set.task1.instruction;
-    el.task2Instruction.textContent = set.task2.instruction;
+    el.task2Instruction.innerHTML = formatTask2Instruction(set.task2.instruction);
     el.task1Visual.innerHTML = renderTask1Visual(set.task1);
   }
 

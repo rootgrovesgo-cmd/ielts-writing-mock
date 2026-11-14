@@ -124,7 +124,7 @@
       <section class="card">
         <h2>Task 2（{{ view.task2_word_count }} 词）</h2>
         {% if view.task2_instruction %}
-        <div class="prompt-box">{{ view.task2_instruction }}</div>
+        <div class="prompt-box">{{ view.task2_instruction | safe }}</div>
         {% endif %}
         <h3 class="answer-heading">你的作答</h3>
         <div class="answer-preview">{{ view.task2_text or "（未作答）" }}</div>

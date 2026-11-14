@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "sets": [
     {
       "id": "set-a",
@@ -318,6 +318,62 @@
         "id": "e-t2",
         "title": "Task 2",
         "instruction": "Some people think that mathematics is the most important subject for school children to study, while others believe there are more important subjects. Discuss both views and give your own opinion.\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+      }
+    },
+    {
+      "id": "set-f",
+      "title": "Set F — Charity Swim Participants & Time Spent at Home",
+      "task1": {
+        "id": "f-t1",
+        "type": "table",
+        "title": "Task 1",
+        "instruction": "The table below shows the number of people in two age groups who completed a 10-kilometre charity swim in Australia from 2017 to 2021.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "table": {
+          "caption": "Participants in a 10-kilometre charity swim in Australia",
+          "headers": [
+            "Year",
+            "Age group 16–29",
+            "Age group 30+",
+            "Total participants"
+          ],
+          "rows": [
+            [
+              "2017",
+              "880",
+              "620",
+              "1,500"
+            ],
+            [
+              "2018",
+              "1,020",
+              "680",
+              "1,700"
+            ],
+            [
+              "2019",
+              "1,160",
+              "740",
+              "1,900"
+            ],
+            [
+              "2020",
+              "1,310",
+              "790",
+              "2,100"
+            ],
+            [
+              "2021",
+              "1,470",
+              "880",
+              "2,350"
+            ]
+          ]
+        }
+      },
+      "task2": {
+        "id": "f-t2",
+        "title": "Task 2",
+        "instruction": "Nowadays, many people spend less and less time at home. What are the reasons and what are the effects of this trend on individuals and on society?\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
       }
     }
   ]

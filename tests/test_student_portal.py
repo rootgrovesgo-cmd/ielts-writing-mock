@@ -1077,7 +1077,7 @@ class WritingSetTests(StudentPortalTestCase):
         api = self.client.get("/api/prompts")
         self.assertEqual(api.status_code, 200)
         payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
-        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e", "set-f"])
 
     def test_writing_set_e_renders_three_pie_charts(self):
         prompts = appmod.load_prompts()
@@ -1126,8 +1126,56 @@ class WritingSetTests(StudentPortalTestCase):
         api = self.client.get("/api/prompts")
         self.assertEqual(api.status_code, 200)
         payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
-        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e", "set-f"])
 
+    def test_writing_set_f_renders_charity_swim_table(self):
+        prompts = appmod.load_prompts()
+        ids = [item.get("id") for item in prompts.get("sets") or []]
+        self.assertIn("set-f", ids)
+        found = next(item for item in prompts["sets"] if item["id"] == "set-f")
+        t1 = found["task1"]["instruction"]
+        self.assertIn("charity swim", t1)
+        self.assertIn("Australia", t1)
+        self.assertIn("2017 to 2021", t1)
+        self.assertNotIn("marathon", t1.lower())
+        self.assertNotIn("2008 to 2012", t1)
+        self.assertNotIn("Age group 18", t1)
+        self.assertNotIn("18-39", t1)
+        self.assertNotIn("18–39", t1)
+
+        table = found["task1"]["table"]
+        official = {"1,200", "800", "2,000", "1,750", "1,050", "2,800"}
+        cells = []
+        for row in table["rows"]:
+            cells.extend(row)
+        self.assertTrue(official.isdisjoint(set(cells)))
+
+        def parse_num(value):
+            return int(str(value).replace(",", ""))
+
+        for row in table["rows"]:
+            younger, older, total = (parse_num(cell) for cell in row[1:])
+            self.assertEqual(younger + older, total)
+
+        t2 = found["task2"]["instruction"]
+        self.assertIn("less and less time at home", t2)
+        self.assertIn("reasons", t2)
+        self.assertIn("effects", t2)
+
+        html = sp.writing_visual_html(found["task1"])
+        self.assertIn("<table", html)
+        self.assertIn("Participants in a 10-kilometre charity swim in Australia", html)
+        self.assertIn("Age group 16–29", html)
+        self.assertIn("Age group 30+", html)
+        self.assertIn("880", html)
+        self.assertIn("2,350", html)
+
+        self._create_code()
+        self._login()
+        api = self.client.get("/api/prompts")
+        self.assertEqual(api.status_code, 200)
+        payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e", "set-f"])
 
 
 class AdminPaperViewTests(StudentPortalTestCase):

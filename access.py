@@ -327,14 +327,44 @@ def _user_key(name: str, code_id: str) -> str:
     return f"{normalize_name(name)}::{code_id}"
 
 
-def _find_user(store: dict, name: str, code_id: str) -> dict | None:
-    key = _user_key(name, code_id)
-    for item in store.get("users") or []:
-        if item.get("key") == key:
-            return item
-        if item.get("invite_code_id") == code_id and normalize_name(item.get("name")) == normalize_name(name):
-            return item
-    return None
+def _submission_weight(item: dict) -> int:
+    return (
+        int(item.get("writing_submitted") or 0)
+        + int(item.get("reading_submitted") or 0)
+        + int(item.get("listening_submitted") or 0)
+        + (1 if item.get("last_submission_id") else 0)
+    )
+
+
+def _find_user(store: dict, code_id: str) -> dict | None:
+    """Return the existing user for this invitation code, if any.
+
+    Codes are issued one per student, so lookup is by invite_code_id
+    only. If historical typo names left several rows for the same code,
+    reuse one stable row: prefer a user who already has submissions,
+    then the earliest first_seen, then the lowest id. Never invent a
+    new user when any row already exists for the code.
+    """
+    if not code_id:
+        return None
+    matches = [
+        item
+        for item in (store.get("users") or [])
+        if item.get("invite_code_id") == code_id
+    ]
+    if not matches:
+        return None
+
+    def sort_key(item: dict) -> tuple:
+        first_seen = item.get("first_seen") or "9999"
+        return (
+            0 if _submission_weight(item) else 1,
+            first_seen,
+            item.get("id") or "",
+        )
+
+    matches.sort(key=sort_key)
+    return matches[0]
 
 
 def start_student(
@@ -409,7 +439,7 @@ def start_student(
         save_codes(codes)
 
         users = load_users()
-        user = _find_user(users, name, rec["id"])
+        user = _find_user(users, rec["id"])
         ts = now_iso()
         if user is None:
             user = {
@@ -499,7 +529,7 @@ def login_student(
             raise AccessError("邀请码无效或已失效", 403)
 
         users = load_users()
-        user = _find_user(users, name, rec["id"])
+        user = _find_user(users, rec["id"])
         ts = now_iso()
         if user is None:
             user = {
@@ -612,7 +642,7 @@ def resolve_student(
         if not rec or not rec.get("enabled"):
             raise AccessError("请先使用有效邀请码开始模考", 403)
         users = load_users()
-        user = _find_user(users, name, rec["id"])
+        user = _find_user(users, rec["id"])
         return {
             "user_id": (user or {}).get("id"),
             "candidate_name": name,
@@ -646,7 +676,7 @@ def record_submit(
                     user = item
                     break
         if user is None and candidate_name and invite_code_id:
-            user = _find_user(users, candidate_name, invite_code_id)
+            user = _find_user(users, invite_code_id)
         if user is not None:
             user["last_seen"] = ts
             field = f"{module_key}_submitted"

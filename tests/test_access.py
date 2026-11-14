@@ -297,6 +297,92 @@ class InviteAndSessionTests(AccessTestCase):
         self.assertEqual(res.status_code, 403)
         self.assertEqual(res.get_json()["error"], "邀请码无效或已失效")
 
+    def test_same_code_reuses_user_when_typed_name_changes(self):
+        rec = accessmod.create_code(code="CLASS01")
+        first = accessmod.start_student(
+            candidate_name="Ada Student",
+            invite_code="CLASS01",
+            module="writing",
+            mode="full",
+        )
+        self.assertEqual(first["candidate_name"], "Ada Student")
+        uid = first["user_id"]
+        self.assertEqual(len(accessmod.list_users()), 1)
+        self.assertEqual(accessmod.list_codes()[0]["use_count"], 1)
+
+        login = accessmod.login_student(
+            candidate_name="Ada Typo",
+            invite_code="CLASS01",
+        )
+        self.assertEqual(login["user_id"], uid)
+        self.assertEqual(login["candidate_name"], "Ada Typo")
+        self.assertEqual(accessmod.list_codes()[0]["use_count"], 1)
+        users = accessmod.list_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0]["id"], uid)
+        self.assertEqual(users[0]["name"], "Ada Typo")
+        self.assertEqual(users[0]["start_count"], 1)
+
+        second = accessmod.start_student(
+            candidate_name="Ada Feishu",
+            invite_code="class01",
+            module="reading",
+            mode="full",
+        )
+        self.assertEqual(second["user_id"], uid)
+        self.assertEqual(second["candidate_name"], "Ada Feishu")
+        self.assertEqual(len(accessmod.list_users()), 1)
+        self.assertEqual(accessmod.list_users()[0]["name"], "Ada Feishu")
+        self.assertEqual(accessmod.list_codes()[0]["use_count"], 2)
+        self.assertEqual(accessmod.list_users()[0]["start_count"], 2)
+        self.assertEqual(accessmod.list_users()[0]["invite_code_id"], rec["id"])
+
+    def test_duplicate_users_for_same_code_reuse_stable_row(self):
+        rec = accessmod.create_code(code="CLASS01")
+        users = accessmod.load_users()
+        users["users"] = [
+            {
+                "id": "newer-user",
+                "name": "Ada Typo",
+                "invite_code_id": rec["id"],
+                "first_seen": "2026-11-12T10:00:00+08:00",
+                "start_count": 1,
+                "writing_submitted": 0,
+                "reading_submitted": 0,
+                "listening_submitted": 0,
+            },
+            {
+                "id": "older-user",
+                "name": "Ada Student",
+                "invite_code_id": rec["id"],
+                "first_seen": "2026-11-01T09:00:00+08:00",
+                "start_count": 2,
+                "writing_submitted": 1,
+                "reading_submitted": 0,
+                "listening_submitted": 0,
+                "last_submission_id": "sub-1",
+            },
+        ]
+        accessmod.save_users(users)
+
+        login = accessmod.login_student(
+            candidate_name="Ada Feishu",
+            invite_code="CLASS01",
+        )
+        self.assertEqual(login["user_id"], "older-user")
+        self.assertEqual(len(accessmod.list_users()), 2)
+        names = {u["id"]: u["name"] for u in accessmod.list_users()}
+        self.assertEqual(names["older-user"], "Ada Feishu")
+
+        started = accessmod.start_student(
+            candidate_name="Ada Again",
+            invite_code="CLASS01",
+            module="writing",
+            mode="full",
+        )
+        self.assertEqual(started["user_id"], "older-user")
+        self.assertEqual(len(accessmod.list_users()), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

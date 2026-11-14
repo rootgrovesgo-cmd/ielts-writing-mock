@@ -95,20 +95,32 @@ def duration_label(seconds) -> str:
 
 
 def owns_record(record: dict | None, ident: dict | None) -> bool:
-    """True if this submission belongs to the logged-in student."""
+    """True if this submission belongs to the logged-in student.
+
+    Invitation codes are issued one per student, so a record with an
+    invite_code_id is owned by whoever is logged in with that same code,
+    regardless of the typed candidate name. Records that predate invite
+    codes may still match by user_id. A name-only match is kept only
+    when neither side has an invite_code_id, so coded sessions cannot
+    claim an uncoded paper by typed name alone.
+    """
     if not record or not ident:
         return False
+    code_id = ident.get("invite_code_id")
+    rec_code = record.get("invite_code_id")
+    if code_id and rec_code:
+        return str(code_id) == str(rec_code)
     uid = ident.get("user_id")
     rec_uid = record.get("user_id")
     if uid and rec_uid and str(uid) == str(rec_uid):
         return True
-    code_id = ident.get("invite_code_id")
-    rec_code = record.get("invite_code_id")
-    if not code_id or not rec_code or str(code_id) != str(rec_code):
+    if rec_code or code_id:
+        # A coded session must not claim an uncoded paper by name alone,
+        # and a coded paper is never shown without a matching code.
         return False
-    return access.normalize_name(record.get("candidate_name")) == access.normalize_name(
-        ident.get("candidate_name")
-    )
+    rec_name = access.normalize_name(record.get("candidate_name"))
+    ident_name = access.normalize_name(ident.get("candidate_name"))
+    return bool(rec_name) and rec_name == ident_name
 
 
 def list_own_attempts(index: dict, ident: dict) -> list[dict]:

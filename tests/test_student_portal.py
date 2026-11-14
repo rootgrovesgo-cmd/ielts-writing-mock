@@ -274,7 +274,7 @@ class ListAndSecurityTests(StudentPortalTestCase):
         self.assertNotIn("解析", api_miss.get_data(as_text=True))
         self.assertNotIn("sand", api_miss.get_data(as_text=True).lower())
 
-    def test_list_only_own_attempts_and_idor_is_404(self):
+    def test_same_invite_code_lists_papers_under_either_name(self):
         self._create_code(code="SHARED1")
         ada = self.client
         self._login(name="Ada Student", code="SHARED1")
@@ -313,37 +313,34 @@ class ListAndSecurityTests(StudentPortalTestCase):
         lin_sid = lin_write.get_json()["id"]
 
         ada_list = ada.get("/me").get_data(as_text=True)
+        self.assertIn("你好，Ada Student", ada_list)
         self.assertIn("查看整卷", ada_list)
         self.assertIn("查看错题", ada_list)
         self.assertIn(ada_sid, ada_list)
-        self.assertNotIn(lin_sid, ada_list)
-        self.assertNotIn("Lin Student", ada_list)
+        self.assertIn(lin_sid, ada_list)
         self.assertIn("阅读", ada_list)
+        self.assertIn("写作", ada_list)
+
+        ada_open = ada.get(f"/me/submission/{lin_sid}")
+        self.assertEqual(ada_open.status_code, 200)
+        self.assertIn("REVIEW_CONFIG", ada_open.get_data(as_text=True))
 
         lin_list = lin.get("/me").get_data(as_text=True)
+        self.assertIn("你好，Lin Student", lin_list)
         self.assertIn(lin_sid, lin_list)
-        self.assertNotIn(ada_sid, lin_list)
-        self.assertNotIn("Ada Student", lin_list)
+        self.assertIn(ada_sid, lin_list)
         self.assertIn("写作", lin_list)
-        self.assertNotIn("查看错题", lin_list)
+        self.assertIn("查看错题", lin_list)
 
-        stolen = lin.get(f"/me/submission/{ada_sid}")
-        self.assertEqual(stolen.status_code, 404)
-        stolen_html = stolen.get_data(as_text=True)
-        self.assertNotIn("解析", stolen_html)
-        self.assertNotIn("stone", stolen_html)
-        self.assertNotIn("Ada Student", stolen_html)
-
-        stolen_review = lin.get(f"/me/submission/{ada_sid}/review")
-        self.assertEqual(stolen_review.status_code, 404)
-        self.assertNotIn("解析", stolen_review.get_data(as_text=True))
-
-        stolen_api = lin.get(f"/api/me/submission/{ada_sid}")
-        self.assertEqual(stolen_api.status_code, 404)
-        stolen_api_body = stolen_api.get_data(as_text=True)
-        self.assertNotIn("解析", stolen_api_body)
-        self.assertNotIn("stone", stolen_api_body)
-        self.assertNotIn("explanation", stolen_api_body)
+        lin_open = lin.get(f"/me/submission/{ada_sid}")
+        self.assertEqual(lin_open.status_code, 200)
+        lin_open_html = lin_open.get_data(as_text=True)
+        self.assertIn("REVIEW_CONFIG", lin_open_html)
+        lin_review = lin.get(f"/me/submission/{ada_sid}/review")
+        self.assertEqual(lin_review.status_code, 200)
+        lin_api = lin.get(f"/api/me/submission/{ada_sid}")
+        self.assertEqual(lin_api.status_code, 200)
+        self.assertIn("stone", lin_api.get_data(as_text=True))
 
         # Unauthenticated visitors are sent to student login, not admin login, and see no keys.
         guest = appmod.app.test_client()
@@ -355,8 +352,79 @@ class ListAndSecurityTests(StudentPortalTestCase):
         login_page = guest.get(location)
         login_html = login_page.get_data(as_text=True)
         self.assertIn("Invitation code", login_html)
+        self.assertIn("记录按邀请码归属", login_html)
         self.assertNotIn("解析", login_html)
         self.assertNotIn("/admin/login", login_html)
+
+    def test_same_typed_name_different_codes_cannot_see_each_other(self):
+        self._create_code(code="CODEADA")
+        ada = self.client
+        self._login(name="Ada Student", code="CODEADA")
+        self._start(name="Ada Student", code="CODEADA", module="reading")
+        ada_sub = self._submit_reading(name="Ada Student", answers={"1": "stone", "8": "TRUE"})
+        self.assertEqual(ada_sub.status_code, 200)
+        ada_sid = ada_sub.get_json()["id"]
+
+        self._create_code(code="CODELIN")
+        lin = appmod.app.test_client()
+        lin.post(
+            "/me/login",
+            data={"candidate_name": "Ada Student", "invite_code": "CODELIN"},
+        )
+        lin.post(
+            "/api/session/start",
+            json={
+                "candidate_name": "Ada Student",
+                "invite_code": "CODELIN",
+                "module": "writing",
+                "mode": "task1",
+            },
+        )
+        lin_write = lin.post(
+            "/api/submit",
+            json={
+                "candidate_name": "Ada Student",
+                "mode": "task1",
+                "prompt_set_id": "set-a",
+                "task1_text": "Lin only wrote task one.",
+                "task2_text": "",
+                "duration_seconds": 1200,
+                "time_used_seconds": 900,
+            },
+        )
+        self.assertEqual(lin_write.status_code, 200)
+        lin_sid = lin_write.get_json()["id"]
+
+        ada_list = ada.get("/me").get_data(as_text=True)
+        self.assertIn(ada_sid, ada_list)
+        self.assertNotIn(lin_sid, ada_list)
+        self.assertIn("阅读", ada_list)
+        self.assertIn('class="mod-badge reading"', ada_list)
+        self.assertNotIn('class="mod-badge writing"', ada_list)
+
+        lin_list = lin.get("/me").get_data(as_text=True)
+        self.assertIn(lin_sid, lin_list)
+        self.assertNotIn(ada_sid, lin_list)
+        self.assertIn('class="mod-badge writing"', lin_list)
+        self.assertNotIn('class="mod-badge reading"', lin_list)
+        self.assertNotIn("查看错题", lin_list)
+
+        stolen = lin.get(f"/me/submission/{ada_sid}")
+        self.assertEqual(stolen.status_code, 404)
+        stolen_html = stolen.get_data(as_text=True)
+        self.assertNotIn("解析", stolen_html)
+        self.assertNotIn("stone", stolen_html)
+
+        stolen_review = lin.get(f"/me/submission/{ada_sid}/review")
+        self.assertEqual(stolen_review.status_code, 404)
+        self.assertNotIn("解析", stolen_review.get_data(as_text=True))
+
+        stolen_api = lin.get(f"/api/me/submission/{ada_sid}")
+        self.assertEqual(stolen_api.status_code, 404)
+        stolen_api_body = stolen_api.get_data(as_text=True)
+        self.assertNotIn("解析", stolen_api_body)
+        self.assertNotIn("stone", stolen_api_body)
+        self.assertNotIn("explanation", stolen_api_body)
 
 
 class ReviewContentTests(StudentPortalTestCase):
@@ -692,6 +760,115 @@ class ReviewContentTests(StudentPortalTestCase):
         api = self.client.get(f"/api/me/submission/{sid}")
         self.assertEqual(api.status_code, 200)
         self.assertIn("Legacy essay without a user id.", api.get_json()["task2_text"])
+
+        # Same invite code with a typo name still opens the legacy paper.
+        typo = appmod.app.test_client()
+        typo.post(
+            "/me/login",
+            data={"candidate_name": "Ada Studnt", "invite_code": "CLASS01"},
+        )
+        typo_home = typo.get("/me").get_data(as_text=True)
+        self.assertIn(sid, typo_home)
+        typo_detail = typo.get(f"/me/submission/{sid}")
+        self.assertEqual(typo_detail.status_code, 200)
+
+    def test_record_without_invite_code_falls_back_to_user_id(self):
+        self._create_code()
+        self._login()
+        users = accessmod.list_users()
+        uid = users[0]["id"]
+
+        sid_uid = "bbbbbbbb-bbbb-cccc-dddd-eeeeeeeeeeee"
+        record_uid = {
+            "id": sid_uid,
+            "timestamp": "2026-11-01T09:10:00+08:00",
+            "candidate_name": "Old Nickname",
+            "module": "writing",
+            "mode": "task2",
+            "task2_text": "Legacy essay matched only by user id.",
+            "task2_word_count": 7,
+            "time_used_seconds": 11,
+            "user_id": uid,
+        }
+        sid_name = "cccccccc-bbbb-cccc-dddd-eeeeeeeeeeee"
+        record_name = {
+            "id": sid_name,
+            "timestamp": "2026-11-01T09:11:00+08:00",
+            "candidate_name": "Ada Student",
+            "module": "writing",
+            "mode": "task2",
+            "task2_text": "Legacy essay with only a name, no code or user id.",
+            "task2_word_count": 6,
+            "time_used_seconds": 10,
+        }
+        self._create_code(code="OTHERCODE")
+        outsider = appmod.app.test_client()
+        outsider.post(
+            "/me/login",
+            data={"candidate_name": "Ada Student", "invite_code": "OTHERCODE"},
+        )
+
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        for record in (record_uid, record_name):
+            (appmod.SUBMISSIONS_DIR / f"{record['id']}.json").write_text(
+                json.dumps(record, ensure_ascii=False), encoding="utf-8"
+            )
+            index.setdefault("submissions", []).insert(0, {
+                "id": record["id"],
+                "timestamp": record["timestamp"],
+                "candidate_name": record["candidate_name"],
+                "module": "writing",
+                "mode": "task2",
+                "task2_word_count": record["task2_word_count"],
+                "time_used_seconds": record["time_used_seconds"],
+                "user_id": record.get("user_id"),
+            })
+        appmod.save_index(index)
+
+        # Owner can open the uncoded paper that stores their user_id, even if the typed name differs.
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn(sid_uid, home)
+        self.assertNotIn(sid_name, home)
+        self.assertEqual(self.client.get(f"/me/submission/{sid_uid}").status_code, 200)
+        self.assertEqual(self.client.get(f"/me/submission/{sid_name}").status_code, 404)
+
+        # A different invite code must not see uncoded papers, even with the same typed name.
+        other_home = outsider.get("/me").get_data(as_text=True)
+        self.assertNotIn(sid_uid, other_home)
+        self.assertNotIn(sid_name, other_home)
+        self.assertEqual(outsider.get(f"/me/submission/{sid_uid}").status_code, 404)
+        self.assertEqual(outsider.get(f"/me/submission/{sid_name}").status_code, 404)
+
+
+
+    def test_owns_record_keys_by_invite_code(self):
+        ident = {"user_id": "u1", "candidate_name": "Ada Student", "invite_code_id": "code-a"}
+        self.assertTrue(sp.owns_record(
+            {"invite_code_id": "code-a", "candidate_name": "Ada Typo", "user_id": "u2"},
+            ident,
+        ))
+        self.assertFalse(sp.owns_record(
+            {"invite_code_id": "code-b", "candidate_name": "Ada Student", "user_id": "u1"},
+            ident,
+        ))
+        # Uncoded paper: user_id may match; name alone must not leak to a coded session.
+        self.assertTrue(sp.owns_record(
+            {"candidate_name": "Old Nickname", "user_id": "u1"},
+            ident,
+        ))
+        self.assertFalse(sp.owns_record(
+            {"candidate_name": "Ada Student"},
+            ident,
+        ))
+        # Name fallback only when neither side has an invite code.
+        self.assertTrue(sp.owns_record(
+            {"candidate_name": "Ada Student"},
+            {"candidate_name": "ada student"},
+        ))
+        self.assertFalse(sp.owns_record(
+            {"candidate_name": "Ada Student"},
+            {"candidate_name": "Lin Student"},
+        ))
 
 
 

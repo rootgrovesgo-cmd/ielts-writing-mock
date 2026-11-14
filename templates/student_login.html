@@ -22,7 +22,7 @@
     <section class="card setup-card">
       <p class="eyebrow">Candidate check-in</p>
       <h1>查看我的记录</h1>
-      <p class="muted lead">填写姓名和老师提供的邀请码，查看自己已经交过的写作和阅读答卷。</p>
+      <p class="muted lead">填写姓名和老师提供的邀请码。记录按邀请码归属，可查看该邀请码下已经交过的写作、阅读和听力答卷。</p>
 
       <form method="post" action="{{ url_for('student_login') }}" class="student-login-form">
         {% if next %}
@@ -45,7 +45,7 @@
           <button type="submit" class="btn btn-start">进入我的记录</button>
         </div>
       </form>
-      <p class="hint" style="margin-top:14px">只有已经交卷的写作和阅读会出现在列表里。口语练习不会保存在此。</p>
+      <p class="hint" style="margin-top:14px">只有该邀请码下已经交卷的写作、阅读和听力会出现在列表里。口语练习不会保存在此。</p>
       <div class="teacher-entry">
         <a class="btn ghost" href="/">返回首页</a>
       </div>

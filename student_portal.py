@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from datetime import datetime
 from html import escape
 from typing import Any
@@ -188,6 +189,8 @@ def writing_visual_html(task: dict | None) -> str:
         return _render_line_chart(task["line_chart"])
     if task.get("flowchart"):
         return _render_flowchart(task["flowchart"])
+    if task.get("pie_charts"):
+        return _render_pie_charts(task["pie_charts"])
     if task.get("chart"):
         return _render_bar_table(task["chart"])
     if task.get("table"):
@@ -312,6 +315,93 @@ def _render_line_chart(chart: dict) -> str:
         f'<div class="chart-wrap">{title}'
         f'<div class="line-chart"><svg viewBox="0 0 {width} {height}" role="img" aria-label="Line graph">'
         f'{"".join(ticks)}{"".join(lines)}{"".join(x_labels)}</svg></div>'
+        f'<div class="legend">{legend}</div></div>'
+    )
+
+
+def _fmt_svg(n: float) -> str:
+    return f"{round(float(n), 3):.3f}".rstrip("0").rstrip(".")
+
+
+def _hex_luminance(color: str) -> float:
+    raw = str(color or "").lstrip("#")
+    if len(raw) != 6:
+        return 0.0
+    channels = [int(raw[i : i + 2], 16) / 255.0 for i in (0, 2, 4)]
+
+    def _lin(channel: float) -> float:
+        return channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4
+
+    red, green, blue = (_lin(channel) for channel in channels)
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue
+
+
+def _pie_label_fill(color: str, outside: bool) -> str:
+    if outside:
+        return "#1e293b"
+    return "#1e293b" if _hex_luminance(color) >= 0.35 else "#ffffff"
+
+
+def _render_pie_charts(data: dict) -> str:
+    categories = (data or {}).get("categories") or []
+    charts = (data or {}).get("charts") or []
+    unit = (data or {}).get("unit") or "%"
+    colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"]
+    size, cx, cy, radius = 220, 110, 110, 80
+    pies = []
+    for chart in charts:
+        values = [float(v) for v in (chart.get("values") or [])]
+        total = sum(values) or 1
+        angle = -math.pi / 2
+        slices = []
+        labels = []
+        for i, value in enumerate(values):
+            frac = value / total
+            start, end = angle, angle + frac * 2 * math.pi
+            angle = end
+            if value <= 0:
+                continue
+            color = colors[i % len(colors)]
+            x1 = cx + radius * math.cos(start)
+            y1 = cy + radius * math.sin(start)
+            x2 = cx + radius * math.cos(end)
+            y2 = cy + radius * math.sin(end)
+            large_arc = 1 if frac > 0.5 else 0
+            slices.append(
+                f'<path d="M {_fmt_svg(cx)},{_fmt_svg(cy)} L {_fmt_svg(x1)},{_fmt_svg(y1)} '
+                f'A {radius},{radius} 0 {large_arc} 1 {_fmt_svg(x2)},{_fmt_svg(y2)} Z" '
+                f'fill="{color}" stroke="#fff" stroke-width="1"/>'
+            )
+            mid = (start + end) / 2
+            outside = value < 10
+            label_r = radius * (1.18 if outside else 0.62)
+            lx = cx + label_r * math.cos(mid)
+            ly = cy + label_r * math.sin(mid)
+            fill = _pie_label_fill(color, outside)
+            number = str(int(value)) if float(value).is_integer() else str(value)
+            labels.append(
+                f'<text x="{_fmt_svg(lx)}" y="{_fmt_svg(ly)}" text-anchor="middle" '
+                f'dominant-baseline="middle" font-size="11" font-weight="600" fill="{fill}">'
+                f"{escape(number + str(unit))}</text>"
+            )
+        aria = escape(str(chart.get("label") or "Pie chart"))
+        pies.append(
+            f'<div class="pie-chart">'
+            f'<div class="pie-chart-label">{escape(str(chart.get("label") or ""))}</div>'
+            f'<svg viewBox="0 0 {size} {size}" role="img" aria-label="{aria}">'
+            f'{"".join(slices)}{"".join(labels)}</svg></div>'
+        )
+    legend = "".join(
+        f'<span><i class="swatch" style="background:{colors[i % len(colors)]}"></i>'
+        f"{escape(str(cat))}</span>"
+        for i, cat in enumerate(categories)
+    )
+    title = ""
+    if (data or {}).get("title"):
+        title = f'<div class="pie-charts-title">{escape(str(data["title"]))}</div>'
+    return (
+        f'<div class="chart-wrap pie-charts">{title}'
+        f'<div class="pie-charts-row">{"".join(pies)}</div>'
         f'<div class="legend">{legend}</div></div>'
     )
 

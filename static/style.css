@@ -540,8 +540,36 @@ textarea.answer {
   background: #fff;
 }
 .image-wrap { padding: 4px 0; }
-.line-chart svg, .flowchart svg { width: 100%; height: auto; display: block; }
+.line-chart svg, .flowchart svg, .pie-chart svg { width: 100%; height: auto; display: block; }
 .flowchart-wrap { max-width: 320px; margin: 0 auto; }
+
+.pie-charts-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #3f3c3a;
+  margin: 0 0 12px;
+}
+.pie-charts-row {
+  display: flex;
+  gap: 12px 16px;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.pie-chart {
+  flex: 1 1 150px;
+  min-width: 140px;
+  max-width: 220px;
+  text-align: center;
+}
+.pie-chart-label {
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: #3f3c3a;
+  margin-bottom: 4px;
+}
 
 .teacher-entry {
   margin-top: 28px;

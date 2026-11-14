@@ -320,6 +320,99 @@
     );
   }
 
+  function pieLabelFill(color, outside) {
+    if (outside) return "#1e293b";
+    const raw = String(color || "").replace("#", "");
+    if (raw.length !== 6) return "#ffffff";
+    const lin = (c) => {
+      const x = c / 255;
+      return x <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+    };
+    const r = lin(parseInt(raw.slice(0, 2), 16));
+    const g = lin(parseInt(raw.slice(2, 4), 16));
+    const b = lin(parseInt(raw.slice(4, 6), 16));
+    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    return luminance >= 0.35 ? "#1e293b" : "#ffffff";
+  }
+
+  function fmtNum(n) {
+    return String(Math.round(n * 1000) / 1000);
+  }
+
+  function renderPieCharts(data) {
+    const categories = (data && data.categories) || [];
+    const charts = (data && data.charts) || [];
+    const unit = (data && data.unit) || "%";
+    const colors = ["#2563eb", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"];
+    const size = 220;
+    const cx = 110;
+    const cy = 110;
+    const radius = 80;
+
+    const pies = charts
+      .map((chart) => {
+        const values = (chart.values || []).map(Number);
+        const total = values.reduce((sum, v) => sum + v, 0) || 1;
+        let angle = -Math.PI / 2;
+        let slices = "";
+        let labels = "";
+        values.forEach((value, i) => {
+          const frac = value / total;
+          const start = angle;
+          const end = angle + frac * 2 * Math.PI;
+          angle = end;
+          if (value <= 0) return;
+          const color = colors[i % colors.length];
+          const x1 = cx + radius * Math.cos(start);
+          const y1 = cy + radius * Math.sin(start);
+          const x2 = cx + radius * Math.cos(end);
+          const y2 = cy + radius * Math.sin(end);
+          const largeArc = frac > 0.5 ? 1 : 0;
+          slices +=
+            `<path d="M ${fmtNum(cx)},${fmtNum(cy)} L ${fmtNum(x1)},${fmtNum(y1)} ` +
+            `A ${radius},${radius} 0 ${largeArc} 1 ${fmtNum(x2)},${fmtNum(y2)} Z" ` +
+            `fill="${color}" stroke="#fff" stroke-width="1"/>`;
+          const mid = (start + end) / 2;
+          const outside = value < 10;
+          const lr = radius * (outside ? 1.18 : 0.62);
+          const lx = cx + lr * Math.cos(mid);
+          const ly = cy + lr * Math.sin(mid);
+          const fill = pieLabelFill(color, outside);
+          const pct = `${Number.isInteger(value) ? value : value}${unit}`;
+          labels +=
+            `<text x="${fmtNum(lx)}" y="${fmtNum(ly)}" text-anchor="middle" ` +
+            `dominant-baseline="middle" font-size="11" font-weight="600" fill="${fill}">` +
+            `${escapeHtml(pct)}</text>`;
+        });
+        const aria = escapeHtml(chart.label || "Pie chart");
+        return (
+          `<div class="pie-chart">` +
+          `<div class="pie-chart-label">${escapeHtml(chart.label || "")}</div>` +
+          `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="${aria}">` +
+          slices +
+          labels +
+          `</svg></div>`
+        );
+      })
+      .join("");
+
+    const legend = categories
+      .map(
+        (cat, i) =>
+          `<span><i class="swatch" style="background:${colors[i % colors.length]}"></i>${escapeHtml(cat)}</span>`
+      )
+      .join("");
+    const title = data && data.title
+      ? `<div class="pie-charts-title">${escapeHtml(data.title)}</div>`
+      : "";
+    return (
+      `<div class="chart-wrap pie-charts">` +
+      title +
+      `<div class="pie-charts-row">${pies}</div>` +
+      `<div class="legend">${legend}</div></div>`
+    );
+  }
+
   function renderTask1Visual(t1) {
     if (t1.image) return renderImage(t1.image);
     if (t1.table && t1.line_chart) {
@@ -327,6 +420,7 @@
     }
     if (t1.line_chart) return renderLineChart(t1.line_chart);
     if (t1.flowchart) return renderFlowchart(t1.flowchart);
+    if (t1.pie_charts) return renderPieCharts(t1.pie_charts);
     if (t1.chart) return renderBarChart(t1.chart);
     if (t1.table) return renderTable(t1.table);
     if (t1.process_steps) return renderProcess(t1.process_steps);

@@ -1077,7 +1077,56 @@ class WritingSetTests(StudentPortalTestCase):
         api = self.client.get("/api/prompts")
         self.assertEqual(api.status_code, 200)
         payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
-        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d"])
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
+
+    def test_writing_set_e_renders_three_pie_charts(self):
+        prompts = appmod.load_prompts()
+        ids = [item.get("id") for item in prompts.get("sets") or []]
+        self.assertIn("set-e", ids)
+        found = next(item for item in prompts["sets"] if item["id"] == "set-e")
+        t1 = found["task1"]["instruction"]
+        self.assertIn("free time in 2023", t1)
+        self.assertIn("Canada", t1)
+        lowered = t1.lower()
+        self.assertNotIn("viewership of different tv", lowered)
+        self.assertNotIn("tv programme", lowered)
+        self.assertNotIn("tv program", lowered)
+        self.assertNotIn("10-15", t1)
+        self.assertNotIn("16-20", t1)
+        self.assertNotIn("21-25", t1)
+
+        pies = found["task1"]["pie_charts"]
+        official = [
+            [26, 26, 23, 19, 6],
+            [14, 15, 30, 23, 18],
+            [4, 20, 22, 21, 33],
+        ]
+        official_sorted = [sorted(combo) for combo in official]
+        for chart in pies["charts"]:
+            values = list(chart["values"])
+            self.assertEqual(sum(values), 100)
+            self.assertNotIn(sorted(values), official_sorted)
+
+        t2 = found["task2"]["instruction"]
+        self.assertIn("mathematics is the most important subject", t2)
+        self.assertIn("Discuss both views", t2)
+
+        html = sp.writing_visual_html(found["task1"])
+        self.assertIn("<svg", html)
+        self.assertIn("Age 12–17", html)
+        self.assertIn("Age 18–24", html)
+        self.assertIn("Age 25–34", html)
+        for name in ["Team sports", "Video games", "Reading", "Social media", "Outdoor hobbies"]:
+            self.assertIn(name, html)
+        self.assertIn("32%", html)
+        self.assertIn("8%", html)
+
+        self._create_code()
+        self._login()
+        api = self.client.get("/api/prompts")
+        self.assertEqual(api.status_code, 200)
+        payload_ids = [item.get("id") for item in api.get_json().get("sets") or []]
+        self.assertEqual(payload_ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
 
 
 

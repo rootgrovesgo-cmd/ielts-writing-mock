@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "sets": [
     {
       "id": "set-a",
@@ -260,6 +260,64 @@
         "id": "d-t2",
         "title": "Task 2",
         "instruction": "Some people think that the government should ban dangerous sports, but others think that people should have the freedom to do whatever sport activities they choose.\n\nDiscuss both views and give your own opinion.\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
+      }
+    },
+    {
+      "id": "set-e",
+      "title": "Set E — Free Time Activities & Mathematics in Schools",
+      "task1": {
+        "id": "e-t1",
+        "type": "pie_charts",
+        "title": "Task 1",
+        "instruction": "The three pie charts below show how people in three age groups in Canada spent their free time in 2023.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.",
+        "pie_charts": {
+          "title": "Preferred ways of spending free time by age group",
+          "unit": "%",
+          "categories": [
+            "Team sports",
+            "Video games",
+            "Reading",
+            "Social media",
+            "Outdoor hobbies"
+          ],
+          "charts": [
+            {
+              "label": "Age 12–17",
+              "values": [
+                21,
+                32,
+                7,
+                28,
+                12
+              ]
+            },
+            {
+              "label": "Age 18–24",
+              "values": [
+                12,
+                22,
+                16,
+                30,
+                20
+              ]
+            },
+            {
+              "label": "Age 25–34",
+              "values": [
+                15,
+                8,
+                27,
+                21,
+                29
+              ]
+            }
+          ]
+        }
+      },
+      "task2": {
+        "id": "e-t2",
+        "title": "Task 2",
+        "instruction": "Some people think that mathematics is the most important subject for school children to study, while others believe there are more important subjects. Discuss both views and give your own opinion.\n\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words."
       }
     }
   ]

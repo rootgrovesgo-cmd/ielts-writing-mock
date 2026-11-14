@@ -763,7 +763,8 @@ def build_submission_report(
     if _is_reading(record):
         story.extend(_passage_overview_story(record, styles))
         story.extend(_highlight_review_story(record, styles))
-        rows = attach_explanations(record)
+        key_data = rr.load_keys_for_set(record.get("prompt_set_id") or "set-a")
+        rows = attach_explanations(record, keys=key_data)
         story.append(Paragraph(mixed_xml("逐题批改"), styles["section"]))
         story.append(
             Paragraph(

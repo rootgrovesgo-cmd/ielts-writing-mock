@@ -145,12 +145,25 @@ def prompt_set_summaries() -> list[dict]:
     ]
 
 
-def load_reading_paper() -> dict:
-    return rs.load_paper(READING_PAPER_PATH)
+def normalize_reading_set_id(raw) -> str:
+    token = str(raw or "").strip() or "set-a"
+    return token
 
 
-def load_reading_keys() -> dict:
-    return rs.load_keys(READING_KEYS_PATH)
+def load_reading_paper(set_id: str | None = None) -> dict | None:
+    token = normalize_reading_set_id(set_id)
+    paper = rr.load_paper_for_set(token)
+    if paper is None and token == "set-a":
+        return rs.load_paper(READING_PAPER_PATH)
+    return paper
+
+
+def load_reading_keys(set_id: str | None = None) -> dict | None:
+    token = normalize_reading_set_id(set_id)
+    keys = rr.load_keys_for_set(token)
+    if keys is None and token == "set-a":
+        return rs.load_keys(READING_KEYS_PATH)
+    return keys
 
 
 def load_listening_paper() -> dict:
@@ -540,10 +553,11 @@ def student_submission_review(sid: str):
 def attempt_review_payload(record: dict) -> dict:
     module = sp.module_of(record)
     if module == "reading":
+        set_id = record.get("prompt_set_id") or "set-a"
         return sp.attempt_review_payload(
             record,
-            paper=load_reading_paper(),
-            keys=load_reading_keys(),
+            paper=load_reading_paper(set_id) or {},
+            keys=load_reading_keys(set_id) or {},
         )
     if module == "listening":
         return sp.attempt_review_payload(
@@ -601,13 +615,33 @@ def api_prompts():
     return jsonify(load_prompts())
 
 
+@app.route("/api/reading/sets")
+def api_reading_sets():
+    """List available Academic Reading papers (no keys)."""
+    err = student_session_error()
+    if err:
+        return err
+    return jsonify(rr.list_reading_sets())
+
+
 @app.route("/api/reading/paper")
 def api_reading_paper():
     """Student-facing paper only — never includes keys or explanations."""
     err = student_session_error()
     if err:
         return err
-    return jsonify(load_reading_paper())
+    data = request.get_json(silent=True) or {}
+    set_id = (
+        request.args.get("set")
+        or request.args.get("prompt_set_id")
+        or data.get("set")
+        or data.get("prompt_set_id")
+        or "set-a"
+    )
+    paper = load_reading_paper(set_id)
+    if not paper:
+        return jsonify({"ok": False, "error": "未找到该套题"}), 404
+    return jsonify(paper)
 
 
 @app.route("/api/listening/paper")
@@ -847,7 +881,7 @@ def api_reading_submit():
     mode = data.get("mode") or "full"
     if mode not in rs.MODES:
         mode = "full"
-    prompt_set_id = data.get("prompt_set_id") or "set-a"
+    prompt_set_id = normalize_reading_set_id(data.get("prompt_set_id") or "set-a")
     answers = data.get("answers") or {}
     if not isinstance(answers, dict):
         answers = {}
@@ -866,7 +900,15 @@ def api_reading_submit():
     part_times = normalize_part_times(data.get("part_times"), duration_seconds)
     highlights = normalize_highlights(data.get("highlights"))
 
-    result = rs.score_paper(answers, mode=mode, keys=load_reading_keys())
+    paper = load_reading_paper(prompt_set_id)
+    keys = load_reading_keys(prompt_set_id)
+    if not paper or not keys:
+        if prompt_set_id == "set-a":
+            paper = paper or load_reading_paper("set-a")
+            keys = keys or load_reading_keys("set-a")
+        else:
+            return jsonify({"ok": False, "error": "未找到该套题"}), 400
+    result = rs.score_paper(answers, mode=mode, keys=keys, paper=paper)
 
     now = datetime.now(TZ_SHANGHAI)
     sid = str(uuid.uuid4())
@@ -1202,7 +1244,8 @@ def admin_submission(sid: str):
     listening_layouts = []
     module = record_module(record)
     if module == "reading":
-        keys = load_reading_keys().get("questions", {})
+        key_data = load_reading_keys(record.get("prompt_set_id") or "set-a") or {}
+        keys = key_data.get("questions", {})
         for q, meta in keys.items():
             explanations[int(q)] = meta.get("explanation") or ""
         for row in record.get("marking") or []:

@@ -511,11 +511,10 @@ def _explanation_map(keys: dict) -> dict[int, str]:
     return out
 
 
-def _question_range(mode: str, module: str = "reading") -> set[int]:
+def _question_range(mode: str, module: str = "reading", paper: dict | None = None) -> set[int]:
     if (module or "reading") == "listening":
         return set(ls.mode_question_numbers(mode))
-    info = rs.MODES.get(mode) or rs.MODES["full"]
-    return set(info["questions"])
+    return set(rs.mode_question_numbers(mode, paper))
 
 
 def _parts_to_stem(parts: list, qnum: int) -> str | None:
@@ -575,6 +574,12 @@ def question_context(paper: dict, qnum: int) -> dict:
             title = (group.get("notes") or {}).get("title")
             if title:
                 ctx["notes_title"] = title
+        elif gtype == "summary":
+            summary = group.get("summary") or {}
+            ctx["stem"] = _parts_to_stem(summary.get("parts") or [], qnum) or ""
+            title = summary.get("title")
+            if title:
+                ctx["notes_title"] = title
         else:
             for item in group.get("items") or []:
                 if item.get("q") == qnum:
@@ -584,6 +589,8 @@ def question_context(paper: dict, qnum: int) -> dict:
                     break
             if gtype == "matching_endings" and group.get("endings"):
                 ctx["endings"] = group.get("endings")
+            if gtype == "matching_features" and group.get("options") and not ctx["options"]:
+                ctx["options"] = group.get("options")
             if group.get("legend"):
                 ctx["legend"] = group.get("legend")
         return ctx
@@ -652,7 +659,7 @@ def _question_rows(
 ) -> list[dict]:
     mode = (record.get("mode") or "full").strip().lower()
     module = module or module_of(record)
-    allowed = _question_range(mode, module)
+    allowed = _question_range(mode, module, paper=paper)
     answers = _answer_map(record)
     marking = _marking_by_q(record, keys, module=module)
     explanations = _explanation_map(keys)
@@ -703,7 +710,7 @@ def _question_rows(
 
 
 def _passages_for_mode(paper: dict, mode: str) -> list[dict]:
-    allowed = _question_range(mode)
+    allowed = _question_range(mode, paper=paper)
     passage_ids: set[int] = set()
     for group in paper.get("groups") or []:
         start, end = group.get("from"), group.get("to")
@@ -726,6 +733,7 @@ def _passages_for_mode(paper: dict, mode: str) -> list[dict]:
                     "id": passage.get("id"),
                     "label": passage.get("label") or f"Passage {passage.get('id')}",
                     "title": passage.get("title") or "",
+                    "lettered": bool(passage.get("lettered")),
                     "paragraphs": list(passage.get("paragraphs") or []),
                 }
             )
@@ -734,7 +742,7 @@ def _passages_for_mode(paper: dict, mode: str) -> list[dict]:
 
 def _groups_for_detail(paper: dict, record: dict, keys: dict) -> list[dict]:
     mode = (record.get("mode") or "full").strip().lower()
-    allowed = _question_range(mode)
+    allowed = _question_range(mode, paper=paper)
     rows_by_q = {row["q"]: row for row in _question_rows(record, paper, keys, mistakes_only=False)}
     groups = []
     for group in paper.get("groups") or []:
@@ -830,7 +838,7 @@ def reading_mistakes_view(record: dict, paper: dict, keys: dict) -> dict:
     """Wrong and unanswered items only, with the student's answer, key, and 解析."""
     mode = (record.get("mode") or "full").strip().lower()
     mistakes = _question_rows(record, paper, keys, mistakes_only=True)
-    allowed = _question_range(mode)
+    allowed = _question_range(mode, paper=paper)
     return {
         "module": "reading",
         "module_label": "阅读",

@@ -15,11 +15,15 @@
     passage2: "Academic Reading · Passage 2",
     passage3: "Academic Reading · Passage 3",
   };
-  const MODE_RANGES = {
+  let MODE_RANGES = {
     full: [1, 40],
     passage1: [1, 13],
     passage2: [14, 26],
     passage3: [27, 40],
+  };
+  const SET_MODE_RANGES = {
+    "set-a": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
+    "set-b": { full: [1, 40], passage1: [1, 14], passage2: [15, 27], passage3: [28, 40] },
   };
 
   const el = {
@@ -47,6 +51,7 @@
     candidateName: document.getElementById("candidateName"),
     inviteCode: document.getElementById("inviteCode"),
     modePills: document.getElementById("modePills"),
+    promptSet: document.getElementById("promptSet"),
     nameError: document.getElementById("nameError"),
     resumeBanner: document.getElementById("resumeBanner"),
     statusBanner: document.getElementById("statusBanner"),
@@ -147,10 +152,63 @@
     return list;
   }
 
+  function applyModeRanges(ranges) {
+    if (!ranges) return;
+    MODE_RANGES = Object.assign({}, MODE_RANGES, ranges);
+    updateModePillLabels();
+  }
+
+  function applyModeRangesFromPaper(p) {
+    if (!p || !p.groups) return;
+    const ranges = { full: [1, 40] };
+    (p.groups || []).forEach((g) => {
+      const pid = Number(g.passage);
+      if (!pid || g.from == null || g.to == null) return;
+      const key = "passage" + pid;
+      if (!ranges[key]) ranges[key] = [g.from, g.to];
+      else {
+        ranges[key][0] = Math.min(ranges[key][0], g.from);
+        ranges[key][1] = Math.max(ranges[key][1], g.to);
+      }
+    });
+    applyModeRanges(ranges);
+  }
+
+  function updateModePillLabels() {
+    if (!el.modePills) return;
+    const names = {
+      full: "Full test · 60 min",
+      passage1: "Passage 1 only · 20 min",
+      passage2: "Passage 2 only · 20 min",
+      passage3: "Passage 3 only · 20 min",
+    };
+    el.modePills.querySelectorAll('input[name="mode"]').forEach((input) => {
+      const lab = input.closest("label");
+      if (!lab) return;
+      let node = input.nextSibling;
+      while (node) {
+        const next = node.nextSibling;
+        node.remove();
+        node = next;
+      }
+      let text = names[input.value] || input.value;
+      const range = MODE_RANGES[input.value];
+      if (range) text += " · Q" + range[0] + "–" + range[1];
+      input.after(document.createTextNode(" " + text));
+    });
+  }
+
+  function selectedSetId() {
+    if (el.promptSet && el.promptSet.value) return el.promptSet.value;
+    return "set-a";
+  }
+
   function passageForQuestion(q) {
-    if (q <= 13) return 1;
-    if (q <= 26) return 2;
-    return 3;
+    for (let id = 1; id <= 3; id++) {
+      const range = MODE_RANGES["passage" + id];
+      if (range && q >= range[0] && q <= range[1]) return id;
+    }
+    return 1;
   }
 
   function findPassage(id) {
@@ -216,8 +274,12 @@
   function formatInstruction(text) {
     return escapeHtml(text)
       .replace(/ONE WORD ONLY/g, "<span class=\"emph\">ONE WORD ONLY</span>")
+      .replace(/NO MORE THAN TWO WORDS/g, "<span class=\"emph\">NO MORE THAN TWO WORDS</span>")
+      .replace(/NO MORE THAN THREE WORDS/g, "<span class=\"emph\">NO MORE THAN THREE WORDS</span>")
       .replace(/A, B, C or D/g, "<span class=\"emph\">A, B, C or D</span>")
-      .replace(/A–F/g, "<span class=\"emph\">A–F</span>");
+      .replace(/A–H/g, "<span class=\"emph\">A–H</span>")
+      .replace(/A–F/g, "<span class=\"emph\">A–F</span>")
+      .replace(/A–D/g, "<span class=\"emph\">A–D</span>");
   }
 
   function renderTimer() {
@@ -323,6 +385,24 @@
     return true;
   }
 
+  function passageParagraphHtml(p) {
+    const lettered = !!(p && p.lettered);
+    return (p.paragraphs || [])
+      .map((para, i) => {
+        const body = escapeHtml(para);
+        if (!lettered) return "<p>" + body + "</p>";
+        const letter = String.fromCharCode(65 + i);
+        return (
+          "<p><strong class=\"para-label\">" +
+          letter +
+          "</strong> " +
+          body +
+          "</p>"
+        );
+      })
+      .join("");
+  }
+
   function renderPassage(id, forceClean) {
     if (state.attemptReview) {
       const p = findPassage(id);
@@ -332,9 +412,7 @@
       el.passageLabel.textContent = p.label || ("Reading Passage " + id);
       el.passageGuidance.textContent = p.time_guidance || "";
       el.passageTitle.textContent = p.title || "";
-      el.passageBody.innerHTML = (p.paragraphs || [])
-        .map((para) => "<p>" + escapeHtml(para) + "</p>")
-        .join("");
+      el.passageBody.innerHTML = passageParagraphHtml(p);
       applyReviewHighlightsTo(el.passageBody, reviewHighlightTexts("passage", id));
       el.passageScroll.scrollTop = 0;
       return;
@@ -352,9 +430,7 @@
     if (!forceClean && state.passageHtml[id]) {
       el.passageBody.innerHTML = state.passageHtml[id];
     } else {
-      el.passageBody.innerHTML = (p.paragraphs || [])
-        .map((para) => "<p>" + escapeHtml(para) + "</p>")
-        .join("");
+      el.passageBody.innerHTML = passageParagraphHtml(p);
     }
     el.passageScroll.scrollTop = 0;
   }
@@ -533,6 +609,72 @@
     return html;
   }
 
+  function renderSummary(summary) {
+    let html = '<div class="summary-box">';
+    if (summary && summary.title) {
+      html += '<div class="summary-title">' + escapeHtml(summary.title) + "</div>";
+    }
+    html += '<div class="summary-text">' + renderParts((summary && summary.parts) || []) + "</div>";
+    html += "</div>";
+    return html;
+  }
+
+  function renderFeatureMatching(group) {
+    let html = '<div class="endings-box features-box">';
+    if (group.box_title) {
+      html += '<div class="endings-title">' + escapeHtml(group.box_title) + "</div>";
+    }
+    html += "<ol>";
+    Object.keys(group.options || {}).forEach((letter) => {
+      html +=
+        '<li><span class="end-letter">' +
+        letter +
+        "</span><span>" +
+        escapeHtml(group.options[letter]) +
+        "</span></li>";
+    });
+    html += "</ol></div>";
+    const letters = Object.keys(group.options || {});
+    (group.items || []).forEach((item) => {
+      if (!state.questions.includes(item.q)) return;
+      html +=
+        '<div class="q-item" id="q-' +
+        item.q +
+        '" data-q="' +
+        item.q +
+        '"><div class="q-stem"><span class="q-no">' +
+        item.q +
+        '</span><span class="q-stem-text">' +
+        escapeHtml(item.stem) +
+        "</span></div>" +
+        renderSelect(item.q, letters) +
+        "</div>";
+    });
+    return html;
+  }
+
+  function renderMatchingInfo(group) {
+    const letters = [];
+    for (let i = 0; i < 8; i++) letters.push(String.fromCharCode(65 + i));
+    let html = "";
+    (group.items || []).forEach((item) => {
+      if (!state.questions.includes(item.q)) return;
+      html +=
+        '<div class="q-item" id="q-' +
+        item.q +
+        '" data-q="' +
+        item.q +
+        '"><div class="q-stem"><span class="q-no">' +
+        item.q +
+        '</span><span class="q-stem-text">' +
+        escapeHtml(item.stem) +
+        "</span></div>" +
+        renderSelect(item.q, letters) +
+        "</div>";
+    });
+    return html;
+  }
+
   function renderQuestions() {
     const groups = paper.groups || [];
     let html = "";
@@ -547,11 +689,14 @@
       });
       html += "</div>";
       if (g.type === "notes") html += renderNotes(g.notes || {});
+      else if (g.type === "summary") html += renderSummary(g.summary || {});
       else if (g.type === "tfng" || g.type === "ynng") {
         html += renderLegend(g.legend);
         html += renderTfngLike(g);
       } else if (g.type === "mcq") html += renderMcq(g);
       else if (g.type === "matching_endings") html += renderMatching(g);
+      else if (g.type === "matching_features") html += renderFeatureMatching(g);
+      else if (g.type === "matching_info") html += renderMatchingInfo(g);
       html += "</section>";
     });
     el.questionScroll.innerHTML = html;
@@ -1170,14 +1315,22 @@
     return data;
   }
 
-  async function ensurePaper() {
-    if (paper && paper.groups) return true;
-    const res = await fetch("/api/reading/paper", { credentials: "same-origin" });
+  async function ensurePaper(setId) {
+    const id = setId || state.setId || selectedSetId() || "set-a";
+    if (paper && paper.groups && paper.id === id) {
+      applyModeRangesFromPaper(paper);
+      return true;
+    }
+    const res = await fetch("/api/reading/paper?set=" + encodeURIComponent(id), {
+      credentials: "same-origin",
+    });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       return false;
     }
     paper = data;
+    if (paper && paper.id) state.setId = paper.id;
+    applyModeRangesFromPaper(paper);
     return !!(paper && paper.groups);
   }
 
@@ -1222,7 +1375,9 @@
       try {
         const started = await startSession(name, mode);
         if (!started) return;
-        const loaded = await ensurePaper();
+        const setId = selectedSetId();
+        state.setId = setId;
+        const loaded = await ensurePaper(setId);
         if (!loaded) {
           showSetupError("试卷加载失败，请重试。");
           return;
@@ -1241,7 +1396,7 @@
       } else {
         state.name = name;
         state.mode = mode;
-        state.setId = "set-a";
+        state.setId = selectedSetId();
         state.duration = DURATIONS[state.mode] || DURATIONS.full;
         state.remaining = state.duration;
         state.pausedTotal = 0;
@@ -1279,7 +1434,7 @@
     if (!saved || !saved.running) return;
     if (el.candidateName && saved.name) el.candidateName.value = saved.name;
     try {
-      const loaded = await ensurePaper();
+      const loaded = await ensurePaper((saved && saved.setId) || "set-a");
       if (!loaded) {
         if (el.resumeBanner) {
           el.resumeBanner.textContent = "Your test is still in progress. Enter your name and invitation code to continue.";
@@ -1789,6 +1944,7 @@
       state.name = "";
       state.mode = data.mode || "full";
       state.setId = (data.paper && data.paper.id) || "set-a";
+      applyModeRangesFromPaper(paper);
       state.questions = questionList(state.mode);
       state.answers = {};
       state.reviewByQ = {};
@@ -1833,6 +1989,17 @@
       showSetupError("无法加载这套已交答卷，请返回我的记录后重试。");
       if (el.setup) el.setup.classList.remove("hidden");
     }
+  }
+
+  if (el.promptSet) {
+    el.promptSet.addEventListener("change", () => {
+      const preset = SET_MODE_RANGES[el.promptSet.value];
+      if (preset) applyModeRanges(preset);
+    });
+    const preset = SET_MODE_RANGES[el.promptSet.value] || SET_MODE_RANGES["set-a"];
+    if (preset) applyModeRanges(preset);
+  } else {
+    updateModePillLabels();
   }
 
   startSplitter();

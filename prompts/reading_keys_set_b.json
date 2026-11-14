@@ -1,0 +1,205 @@
+{
+  "set_id": "set-b",
+  "questions": {
+    "1": {
+      "answer": "Liverpool",
+      "type": "notes",
+      "explanation": "定位第1段：overseas trade had to travel by canal or railway to Liverpool。笔记对应 send goods via 1，原词为 Liverpool。不要误填 canal / railway（是运输方式，不是货物必须经由的港口）。"
+    },
+    "2": {
+      "answer": "dues",
+      "type": "notes",
+      "explanation": "定位第1段：they objected to the high dues levied at that port。笔记 high 2 charged at that port 与 high dues levied 对应。同段 profits 是被侵蚀的对象；后文 charges 出现在利物浦船东的担忧中，不是本题所要的原词。"
+    },
+    "3": {
+      "answer": "landowners",
+      "type": "notes",
+      "explanation": "定位第3段：Some landowners along the intended route objected to the cutting of their fields。笔记 as well as rival port companies 已排除 shipowners / dock companies，空格应填同样反对计划的 landowners。"
+    },
+    "4": {
+      "answer": "Parliament",
+      "type": "notes",
+      "explanation": "定位第4段：promoted a bill in Parliament ... authorised to proceed，第6段再次提到 when Parliament gave its approval。笔记 construction began only after 4 authorised the project，动作主体是 Parliament，不是后来成立的 Company。"
+    },
+    "5": {
+      "answer": "cuttings",
+      "type": "notes",
+      "explanation": "定位第5段：deep cuttings had to be excavated through clay and sandstone。笔记 excavate deep 5 through clay and sandstone 原词对应 cuttings。locks / basins / sandstone 是同段工程细节，不是被挖掘的对象。"
+    },
+    "6": {
+      "answer": "contractor",
+      "type": "notes",
+      "explanation": "定位第6段：a more serious blow fell when the original contractor died。笔记 the original 6 died 精确对应 contractor。company 是随后接管工程的一方，不是去世的那一方。"
+    },
+    "7": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第1段：Almost all of its overseas trade had to travel ... to Liverpool。与 had to pass through Liverpool 一致。"
+    },
+    "8": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第2段：plans ... were repeatedly laid aside，长期只是 drawing board curiosity。与 quickly accepted and put into effect 相反；勿被后文 1880s 复兴带偏。"
+    },
+    "9": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "第3段写工业家发起公众运动、开会和印发小册子，但完全没有 national government 拨款或财政支持的信息。提到运动≠获得政府资助。"
+    },
+    "10": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第4段：Their first attempt failed ... A revised bill was finally approved in 1885。先遭否决，后获议会批准。"
+    },
+    "11": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第6段：pushed the final cost far above the figure that had been presented when Parliament gave its approval。与 completed for the sum ... presented to Parliament 相反。"
+    },
+    "12": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "第5段只给出 navvies 的居住方式和高峰人数（约 16,000），完全没有与铁路劳工的工资比较。提到劳动力规模≠比较薪酬。"
+    },
+    "13": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第7段：Tonnage increased more slowly than the most optimistic forecasts had promised。与 exceeded even the most hopeful predictions 相反；注意是数量增长慢于预期，不是完全没有增长。"
+    },
+    "14": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第8段：the Trafford Park estate was laid out as a planned manufacturing district, attracting engineering works, food processors and, later, motor-vehicle plants。对应 planned industrial estate ... attracted a range of manufacturing firms。"
+    },
+    "15": {
+      "answer": "history",
+      "type": "summary",
+      "explanation": "定位第1段：The practice, in other words, has a long history。摘要 has a long 15 among members of the public 原词对应 history。不要误填 records / notebooks（是历史记录的形式，不是空格所需的名词）。"
+    },
+    "16": {
+      "answer": "role",
+      "type": "summary",
+      "explanation": "定位第2段：trained members of the public now occupy a regular role in official monitoring programmes。摘要 a regular 16 in official monitoring programmes 原词为 role。"
+    },
+    "17": {
+      "answer": "review",
+      "type": "summary",
+      "explanation": "定位第3段：A recent review of programmes in Europe and North America found volunteer effort spread across several scientific fields。摘要 A recent 17 of programmes 对应 review。不要误填 survey（后文 fish surveys / surveys of new volunteers 是另一回事）。"
+    },
+    "18": {
+      "answer": "rely",
+      "type": "summary",
+      "explanation": "定位第4段：professional scientists to rely on data gathered by these trained volunteers。摘要 often 18 on the figures 原词为 rely。末段 relied upon 时态不同，且出现顺序更晚。"
+    },
+    "19": {
+      "answer": "repeated visits",
+      "type": "summary",
+      "explanation": "定位第4段：a series of repeated visits to the same bends and pools。摘要 a series of 19 to the same sites 对应 repeated visits。同段 seasonal changes / field season 是这些回访所观察到的现象或对比对象，不是空格所需搭配。"
+    },
+    "20": {
+      "answer": "outdoor activity",
+      "type": "summary",
+      "explanation": "定位第5段：others are drawn by outdoor activity ... outdoor activity is mentioned just as frequently。摘要 attracted to the schemes by 20 对应 outdoor activity。laboratory techniques 只是较少人提及的动机，不是文中强调的主要吸引力。"
+    },
+    "21": {
+      "answer": "amateur",
+      "type": "summary",
+      "explanation": "定位第7段：She dislikes the word amateur, which, she says, still hints at a lack of seriousness。摘要 whether 21 is a suitable word 原词为 amateur。不要误填 volunteer / title（后文是 Holm 主张应给予的称呼）。"
+    },
+    "22": {
+      "answer": "share credit",
+      "type": "summary",
+      "explanation": "定位第7段：professional scientists should share credit in a visible way。摘要 should 22 in a visible way 精确对应 share credit。feedback / training 是志愿者需要得到的条件，不是空格所在句对专业人员提出的要求。"
+    },
+    "23": {
+      "answer": "A",
+      "type": "matching_features",
+      "explanation": "定位第5段 Dr Lena Vogt：a well-run volunteer scheme can also educate participants。对应 Volunteer programmes can also educate the people who take part。不要误选 Holm（她谈的是称谓与署名）。"
+    },
+    "24": {
+      "answer": "C",
+      "type": "matching_features",
+      "explanation": "定位第6段 Priya Raman：accidents, though uncommon, are a real possibility，并提到急流中涉水和不稳的河岸。对应 genuine risk of injury。Adeyemi 谈的是仪器误差，不是人身风险。"
+    },
+    "25": {
+      "answer": "A",
+      "type": "matching_features",
+      "explanation": "定位第5段 Vogt：chemistry sampling should not be treated as a closed professional domain。对应 this area of research should not be left only to professional scientists。同一研究者在本组中使用两次；不要误选 Holm（她讨论合作条件，并未如此表述该领域的归属）。"
+    },
+    "26": {
+      "answer": "B",
+      "type": "matching_features",
+      "explanation": "定位第6段 Marcus Adeyemi：people can be a more reliable resource than the equipment itself。对应 human observers are a better resource than equipment。不要误选 Raman（她谈安全风险）。"
+    },
+    "27": {
+      "answer": "D",
+      "type": "matching_features",
+      "explanation": "定位第7段 Dr Eva Holm：volunteers deserve a title that reflects the value of what they do。对应 a title that recognises the worth of their contribution。Vogt 谈的是教育功能，不是称谓。"
+    },
+    "28": {
+      "answer": "C",
+      "type": "matching_info",
+      "explanation": "定位C段：Frell proposes a warming partner for the gas: molecular hydrogen。对应 a proposed warming partner for a greenhouse gas。不要误选F段（Briggs 的云是二氧化碳假设的补充，但题干强调的是 warming partner for a gas，原词出现在C段）。"
+    },
+    "29": {
+      "answer": "H",
+      "type": "matching_info",
+      "explanation": "定位H段：a spectrometer now being built ... an instrument designed to detect residual greenhouse gases。对应 a description of an instrument that could test one of the hypotheses。其他段没有检测仪器。"
+    },
+    "30": {
+      "answer": "D",
+      "type": "matching_info",
+      "explanation": "定位D段：vulnerable to photochemical destruction ... this sunlight-driven breakdown，由 critics / sceptics 提出。对应 a destructive process, driven by sunlight, that critics have pointed to。不要误选E段（那是 Frell 的回应，讲还原性大气这一条件）。"
+    },
+    "31": {
+      "answer": "G",
+      "type": "matching_info",
+      "explanation": "定位G段：High ice clouds can warm a planet ... yet the same clouds also ... a cooling effect。Whether the two climatic processes cancel。对应 two climatic processes that seem to work against each other。"
+    },
+    "32": {
+      "answer": "E",
+      "type": "matching_info",
+      "explanation": "定位E段：a reducing atmosphere would have been essential for keeping methane in the air。对应 a condition said to be necessary if a gas was to remain in the early atmosphere。C段的 hydrogen-rich mixture 是增温伴侣与附带作用，不是“气体得以留存”的必要条件表述。"
+    },
+    "33": {
+      "answer": "C",
+      "type": "matching_info",
+      "explanation": "定位C段：As a side-effect, the same hydrogen-rich mixture would have slowed the escape of nitrogen to space, helping to solve a separate puzzle。对应 a problem that would have been solved as a side-effect of one proposal。本题与第28题同在C段，字母可重复使用。"
+    },
+    "34": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位A段：pillow basalts and water-lain sediments, dated to more than 3.8 billion years ago, are most easily explained if rivers and shallow seas already existed。有地质证据表明当时已有液态水。"
+    },
+    "35": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "Frell 始终主张甲烷是主要增温气体之一，Briggs 则偏向高浓度二氧化碳与云。两人并未共同认为 methane played no part。与 now share the view that methane played no part 相反。"
+    },
+    "36": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "H段只提到拟议的钻探计划与正在建造的光谱仪，完全没有项目将持续至少十年或任何工期信息。提到计划≠给出持续时间。"
+    },
+    "37": {
+      "answer": "methane",
+      "type": "summary",
+      "explanation": "定位C段：a modest amount of this gas ... could have closed much of the temperature gap，上文已点明 One leading candidate is methane。摘要 37 could have closed much of the temperature gap 对应 methane。不要误填 carbon dioxide（是被比较的气体，也是 Briggs 的方案）。"
+    },
+    "38": {
+      "answer": "molecular hydrogen",
+      "type": "summary",
+      "explanation": "定位C段：a warming partner for the gas: molecular hydrogen。摘要 if 38 was also present as a partner gas 原词对应 molecular hydrogen。不要只填 hydrogen，文中完整用语是 molecular hydrogen。"
+    },
+    "39": {
+      "answer": "photochemical destruction",
+      "type": "summary",
+      "explanation": "定位D段：methane is vulnerable to photochemical destruction。摘要 sunlight would have caused 39 of the methane 对应 photochemical destruction。breakdown 是后文对同一过程的再述，不是该结构中的原词搭配。"
+    },
+    "40": {
+      "answer": "reducing atmosphere",
+      "type": "summary",
+      "explanation": "定位E段：a reducing atmosphere would have been essential for keeping methane in the air。摘要 a 40 would have been essential to keep the gas in the air 原词对应 reducing atmosphere。continuous supply / oxygen-poor setting 是相关条件的进一步说明，不是该句的原词。"
+    }
+  }
+}

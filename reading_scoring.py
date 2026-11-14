@@ -39,6 +39,23 @@ MODES = {
     "passage3": {"questions": list(range(27, 41)), "seconds": 20 * 60, "label": "Passage 3 · 20 min"},
 }
 
+_WORD_NUMBERS = {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+}
+_WORD_LIMIT_RE = re.compile(
+    r"ONE WORD ONLY|NO MORE THAN\s+(\w+)\s+WORDS?",
+    re.IGNORECASE,
+)
+
 _WRAP_PUNCT = "\"'`“”‘’.,;:!?()[]{}<>«»"
 
 # Longer aliases first so "NOTGIVEN" is not misread.
@@ -58,7 +75,8 @@ _ALIASES = {
     "n": "NO",
 }
 
-_CHOICE_TYPES = {"tfng", "ynng", "mcq", "matching_endings"}
+_CHOICE_TYPES = {"tfng", "ynng", "mcq", "matching_endings", "matching_features", "matching_info"}
+_COMPLETION_TYPES = {"notes", "summary"}
 
 
 def load_keys(path: Path | None = None) -> dict:
@@ -69,6 +87,95 @@ def load_keys(path: Path | None = None) -> dict:
 def load_paper(path: Path | None = None) -> dict:
     with (path or PAPER_PATH).open(encoding="utf-8") as f:
         return json.load(f)
+
+
+def passage_question_ranges(paper: dict | None) -> dict[int, tuple[int, int]]:
+    """Return min/max question numbers for each passage, derived from groups."""
+    ranges: dict[int, list[int]] = {}
+    if not paper:
+        return {}
+    for group in paper.get("groups") or []:
+        pid = group.get("passage")
+        lo, hi = group.get("from"), group.get("to")
+        if pid is None or lo is None or hi is None:
+            continue
+        try:
+            pid_i, lo_i, hi_i = int(pid), int(lo), int(hi)
+        except (TypeError, ValueError):
+            continue
+        if pid_i not in ranges:
+            ranges[pid_i] = [lo_i, hi_i]
+        else:
+            ranges[pid_i][0] = min(ranges[pid_i][0], lo_i)
+            ranges[pid_i][1] = max(ranges[pid_i][1], hi_i)
+    return {pid: (bounds[0], bounds[1]) for pid, bounds in ranges.items()}
+
+
+def modes_for_paper(paper: dict | None = None) -> dict:
+    """Mode metadata. Defaults stay at Set A ranges when no paper is given."""
+    modes = {
+        key: {
+            "questions": list(info["questions"]),
+            "seconds": info["seconds"],
+            "label": info["label"],
+        }
+        for key, info in MODES.items()
+    }
+    ranges = passage_question_ranges(paper)
+    if not ranges:
+        return modes
+    for index, key in enumerate(("passage1", "passage2", "passage3"), start=1):
+        if index not in ranges:
+            continue
+        lo, hi = ranges[index]
+        modes[key] = {
+            "questions": list(range(lo, hi + 1)),
+            "seconds": 20 * 60,
+            "label": f"Passage {index} · 20 min",
+        }
+    return modes
+
+
+def word_limit_from_instructions(instructions) -> int | None:
+    for line in instructions or []:
+        match = _WORD_LIMIT_RE.search(str(line) or "")
+        if not match:
+            continue
+        if match.group(0).upper().startswith("ONE WORD"):
+            return 1
+        token = (match.group(1) or "").lower()
+        if token.isdigit():
+            return int(token)
+        if token in _WORD_NUMBERS:
+            return _WORD_NUMBERS[token]
+    return None
+
+
+def word_limits_from_paper(paper: dict | None) -> dict[int, int]:
+    limits: dict[int, int] = {}
+    if not paper:
+        return limits
+    for group in paper.get("groups") or []:
+        limit = word_limit_from_instructions(group.get("instructions"))
+        if limit is None:
+            continue
+        lo, hi = group.get("from"), group.get("to")
+        if lo is None or hi is None:
+            continue
+        try:
+            start, end = int(lo), int(hi)
+        except (TypeError, ValueError):
+            continue
+        for q in range(start, end + 1):
+            limits[q] = limit
+    return limits
+
+
+def word_count(raw: str | None) -> int:
+    text = normalize_answer(raw)
+    if not text:
+        return 0
+    return len(text.split())
 
 
 def official_answers(keys: dict | None = None) -> dict[int, str]:
@@ -112,11 +219,11 @@ def canonicalize(raw: str | None, qtype: str) -> str:
             return _ALIASES[spaced]
         if compact in _ALIASES:
             return _ALIASES[compact]
-        # Single letters A–F (and a–f)
-        if re.fullmatch(r"[A-Fa-f]", text):
+        # Single letters A–H (and a–h)
+        if re.fullmatch(r"[A-Ha-h]", text):
             return text.upper()
         return text.upper()
-    # Notes: case-insensitive exact word after normalization; no spelling fuzz.
+    # Notes / summary: case-insensitive exact word(s) after normalization; no spelling fuzz.
     return text.lower()
 
 
@@ -139,8 +246,8 @@ def band_for_score(score: int, total: int = 40) -> float | None:
     return 0.0
 
 
-def mode_question_numbers(mode: str) -> list[int]:
-    info = MODES.get(mode) or MODES["full"]
+def mode_question_numbers(mode: str, paper: dict | None = None) -> list[int]:
+    info = modes_for_paper(paper).get(mode) or modes_for_paper(paper)["full"]
     return list(info["questions"])
 
 
@@ -148,12 +255,14 @@ def score_paper(
     answers: dict,
     mode: str = "full",
     keys: dict | None = None,
+    paper: dict | None = None,
 ) -> dict:
     """Mark a set of answers. `answers` keys may be int or str."""
     key_data = keys or load_keys()
     official = official_answers(key_data)
     types = question_types(key_data)
-    questions = mode_question_numbers(mode)
+    questions = mode_question_numbers(mode, paper)
+    limits = word_limits_from_paper(paper)
     total = len(questions)
 
     raw_answers = {}
@@ -170,6 +279,9 @@ def score_paper(
         correct = official[q]
         qtype = types[q]
         ok = answers_equal(student, correct, qtype)
+        limit = limits.get(q)
+        if ok and limit is not None and word_count(student) > limit:
+            ok = False
         if ok:
             score += 1
         marking.append(

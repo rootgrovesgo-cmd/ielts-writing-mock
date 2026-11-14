@@ -689,3 +689,34 @@ body.attempt-review select:disabled {
   cursor: default;
   opacity: 1;
 }
+
+.summary-box {
+  margin: 12px 0;
+  padding: 16px 18px 14px;
+  border: 1px solid var(--line);
+  background: #f7f4f0;
+  border-radius: 6px;
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+.summary-box .summary-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+.summary-box .summary-text {
+  text-align: justify;
+}
+.passage-body .para-label {
+  display: inline-block;
+  min-width: 1.25em;
+  margin-right: 0.55em;
+  font-weight: 700;
+}
+.endings-box .endings-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0 0 10px;
+}

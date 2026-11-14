@@ -1,0 +1,427 @@
+{
+  "id": "set-b",
+  "title": "Set B",
+  "subtitle": "Academic Reading",
+  "instructions": {
+    "time": "1 hour",
+    "to_candidates": [
+      "Answer all the questions.",
+      "You may write on this question paper.",
+      "You must write your answers clearly.",
+      "In a real test you would transfer your answers to an answer sheet within the time allowed."
+    ],
+    "information": [
+      "There are 40 questions on this question paper.",
+      "Each question carries one mark."
+    ]
+  },
+  "passages": [
+    {
+      "id": 1,
+      "label": "READING PASSAGE 1",
+      "time_guidance": "You should spend about 20 minutes on Questions 1–14, which are based on Reading Passage 1 below.",
+      "title": "The development of the Manchester Ship Canal",
+      "paragraphs": [
+        "By the late nineteenth century, Manchester had become one of the most important industrial cities in Britain, a centre of cotton manufacture whose warehouses and mills depended on a steady movement of raw materials and finished goods. The city, however, stood more than thirty miles inland and had no direct access to the sea. Almost all of its overseas trade had to travel by canal or railway to Liverpool, where it was transferred onto ocean-going ships. Merchants found the arrangement slow and, more seriously, they objected to the high dues levied at that port, which swallowed a considerable share of their profits. Many manufacturers concluded that Manchester would never compete on equal terms with coastal cities unless seagoing vessels could be brought to its own doorstep.",
+        "The notion of a ship canal linking the Mersey estuary with Manchester was not a sudden invention of the 1880s. Plans had been sketched as early as the 1820s, and further proposals circulated in the middle decades of the century, yet they were repeatedly laid aside. Opponents insisted that the engineering would be unmanageable, that the shifting sands and powerful tides of the Mersey could not be mastered, and that the expense would ruin whoever undertook the work. For a long time the scheme remained little more than a curiosity on the drawing board.",
+        "Interest revived in the early 1880s, when a group of Manchester industrialists launched a determined public campaign. They organised meetings, issued pamphlets and invited engineers to demonstrate that a channel large enough for ocean-going ships was feasible. The proposal, however, met strong resistance. Shipowners and dock companies in Liverpool feared the loss of traffic and of the charges on which their businesses depended. Some landowners along the intended route objected to the cutting of their fields and to the interruption of existing waterways. Even among those who accepted the need for better access to the sea, doubts persisted about whether sufficient capital could be raised, and whether locks and sluices could govern so large a body of water.",
+        "The campaigners persisted and promoted a bill in Parliament. Their first attempt failed, partly because the opposition had organised an effective lobbying campaign. A revised bill was finally approved in 1885, and the newly formed Manchester Ship Canal Company was authorised to proceed. Construction began in 1887 at Eastham, on the southern shore of the Mersey, where the canal would leave the estuary and run inland towards the docks planned at its eastern end, close to Salford and Manchester itself.",
+        "The engineering was on a scale rarely attempted in the region. Over a course of some thirty-six miles, deep cuttings had to be excavated through clay and sandstone, a sequence of locks constructed to raise vessels from sea level to the height of the inland docks, and quays, warehouses and entrance basins built along the route. One of the most remarkable structures was a swing aqueduct at Barton, designed so that the older Bridgewater Canal could continue to cross the new waterway. Thousands of labourers, popularly known as navvies, were housed in temporary camps along the route; at the peak of activity the workforce numbered around 16,000 men.",
+        "Progress was anything but smooth. Flooding after heavy rain repeatedly filled the unfinished cuttings, and severe winters delayed the pouring of concrete and the laying of brickwork. A more serious blow fell when the original contractor died, leaving the company to take the remaining works under its own management and to rearrange the outstanding contracts. These interruptions, together with unexpected difficulties in the ground, drove the project well beyond its first timetable and pushed the final cost far above the figure that had been presented when Parliament gave its approval.",
+        "The canal was formally opened in 1894. Seagoing ships could at last unload cargo in the heart of an inland manufacturing district, and civic leaders spoke of a new age of prosperity. The early years, however, did not satisfy every hope that had been raised during the campaign. Tonnage increased more slowly than the most optimistic forecasts had promised, and some firms continued to send merchandise by rail because the rates were familiar and the service was already well established. Dividends to the company's shareholders were postponed, and critics who had opposed the scheme were quick to claim that the investment had been extravagant.",
+        "Even so, the canal gradually reshaped the western side of the city. Beside its banks the Trafford Park estate was laid out as a planned manufacturing district, attracting engineering works, food processors and, later, motor-vehicle plants. The docks at Salford grew into a dense cluster of sheds, cranes and railway sidings, and the waterway supported a large number of local jobs in stevedoring, warehousing and repair. Oil, grain and timber joined cotton among the regular cargoes, and for much of the twentieth century the canal remained a working artery rather than a relic of a Victorian gamble.",
+        "The later decades of that century brought a change of function. Larger ocean vessels and the spread of container traffic favoured deep-water ports nearer the coast, and commercial use of the upper reaches declined. Sections of the old dock estate were eventually redeveloped for housing, offices and cultural venues. The canal itself, however, was not abandoned: stretches are still used for bulk cargo, and the waterway has acquired a second life as a setting for leisure and urban regeneration. A project that began as an attempt to escape the charges of a rival port has become one of the most distinctive features of the city's industrial landscape."
+      ]
+    },
+    {
+      "id": 2,
+      "label": "READING PASSAGE 2",
+      "time_guidance": "You should spend about 20 minutes on Questions 15–27, which are based on Reading Passage 2 below.",
+      "title": "The case for volunteer river monitors",
+      "paragraphs": [
+        "Watching rivers has never been the exclusive business of paid scientists. In the nineteenth century, clergymen, doctors and members of angling clubs kept notebooks on the rise and fall of fish, the colour of the water after rain, and the insects that hatched along the banks. Some of those records, preserved in local libraries, are still consulted by researchers who wish to know how a stretch of river has changed. The practice, in other words, has a long history; what has altered is the degree to which unofficial observers are invited into formal scientific work.",
+        "In many countries, trained members of the public now occupy a regular role in official monitoring programmes. They walk assigned reaches each month, take carefully timed samples and enter their readings on shared platforms that agencies use when they report on the health of a catchment. The arrangement gives agencies a density of coverage, through the seasons and along little-visited tributaries, that they could not otherwise afford. Without this unpaid labour, the number of sites visited would shrink dramatically, because professional teams are few and their time is already committed to laboratory analysis and regulatory inspections.",
+        "A recent review of programmes in Europe and North America found volunteer effort spread across several scientific fields. Some groups measure dissolved chemicals and turbidity; others count fish, collect invertebrate samples or map the condition of banks and spawning gravels. The same review noted that the most durable schemes were those in which a university or environment agency supplied equipment and a clear protocol, rather than leaving enthusiasts to invent their own methods. In that sense the volunteer contribution is no longer a curiosity at the edge of the field; it is part of the ordinary machinery of freshwater research.",
+        "It is no longer unusual for professional scientists to rely on data gathered by these trained volunteers. Laboratory staff still carry out the analyses that require expensive instruments, but they increasingly treat the volunteer record as the backbone of their long-term datasets. What volunteers add, and what short research contracts seldom provide, is a series of repeated visits to the same bends and pools, year after year. Those repeated visits allow subtle seasonal changes to be noticed — a late salmon run, a sudden pulse of silt after a farm discharge — that a single field season can easily miss.",
+        "People join for a mixture of motives. Some wish to protect a river they already know; others are drawn by outdoor activity, and a smaller number hope to learn laboratory techniques. Managers of schemes often emphasise the first of these when they advertise for recruits, but surveys of new volunteers suggest that outdoor activity is mentioned just as frequently. There is also an argument about which branch of freshwater science gains most from this help. Dr Lena Vogt, who works on freshwater chemistry and on the educational design of programmes, maintains that chemistry sampling should not be treated as a closed professional domain. In her view, a well-run volunteer scheme can also educate participants, giving them a practical grasp of pollution and a reason to speak up when a discharge pipe is opened overnight.",
+        "Marcus Adeyemi, who organises fish surveys, approaches the question from another angle. He has compared trained volunteers with automatic counters on several rivers and found that, for identifying species and estimating the size of a run at dusk, people can be a more reliable resource than the equipment itself. The machines misread shadows and floating debris; experienced observers rarely do. Not every task, however, is equally suitable for unpaid teams. Priya Raman, who trains groups in invertebrate sampling, points out that some of the work involves wading in fast water or climbing unstable banks, and that accidents, though uncommon, are a real possibility. She argues for tighter supervision and for insurance that covers volunteers as carefully as it covers staff.",
+        "Credit and expenses create further friction. Volunteers sometimes find that their names are missing from reports built on their figures, or that they are expected to pay for their own travel and replacement nets. Dr Eva Holm, who coordinates a national network of river monitors, has made a particular study of terminology. She dislikes the word amateur, which, she says, still hints at a lack of seriousness, and believes that volunteers deserve a title that reflects the value of what they do. Holm and others have tried to set out the conditions under which cooperation is likely to last. Volunteers need training that is renewed, not delivered once and forgotten; they need feedback on how their data have been used; and they need protocols that do not change without notice. In return, Holm argues, professional scientists should share credit in a visible way and should not treat the volunteer contribution as a convenient, silent source of numbers. When those terms are met, she says, the quality of the record improves and fewer people drift away after a single season.",
+        "A shift in official attitudes was helped by a practical demonstration. Two years ago a conservation foundation awarded a substantial prize to a volunteer monitoring network that Holm helps to run, after an audit showed that its phosphorus readings matched those of a government laboratory to a very close margin. The award, and the publicity that followed, did much to silence critics who had claimed that unpaid observers could not be trusted with chemical data. Similar schemes are now being expanded to upland tributaries and to urban stretches that professional teams visit only rarely. The older tradition of watching the river has not disappeared; it has been organised, tested and, increasingly, relied upon."
+      ]
+    },
+    {
+      "id": 3,
+      "label": "READING PASSAGE 3",
+      "time_guidance": "You should spend about 20 minutes on Questions 28–40, which are based on Reading Passage 3 below.",
+      "title": "What kept early Earth unfrozen",
+      "lettered": true,
+      "paragraphs": [
+        "For more than a century, geologists have been gathering signs that liquid water was present on Earth long before the planet acquired a thick, oxygen-rich air. Ancient zircon crystals carry chemical traces consistent with contact with oceans, and sequences of pillow basalts and water-lain sediments, dated to more than 3.8 billion years ago, are most easily explained if rivers and shallow seas already existed. Even some apparently dry volcanic sequences contain minerals that form only when water has circulated through the rock. The picture is incomplete, and individual dates are debated, but the overall impression is hard to dismiss: the early Earth was not a permanently frozen ball of ice.",
+        "That conclusion sits awkwardly beside what astronomers say about the Sun. Models of stellar evolution imply that, in its youth, the Sun emitted only about three-quarters of the energy it radiates today. A reduction of that magnitude is not a minor uncertainty in the models; it is large enough, on paper, to have held the planet below the freezing point of water for hundreds of millions of years. Under a fainter sun, and with an atmosphere no more effective than the present one at trapping heat, standard calculations suggest that the planet's surface should have been locked in ice. The contrast between that prediction and the geological evidence is often called the faint-young-sun problem, and it has provoked a long search for a warming mechanism that could have kept water flowing.",
+        "One leading candidate is methane. Dr Naomi Frell, a climate chemist, has argued that a modest amount of this gas, which is a far more powerful greenhouse agent, molecule for molecule, than carbon dioxide, could have closed much of the temperature gap. Methane alone, however, may not have been sufficient. Frell proposes a warming partner for the gas: molecular hydrogen, leaking from a still-active crust and from hydrothermal vents, would have enhanced the trapping of outgoing radiation. The idea has the attraction of using gases that would have been natural by-products of a restless, still-cooling planet. As a side-effect, the same hydrogen-rich mixture would have slowed the escape of nitrogen to space, helping to solve a separate puzzle about why the early atmosphere retained a substantial nitrogen fraction.",
+        "Critics have been quick to raise a chemical objection. In the presence of ultraviolet sunlight, methane is vulnerable to photochemical destruction: high-energy photons break the molecule apart, and the fragments are converted into other compounds or lost. Unless the gas was replenished at a considerable rate, its lifetime in the upper air would have been short — perhaps too short, the sceptics say, to sustain the greenhouse effect Frell describes. Laboratory experiments have confirmed that this sunlight-driven breakdown is rapid when no protective haze is present. The objection is not that methane cannot warm a planet, but that, under a younger and more ultraviolet-active Sun, it may not have survived long enough to do so.",
+        "Frell replies that a reducing atmosphere would have been essential for keeping methane in the air. In conditions poor in oxygen, the gas would have been oxidised far more slowly, and a continuous supply from vents, volcanoes and microbial activity — if microbes already existed — could have balanced the losses. Without that oxygen-poor setting, Frell accepts, the methane reservoir would have collapsed. The argument therefore depends not only on the properties of methane itself, but on a chemical environment that no longer prevails. How long such conditions lasted, and whether they were global or patchy, remains an open question even among those who find the methane hypothesis attractive.",
+        "A different school of thought looks to carbon dioxide. Dr Owen Briggs has long favoured a dense carbon-dioxide atmosphere, perhaps many times thicker than today's, supplemented by high ice-crystal clouds that would have trapped still more heat. The difficulty, as even Briggs concedes, is geological. If the air had contained so much carbon dioxide for so long, one might expect to find abundant carbonate minerals in the oldest rock sequences. Those minerals are scarce, and in some formations they are missing altogether. Weathering of fresh crust would also, in theory, have locked carbon away unless some process continually returned it to the air. Briggs suggests that acidic early oceans could have prevented the minerals from forming, but this account remains contested.",
+        "Supporters of the methane hypothesis use the missing minerals as a point in their favour, while Briggs answers that later metamorphism may have erased the evidence. The cloud proposal, meanwhile, has a built-in tension of its own. High ice clouds can warm a planet by returning outgoing radiation to the surface, yet the same clouds also brighten the disc and reflect incoming sunlight, a cooling effect. Whether the two climatic processes cancel, or whether the warming wins, depends on the height, thickness and microphysical properties of the cloud deck — variables that models can arrange to produce almost any desired result, and that the rock record cannot yet pin down. Briggs maintains that a sufficiently high, thin deck would tilt the balance towards warmth, but he has not yet shown that such a deck would have been stable.",
+        "Neither camp claims to have settled the question. Frell's group is now looking for chemical fingerprints of an ancient methane-rich air in the composition of trapped gases inside ancient minerals, while Briggs's colleagues are refining their cloud simulations. A more direct test may come from a spectrometer now being built for a proposed drilling programme in ancient crust, an instrument designed to detect residual greenhouse gases and their reaction products at extremely low concentrations. A clear detection of methane-derived residues would strengthen Frell's case; a pattern consistent with thick carbon-dioxide ice would push the argument back towards Briggs. Until such measurements are made, the faint-young-sun problem will continue to admit more than one plausible answer, and the early Earth will remain, in this respect, a planet whose climate is easier to imagine than to prove."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "q1-6",
+      "passage": 1,
+      "from": 1,
+      "to": 6,
+      "type": "notes",
+      "heading": "Questions 1–6",
+      "instructions": [
+        "Complete the notes below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 1–6 on your answer sheet."
+      ],
+      "notes": {
+        "title": "The Manchester Ship Canal",
+        "sections": [
+          {
+            "heading": "Why a canal was proposed",
+            "items": [
+              {
+                "parts": [
+                  "inland manufacturers had to send goods via ",
+                  {
+                    "q": 1
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "they objected to the high ",
+                  {
+                    "q": 2
+                  },
+                  " charged at that port"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Opposition and approval",
+            "items": [
+              {
+                "parts": [
+                  "as well as rival port companies, ",
+                  {
+                    "q": 3
+                  },
+                  " argued against the scheme"
+                ]
+              },
+              {
+                "parts": [
+                  "construction began only after ",
+                  {
+                    "q": 4
+                  },
+                  " authorised the project"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Building the waterway",
+            "items": [
+              {
+                "parts": [
+                  "engineers had to excavate deep ",
+                  {
+                    "q": 5
+                  },
+                  " through clay and sandstone"
+                ]
+              },
+              {
+                "parts": [
+                  "delays increased after the original ",
+                  {
+                    "q": 6
+                  },
+                  " died"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "q7-14",
+      "passage": 1,
+      "from": 7,
+      "to": 14,
+      "type": "tfng",
+      "heading": "Questions 7–14",
+      "instructions": [
+        "Do the following statements agree with the information given in Reading Passage 1?",
+        "In boxes 7–14 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "TRUE",
+          "meaning": "if the statement agrees with the information"
+        },
+        {
+          "value": "FALSE",
+          "meaning": "if the statement contradicts the information"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if there is no information on this"
+        }
+      ],
+      "items": [
+        {
+          "q": 7,
+          "stem": "In the late nineteenth century, Manchester's overseas trade had to pass through Liverpool."
+        },
+        {
+          "q": 8,
+          "stem": "Canal proposals earlier in the nineteenth century were quickly accepted and put into effect."
+        },
+        {
+          "q": 9,
+          "stem": "The industrialists who revived the scheme in the 1880s received financial support from the national government."
+        },
+        {
+          "q": 10,
+          "stem": "A bill in favour of the canal was rejected before parliamentary approval was finally obtained."
+        },
+        {
+          "q": 11,
+          "stem": "The canal was completed for the sum that had been presented to Parliament."
+        },
+        {
+          "q": 12,
+          "stem": "Navvies employed on the canal were paid more than labourers on railway projects of the same period."
+        },
+        {
+          "q": 13,
+          "stem": "In the years immediately after the opening, cargo volumes exceeded even the most hopeful predictions."
+        },
+        {
+          "q": 14,
+          "stem": "A planned industrial estate was developed along the canal and attracted a range of manufacturing firms."
+        }
+      ]
+    },
+    {
+      "id": "q15-22",
+      "passage": 2,
+      "from": 15,
+      "to": 22,
+      "type": "summary",
+      "heading": "Questions 15–22",
+      "instructions": [
+        "Complete the summary below.",
+        "Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+        "Write your answers in boxes 15–22 on your answer sheet."
+      ],
+      "summary": {
+        "title": "Volunteer river monitoring",
+        "parts": [
+          "Watching rivers has a long ",
+          {
+            "q": 15
+          },
+          " among members of the public. Trained volunteers now have a regular ",
+          {
+            "q": 16
+          },
+          " in official monitoring programmes. A recent ",
+          {
+            "q": 17
+          },
+          " of programmes showed that this work covers several scientific fields. Professional scientists often ",
+          {
+            "q": 18
+          },
+          " on the figures that trained volunteers collect. A distinctive strength of volunteer work is a series of ",
+          {
+            "q": 19
+          },
+          " to the same sites. Many people are attracted to the schemes by ",
+          {
+            "q": 20
+          },
+          ". There is disagreement about whether ",
+          {
+            "q": 21
+          },
+          " is a suitable word for unpaid observers. Holm believes that professional scientists should ",
+          {
+            "q": 22
+          },
+          " in a visible way."
+        ]
+      }
+    },
+    {
+      "id": "q23-27",
+      "passage": 2,
+      "from": 23,
+      "to": 27,
+      "type": "matching_features",
+      "heading": "Questions 23–27",
+      "instructions": [
+        "Look at the following opinions (Questions 23–27) and the list of researchers below.",
+        "Match each opinion to the correct researcher, A–D.",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–D, in boxes 23–27 on your answer sheet."
+      ],
+      "box_title": "Name of researchers",
+      "options": {
+        "A": "Dr Lena Vogt",
+        "B": "Marcus Adeyemi",
+        "C": "Priya Raman",
+        "D": "Dr Eva Holm"
+      },
+      "items": [
+        {
+          "q": 23,
+          "stem": "Volunteer programmes can also educate the people who take part."
+        },
+        {
+          "q": 24,
+          "stem": "Some volunteer scientific work carries a genuine risk of injury."
+        },
+        {
+          "q": 25,
+          "stem": "This area of research should not be left only to professional scientists."
+        },
+        {
+          "q": 26,
+          "stem": "In some of the work this person describes, human observers are a better resource than equipment."
+        },
+        {
+          "q": 27,
+          "stem": "Volunteers ought to be given a title that recognises the worth of their contribution."
+        }
+      ]
+    },
+    {
+      "id": "q28-33",
+      "passage": 3,
+      "from": 28,
+      "to": 33,
+      "type": "matching_info",
+      "heading": "Questions 28–33",
+      "instructions": [
+        "The reading passage has eight paragraphs, A–H.",
+        "Which paragraph contains the following information?",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–H, in boxes 28–33 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 28,
+          "stem": "a proposed warming partner for a greenhouse gas"
+        },
+        {
+          "q": 29,
+          "stem": "a description of an instrument that could test one of the hypotheses"
+        },
+        {
+          "q": 30,
+          "stem": "a destructive process, driven by sunlight, that critics have pointed to"
+        },
+        {
+          "q": 31,
+          "stem": "a reference to two climatic processes that seem to work against each other"
+        },
+        {
+          "q": 32,
+          "stem": "a condition said to be necessary if a gas was to remain in the early atmosphere"
+        },
+        {
+          "q": 33,
+          "stem": "a problem that would have been solved as a side-effect of one proposal"
+        }
+      ]
+    },
+    {
+      "id": "q34-36",
+      "passage": 3,
+      "from": 34,
+      "to": 36,
+      "type": "tfng",
+      "heading": "Questions 34–36",
+      "instructions": [
+        "Do the following statements agree with the information given in Reading Passage 3?",
+        "In boxes 34–36 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "TRUE",
+          "meaning": "if the statement agrees with the information"
+        },
+        {
+          "value": "FALSE",
+          "meaning": "if the statement contradicts the information"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if there is no information on this"
+        }
+      ],
+      "items": [
+        {
+          "q": 34,
+          "stem": "There is geological evidence that liquid water existed on Earth more than 3.8 billion years ago."
+        },
+        {
+          "q": 35,
+          "stem": "Frell and Briggs now share the view that methane played no part in warming the early Earth."
+        },
+        {
+          "q": 36,
+          "stem": "The proposed drilling programme is expected to last at least a decade."
+        }
+      ]
+    },
+    {
+      "id": "q37-40",
+      "passage": 3,
+      "from": 37,
+      "to": 40,
+      "type": "summary",
+      "heading": "Questions 37–40",
+      "instructions": [
+        "Complete the summary below.",
+        "Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+        "Write your answers in boxes 37–40 on your answer sheet."
+      ],
+      "summary": {
+        "title": "The methane hypothesis",
+        "parts": [
+          "Frell argues that ",
+          {
+            "q": 37
+          },
+          " could have closed much of the temperature gap, especially if ",
+          {
+            "q": 38
+          },
+          " was also present as a partner gas. Critics say sunlight would have caused ",
+          {
+            "q": 39
+          },
+          " of the methane unless it was rapidly replaced. Frell answers that a ",
+          {
+            "q": 40
+          },
+          " would have been essential to keep the gas in the air."
+        ]
+      }
+    }
+  ]
+}

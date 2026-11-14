@@ -175,8 +175,8 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 
 - 写作：编辑 `prompts/prompts.json` 后重新部署（或本地重启）。Task 1 支持 `chart` / `table` / `process_steps` / `pie_charts`（三组饼图）。
 - 口语题库：`prompts/speaking_sept2026.json`（2026 年 9–12 月公开回忆话题，仅题目与话题卡提示，不含范文）。
-- 阅读学生卷：`prompts/reading_set_a.json`（只有文章与题目，不含答案）。
-- 阅读标准答案与解析（仅服务器使用）：`prompts/reading_keys.json`。切勿把该文件的内容放进学生页面或前端脚本。
+- 阅读学生卷：Academic Reading 现有 Set A 与 Set B，分别为 `prompts/reading_set_a.json` 与 `prompts/reading_set_b.json`（只有文章与题目，不含答案）。
+- 阅读标准答案与解析（仅服务器使用）：Set A 为 `prompts/reading_keys.json`，Set B 为 `prompts/reading_keys_set_b.json`。切勿把这些文件的内容放进学生页面或前端脚本。
 - 听力学生卷：`prompts/listening_set_a.json`（只有题干、选项、笔记表格和音频文件名，不含答案或录音文本）。Set A 为原创练习卷，题型对应剑桥常见形式（笔记表格、单项选择、选两项、讲座笔记），不含地图。
 - 听力标准答案、解析与录音文本（仅服务器使用）：`prompts/listening_keys.json`。切勿把该文件的内容放进学生页面或前端初始配置。
 - 听力练习音频：`static/audio/listening_set_a/section1.mp3` … `section4.mp3`。考试播放走需登录的 `/api/listening/audio/<section>`。可用 `tools/generate_listening_audio.py` 从 `tools/listening_script.py` 重新生成。音频为原创 TTS 练习音频，不是剑桥官方录音。
@@ -229,7 +229,9 @@ ielts-writing-mock/
   run.sh
   prompts/prompts.json
   prompts/reading_set_a.json
+  prompts/reading_set_b.json
   prompts/reading_keys.json
+  prompts/reading_keys_set_b.json
   prompts/listening_set_a.json
   prompts/listening_keys.json
   tools/generate_listening_audio.py
@@ -237,6 +239,7 @@ ielts-writing-mock/
   static/audio/listening_set_a/
   student_portal.py
   tests/test_reading.py
+  tests/test_reading_set_b.py
   tests/test_access.py
   tests/test_speaking.py
   tests/test_report.py

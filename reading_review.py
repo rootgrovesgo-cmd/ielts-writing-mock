@@ -161,6 +161,57 @@ def load_paper_for_set(set_id: str | None) -> dict | None:
         return None
 
 
+def keys_path_for_set(set_id: str | None) -> Path | None:
+    """Teacher keys for a paper. Set A keeps prompts/reading_keys.json."""
+    token = (set_id or "set-a").strip() or "set-a"
+    if token == "set-a":
+        return rs.KEYS_PATH
+    candidates = [
+        BASE_DIR / "prompts" / f"reading_keys_{token.replace('-', '_')}.json",
+        BASE_DIR / "prompts" / f"reading_keys-{token}.json",
+        BASE_DIR / "prompts" / f"{token}-keys.json",
+    ]
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def load_keys_for_set(set_id: str | None) -> dict | None:
+    token = (set_id or "set-a").strip() or "set-a"
+    path = keys_path_for_set(token)
+    if not path:
+        if token == "set-a":
+            return rs.load_keys(rs.KEYS_PATH)
+        return None
+    try:
+        return rs.load_keys(path)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def list_reading_sets() -> list[dict]:
+    """Student-facing set summaries for the setup dropdown."""
+    seen: set[str] = set()
+    out: list[dict] = []
+    for set_id in ("set-a", "set-b"):
+        paper = load_paper_for_set(set_id)
+        if not paper:
+            continue
+        token = paper.get("id") or set_id
+        if token in seen:
+            continue
+        seen.add(token)
+        out.append(
+            {
+                "id": token,
+                "title": paper.get("title") or token,
+                "subtitle": paper.get("subtitle") or "",
+            }
+        )
+    return out
+
+
 def part_times_recorded(part_times) -> bool:
     """True when the submission actually stored a part_times object."""
     if not isinstance(part_times, dict) or not part_times:

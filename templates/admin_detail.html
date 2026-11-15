@@ -16,6 +16,13 @@
     </div>
   </header>
   <main class="wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="banner {{ 'error' if category == 'error' else 'success' }}" style="margin-bottom:14px">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <section class="card">
       <div class="section-head">
         <h1>元数据</h1>
@@ -38,6 +45,10 @@
         {% if band_label %} · 参考分数：{{ band_label }}{% elif is_listening %} · 参考分数：—（单部分模式仅记原始分）{% else %} · 参考分数：—（单篇模式仅记原始分）{% endif %}<br/>
         {% else %}
         Task1 题：{{ record.task1_prompt_id }} · Task2 题：{{ record.task2_prompt_id }}<br/>
+        教师评分：{% if teacher_band_label %}{{ teacher_band_label }}{% else %}待评分{% endif %}
+        {% if record.teacher_task1_band is not none and record.teacher_task1_band != "" %} · Task 1 {{ record.teacher_task1_band }}{% endif %}
+        {% if record.teacher_task2_band is not none and record.teacher_task2_band != "" %} · Task 2 {{ record.teacher_task2_band }}{% endif %}
+        <br/>
         {% endif %}
         用时 {{ record.time_used_seconds | duration }} · 剩余 {{ record.time_remaining_seconds | duration }} · 暂停累计 {{ (record.paused_total_seconds or 0) | duration }}<br/>
         {% if is_reading %}
@@ -174,6 +185,34 @@
     </section>
     {% endif %}
     {% else %}
+    <section class="card writing-score-card">
+      <h2>写作评分</h2>
+      <p class="muted">给学生「我的记录」里那只皮卡丘后面用的分数。只填总分即可；Task 1 / Task 2 与评语仅教师可见。</p>
+      <form class="writing-score-form" method="post" action="{{ url_for('admin_submission_score', sid=record.id) }}">
+        <label>
+          总分（0–9，可 0.5）
+          <input type="number" name="teacher_band" min="0" max="9" step="0.5" required
+                 value="{{ teacher_band if teacher_band is not none else '' }}" />
+        </label>
+        <label>
+          Task 1（可选）
+          <input type="number" name="teacher_task1_band" min="0" max="9" step="0.5"
+                 value="{{ teacher_task1_band if teacher_task1_band is not none else '' }}" />
+        </label>
+        <label>
+          Task 2（可选）
+          <input type="number" name="teacher_task2_band" min="0" max="9" step="0.5"
+                 value="{{ teacher_task2_band if teacher_task2_band is not none else '' }}" />
+        </label>
+        <label class="writing-score-comment">
+          评语（可选，仅教师可见）
+          <textarea name="teacher_comment" rows="4" maxlength="2000">{{ teacher_comment }}</textarea>
+        </label>
+        <div class="writing-score-action">
+          <button class="btn" type="submit">保存评分</button>
+        </div>
+      </form>
+    </section>
     <section class="card">
       <h2>Task 1（{{ record.task1_word_count }} 词）</h2>
       <div class="answer-preview">{{ record.task1_text or "（未作答）" }}</div>

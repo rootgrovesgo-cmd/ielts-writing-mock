@@ -830,14 +830,52 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
   text-align: center;
   padding: 20px 18px 16px;
   margin-bottom: 16px;
+  background: #fff;
+}
+.pikachu-heading { margin: 0 0 8px; font-size: 20px; }
+.pikachu-lead {
+  max-width: 46rem;
+  margin: 0 auto 16px;
+  font-size: 14px;
+}
+.pikachu-gallery {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px 8px;
+  padding: 28px 12px 16px;
+  min-height: 180px;
+}
+.pikachu-figure {
+  margin: 0;
+  text-align: center;
+  position: relative;
+  transform: translateY(var(--pikachu-nudge, 0px));
+  max-width: 46%;
+}
+.pikachu-figure.is-xs { max-width: 22%; }
+.pikachu-figure.is-sm { max-width: 28%; }
+.pikachu-figure.is-md { max-width: 34%; }
+.pikachu-figure.is-lg { max-width: 42%; }
+.pikachu-figure.is-cluster {
+  margin-left: -16px;
+  margin-bottom: -8px;
+  z-index: 1;
 }
 .pikachu-sprite {
   display: grid;
   grid-template-columns: repeat(var(--pikachu-cols, 18), 1fr);
-  width: min(288px, 72vw);
+  width: 100%;
+  max-width: 220px;
   margin: 0 auto;
   image-rendering: pixelated;
 }
+.pikachu-figure.is-xs .pikachu-sprite { max-width: 88px; }
+.pikachu-figure.is-sm .pikachu-sprite { max-width: 120px; }
+.pikachu-figure.is-md .pikachu-sprite { max-width: 156px; }
+.pikachu-figure.is-lg .pikachu-sprite { max-width: 200px; }
 .pikachu-cell {
   aspect-ratio: 1;
   background: #c4bdb4;
@@ -850,14 +888,81 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
 .pikachu-cell.is-lit.pikachu-K { background: #2f2c2a; }
 .pikachu-cell.is-lit.pikachu-B { background: #8a5a32; }
 .pikachu-cell.is-lit.pikachu-W { background: #f7f4f0; }
-.pikachu-progress.is-complete .pikachu-sprite {
-  filter: drop-shadow(0 0 10px rgba(230, 194, 77, 0.45));
+.pikachu-figure.is-lit .pikachu-sprite {
+  filter: drop-shadow(0 0 8px rgba(230, 194, 77, 0.28));
 }
 .pikachu-caption {
-  margin: 12px 0 0;
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink);
+  word-break: break-word;
+}
+.pikachu-caption a { color: var(--accent-deep); }
+.pikachu-status {
+  margin: 10px 0 0;
   font-size: 13px;
   color: var(--muted);
 }
+.pikachu-deco {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(var(--pikachu-cols, 7), 1fr);
+  width: 22px;
+  pointer-events: none;
+  z-index: 2;
+  image-rendering: pixelated;
+}
+.pikachu-deco.slot-nw { top: 8px; left: 8%; }
+.pikachu-deco.slot-ne { top: 14px; right: 10%; }
+.pikachu-deco.slot-n { top: 0; left: 50%; transform: translateX(-50%); }
+.pikachu-deco.slot-e { top: 42%; right: 4%; }
+.pikachu-deco.slot-sw { bottom: 36px; left: 6%; }
+.pikachu-deco.slot-se { bottom: 28px; right: 7%; }
+.pikachu-deco.is-sparkle { width: 18px; }
+.pikachu-deco.is-ball { width: 20px; }
+.pikachu-deco-cell { aspect-ratio: 1; background: transparent; }
+.pikachu-deco-cell.pikachu-Y { background: #e6c24d; }
+.pikachu-deco-cell.pikachu-D { background: #c49a3a; }
+.pikachu-deco-cell.pikachu-R { background: #c45c4a; }
+.pikachu-deco-cell.pikachu-K { background: #2f2c2a; }
+.pikachu-deco-cell.pikachu-B { background: #8a5a32; }
+.pikachu-deco-cell.pikachu-W { background: #f7f4f0; }
+
+.writing-score-form {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  margin-top: 12px;
+}
+.writing-score-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.writing-score-form input[type="number"],
+.writing-score-form textarea {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+}
+.writing-score-comment { grid-column: 1 / -1; }
+.writing-score-action { grid-column: 1 / -1; }
+@media (max-width: 700px) {
+  .writing-score-form { grid-template-columns: 1fr; }
+  .pikachu-figure.is-xs,
+  .pikachu-figure.is-sm,
+  .pikachu-figure.is-md,
+  .pikachu-figure.is-lg { max-width: 44%; }
+  .pikachu-figure.is-cluster { margin-left: -10px; }
+}
+
 
 .student-passage .passage-para {
   font-size: 15px;

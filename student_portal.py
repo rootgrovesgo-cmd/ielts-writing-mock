@@ -58,6 +58,84 @@ WRITING_SCORE_KEYS = (
 )
 
 
+
+def set_label(prompt_set_id: str | None) -> str:
+    """Human set name, e.g. set-a → Set A."""
+    token = (prompt_set_id or "").strip().lower()
+    if not token:
+        return "Set"
+    if token.startswith("set-"):
+        suffix = token[4:]
+        if suffix.isalpha() and 1 <= len(suffix) <= 3:
+            return f"Set {suffix.upper()}"
+        if suffix.isdigit():
+            return f"Set {suffix}"
+    return token.replace("-", " ").title()
+
+
+def parse_teacher_band(raw) -> float | None:
+    """Parse a 0–9 IELTS band in 0.5 steps. Empty is None; invalid raises ValueError."""
+    text = "" if raw is None else str(raw).strip()
+    if not text:
+        return None
+    try:
+        value = float(text)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("分数须为 0 到 9 之间的 0.5 档。") from exc
+    quantized = round(value * 2) / 2
+    if abs(value - quantized) > 1e-9 or quantized < 0 or quantized > 9:
+        raise ValueError("分数须为 0 到 9 之间的 0.5 档。")
+    return quantized
+
+
+def format_teacher_band(band) -> str | None:
+    if band is None or band == "":
+        return None
+    try:
+        value = float(band)
+    except (TypeError, ValueError):
+        return None
+    if value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
+def writing_teacher_band(item: dict | None):
+    if not item:
+        return None
+    for key in ("teacher_band", "teacher_score"):
+        if item.get(key) not in (None, ""):
+            try:
+                return parse_teacher_band(item.get(key))
+            except ValueError:
+                continue
+    return None
+
+
+def attempt_caption(item: dict) -> str:
+    """Set + score line shown under a lit Pikachu and on the attempt card."""
+    module = module_of(item)
+    head = f"{module_label(module)} {set_label(item.get('prompt_set_id'))}"
+    mode = (item.get("mode") or "full").strip().lower()
+    if mode and mode != "full":
+        head = f"{head} · {mode_label(module, mode)}"
+    if module in {"reading", "listening"}:
+        parts = [head]
+        score = item.get("score")
+        total = item.get("total")
+        if score is not None and total is not None:
+            parts.append(f"{score}/{total}")
+        band_fn = ls.format_band if module == "listening" else rs.format_band
+        band = band_fn(item.get("band_estimate"))
+        if band:
+            parts.append(band)
+        return " · ".join(parts)
+    band = format_teacher_band(writing_teacher_band(item))
+    if band:
+        return f"{head} · {band}"
+    return f"{head} · 待评分"
+
+
 def module_of(record: dict | None) -> str:
     if not record:
         return "writing"
@@ -146,21 +224,28 @@ def summarize_attempt(item: dict) -> dict:
             score_label = f"{score}/{total}"
         band_fn = ls.format_band if module == "listening" else rs.format_band
         band = band_fn(item.get("band_estimate"))
-    return {
+    teacher_band = writing_teacher_band(item) if module == "writing" else None
+    summary = {
         "id": item.get("id"),
         "module": module,
         "module_label": module_label(module),
         "mode": item.get("mode") or "full",
         "mode_label": mode_label(module, item.get("mode")),
+        "prompt_set_id": item.get("prompt_set_id") or "",
+        "set_label": set_label(item.get("prompt_set_id")),
         "timestamp": item.get("timestamp") or "",
         "when": format_shanghai(item.get("timestamp")),
         "duration": duration_label(item.get("time_used_seconds")),
         "score_label": score_label,
         "band_label": band,
+        "teacher_band": teacher_band,
+        "teacher_band_label": format_teacher_band(teacher_band) if module == "writing" else None,
         "task1_word_count": item.get("task1_word_count") if module == "writing" else None,
         "task2_word_count": item.get("task2_word_count") if module == "writing" else None,
         "auto_submitted": bool(item.get("auto_submitted")),
     }
+    summary["caption"] = attempt_caption({**item, **summary})
+    return summary
 
 
 def writing_prompts_for(record: dict, prompts_data: dict) -> tuple[dict | None, dict | None, dict | None]:

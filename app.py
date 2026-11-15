@@ -286,6 +286,27 @@ def load_submission(sid: str) -> dict | None:
         return json.load(f)
 
 
+def save_submission(record: dict) -> None:
+    """Atomically write a submission JSON after a path-safety check."""
+    sid = (record.get("id") or "").strip()
+    if not sid or any(ch in sid for ch in ("/", "\\", "..")):
+        raise ValueError("invalid submission id")
+    path = SUBMISSIONS_DIR / f"{sid}.json"
+    if path.exists() and path.resolve().parent != SUBMISSIONS_DIR.resolve():
+        raise ValueError("invalid submission path")
+    access.atomic_write_json(path, record)
+
+
+def update_index_submission(sid: str, **fields) -> None:
+    index = load_index()
+    token = (sid or "").strip()
+    for item in index.get("submissions") or []:
+        if item.get("id") == token:
+            item.update(fields)
+            break
+    save_index(index)
+
+
 def load_owned_submission(sid: str, ident: dict) -> dict | None:
     """Return a submission only if it exists and belongs to this student."""
     record = load_submission(sid)
@@ -447,13 +468,12 @@ def student_home():
             next=safe_student_next(request.args.get("next")),
         )
     attempts = sp.list_own_attempts(load_index(), ident)
-    pikachu_lit = len(attempts)
+    oldest_first = list(reversed(attempts))
     return render_template(
         "student_home.html",
         student_name=ident.get("candidate_name") or "",
         attempts=attempts,
-        pikachu_lit=pikachu_lit,
-        pikachu=pikachu.progress(pikachu_lit),
+        pikachu=pikachu.gallery(oldest_first),
     )
 
 
@@ -1278,6 +1298,7 @@ def admin_submission(sid: str):
             record.get("part_times"), label="Section"
         )
     band_fmt = rs.format_band if is_reading else ls.format_band
+    teacher_band = sp.writing_teacher_band(record) if not is_reading and not is_listening else None
     return render_template(
         "admin_detail.html",
         record=record,
@@ -1290,9 +1311,53 @@ def admin_submission(sid: str):
         transcripts=transcripts,
         listening_layouts=listening_layouts,
         invite=invite,
+        teacher_band=teacher_band,
+        teacher_band_label=sp.format_teacher_band(teacher_band),
+        teacher_task1_band=record.get("teacher_task1_band") if not is_reading and not is_listening else None,
+        teacher_task2_band=record.get("teacher_task2_band") if not is_reading and not is_listening else None,
+        teacher_comment=record.get("teacher_comment") or "",
     )
 
 
+
+
+@app.route("/admin/submission/<sid>/score", methods=["POST"])
+@admin_required
+def admin_submission_score(sid: str):
+    record = load_submission(sid)
+    if record is None:
+        return "未找到该答卷", 404
+    if record_module(record) != "writing":
+        flash("只有写作答卷可以手动评分。", "error")
+        return redirect(url_for("admin_submission", sid=sid))
+    try:
+        overall = sp.parse_teacher_band(request.form.get("teacher_band"))
+        task1 = sp.parse_teacher_band(request.form.get("teacher_task1_band"))
+        task2 = sp.parse_teacher_band(request.form.get("teacher_task2_band"))
+    except ValueError as exc:
+        flash(str(exc), "error")
+        return redirect(url_for("admin_submission", sid=sid))
+    if overall is None:
+        flash("请填写总分（0–9，可为 0.5 档）。", "error")
+        return redirect(url_for("admin_submission", sid=sid))
+    comment = (request.form.get("teacher_comment") or "").strip()
+    if len(comment) > 2000:
+        comment = comment[:2000]
+    record["teacher_band"] = overall
+    record["teacher_task1_band"] = task1
+    record["teacher_task2_band"] = task2
+    record["teacher_comment"] = comment
+    record["teacher_scored_at"] = datetime.now(TZ_SHANGHAI).isoformat(timespec="seconds")
+    record["teacher_scored_by"] = session.get("admin_username") or ""
+    save_submission(record)
+    update_index_submission(
+        sid,
+        teacher_band=overall,
+        teacher_task1_band=task1,
+        teacher_task2_band=task2,
+    )
+    flash(f"已保存写作评分：{sp.format_teacher_band(overall)}。", "success")
+    return redirect(url_for("admin_submission", sid=sid))
 
 
 @app.route("/admin/submission/<sid>/paper")
@@ -1392,6 +1457,9 @@ def admin_export_csv():
             "score",
             "total",
             "band_estimate",
+            "teacher_band",
+            "teacher_task1_band",
+            "teacher_task2_band",
             "time_used_seconds",
             "time_remaining_seconds",
             "auto_submitted",
@@ -1422,6 +1490,9 @@ def admin_export_csv():
                 r.get("score") if module in {"reading", "listening"} else "",
                 r.get("total") if module in {"reading", "listening"} else "",
                 r.get("band_estimate") if module in {"reading", "listening"} else "",
+                r.get("teacher_band") if module == "writing" else "",
+                r.get("teacher_task1_band") if module == "writing" else "",
+                r.get("teacher_task2_band") if module == "writing" else "",
                 r.get("time_used_seconds"),
                 r.get("time_remaining_seconds"),
                 r.get("auto_submitted"),

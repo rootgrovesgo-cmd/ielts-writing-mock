@@ -1,189 +1,439 @@
-"""Original classroom fan-art pixel Pikachu used as a student-progress widget.
+"""Original classroom fan-art pixel Pikachus used as a student-progress gallery.
 
-The sprite is an original 18×18 chibi drawing, not a copy of any official
-Pokémon artwork. Each unlockable block is a cluster of neighboring pixels.
-Lighting order: feet and lower body, then belly, cheeks, face, ears, and
-finally the lightning tail.
+Each pose is an original chibi drawing in a chunky 8-bit/16-bit grid, not a
+copy of any official Pokémon artwork. Letters in a sprite: Y yellow, D gold
+shadow, R red, K charcoal, B brown, W white highlight. '.' is empty and is
+not part of the silhouette. Lit figures are full colour; unlit figures are
+a gray silhouette. Official Poké Ball marks are not used; original hearts
+and sparkles are decorative only.
 """
 
 from __future__ import annotations
 
-# Color letters in SPRITE: Y yellow, D gold shadow, R red, K charcoal,
-# B brown, W white highlight. '.' is empty and is not part of the silhouette.
-SPRITE: tuple[str, ...] = (
-    "....KK........KK..",
-    "...KYYK......KYYK.",
-    "...KYYY......YYYK.",
-    "....YYYY....YYYY..",
-    "....YYYYYYYYYYYY..",
-    "....YYWKYYYYWKYY..",
-    "....RRKKYYYYKKRR..",
-    "....RRRYYYYYYRRR..",
-    "....YRRYYYKYYYRR..",
-    "....DYYYYYYYYYYD..",
-    "...YYYYYYYYYYYY...",
-    "..YYYYYYYYYYYYYBY.",
-    "..YYDYYYYYYYYDYYY.",
-    "...DYYYYYYYYYD..YY",
-    "...DDYYYYYYYYD...Y",
-    "....YY......YY.YYY",
-    "....KK......KK...Y",
-    "....KK......KK..YY",
-)
+COLOR_LETTERS = frozenset("YDRKBW")
 
-# Lighting order is the list order. Each block is a cluster of (row, col) cells.
-BLOCKS: tuple[tuple[tuple[int, int], ...], ...] = (
-    (  # 0 left foot
-        (16, 4), (16, 5), (17, 4), (17, 5),
+# Oldest completed set is assigned the first pose; later sets walk this order
+# and wrap when the student has more attempts than poses.
+POSES: dict[str, tuple[str, ...]] = {
+    "stand": (
+        "....KK........KK..",
+        "...KYYK......KYYK.",
+        "...KYYY......YYYK.",
+        "....YYYY....YYYY..",
+        "....YYYYYYYYYYYY..",
+        "....YYWKYYYYWKYY..",
+        "....RRKKYYYYKKRR..",
+        "....RRRYYYYYYRRR..",
+        "....YRRYYYKYYYRR..",
+        "....DYYYYYYYYYYD..",
+        "...YYYYYYYYYYYY...",
+        "..YYYYYYYYYYYYYBY.",
+        "..YYDYYYYYYYYDYYY.",
+        "...DYYYYYYYYYD..YY",
+        "...DDYYYYYYYYD...Y",
+        "....YY......YY.YYY",
+        "....KK......KK...Y",
+        "....KK......KK..YY",
     ),
-    (  # 1 right foot
-        (16, 12), (16, 13), (17, 12), (17, 13),
+    "cheer": (
+        "YY..................YY",
+        "YYK................KYY",
+        ".YY....KK......KK..YY.",
+        ".YY...KYYK....KYYK.YY.",
+        "..Y...KYYY....YYYK.Y..",
+        "Y.....YYWKYYYYWKYY...Y",
+        "Y.....RRKKYYYYKKRR...Y",
+        ".Y....RRRYYYYYYRRR..Y.",
+        ".Y....YRRYYYKYYYRR..Y.",
+        "..Y...DYYYYYYYYYYD.Y..",
+        "..Y..YYYYYYYYYYYYYYY..",
+        "...YYYYYYYYYYYYYYYYY..",
+        "....YYYYYYYYYYYYYYYBY.",
+        "....YYDYYYYYYYYDYYYYY.",
+        ".....DYYYYYYYYYD...YY.",
+        ".....YY.......YY....Y.",
+        ".....KK.......KK...YY.",
+        ".....KK.......KK..YY..",
     ),
-    (  # 2 left lower body
-        (15, 4), (15, 5),
-        (14, 3), (14, 4), (14, 5),
-        (13, 3), (13, 4),
+    "wink": (
+        ".....KK......KK...",
+        "....KYYK....KYYK..",
+        "....KYYY....YYYK..",
+        ".....YYYYYYYYYY...",
+        ".....YKKYYYYWKYY..",
+        ".....RRKYYYYKKRR..",
+        ".....RRRYYYYYRRR..",
+        ".....YRRYYKKYYRR..",
+        ".....DYYYYYYYYYD..",
+        "....YYYYYYYYYYYY..",
+        "...YYYYYYYYYYYYBY.",
+        "...YYDYYYYYYYDYYY.",
+        "....DYYYYYYYYD..YY",
+        "....DDYYYYYYYD...Y",
+        ".....YY.....YY.YYY",
+        ".....KK.....KK...Y",
+        ".....KK.....KK..YY",
     ),
-    (  # 3 right lower body
-        (15, 12), (15, 13),
-        (14, 12), (14, 13),
-        (13, 12), (13, 13),
+    "laugh": (
+        "....KK........KK..",
+        "...KYYK......KYYK.",
+        "...KYYY......YYYK.",
+        "....YYYYYYYYYYYY..",
+        "....YYKYYYYYYKYY..",
+        "....RKYKYYYYKYKR..",
+        "....RRRYYYYYYRRR..",
+        "....YRRKKKKKKRRY..",
+        "....DYYYYYYYYYYD..",
+        "...YYYYYYYYYYYY...",
+        "..YYYYYYYYYYYYYBY.",
+        "..YYDYYYYYYYYDYYY.",
+        "...DYYYYYYYYYD..YY",
+        "...DDYYYYYYYYD...Y",
+        "....YY......YY.YYY",
+        "....KK......KK...Y",
+        "....KK......KK..YY",
     ),
-    (  # 4 lower belly
-        (14, 6), (14, 7), (14, 8), (14, 9), (14, 10), (14, 11),
-        (13, 5), (13, 6), (13, 7), (13, 8), (13, 9), (13, 10), (13, 11),
+    "peek": (
+        "KYYK..............",
+        "KYYY..............",
+        "YYYYK.............",
+        "YYWKYY............",
+        "RRKKYYY...........",
+        "RRRYYYY...........",
+        "YRRYYKYY..........",
+        "DYYYYYYY..........",
+        "YYYYYYYY..........",
+        "YDYYYYY...........",
+        "YYYYYY............",
+        "YY................",
+        "KK................",
+        "KK................",
     ),
-    (  # 5 mid belly
-        (12, 5), (12, 6), (12, 7), (12, 8), (12, 9), (12, 10), (12, 11), (12, 12), (12, 13),
+    "sit": (
+        "......KK......KK....",
+        ".....KYYK....KYYK...",
+        ".....KYYY....YYYK...",
+        "......YYYYYYYYYY....",
+        "......YYWKYYWKYY....",
+        "......RRKKYYKKRR....",
+        "......RRRYYYYYRR....",
+        "......YRRYYKYYRR....",
+        ".....DYYYYYYYYYYD...",
+        "....YYYYYYYYYYYYYY..",
+        "...YYYDYYYYYYYYDYYBY",
+        "...YYYYYYYYYYYYYD.YY",
+        "....DYYYYYYYYYYYY.Y.",
+        "....KKYYYYYYYYKK.YY.",
+        "....KK........KK.Y..",
+        ".................YY.",
     ),
-    (  # 6 chest
-        (11, 4), (11, 5), (11, 6), (11, 7), (11, 8), (11, 9), (11, 10), (11, 11), (11, 12), (11, 13), (11, 14),
+    "jump": (
+        ".....KK........KK...",
+        "....KYYK......KYYK..",
+        "KK..KYYY......YYYK.K",
+        "YYK.YYYYYYYYYYYYYYKY",
+        ".YYYYYWKYYYYWKYYYYY.",
+        "..YYYRRKKYYYYKKRRY..",
+        "...YYRRRYYYYYRRRYY..",
+        "....YYRRYYKYYYRR....",
+        "....DYYYYYYYYYYD..Y.",
+        "...YYYYYYYYYYYYYYBYY",
+        "...YYDYYYYYYYYDYY.Y.",
+        "....DYYYYYYYYYD...Y.",
+        "....YY.......YY..YY.",
+        "....KK.......KK.....",
+        "....KK.......KK.....",
+        "....................",
+        "....................",
+        "....................",
     ),
-    (  # 7 upper chest
-        (10, 3), (10, 4), (10, 5), (10, 6), (10, 7), (10, 8), (10, 9), (10, 10), (10, 11), (10, 12), (10, 13), (10, 14),
+    "hold": (
+        "....KK........KK..",
+        "...KYYK......KYYK.",
+        "...KYYY......YYYK.",
+        "....YYYYYYYYYYYY..",
+        "....YYWKYYYYWKYY..",
+        "....RRKKYYYYKKRR..",
+        "....RRRYYYYYYRRR..",
+        "....YRRYYYKYYYRR..",
+        "....DYYYYYYYYYYD..",
+        "...YYYYKKKKKKYYY..",
+        "..YYYKKWWWWWWKYYBY",
+        "..YYDKWWRWRWWKDYYY",
+        "...DYKWWRRRWWKD..Y",
+        "...DDKKKKKKKKKD..Y",
+        "....YY......YY.YYY",
+        "....KK......KK...Y",
+        "....KK......KK..YY",
     ),
-    (  # 8 left arm
-        (11, 2), (11, 3),
-        (12, 2), (12, 3), (12, 4),
+    "look_left": (
+        "..KK......KK......",
+        ".KYYK....KYYK.....",
+        ".KYYY....YYYY.....",
+        "..YYYYYYYYYYY.....",
+        "..YWKYYYKYYYY.....",
+        "..RKKYYYRRYYYY....",
+        "..RRRYYYYRRYYY....",
+        "..YRRYKYYYYYYD....",
+        "..DYYYYYYYYYYY....",
+        ".YYYYYYYYYYYYY....",
+        "YYYYYYYYYYYYYYB...",
+        "YYDYYYYYYYYDYYY...",
+        ".DYYYYYYYYYD..YY..",
+        ".DDYYYYYYYYD...Y..",
+        "..KK.....KK...YY..",
+        "..KK.....KK..YY...",
     ),
-    (  # 9 jaw
-        (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10), (9, 11), (9, 12), (9, 13), (9, 14), (9, 15),
+    "look_right": (
+        "......KK......KK..",
+        ".....KYYK....KYYK.",
+        ".....YYYY....YYYK.",
+        ".....YYYYYYYYYYY..",
+        ".....YYYYKYYYWKY..",
+        "....YYYYRRYYYKKR..",
+        "....YYYRRYYYYRRR..",
+        "....DYYYYYYKYRRY..",
+        "....YYYYYYYYYYYD..",
+        "....YYYYYYYYYYYY..",
+        "...BYYYYYYYYYYYYY.",
+        "...YYYDYYYYYYYYDYY",
+        "..YY..DYYYYYYYYD..",
+        "..Y...DYYYYYYYYDD.",
+        "..YY...KK.....KK..",
+        "...YY..KK.....KK..",
     ),
-    (  # 10 left cheek
-        (6, 4), (6, 5),
-        (7, 4), (7, 5), (7, 6),
-        (8, 5), (8, 6),
+    "wave": (
+        "...........KK..KK.....",
+        "..........KYYKYYYK....",
+        "....KK....KYYYYYYYKK..",
+        "...KYYK....YYYYYYYYYK.",
+        "...KYYY....YYYYYYYYYY.",
+        "....YYYYYYYYYWKYYYYY..",
+        "....YYYYYYYYYKKRRYYY..",
+        "....YYWKYYYYYYYRRRYY..",
+        "....RRKKYYYYKYYYRR....",
+        "....RRRYYYYYYYYYYD....",
+        "....YRRYYYYYYYYYYY....",
+        "....DYYYYYYYYYYYYBY...",
+        "...YYYYYYYYYYYYDYYY...",
+        "...YYDYYYYYYYYYD..YY..",
+        "....DYYYYYYYYYYD...Y..",
+        "....YY.......YY...YY..",
+        "....KK.......KK....Y..",
+        "....KK.......KK...YY..",
     ),
-    (  # 11 right cheek
-        (6, 14), (6, 15),
-        (7, 13), (7, 14), (7, 15),
-        (8, 14), (8, 15),
+    "shy": (
+        ".....KK......KK...",
+        "....KYYK....KYYK..",
+        "....KYYY....YYYK..",
+        ".....YYYYYYYYYY...",
+        ".....YYYKYYKYYY...",
+        "...RRYRRYYYYRRRRR.",
+        "..YYYRRRYYYYRRRYYY",
+        "..YYYYRRYKKYRRYYYY",
+        "...YDYYYYYYYYYYD..",
+        "....YYYYYYYYYYYY..",
+        "....YYYYYYYYYYYBY.",
+        "....YDYYYYYYYDYYY.",
+        ".....DYYYYYYYD..YY",
+        ".....DYYYYYYYD...Y",
+        ".....YY.....YY.YYY",
+        ".....KK.....KK...Y",
+        ".....KK.....KK..YY",
     ),
-    (  # 12 mouth / lower face
-        (8, 4), (8, 7), (8, 8), (8, 9), (8, 10), (8, 11), (8, 12), (8, 13),
+    "walk": (
+        "........KK........",
+        ".......KYYK.......",
+        ".......KYYY.......",
+        "......YYYYYY......",
+        "......YYWKYY......",
+        "......YRRKKY......",
+        "Y....YYYYYKY......",
+        "YY...DYYYYYY......",
+        "YYY.YYYYYYYY......",
+        "Y..BYYYYYYYY......",
+        "...YYDYYYYYY......",
+        "....YYYYYYYY......",
+        ".....YY...YY......",
+        ".....KK...KK......",
+        "..........KK......",
     ),
-    (  # 13 left eye
-        (5, 6), (5, 7),
-        (6, 6), (6, 7),
+    "sleep": (
+        "................KK......",
+        "...............KYYK.....",
+        "..............KYYYY.....",
+        "....YYYYYYYYYYYYYYY.....",
+        "...YYYYYYYYYYYYKKYY.....",
+        "..DYYYYYYYYYYYYRRKYY....",
+        "..YYYYYYYYYYYYYRRRYY....",
+        "...DYYYYYYYYYYYYKYYYBY..",
+        "....YYYYYYYYYYYYYYYYYYY.",
+        "....KK.........KK...YY..",
+        "....KK..............Y...",
     ),
-    (  # 14 right eye
-        (5, 12), (5, 13),
-        (6, 12), (6, 13),
-    ),
-    (  # 15 forehead / mid-face
-        (4, 4), (4, 5), (4, 6), (4, 7), (4, 8), (4, 9), (4, 10), (4, 11), (4, 12), (4, 13), (4, 14), (4, 15),
-        (5, 4), (5, 5), (5, 8), (5, 9), (5, 10), (5, 11), (5, 14), (5, 15),
-        (6, 8), (6, 9), (6, 10), (6, 11),
-        (7, 7), (7, 8), (7, 9), (7, 10), (7, 11), (7, 12),
-    ),
-    (  # 16 left ear
-        (0, 4), (0, 5),
-        (1, 3), (1, 4), (1, 5), (1, 6),
-        (2, 3), (2, 4), (2, 5), (2, 6),
-        (3, 4), (3, 5), (3, 6), (3, 7),
-    ),
-    (  # 17 right ear
-        (0, 14), (0, 15),
-        (1, 13), (1, 14), (1, 15), (1, 16),
-        (2, 13), (2, 14), (2, 15), (2, 16),
-        (3, 12), (3, 13), (3, 14), (3, 15),
-    ),
-    (  # 18 tail base
-        (11, 15), (11, 16),
-        (12, 14), (12, 15), (12, 16),
-    ),
-    (  # 19 lightning tail tip (last reward)
-        (13, 16), (13, 17),
-        (14, 17),
-        (15, 15), (15, 16), (15, 17),
-        (16, 17),
-        (17, 16), (17, 17),
-    ),
-)
-
-_CELL_BLOCK: dict[tuple[int, int], int] = {
-    (row, col): index
-    for index, cells in enumerate(BLOCKS)
-    for row, col in cells
 }
 
+DECOS: dict[str, tuple[str, ...]] = {
+    "heart": (
+        ".RR.RR.",
+        "RRRRRRR",
+        "RRRRRRR",
+        ".RRRRR.",
+        "..RRR..",
+        "...R...",
+    ),
+    "sparkle": (
+        "...Y...",
+        "...Y...",
+        "Y..Y..Y",
+        ".YYYYY.",
+        "Y..Y..Y",
+        "...Y...",
+        "...Y...",
+    ),
+    "ball": (
+        "..DDD..",
+        ".DYYYD.",
+        "DYYYYYD",
+        "DYYWYYD",
+        "DYYYYYD",
+        ".DYYYD.",
+        "..DDD..",
+    ),
+}
 
-def block_count() -> int:
-    """Number of unlockable blocks; derived from the sprite grouping."""
-    return len(BLOCKS)
+# Visual rhythm for the collage: mixed sizes, with a small overlapping pile
+# toward the later figures (bottom-right in a wrapping flex layout).
+_SIZE_CYCLE = ("md", "sm", "lg", "sm", "md", "xs", "lg", "md", "sm", "md", "sm", "xs", "md", "lg")
+_NUDGE_CYCLE = (0, 6, -4, 8, 2, -8, 4, 0, -6, 5, 3, -3, 7, -5)
+_DECO_LAYOUT = (
+    {"kind": "heart", "slot": "nw"},
+    {"kind": "heart", "slot": "ne"},
+    {"kind": "sparkle", "slot": "n"},
+    {"kind": "sparkle", "slot": "e"},
+    {"kind": "ball", "slot": "sw"},
+    {"kind": "ball", "slot": "se"},
+)
 
 
-def progress(lit: int) -> dict:
-    """Build the template model for a silhouette with ``lit`` blocks turned on."""
-    total = block_count()
-    try:
-        raw = int(lit)
-    except (TypeError, ValueError):
-        raw = 0
-    lit_n = max(0, min(raw, total))
-    cols = len(SPRITE[0]) if SPRITE else 0
+def pose_ids() -> tuple[str, ...]:
+    """Stable pose order used when lighting figures oldest-first."""
+    return tuple(POSES)
+
+
+def pose_count() -> int:
+    """Number of distinct poses in the gallery."""
+    return len(POSES)
+
+
+def sprite_cells(sprite: tuple[str, ...] | list[str], *, lit: bool) -> dict:
+    """Rasterise one ASCII sprite into template cells."""
+    rows = tuple(sprite)
+    if not rows:
+        raise ValueError("Sprite must have at least one row")
+    cols = len(rows[0])
     cells: list[dict] = []
-    for row, line in enumerate(SPRITE):
+    for row, line in enumerate(rows):
         if len(line) != cols:
-            raise ValueError(f"Pikachu sprite row {row} is {len(line)} wide, expected {cols}")
-        for col, color in enumerate(line):
+            raise ValueError(f"Sprite row {row} is {len(line)} wide, expected {cols}")
+        for color in line:
             if color == ".":
-                cells.append({"empty": True, "lit": False, "color": "", "block": None})
+                cells.append({"empty": True, "lit": False, "color": ""})
                 continue
-            block = _CELL_BLOCK.get((row, col))
-            if block is None:
-                raise ValueError(f"Pikachu sprite cell {(row, col)} is not in any block")
-            cells.append({
-                "empty": False,
-                "lit": block < lit_n,
-                "color": color,
-                "block": block,
-            })
+            if color not in COLOR_LETTERS:
+                raise ValueError(f"Unknown sprite color {color!r}")
+            cells.append({"empty": False, "lit": bool(lit), "color": color})
     return {
-        "lit": lit_n,
-        "total": total,
-        "complete": raw >= total,
         "cols": cols,
-        "rows": len(SPRITE),
+        "rows": len(rows),
         "cells": cells,
     }
 
 
-def _validate() -> None:
-    filled = {
-        (row, col)
-        for row, line in enumerate(SPRITE)
-        for col, color in enumerate(line)
-        if color != "."
+def gallery(attempts: list[dict] | None = None) -> dict:
+    """Build the records-page collage.
+
+    ``attempts`` must already be in oldest-first order. Each item may
+    include ``caption`` (shown under a lit figure) and ``id``.
+    The gallery always shows every distinct pose as a silhouette, then
+    grows and reuses poses when there are more completed sets than poses.
+    """
+    items = list(attempts or [])
+    ids = pose_ids()
+    n_poses = len(ids)
+    lit_n = len(items)
+    total = max(n_poses, lit_n)
+    figures: list[dict] = []
+    for index in range(total):
+        pose = ids[index % n_poses]
+        is_lit = index < lit_n
+        item = items[index] if is_lit else {}
+        raster = sprite_cells(POSES[pose], lit=is_lit)
+        figures.append({
+            "pose": pose,
+            "lit": is_lit,
+            "caption": (item.get("caption") or "") if is_lit else "",
+            "attempt_id": item.get("id") if is_lit else None,
+            "size": _SIZE_CYCLE[index % len(_SIZE_CYCLE)],
+            "cluster": _is_cluster(index, total, n_poses),
+            "nudge": _NUDGE_CYCLE[index % len(_NUDGE_CYCLE)],
+            **raster,
+        })
+    decos = []
+    for deco in _DECO_LAYOUT:
+        raster = sprite_cells(DECOS[deco["kind"]], lit=True)
+        decos.append({
+            "kind": deco["kind"],
+            "slot": deco["slot"],
+            **raster,
+        })
+    return {
+        "figures": figures,
+        "decos": decos,
+        "lit": lit_n,
+        "total": total,
+        "poses": n_poses,
+        "complete": lit_n >= n_poses,
     }
-    assigned = set(_CELL_BLOCK)
-    if filled != assigned:
-        missing = filled - assigned
-        extra = assigned - filled
-        raise RuntimeError(f"Pikachu sprite/blocks mismatch: missing={missing} extra={extra}")
-    widths = {len(line) for line in SPRITE}
-    if len(widths) != 1:
-        raise RuntimeError("Pikachu sprite rows must all be the same width")
+
+
+def _is_cluster(index: int, total: int, n_poses: int) -> bool:
+    if total < 6:
+        return False
+    pile_start = max(n_poses - 4, total - 4)
+    return index >= pile_start
+
+
+def _validate() -> None:
+    if not 12 <= len(POSES) <= 16:
+        raise RuntimeError(f"Expected 12–16 Pikachu poses, found {len(POSES)}")
+    seen: set[tuple[str, ...]] = set()
+    for name, rows in POSES.items():
+        widths = {len(line) for line in rows}
+        if len(widths) != 1:
+            raise RuntimeError(f"Pikachu pose {name!r} rows must all be the same width")
+        if not rows or not rows[0]:
+            raise RuntimeError(f"Pikachu pose {name!r} is empty")
+        letters = {ch for line in rows for ch in line if ch != "."}
+        bad = letters - COLOR_LETTERS
+        if bad:
+            raise RuntimeError(f"Pikachu pose {name!r} has invalid colors {bad}")
+        if "Y" not in letters or "K" not in letters or "R" not in letters:
+            raise RuntimeError(f"Pikachu pose {name!r} is missing core colors")
+        key = tuple(rows)
+        if key in seen:
+            raise RuntimeError(f"Pikachu pose {name!r} is a duplicate of another pose")
+        seen.add(key)
+        sprite_cells(rows, lit=True)
+    for name, rows in DECOS.items():
+        widths = {len(line) for line in rows}
+        if len(widths) != 1:
+            raise RuntimeError(f"Pikachu deco {name!r} rows must all be the same width")
+        letters = {ch for line in rows for ch in line if ch != "."}
+        bad = letters - COLOR_LETTERS
+        if bad:
+            raise RuntimeError(f"Pikachu deco {name!r} has invalid colors {bad}")
+        sprite_cells(rows, lit=True)
 
 
 _validate()

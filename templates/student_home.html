@@ -34,22 +34,54 @@
       </div>
     </section>
 
-    <section class="card pikachu-progress{% if pikachu.complete %} is-complete{% endif %}">
-      <div
-        class="pikachu-sprite"
-        role="img"
-        aria-label="{% if pikachu.complete %}像素皮卡丘，已经全部点亮{% else %}像素皮卡丘，已点亮 {{ pikachu.lit }}/{{ pikachu.total }} 块{% endif %}"
-        style="--pikachu-cols: {{ pikachu.cols }};"
-      >
-        {% for cell in pikachu.cells %}
-        <span class="pikachu-cell{% if cell.empty %} is-empty{% elif cell.lit %} is-lit pikachu-{{ cell.color }}{% else %} is-unlit{% endif %}"></span>
+    <section class="card pikachu-progress{% if pikachu.complete %} is-complete{% endif %}" aria-label="练习点亮皮卡丘">
+      <p class="eyebrow">Pikachu gallery</p>
+      <h2 class="pikachu-heading">我的皮卡丘</h2>
+      <p class="muted pikachu-lead">每做完一套写作、阅读或听力，就会点亮一只皮卡丘；评分跟在每只后面。阅读和听力按作答自动评分，写作为教师评分，未评时显示「待评分」。</p>
+      <div class="pikachu-gallery">
+        {% for deco in pikachu.decos %}
+        <div
+          class="pikachu-deco is-{{ deco.kind }} slot-{{ deco.slot }}"
+          aria-hidden="true"
+          style="--pikachu-cols: {{ deco.cols }};"
+        >
+          {% for cell in deco.cells %}
+          <span class="pikachu-deco-cell{% if cell.empty %} is-empty{% else %} pikachu-{{ cell.color }}{% endif %}"></span>
+          {% endfor %}
+        </div>
+        {% endfor %}
+        {% for fig in pikachu.figures %}
+        <figure
+          class="pikachu-figure is-{{ fig.size }}{% if fig.lit %} is-lit{% else %} is-unlit{% endif %}{% if fig.cluster %} is-cluster{% endif %}"
+          style="--pikachu-nudge: {{ fig.nudge }}px;"
+        >
+          <div
+            class="pikachu-sprite"
+            role="img"
+            aria-label="{% if fig.lit %}{{ fig.caption }}{% else %}未点亮的像素皮卡丘{% endif %}"
+            style="--pikachu-cols: {{ fig.cols }};"
+          >
+            {% for cell in fig.cells %}
+            <span class="pikachu-cell{% if cell.empty %} is-empty{% elif cell.lit %} is-lit pikachu-{{ cell.color }}{% else %} is-unlit{% endif %}"></span>
+            {% endfor %}
+          </div>
+          {% if fig.lit and fig.caption %}
+          <figcaption class="pikachu-caption">
+            {% if fig.attempt_id %}
+            <a href="{{ url_for('student_submission', sid=fig.attempt_id) }}">{{ fig.caption }}</a>
+            {% else %}
+            {{ fig.caption }}
+            {% endif %}
+          </figcaption>
+          {% endif %}
+        </figure>
         {% endfor %}
       </div>
-      <p class="pikachu-caption">
-        {% if pikachu.complete %}
-        整只皮卡丘都点亮啦
+      <p class="pikachu-status">
+        {% if pikachu.lit %}
+        已点亮 {{ pikachu.lit }} 只皮卡丘，每做完一套点亮一只
         {% else %}
-        已点亮 {{ pikachu.lit }}/{{ pikachu.total }} 块，每做完一套点亮一小块
+        还没有点亮的皮卡丘，每做完一套点亮一只
         {% endif %}
       </p>
     </section>
@@ -69,6 +101,7 @@
             {% if item.module in ['reading', 'listening'] and item.score_label %}
               · {{ item.score_label }}{% if item.band_label %} · 参考分数 {{ item.band_label }}{% endif %}
             {% elif item.module == 'writing' %}
+              · {% if item.teacher_band_label %}教师评分 {{ item.teacher_band_label }}{% else %}待评分{% endif %}
               {% if item.task1_word_count is not none %} · Task 1 {{ item.task1_word_count }} 词{% endif %}
               {% if item.task2_word_count is not none %} · Task 2 {{ item.task2_word_count }} 词{% endif %}
             {% endif %}

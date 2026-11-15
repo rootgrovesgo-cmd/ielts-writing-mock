@@ -83,6 +83,8 @@
               <td>
                 {% if module in ['reading', 'listening'] and s.get('score') is not none %}
                   {{ s.score }}/{{ s.total }}
+                {% elif module == 'writing' and s.get('teacher_band') is not none and s.get('teacher_band') != '' %}
+                  {{ s.teacher_band }}
                 {% else %}
                   —
                 {% endif %}
@@ -90,6 +92,10 @@
               <td>
                 {% if module in ['reading', 'listening'] and s.get('band_estimate') is not none %}
                   {{ s.band_estimate }}
+                {% elif module == 'writing' and s.get('teacher_band') is not none and s.get('teacher_band') != '' %}
+                  {{ s.teacher_band }}
+                {% elif module == 'writing' %}
+                  待评分
                 {% else %}
                   —
                 {% endif %}

@@ -925,25 +925,44 @@ class ListeningPortalTests(StudentPortalTestCase):
 
 
 class PikachuProgressTests(StudentPortalTestCase):
-    def _lit_count(self, html):
-        return html.count("is-lit")
+    def setUp(self):
+        super().setUp()
+        os.environ["IELTS_ADMIN_USERNAME"] = TEST_ADMIN_USER
+        os.environ["IELTS_ADMIN_PASSWORD"] = TEST_ADMIN_PASS
 
-    def _expected_lit_cells(self, lit):
-        return sum(1 for cell in pikachu.progress(lit)["cells"] if cell["lit"])
+    def _login_admin(self, client=None):
+        client = client or self.client
+        return client.post(
+            "/admin/login",
+            data={"username": TEST_ADMIN_USER, "password": TEST_ADMIN_PASS},
+        )
 
-    def _submit_listening(self, name="Ada Student"):
+    def _submit_listening(self, name="Ada Student", prompt_set_id="set-a"):
         answers = {str(q): a for q, a in ls.official_answers().items()}
         return self.client.post(
             "/api/listening/submit",
             json={
                 "candidate_name": name,
                 "mode": "full",
-                "prompt_set_id": "set-a",
+                "prompt_set_id": prompt_set_id,
                 "answers": answers,
                 "duration_seconds": 1800,
                 "time_used_seconds": 1500,
             },
         )
+
+    def _figures(self, html):
+        return re.findall(r'<figure\s+class="pikachu-figure([^"]*)"', html)
+
+    def _caption_texts(self, html):
+        return re.findall(r'<figcaption class="pikachu-caption">\s*(.*?)\s*</figcaption>', html, flags=re.S)
+
+    def _plain_captions(self, html):
+        out = []
+        for raw in self._caption_texts(html):
+            text = re.sub(r"<[^>]+>", "", raw)
+            out.append(" ".join(unescape(text).split()))
+        return out
 
     def _seed_attempts(self, count, rec, name="Ada Student"):
         index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
@@ -952,109 +971,258 @@ class PikachuProgressTests(StudentPortalTestCase):
         for i in range(count):
             sid = f"pika-{i:04d}-bbbb-cccc-dddd-eeeeeeeeeeee"
             module = modules[i % 3]
+            set_id = f"set-{chr(ord('a') + (i % 6))}"
             record = {
                 "id": sid,
                 "timestamp": f"2026-11-{(i % 28) + 1:02d}T09:15:00+08:00",
                 "candidate_name": name,
                 "module": module,
                 "mode": "full",
+                "prompt_set_id": set_id,
                 "time_used_seconds": 12,
                 "invite_code_id": rec["id"],
             }
+            if module in {"reading", "listening"}:
+                record["score"] = 30 + (i % 10)
+                record["total"] = 40
+                record["band_estimate"] = 7.0
             (appmod.SUBMISSIONS_DIR / f"{sid}.json").write_text(
                 json.dumps(record, ensure_ascii=False), encoding="utf-8"
             )
-            submissions.insert(0, {
+            index_row = {
                 "id": sid,
                 "timestamp": record["timestamp"],
                 "candidate_name": name,
                 "module": module,
                 "mode": "full",
+                "prompt_set_id": set_id,
                 "time_used_seconds": 12,
                 "invite_code_id": rec["id"],
-            })
+            }
+            if module in {"reading", "listening"}:
+                index_row["score"] = record["score"]
+                index_row["total"] = record["total"]
+                index_row["band_estimate"] = record["band_estimate"]
+            submissions.insert(0, index_row)
         appmod.save_index(index)
 
-    def test_sprite_groups_cover_every_silhouette_cell(self):
-        filled = {
-            (row, col)
-            for row, line in enumerate(pikachu.SPRITE)
-            for col, color in enumerate(line)
-            if color != "."
-        }
-        assigned = {
-            cell
-            for block in pikachu.BLOCKS
-            for cell in block
-        }
-        self.assertEqual(filled, assigned)
-        self.assertGreaterEqual(pikachu.block_count(), 16)
-        self.assertLessEqual(pikachu.block_count(), 24)
-        self.assertEqual(len(set(len(line) for line in pikachu.SPRITE)), 1)
-        width = len(pikachu.SPRITE[0])
-        self.assertGreaterEqual(width, 14)
-        self.assertLessEqual(width, 18)
+    def test_sprite_poses_are_original_grids(self):
+        ids = pikachu.pose_ids()
+        self.assertGreaterEqual(len(ids), 12)
+        self.assertLessEqual(len(ids), 16)
+        self.assertEqual(len(ids), len(set(ids)))
+        seen = set()
+        for name in ids:
+            rows = pikachu.POSES[name]
+            widths = {len(line) for line in rows}
+            self.assertEqual(len(widths), 1, name)
+            width = len(rows[0])
+            self.assertGreaterEqual(width, 14)
+            self.assertLessEqual(width, 24)
+            self.assertGreaterEqual(len(rows), 10)
+            letters = {ch for line in rows for ch in line if ch != "."}
+            self.assertTrue(letters <= pikachu.COLOR_LETTERS, name)
+            self.assertTrue({"Y", "K", "R"} <= letters, name)
+            key = tuple(rows)
+            self.assertNotIn(key, seen)
+            seen.add(key)
+        # Decorative balls are original baubles, not official Poké Ball marks.
+        ball_letters = {ch for line in pikachu.DECOS["ball"] for ch in line if ch != "."}
+        self.assertNotIn("R", ball_letters)
+        self.assertTrue(ball_letters <= pikachu.COLOR_LETTERS)
 
-    def test_empty_records_still_show_unlit_pikachu(self):
+    def test_gallery_reuses_poses_when_it_grows(self):
+        extra = 3
+        attempts = [{"id": f"a{i}", "caption": f"写作 Set A · {i}"} for i in range(pikachu.pose_count() + extra)]
+        gallery = pikachu.gallery(attempts)
+        self.assertEqual(gallery["lit"], pikachu.pose_count() + extra)
+        self.assertEqual(gallery["total"], pikachu.pose_count() + extra)
+        self.assertEqual(len(gallery["figures"]), pikachu.pose_count() + extra)
+        ids = pikachu.pose_ids()
+        self.assertEqual(gallery["figures"][0]["pose"], ids[0])
+        self.assertEqual(gallery["figures"][len(ids)]["pose"], ids[0])
+        self.assertEqual(gallery["figures"][-1]["pose"], ids[extra - 1])
+        self.assertTrue(all(fig["lit"] for fig in gallery["figures"]))
+        self.assertTrue(all(
+            cell["lit"]
+            for fig in gallery["figures"]
+            for cell in fig["cells"]
+            if not cell["empty"]
+        ))
+
+    def test_empty_records_still_show_unlit_gallery(self):
         self._create_code()
         self._login()
         home = self.client.get("/me")
         self.assertEqual(home.status_code, 200)
         html = home.get_data(as_text=True)
-        total = pikachu.block_count()
         self.assertIn("还没有交过卷", html)
         self.assertIn("开始写作模考", html)
-        self.assertIn("开始阅读模考", html)
-        self.assertIn("开始听力模考", html)
         self.assertIn("pikachu-progress", html)
-        self.assertIn('role="img"', html)
-        self.assertIn(f"已点亮 0/{total} 块，每做完一套点亮一小块", html)
-        self.assertIn(f"像素皮卡丘，已点亮 0/{total} 块", html)
-        self.assertNotIn("整只皮卡丘都点亮啦", html)
-        self.assertNotIn("is-complete", html)
-        self.assertEqual(self._lit_count(html), 0)
+        self.assertIn("还没有点亮的皮卡丘，每做完一套点亮一只", html)
+        self.assertIn("未点亮的像素皮卡丘", html)
+        self.assertNotIn("已点亮", html)
+        self.assertEqual(self._plain_captions(html), [])
+        figures = self._figures(html)
+        self.assertEqual(len(figures), pikachu.pose_count())
+        self.assertTrue(all("is-unlit" in cls for cls in figures))
+        self.assertEqual(html.count("pikachu-cell is-lit"), 0)
+        self.assertEqual(self._plain_captions(html), [])
 
-    def test_each_submitted_paper_lights_one_more_block(self):
+    def test_each_submitted_paper_lights_one_whole_pikachu_oldest_first(self):
         self._create_code()
-        total = pikachu.block_count()
 
         self._start(module="writing")
         writing = self._submit_writing()
         self.assertEqual(writing.status_code, 200)
         home = self.client.get("/me").get_data(as_text=True)
-        self.assertNotIn("还没有交过卷", home)
-        self.assertIn("pikachu-progress", home)
-        self.assertIn(f"已点亮 1/{total} 块，每做完一套点亮一小块", home)
-        self.assertEqual(self._lit_count(home), self._expected_lit_cells(1))
+        self.assertIn("已点亮 1 只皮卡丘，每做完一套点亮一只", home)
+        figures = self._figures(home)
+        self.assertEqual(len(figures), pikachu.pose_count())
+        self.assertIn("is-lit", figures[0])
+        self.assertTrue(all("is-unlit" in cls for cls in figures[1:]))
+        self.assertIn("写作 Set A · 待评分", self._plain_captions(home))
+        self.assertIn("待评分", home)
 
         self._start(module="reading")
         reading = self._submit_reading()
         self.assertEqual(reading.status_code, 200)
+        reading_payload = reading.get_json()
+        reading_caption = f"阅读 Set A · {reading_payload['score']}/{reading_payload['total']} · {rs.format_band(reading_payload['band_estimate'])}"
         home = self.client.get("/me").get_data(as_text=True)
-        self.assertIn(f"已点亮 2/{total} 块，每做完一套点亮一小块", home)
-        self.assertEqual(self._lit_count(home), self._expected_lit_cells(2))
+        self.assertIn("已点亮 2 只皮卡丘，每做完一套点亮一只", home)
+        figures = self._figures(home)
+        self.assertIn("is-lit", figures[0])
+        self.assertIn("is-lit", figures[1])
+        self.assertTrue(all("is-unlit" in cls for cls in figures[2:]))
+        captions = self._plain_captions(home)
+        self.assertEqual(captions[0], "写作 Set A · 待评分")
+        self.assertEqual(captions[1], reading_caption)
+        # Attempt list is newest first, but Pikachus light oldest first.
+        writing_pos = home.find("写作 Set A · 待评分")
+        reading_pos = home.find(reading_caption)
+        list_writing = home.rfind("mod-badge writing")
+        list_reading = home.rfind("mod-badge reading")
+        self.assertLess(writing_pos, reading_pos)
+        self.assertLess(list_reading, list_writing)
 
         self._start(module="listening")
         listening = self._submit_listening()
         self.assertEqual(listening.status_code, 200)
+        listening_payload = listening.get_json()
+        listening_caption = f"听力 Set A · {listening_payload['score']}/{listening_payload['total']} · {ls.format_band(listening_payload['band_estimate'])}"
         home = self.client.get("/me").get_data(as_text=True)
-        self.assertIn(f"已点亮 3/{total} 块，每做完一套点亮一小块", home)
-        self.assertEqual(self._lit_count(home), self._expected_lit_cells(3))
+        self.assertIn("已点亮 3 只皮卡丘，每做完一套点亮一只", home)
+        self.assertIn(listening_caption, self._plain_captions(home))
         self.assertIn("写作", home)
         self.assertIn("阅读", home)
         self.assertIn("听力", home)
 
-    def test_fully_lit_when_attempts_reach_block_count(self):
+    def test_gallery_grows_on_records_page_when_attempts_exceed_poses(self):
         rec = self._create_code()
         self._login()
-        total = pikachu.block_count()
-        self._seed_attempts(total, rec)
+        extra = 2
+        self._seed_attempts(pikachu.pose_count() + extra, rec)
         home = self.client.get("/me").get_data(as_text=True)
-        self.assertIn("整只皮卡丘都点亮啦", home)
-        self.assertIn("像素皮卡丘，已经全部点亮", home)
-        self.assertIn("is-complete", home)
-        self.assertNotIn(f"已点亮 {total}/{total} 块", home)
-        self.assertEqual(self._lit_count(home), self._expected_lit_cells(total))
+        figures = self._figures(home)
+        self.assertEqual(len(figures), pikachu.pose_count() + extra)
+        self.assertTrue(all("is-lit" in cls for cls in figures))
+        self.assertIn(f"已点亮 {pikachu.pose_count() + extra} 只皮卡丘，每做完一套点亮一只", home)
+        captions = self._plain_captions(home)
+        self.assertEqual(len(captions), pikachu.pose_count() + extra)
+        self.assertTrue(any("待评分" in cap for cap in captions))
+        self.assertTrue(any(cap.startswith("阅读") and "/40" in cap for cap in captions))
+
+    def test_teacher_writing_score_appears_on_admin_form_and_student_gallery(self):
+        self._create_code()
+        self._start(module="writing")
+        submitted = self._submit_writing()
+        self.assertEqual(submitted.status_code, 200)
+        sid = submitted.get_json()["id"]
+
+        self._login_admin()
+        detail = self.client.get(f"/admin/submission/{sid}")
+        self.assertEqual(detail.status_code, 200)
+        html = detail.get_data(as_text=True)
+        self.assertIn("writing-score-form", html)
+        self.assertIn(f'action="/admin/submission/{sid}/score"', html)
+        self.assertIn('name="teacher_band"', html)
+        self.assertIn("待评分", html)
+
+        saved = self.client.post(
+            f"/admin/submission/{sid}/score",
+            data={
+                "teacher_band": "6.5",
+                "teacher_task1_band": "6",
+                "teacher_task2_band": "7",
+                "teacher_comment": "Task 2 is stronger.",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(saved.status_code, 200)
+        saved_html = saved.get_data(as_text=True)
+        self.assertIn("已保存写作评分：6.5。", saved_html)
+        self.assertIn("教师评分：6.5", saved_html)
+        self.assertIn("Task 1 6", saved_html)
+        self.assertIn("Task 2 7", saved_html)
+        self.assertIn("Task 2 is stronger.", saved_html)
+
+        record = json.loads((appmod.SUBMISSIONS_DIR / f"{sid}.json").read_text(encoding="utf-8"))
+        self.assertEqual(record["teacher_band"], 6.5)
+        self.assertEqual(record["teacher_task1_band"], 6.0)
+        self.assertEqual(record["teacher_task2_band"], 7.0)
+        self.assertEqual(record["teacher_comment"], "Task 2 is stronger.")
+
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("写作 Set A · 6.5", self._plain_captions(home))
+        self.assertNotIn("写作 Set A · 待评分", home)
+        self.assertIn("教师评分 6.5", home)
+        self.assertNotIn("Task 2 is stronger.", home)
+
+    def test_teacher_writing_score_rejects_invalid_values_and_non_writing(self):
+        self._create_code()
+        self._start(module="writing")
+        writing = self._submit_writing()
+        writing_sid = writing.get_json()["id"]
+        self._start(module="reading")
+        reading = self._submit_reading()
+        reading_sid = reading.get_json()["id"]
+
+        self._login_admin()
+        reading_detail = self.client.get(f"/admin/submission/{reading_sid}").get_data(as_text=True)
+        self.assertNotIn("writing-score-form", reading_detail)
+        self.assertNotIn('name="teacher_band"', reading_detail)
+
+        refused = self.client.post(
+            f"/admin/submission/{reading_sid}/score",
+            data={"teacher_band": "7"},
+            follow_redirects=True,
+        )
+        self.assertEqual(refused.status_code, 200)
+        self.assertIn("只有写作答卷可以手动评分", refused.get_data(as_text=True))
+        reading_record = json.loads((appmod.SUBMISSIONS_DIR / f"{reading_sid}.json").read_text(encoding="utf-8"))
+        self.assertNotIn("teacher_band", reading_record)
+
+        invalid = self.client.post(
+            f"/admin/submission/{writing_sid}/score",
+            data={"teacher_band": "6.25"},
+            follow_redirects=True,
+        )
+        self.assertEqual(invalid.status_code, 200)
+        self.assertIn("分数须为 0 到 9 之间的 0.5 档。", invalid.get_data(as_text=True))
+        writing_record = json.loads((appmod.SUBMISSIONS_DIR / f"{writing_sid}.json").read_text(encoding="utf-8"))
+        self.assertNotIn("teacher_band", writing_record)
+
+        guest = appmod.app.test_client()
+        denied = guest.post(
+            f"/admin/submission/{writing_sid}/score",
+            data={"teacher_band": "8"},
+            follow_redirects=False,
+        )
+        self.assertEqual(denied.status_code, 302)
+        self.assertIn("/admin/login", denied.headers.get("Location", ""))
+        writing_record = json.loads((appmod.SUBMISSIONS_DIR / f"{writing_sid}.json").read_text(encoding="utf-8"))
+        self.assertNotIn("teacher_band", writing_record)
 
 
 class WritingSetTests(StudentPortalTestCase):

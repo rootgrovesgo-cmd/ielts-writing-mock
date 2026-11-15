@@ -170,7 +170,7 @@
       <p class="muted">原声为教学用 TTS 练习音频，不是剑桥官方录音。</p>
       {% for sid in ['1', '2', '3', '4'] %}
       <p>Section {{ sid }}</p>
-      <audio controls preload="none" src="{{ url_for('api_listening_audio', section=sid) }}"></audio>
+      <audio controls preload="none" src="{{ url_for('api_listening_audio', section=sid, set=record.prompt_set_id or 'set-a') }}"></audio>
       {% endfor %}
     </section>
     {% if transcripts %}

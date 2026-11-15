@@ -1,0 +1,360 @@
+{
+  "set_id": "set-b",
+  "questions": {
+    "1": {
+      "answer": "19th",
+      "type": "notes",
+      "alternatives": [
+        "19",
+        "nineteenth",
+        "19 July",
+        "July 19",
+        "19th July",
+        "July 19th"
+      ],
+      "explanation": "Marcus 先排除主页上仍显示的 12 号（那是工作日晚间课），也否定了改到 26 号的传闻，明确周末玻璃课在 19 号（the nineteenth）。不要填 12th / 26th。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "2": {
+      "answer": "Willow",
+      "type": "notes",
+      "explanation": "Oak Studio 正在翻修，庭院工作室给陶艺用。染色玻璃周末课在 Willow Studio。不要填 Oak 或 courtyard。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "3": {
+      "answer": "glass",
+      "type": "notes",
+      "explanation": "中心提供 coloured glass 和 lead came。自带工具只适用于高级晚间课；旧衣服和鞋不是空格要填的材料。不要填 tools / lead / clothes。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "4": {
+      "answer": "jewellery",
+      "type": "notes",
+      "alternatives": [
+        "jewelry"
+      ],
+      "explanation": "镶嵌课在五月且已满；陶艺在另一栋楼，与此次预订无关。周日下午可选的是 jewellery class。不要填 mosaics 或 pottery。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "5": {
+      "answer": "85",
+      "type": "notes",
+      "alternatives": [
+        "£85",
+        "eighty-five"
+      ],
+      "explanation": "95 英镑是工作日两日课；60 英镑是周五才可能出现的学生候补价；45 英镑只是订金。周末课本身是 85 英镑。不要填 95 / 60 / 45。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "6": {
+      "answer": "insurance",
+      "type": "notes",
+      "explanation": "午餐已包含；交通和住宿不包含；茶点本来就免费。费用除午餐外明确包括的是 insurance。不要填 transport / accommodation / tea 或 coffee。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "7": {
+      "answer": "gallery",
+      "type": "notes",
+      "explanation": "这个周末咖啡馆因员工培训关闭，商店只在工作日开放。现场有的是 small gallery。不要填 café / cafe 或 shop。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "8": {
+      "answer": "east",
+      "type": "notes",
+      "explanation": "西侧停车场只给员工，前门车位周六早要留给送货。访客应使用 east car park。不要填 west 或 front。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "9": {
+      "answer": "Maple",
+      "type": "notes",
+      "explanation": "旧邮编仍指向 Station Road，容易误导。中心实际在 Maple Lane，正对旧面包店。不要填 Station。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "10": {
+      "answer": "pharmacy",
+      "type": "notes",
+      "alternatives": [
+        "chemist"
+      ],
+      "explanation": "书店去年已关；街角咖啡馆要到十点才开门，课程那时已经开始。附近最有用的是 pharmacy。不要填 bookshop 或 café。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      }
+    },
+    "11": {
+      "answer": "B",
+      "type": "choose_two",
+      "explanation": "11–12 题选 B 和 E，顺序不限。学生优惠必须出示有效学生证；五岁以下儿童不必买票、可免费入场。网上周末票并不更便宜（A 是陷阱）；语音导览要另收费，不包含在门票里（C）；门票对应特定日期，不能改日使用（D）。",
+      "pair": [
+        11,
+        12
+      ]
+    },
+    "12": {
+      "answer": "E",
+      "type": "choose_two",
+      "explanation": "11–12 题选 B 和 E，顺序不限。学生优惠必须出示有效学生证；五岁以下儿童不必买票、可免费入场。网上周末票并不更便宜（A 是陷阱）；语音导览要另收费，不包含在门票里（C）；门票对应特定日期，不能改日使用（D）。",
+      "pair": [
+        11,
+        12
+      ]
+    },
+    "13": {
+      "answer": "A",
+      "type": "choose_three",
+      "explanation": "13–15 题选 A、C、E，顺序不限。主线路会经过修复的水车、磨坊主小屋，以及仍在运作的织布间。维多利亚教室在另一栋楼且要另购票（B）；地下冰窖因维修关闭（D）；河边野餐草坪可在参观后使用，但不是团组参观的景点（F）。",
+      "pair": [
+        13,
+        14,
+        15
+      ]
+    },
+    "14": {
+      "answer": "C",
+      "type": "choose_three",
+      "explanation": "13–15 题选 A、C、E，顺序不限。主线路会经过修复的水车、磨坊主小屋，以及仍在运作的织布间。维多利亚教室在另一栋楼且要另购票（B）；地下冰窖因维修关闭（D）；河边野餐草坪可在参观后使用，但不是团组参观的景点（F）。",
+      "pair": [
+        13,
+        14,
+        15
+      ]
+    },
+    "15": {
+      "answer": "E",
+      "type": "choose_three",
+      "explanation": "13–15 题选 A、C、E，顺序不限。主线路会经过修复的水车、磨坊主小屋，以及仍在运作的织布间。维多利亚教室在另一栋楼且要另购票（B）；地下冰窖因维修关闭（D）；河边野餐草坪可在参观后使用，但不是团组参观的景点（F）。",
+      "pair": [
+        13,
+        14,
+        15
+      ]
+    },
+    "16": {
+      "answer": "D",
+      "type": "matching",
+      "explanation": "第一站在门厅看旧照片。以前在这里看称谷，但旧秤太脆弱，已经不做了。不要选 B。"
+    },
+    "17": {
+      "answer": "A",
+      "type": "matching",
+      "explanation": "第二站在轮房，游客亲自尝试简短的磨粉示范，不只是听讲解。"
+    },
+    "18": {
+      "answer": "H",
+      "type": "matching",
+      "explanation": "第三站在烘焙房品尝传统面包。纪念品手册只在结束时的商店有，不是这一站的活动。不要选 E。"
+    },
+    "19": {
+      "answer": "F",
+      "type": "matching",
+      "explanation": "第四站在整理间帮助给布样染色。测量河深是次日学校团的单独活动，不是今天的安排。不要选 G。"
+    },
+    "20": {
+      "answer": "C",
+      "type": "matching",
+      "explanation": "最后一站在档案阁楼听一段已退休磨坊主的录音访谈，不是购物或又一次示范。"
+    },
+    "21": {
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "比较两栋楼、试用物理系的新型测声仪都被提到，但他们明确说那不是重点。真正目标是弄清噪音如何影响学生睡眠。"
+    },
+    "22": {
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "设备已经订好，截止日期上周也已和导师确认。Maya 意识到他们忘了拿到住户的书面许可，只做过非正式交谈。不要选 A 或 C。"
+    },
+    "23": {
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "导师建议房间数量保持十间即可，也不必先采访设施主管。真正要改的是把周末夜晚也纳入，而不只做周日到周四。"
+    },
+    "24": {
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "Tom 认为在走廊手持测量会打扰别人且只是瞬间数据；仅靠日记又太主观。他希望把测量仪留在房间过夜。"
+    },
+    "25": {
+      "answer": "C",
+      "type": "mcq",
+      "explanation": "导师说统计检验其实合适，他们也还没有把不同周的结果混在一起。初稿的问题是对地点写得太含糊，读者想象不出是哪栋楼。"
+    },
+    "26": {
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "导师明确不要马上交伦理表格，也不要先去别的校园做比较。下一步是在一间房试测一晚后，写一份简短的预研究报告。"
+    },
+    "27": {
+      "answer": "A",
+      "type": "choose_two",
+      "explanation": "27–28 题选 A 和 D，顺序不限。已出现的问题是部分住户拒绝参与，以及原定录音夜和校园活动冲突。测量仪并没有坏（B）；走廊灯光干扰是另一组用不同传感器遇到的（C）；导师阅读周不在并不构成他们的问题（E）。",
+      "pair": [
+        27,
+        28
+      ]
+    },
+    "28": {
+      "answer": "D",
+      "type": "choose_two",
+      "explanation": "27–28 题选 A 和 D，顺序不限。已出现的问题是部分住户拒绝参与，以及原定录音夜和校园活动冲突。测量仪并没有坏（B）；走廊灯光干扰是另一组用不同传感器遇到的（C）；导师阅读周不在并不构成他们的问题（E）。",
+      "pair": [
+        27,
+        28
+      ]
+    },
+    "29": {
+      "answer": "A",
+      "type": "choose_two",
+      "explanation": "29–30 题选 A 和 C，顺序不限。导师提醒：不要把测量仪放得太靠近窗户，也不要把短暂高峰当作典型噪音。文件命名他们已有系统（B）；不必只访谈一年级学生（D）；室内天气影响不大，也不要依赖单一天气记录（E）。",
+      "pair": [
+        29,
+        30
+      ]
+    },
+    "30": {
+      "answer": "C",
+      "type": "choose_two",
+      "explanation": "29–30 题选 A 和 C，顺序不限。导师提醒：不要把测量仪放得太靠近窗户，也不要把短暂高峰当作典型噪音。文件命名他们已有系统（B）；不必只访谈一年级学生（D）；室内天气影响不大，也不要依赖单一天气记录（E）。",
+      "pair": [
+        29,
+        30
+      ]
+    },
+    "31": {
+      "answer": "village",
+      "type": "notes",
+      "explanation": "参考书常写她生于集镇 Kelworth，但那是后来搬家的地方。Ada 实际出生在西边约四英里的一个 village。不要填 town 或 Kelworth。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "32": {
+      "answer": "surveyor",
+      "type": "notes",
+      "explanation": "父亲常被说成医生，只因他后来进过医院董事会。他的职业其实是 surveyor。不要填 doctor。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "33": {
+      "answer": "ferns",
+      "type": "notes",
+      "alternatives": [
+        "fern"
+      ],
+      "explanation": "人们以为她最初画玫瑰，那些花园花卉是后来的。她最早的画是当地的 ferns。不要填 roses 或 flowers。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "34": {
+      "answer": "expedition",
+      "type": "notes",
+      "explanation": "传记里说去伦敦工作室或任教职都不对。1844 年她加入的是前往安第斯的植物采集 expedition。不要填 studio 或 teaching。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "35": {
+      "answer": "habitat",
+      "type": "notes",
+      "explanation": "她坚持在植物的 habitat 里作画，而不是把剪下的标本摆在桌上。不要填 table 或 studio。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "36": {
+      "answer": "colour",
+      "type": "notes",
+      "alternatives": [
+        "color"
+      ],
+      "explanation": "延误不是因为装订（已付清），也不是订户不足，而是 colour printing 成本太高。不要填 binding 或 subscribers。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "37": {
+      "answer": "wrist",
+      "type": "notes",
+      "explanation": "她从马车上摔下伤的是 wrist，不是视力，也不是疾病。伤后她改教插画。不要填 eyesight 或 eyes。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "38": {
+      "answer": "women",
+      "type": "notes",
+      "explanation": "她并不是在争取更高报酬或保护某类栖息地。她呼吁让 women 进入当时仍排斥她们的科学学会。不要填 pay 或 habitats。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "39": {
+      "answer": "mosses",
+      "type": "notes",
+      "alternatives": [
+        "moss"
+      ],
+      "explanation": "有人说她最后要写海藻指南，但那本从未完成。她晚年完成的是 guide to mosses。不要填 seaweeds。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    },
+    "40": {
+      "answer": "historians",
+      "type": "notes",
+      "alternatives": [
+        "historian"
+      ],
+      "explanation": "园丁仍会买装饰性复制品，少数科学家也会查阅图版，但她的作品现在主要被 historians 看重，用于重建野外插画的实际做法。不要填 gardeners 或 scientists。",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      }
+    }
+  },
+  "transcripts": {
+    "1": "Narrator: This is the Academic Listening practice test, Set B.\n\nNarrator: Section 1. You will hear a woman booking a weekend stained-glass workshop at a craft centre.\n\nNarrator: First, you have some time to look at questions 1 to 5.\n\nNarrator: Now listen carefully and answer questions 1 to 5.\n\nPriya: Hello, is that Hartwell Craft Centre? I'd like to book a place on the weekend stained-glass workshop.\n\nMarcus: Yes, this is Marcus at the bookings desk. The next weekend workshop — people often assume it's the twelfth, because that's still on our homepage, but that date is for the midweek evening class. The weekend stained-glass workshop is on the nineteenth.\n\nPriya: The nineteenth. Not the twenty-sixth? A friend thought it had been moved.\n\nMarcus: No, we did consider the twenty-sixth when the tutor had a conflict, but that's been resolved. So it's the nineteenth.\n\nPriya: And which studio is it in? I saw a photo of the Oak Studio.\n\nMarcus: The Oak Studio is being refurbished this month, so we won't use that. The stained-glass weekend is in the Willow Studio — that's the long room with the north-facing windows. Not the courtyard studio either; that's for pottery.\n\nPriya: The Willow Studio. How do you spell Willow?\n\nMarcus: W-I-L-L-O-W. Willow Studio.\n\nPriya: Thanks. What do we need to bring? I was going to buy some glass this week.\n\nMarcus: No need. We provide the coloured glass and the lead came. You might have read that students bring their own tools, but that's only for the advanced evening course. For this weekend, the tools stay in the studio. Do bring old clothes, though, and a pair of closed shoes. But the materials themselves — the coloured glass and the lead — are provided.\n\nPriya: Coloured glass. Is there anything else I can add on? I thought there was a mosaics class.\n\nMarcus: There is a mosaics workshop, but that's in May, and it's already full. On the Sunday afternoon, after the stained-glass session, we run an optional jewellery class — small pieces, using leftover glass. Pottery is also happening in another building that day, but that isn't linked to this booking.\n\nPriya: Jewellery. I'll think about that. And the fee? I had written down ninety-five pounds.\n\nMarcus: That's the midweek two-day course, which is ninety-five. There's also a student standby rate of sixty, but that's only if a place frees up on the Friday. The weekend workshop itself is eighty-five pounds. We do take a forty-five pound deposit when you book, but the course fee is eighty-five.\n\nPriya: Eighty-five. Got it.\n\nNarrator: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n\nNarrator: Now listen carefully and answer questions 6 to 10.\n\nPriya: What does that include? A friend said I'd have to arrange my own lunch.\n\nMarcus: Lunch is included, actually. Transport isn't, and we don't provide accommodation — most people are local. Tea and coffee are free throughout the day anyway, whether you book or not. What the fee specifically includes, besides lunch, is insurance. We had a few people ask about that, because you're working with glass.\n\nPriya: Lunch and insurance. Good. Are there facilities on site? I thought you had a café.\n\nMarcus: The café is closed this weekend because of staff training, and the shop only opens on weekdays. What we do have on site is a small gallery, where finished work from previous courses is displayed. You're welcome to walk through it during the lunch break.\n\nPriya: A gallery. And parking?\n\nMarcus: Don't use the west car park — that's for staff only — and the spaces at the front are reserved for deliveries on Saturday mornings. Visitors should use the east car park. It's a little further from the entrance, but it's clearly signed.\n\nPriya: East car park. How do I find the centre? My map app wanted to send me to Station Road.\n\nMarcus: That happens a lot, because the old postcode still points to Station Road. We're actually on Maple Lane, directly opposite the old bakery. There's a dark green sign on the wall. Maple is spelled M-A-P-L-E. Once you're opposite the bakery, you can't miss us.\n\nPriya: Maple Lane, opposite the bakery. Is there anywhere nearby if I need to buy something? I thought there was a bookshop.\n\nMarcus: The bookshop closed last year, unfortunately. There's a café on the corner, but it isn't open until ten, which is after we start. The most useful place nearby is a pharmacy, just a minute's walk towards the bridge, if you need anything.\n\nPriya: A pharmacy. That's all I need. Please book me in for the nineteenth.\n\nMarcus: Willow Studio, the nineteenth. I'll email a confirmation this afternoon.\n\nPriya: Thank you.\n\nNarrator: That is the end of Section 1. You now have 30 seconds to check your answers.",
+    "2": "Narrator: Section 2. You will hear a guide giving a welcome talk at the start of a visit to a historic mill.\n\nNarrator: First, you have some time to look at questions 11 to 15.\n\nNarrator: Now listen carefully and answer questions 11 to 15.\n\nElise Ward: Good morning, everyone, and welcome to Rivermead Heritage Mill. My name is Elise Ward, and I'll be leading your visit this morning. I'm glad so many of you have come, some from quite a distance.\n\nElise Ward: Before we set off, a word about tickets, because a few of the details have changed this season. Some of you asked whether weekend tickets are cheaper if you buy them online. They aren't — the price at the desk is the same as the website, including at weekends. What I do need to mention is the student rate: it is reduced, but only if you can show a valid student card. We can't apply the discount without it. An audio guide is available, but it is not included in the ticket; it's a small extra charge at the desk. And tickets are for a specific date, so if the mill feels busy you can't simply come back tomorrow on the same ticket. Children under five, however, do not need a ticket at all — they are admitted free, provided an adult is with them.\n\nElise Ward: Now, the main tour route itself. It takes in three particular attractions I want to highlight, so you know what you will actually see. First, you will see a restored water wheel, which we'll stop beside in a moment. Second, the miller's cottage, furnished as it was in the eighteen eighties. And third, a working loom room, where cloth is still produced on two of the original machines. I should be clear about what is not on this route. The Victorian schoolroom is in a separate building and needs a different ticket, so we won't go there this morning. The underground ice house would have been fascinating, but it's closed for repairs until next spring. And although ticket-holders may use the riverside picnic lawn after the tour, it isn't one of the attractions we visit as a group.\n\nNarrator: Before you hear the rest of the talk, you have some time to look at questions 16 to 20.\n\nNarrator: Now listen carefully and answer questions 16 to 20.\n\nElise Ward: Let me explain what you'll actually do at each stop, because the programme has changed a little since last year, and some of the printed leaflets are already out of date.\n\nElise Ward: The first stop is the entrance hall. We used to begin by watching grain being weighed, but we don't do that any more — the old scales are too fragile. Instead, you'll look at old photographs, a set we've newly mounted, showing the mill through the last century. So that's the first stop: the photographs, not the weighing.\n\nElise Ward: The second stop is the wheel house. There you'll try a short milling demonstration — you'll take a turn at the hopper under supervision. It isn't just a talk; you do get to try it yourselves.\n\nElise Ward: The third stop is the bakehouse. I know some of you hoped to collect a souvenir booklet there, but booklets are only in the shop at the end, not as part of a stop. In the bakehouse, you'll taste traditionally baked bread, made with flour from this mill. That's the activity at the third stop: tasting the bread.\n\nElise Ward: The fourth stop is the finishing room. School groups sometimes measure the river depth from the window there, but that's a separate activity tomorrow and not for today's visit. What you will do is help to dye a sample of cloth, using the plant dyes the mill still prepares. So, a short dyeing activity, not a measurement.\n\nElise Ward: The last stop is the archive loft. It isn't a shop moment and it isn't another demonstration. You'll hear a recorded interview with the last miller, who retired in nineteen ninety-eight. We play a short extract, and there's time for questions afterwards.\n\nElise Ward: So, to recap briefly: photographs at the first stop, then a milling demonstration, then bread in the bakehouse, then dyeing a sample, and finally the recorded interview. The shop will be open as you leave if you do want that booklet. If there are no questions, we'll start at the entrance hall in a moment.\n\nNarrator: That is the end of Section 2. You now have 30 seconds to check your answers.",
+    "3": "Narrator: Section 3. You will hear two students, Maya and Tom, discussing a project with their tutor, Doctor Calder.\n\nNarrator: First, you have some time to look at questions 21 to 26.\n\nNarrator: Now listen carefully and answer questions 21 to 26.\n\nDr Calder: So, Maya and Tom, you're looking at night-time noise in Elm Court, one of the campus residences. Let's start with the aim of the project, because I want that to be quite sharp.\n\nMaya: We did wonder about comparing Elm Court with the new block across the road, and we also looked at a new type of meter the physics department has, but we decided that wasn't really the point.\n\nTom: Yes. What we really want to find out is how noise affects students' sleep — not just how loud the building is, but whether people actually sleep worse.\n\nDr Calder: Good. That's a clear objective.\n\nDr Calder: Have you sorted the practicalities? Equipment, permissions, the deadline?\n\nTom: The recording equipment is already booked, and we agreed the deadline with you last week, so those two are fine.\n\nMaya: Oh — I've just realised we forgot something. We were so focused on the meters that we never got written permission from the residents. We talked to a few people informally, but we don't have anything in writing.\n\nDr Calder: Yes, you need that before you place any equipment. Informal chats aren't enough.\n\nDr Calder: Looking at your plan, I have a suggestion. You've listed weeknights only, Sunday to Thursday. I'd leave the number of rooms as it is — ten is enough — and you don't have to interview the facilities manager first, though you can later if you want background. What I would change is to include weekend nights as well as weekdays, because the noise profile may be quite different.\n\nMaya: That makes sense. We'll add Friday and Saturday.\n\nDr Calder: And how do you want to collect the data?\n\nTom: I don't think standing in the corridors with a handheld meter will work — we'd disturb people, and we'd only get a snapshot. A diary on its own is too subjective, though we might use a short one as a supplement. I'd like to leave meters in the rooms overnight, so we get a full record without us being there.\n\nDr Calder: That's the right method, provided the residents agree.\n\nDr Calder: I've also read your first draft of the methods section. There's a mistake I want you to correct. The statistical test you mention is actually appropriate, and you haven't mixed results from different weeks — you haven't got those results yet. The problem is that you describe the site too vaguely. You say 'a campus residence' without saying which building, which floors, or how close it is to the road. A reader couldn't picture it.\n\nMaya: We'll tighten that up.\n\nDr Calder: What should you do next? Some students in your position jump straight to the ethics form, or even visit another campus for a comparison, but I wouldn't do either of those yet. I'd like you to write a short pilot report — even a couple of pages — after you've tested the meters in one room for a single night. Then we'll look at ethics.\n\nTom: A short pilot report. We can do that this week.\n\nNarrator: Before you hear the rest of the discussion, you have some time to look at questions 27 to 30.\n\nNarrator: Now listen carefully and answer questions 27 to 30.\n\nDr Calder: Now, you've already run into some problems, haven't you?\n\nMaya: We have. A few residents refused to take part, which we had to accept. One of the meters didn't stop working, luckily — we tested them all last week. And it wasn't the corridor lights; that was something another group had with a different kind of sensor.\n\nTom: The other issue was timing. Two of our planned recording nights clashed with a campus event — there was an all-night open-mic in the courtyard — so those nights would have been completely untypical. You being away in reading week wasn't a problem for us; we just emailed.\n\nDr Calder: So the problems were the refusals, and a clash with a campus event. That's useful to record in the methods.\n\nDr Calder: Finally, I want to warn you about two possible errors when you analyse the recordings. First, don't place the meters too close to windows — you'll pick up rain and traffic and think it's inside the room. Second, be careful not to treat brief peaks as typical noise. A single slammed door isn't the same as a steady average. Labelling the audio files is important, of course, but you've already set up a naming system, so I'm not worried about that. And you don't need to interview only first-year students — a mix is fine. Weather isn't a major factor indoors here, so I wouldn't lean on a single weather record either.\n\nMaya: Windows and brief peaks. We'll watch those.\n\nDr Calder: Good. Email me the pilot report when it's ready, and we'll meet again after that.\n\nNarrator: That is the end of Section 3. You now have 30 seconds to check your answers.",
+    "4": "Narrator: Section 4. You will hear a lecture about the life of a nineteenth-century botanical illustrator.\n\nNarrator: First, you have some time to look at questions 31 to 35.\n\nNarrator: Now listen carefully and answer questions 31 to 35.\n\nProfessor Miriam Cole: In this lecture I want to talk about the life of Ada Merrin, a botanical illustrator working in the nineteenth century. She is not as widely known as some of her contemporaries, which is partly why her archive is useful: it hasn't been over-interpreted.\n\nProfessor Miriam Cole: Let me begin with her early years. Reference works sometimes say she was born in the market town of Kelworth in eighteen nineteen. In fact, although the family later moved there, Ada was born in a village about four miles to the west. So the correct starting point is a village, not the town.\n\nProfessor Miriam Cole: Her father is often described as a doctor, because he later served on a hospital board. That wasn't his profession. He worked as a surveyor, mapping estate boundaries and new roads, and it was on those walks that Ada first learned to look closely at plants.\n\nProfessor Miriam Cole: What did she draw first? People assume roses, because a few early watercolours of garden flowers survive. But those came later. Her first drawings were of local ferns, collected in the woods behind the house and labelled with considerable care for a child.\n\nProfessor Miriam Cole: Her career began in earnest in eighteen forty-four. One biography claims she was invited to a London studio, and another says she took a teaching post. Neither is right. She was invited to join an expedition to the Andes — a plant-collecting expedition — and she went as the official illustrator.\n\nProfessor Miriam Cole: What distinguished her work on that journey, and afterwards, was her insistence on painting plants in their habitat, rather than as cut specimens arranged on a table. Other artists of the period prided themselves on the accuracy of a single leaf against a white background. Merrin wanted the slope, the shade, the neighbouring moss. Habitat, not a studio arrangement, is the key word for her method.\n\nNarrator: Before you hear the rest of the lecture, you have some time to look at questions 36 to 40.\n\nNarrator: Now listen carefully and answer questions 36 to 40.\n\nProfessor Miriam Cole: A first book was planned on her return. The publisher did not delay it because of the binding, which was already paid for, nor because of a shortage of subscribers. The delay was the cost of colour — colour printing at the quality she demanded was extremely expensive, and the volume finally appeared five years late.\n\nProfessor Miriam Cole: Later in life, in her fifties, she injured her wrist in a fall from a trap, a light horse-drawn carriage, and could no longer work at the same speed. It wasn't her eyesight, which remained sharp, and it wasn't an illness. After the injury to her wrist, she taught illustration to private pupils.\n\nProfessor Miriam Cole: She also became a campaigner. She did not campaign for better pay, or for the protection of particular habitats, although she cared about both. She campaigned for women to be admitted to scientific societies, from which they were still routinely excluded.\n\nProfessor Miriam Cole: Her final project is sometimes said to have been a guide to seaweeds, because she collected them late in life. She never wrote that guide. The work she did finish, in the last three years of her life, was a guide to mosses, with forty-two plates.\n\nProfessor Miriam Cole: Today, gardeners still buy reproductions of her more decorative prints, and a few scientists consult the plates for species that later became rare. But her work is mainly valued by historians, who use her notebooks to reconstruct how field illustration was actually practised.\n\nProfessor Miriam Cole: To recap: a village birthplace; a father who was a surveyor; first drawings of ferns; an Andes expedition; plants painted in their habitat; a book delayed by the cost of colour; an injured wrist; a campaign for women; a final guide to mosses; and a reputation now kept alive mainly by historians. I'll stop there, and in the seminar we'll look at two of the plates in more detail.\n\nNarrator: That is the end of Section 4. You now have 30 seconds to check your answers.\n\nNarrator: That is the end of the listening test. In the full test you will now have two minutes to check all your answers."
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Set A listening mp3s from tools/listening_script.py using edge-tts + ffmpeg.
+"""Generate listening mp3s from tools/listening_script.py (Set A) or tools/listening_script_set_b.py (Set B) using edge-tts + ffmpeg.
 
 Audio is pre-generated practice TTS, not official Cambridge recordings.
 Do not add edge-tts to the web app requirements — this script is build-time only.
@@ -19,10 +19,21 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(ROOT))
 
-from listening_script import SECTIONS, VOICES  # noqa: E402
+def script_config(set_id: str) -> tuple[dict, dict, Path, Path]:
+    token = (set_id or "set-a").strip().lower() or "set-a"
+    if token == "set-b":
+        from listening_script_set_b import SECTIONS, VOICES  # noqa: E402
+        out_dir = ROOT / "static" / "audio" / "listening_set_b"
+        paper_path = ROOT / "prompts" / "listening_set_b.json"
+        return SECTIONS, VOICES, out_dir, paper_path
+    from listening_script import SECTIONS, VOICES  # noqa: E402
+    out_dir = ROOT / "static" / "audio" / "listening_set_a"
+    paper_path = ROOT / "prompts" / "listening_set_a.json"
+    return SECTIONS, VOICES, out_dir, paper_path
 
-OUT_DIR = ROOT / "static" / "audio" / "listening_set_a"
-PAPER_PATH = ROOT / "prompts" / "listening_set_a.json"
+
+# Defaults used when the module is imported without a selected set.
+SECTIONS, VOICES, OUT_DIR, PAPER_PATH = script_config("set-a")
 FFMPEG = "ffmpeg"
 SAMPLE_RATE = 24000
 BITRATE = "72k"
@@ -194,12 +205,18 @@ def update_paper_durations(durations: dict[int, int]) -> None:
 
 
 async def main_async(args: argparse.Namespace) -> int:
-    work = Path(args.work or (ROOT / "tools" / ".listening-audio-work"))
+    global SECTIONS, VOICES, OUT_DIR, PAPER_PATH
+    set_id = (args.set or "set-a").strip().lower() or "set-a"
+    SECTIONS, VOICES, OUT_DIR, PAPER_PATH = script_config(set_id)
+    default_work = ROOT / "tools" / ".listening-audio-work"
+    if set_id != "set-a":
+        default_work = default_work / set_id
+    work = Path(args.work or default_work)
     work.mkdir(parents=True, exist_ok=True)
     sections = args.section or [1, 2, 3, 4]
     durations: dict[int, int] = {}
     for sid in sections:
-        print(f"Building section {sid}…")
+        print(f"Building {set_id} section {sid}…")
         out = await build_section(sid, work, force=args.force)
         seconds = probe_duration(out)
         durations[sid] = int(round(seconds))
@@ -224,7 +241,8 @@ async def main_async(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate Listening Set A mp3s")
+    parser = argparse.ArgumentParser(description="Generate Listening Set A or Set B mp3s")
+    parser.add_argument("--set", choices=["set-a", "set-b"], default="set-a")
     parser.add_argument("--section", type=int, action="append", choices=[1, 2, 3, 4])
     parser.add_argument("--force", action="store_true", help="Regenerate clips even if cached")
     parser.add_argument("--work", type=Path, help="Working directory for intermediate clips")

@@ -172,14 +172,27 @@ def load_reading_keys(set_id: str | None = None) -> dict | None:
     return keys
 
 
-def load_listening_paper() -> dict:
-    paper = ls.load_paper(LISTENING_PAPER_PATH)
-    ls.refresh_modes(paper)
+def normalize_listening_set_id(raw) -> str:
+    token = str(raw or "").strip().lower() or "set-a"
+    return token
+
+
+def load_listening_paper(set_id: str | None = None) -> dict | None:
+    token = normalize_listening_set_id(set_id)
+    paper = ls.load_paper_for_set(token)
+    if paper is None and token == "set-a":
+        paper = ls.load_paper(LISTENING_PAPER_PATH)
+    if paper and token == "set-a":
+        ls.refresh_modes(paper)
     return paper
 
 
-def load_listening_keys() -> dict:
-    return ls.load_keys(LISTENING_KEYS_PATH)
+def load_listening_keys(set_id: str | None = None) -> dict | None:
+    token = normalize_listening_set_id(set_id)
+    keys = ls.load_keys_for_set(token)
+    if keys is None and token == "set-a":
+        return ls.load_keys(LISTENING_KEYS_PATH)
+    return keys
 
 
 def load_speaking_bank() -> dict:
@@ -586,10 +599,11 @@ def attempt_review_payload(record: dict) -> dict:
             keys=load_reading_keys(set_id) or {},
         )
     if module == "listening":
+        set_id = record.get("prompt_set_id") or "set-a"
         return sp.attempt_review_payload(
             record,
-            paper=load_listening_paper(),
-            keys=load_listening_keys(),
+            paper=load_listening_paper(set_id) or {},
+            keys=load_listening_keys(set_id) or {},
         )
     return sp.attempt_review_payload(record, prompts_data=load_prompts())
 
@@ -670,13 +684,33 @@ def api_reading_paper():
     return jsonify(paper)
 
 
+@app.route("/api/listening/sets")
+def api_listening_sets():
+    """List available Academic Listening papers (no keys)."""
+    err = student_session_error()
+    if err:
+        return err
+    return jsonify(ls.list_listening_sets())
+
+
 @app.route("/api/listening/paper")
 def api_listening_paper():
     """Student-facing listening paper only — never includes keys or transcripts."""
     err = student_session_error()
     if err:
         return err
-    return jsonify(load_listening_paper())
+    data = request.get_json(silent=True) or {}
+    set_id = (
+        request.args.get("set")
+        or request.args.get("prompt_set_id")
+        or data.get("set")
+        or data.get("prompt_set_id")
+        or "set-a"
+    )
+    paper = load_listening_paper(set_id)
+    if not paper:
+        return jsonify({"ok": False, "error": "未找到该套题"}), 404
+    return jsonify(paper)
 
 
 @app.route("/api/listening/audio/<section>")
@@ -690,8 +724,17 @@ def api_listening_audio(section: str):
         err = student_session_error()
         if err:
             return err
-    path = (LISTENING_AUDIO_DIR / f"section{token}.mp3").resolve()
-    if path.parent != LISTENING_AUDIO_DIR.resolve() or not path.is_file():
+    data = request.get_json(silent=True) or {}
+    set_id = (
+        request.args.get("set")
+        or request.args.get("prompt_set_id")
+        or data.get("set")
+        or data.get("prompt_set_id")
+        or "set-a"
+    )
+    audio_dir = ls.audio_dir_for_set(set_id)
+    path = (audio_dir / f"section{token}.mp3").resolve()
+    if path.parent != audio_dir.resolve() or not path.is_file():
         return jsonify({"ok": False, "error": "未找到该音频"}), 404
     return send_file(path, mimetype="audio/mpeg", conditional=True, max_age=0, download_name=f"section{token}.mp3")
 
@@ -1038,12 +1081,15 @@ def api_listening_submit():
         return err
 
     candidate_name = ident["candidate_name"]
-    paper = load_listening_paper()
+    prompt_set_id = normalize_listening_set_id(data.get("prompt_set_id") or "set-a")
+    paper = load_listening_paper(prompt_set_id)
+    keys = load_listening_keys(prompt_set_id)
+    if not paper or not keys:
+        return jsonify({"ok": False, "error": "未找到该套题"}), 404
     modes = ls.modes_info(paper)
     mode = data.get("mode") or "full"
     if mode not in modes:
         mode = "full"
-    prompt_set_id = data.get("prompt_set_id") or "set-a"
     answers = data.get("answers") or {}
     if not isinstance(answers, dict):
         answers = {}
@@ -1061,7 +1107,7 @@ def api_listening_submit():
     paused_total_seconds = int(data.get("paused_total_seconds") or 0)
     part_times = normalize_listening_part_times(data.get("part_times"), duration_seconds)
 
-    result = ls.score_paper(answers, mode=mode, keys=load_listening_keys())
+    result = ls.score_paper(answers, mode=mode, keys=keys)
 
     now = datetime.now(TZ_SHANGHAI)
     sid = str(uuid.uuid4())
@@ -1277,13 +1323,16 @@ def admin_submission(sid: str):
         for row in record.get("marking") or []:
             row["explanation"] = explanations.get(int(row.get("q") or 0), "")
     elif module == "listening":
-        keys = load_listening_keys()
+        set_id = record.get("prompt_set_id") or "set-a"
+        keys = load_listening_keys(set_id) or {}
         for q, meta in (keys.get("questions") or {}).items():
             explanations[int(q)] = meta.get("explanation") or ""
         for row in record.get("marking") or []:
             row["explanation"] = explanations.get(int(row.get("q") or 0), "")
         transcripts = ls.transcripts(keys)
-        listening_layouts = sp.listening_layout_blocks(ls.load_paper(), record, keys)
+        listening_layouts = sp.listening_layout_blocks(
+            load_listening_paper(set_id) or {}, record, keys
+        )
     invite = access.get_code(record.get("invite_code_id"))
     is_reading = module == "reading"
     is_listening = module == "listening"

@@ -1,8 +1,12 @@
 (function () {
-  const LS_KEY = "ielts-listening-set-a";
+  function storageKey(setId) {
+    const id = (setId || "set-a").toString().toLowerCase() || "set-a";
+    return "ielts-listening-" + id;
+  }
 
   const el = {
     setup: document.getElementById("setupPanel"),
+    promptSet: document.getElementById("promptSet"),
     exam: document.getElementById("examPanel"),
     done: document.getElementById("donePanel"),
     siteFooter: document.getElementById("siteFooter"),
@@ -101,6 +105,11 @@
   function selectedMode() {
     const picked = document.querySelector('input[name="mode"]:checked');
     return (picked && picked.value) || "full";
+  }
+
+  function selectedSetId() {
+    if (el.promptSet && el.promptSet.value) return el.promptSet.value;
+    return state.setId || "set-a";
   }
 
   function escapeHtml(s) {
@@ -233,7 +242,7 @@
       warned1: state.warned1,
     };
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify(payload));
+      localStorage.setItem(storageKey(state.setId || selectedSetId()), JSON.stringify(payload));
     } catch (err) {
       console.warn("localStorage save failed", err);
     }
@@ -241,15 +250,15 @@
 
   function clearPersist() {
     try {
-      localStorage.removeItem(LS_KEY);
+      localStorage.removeItem(storageKey(state.setId || selectedSetId()));
     } catch (err) {
       /* ignore */
     }
   }
 
-  function loadPersist() {
+  function loadPersist(setId) {
     try {
-      const raw = localStorage.getItem(LS_KEY);
+      const raw = localStorage.getItem(storageKey(setId || selectedSetId()));
       if (!raw) return null;
       return JSON.parse(raw);
     } catch (err) {
@@ -329,16 +338,24 @@
     return html;
   }
 
-  function chosenPairLetters(from, to) {
-    return [state.answers[from], state.answers[to]]
-      .map((v) => (v || "").toString().toUpperCase())
-      .filter(Boolean);
+  function chosenGroupLetters(from, to) {
+    const letters = [];
+    for (let q = from; q <= to; q++) {
+      const v = (state.answers[q] || "").toString().toUpperCase();
+      if (v) letters.push(v);
+    }
+    return letters;
+  }
+
+  function choiceCount(group) {
+    return Math.max(1, Number(group.to) - Number(group.from) + 1);
   }
 
   function renderChooseTwo(group) {
     const from = group.from;
     const to = group.to;
-    const selected = chosenPairLetters(from, to);
+    const max = choiceCount(group);
+    const selected = chosenGroupLetters(from, to);
     const ro = state.attemptReview ? " disabled" : "";
     const options = group.options || {};
     let html =
@@ -350,6 +367,8 @@
       from +
       '" data-to="' +
       to +
+      '" data-pair-max="' +
+      max +
       '"><div class="choose-two-stem"><span class="qnum">' +
       from +
       "–" +
@@ -369,6 +388,8 @@
         from +
         '" data-pair-to="' +
         to +
+        '" data-pair-max="' +
+        max +
         '" value="' +
         escapeHtml(letter) +
         '"' +
@@ -388,15 +409,24 @@
     if (!state.attemptReview) return "";
     const from = group.from;
     const to = group.to;
-    const row = state.reviewByQ[from] || state.reviewByQ[String(from)] || {};
-    const row2 = state.reviewByQ[to] || state.reviewByQ[String(to)] || {};
-    const official = row.correct || row2.correct || "";
-    const studentLetters = [row.student, row2.student]
-      .map((v) => (v || "").toString().trim())
-      .filter(Boolean);
+    const studentLetters = [];
+    const rows = [];
+    let official = "";
+    let allOk = true;
+    let anyRow = false;
+    for (let q = from; q <= to; q++) {
+      const row = state.reviewByQ[q] || state.reviewByQ[String(q)] || {};
+      rows.push(row);
+      if (row.correct && !official) official = row.correct;
+      if (row.student) studentLetters.push(String(row.student).trim());
+      if (row.ok != null) {
+        anyRow = true;
+        if (!row.ok) allOk = false;
+      }
+    }
     const student = studentLetters.length ? escapeHtml(studentLetters.join(", ")) : "（未作答）";
-    const ok = !!row.ok && !!row2.ok;
-    const expl = row.explanation || row2.explanation || "";
+    const ok = anyRow && allOk;
+    const explHtml = formatGroupExplanation(rows);
     return (
       '<div class="q-review-key ' +
       (ok ? "is-ok" : "is-wrong") +
@@ -409,7 +439,7 @@
       "<div><dt>标准答案</dt><dd>" +
       escapeHtml(official) +
       "（顺序不限）</dd></div></dl>" +
-      (expl ? '<div class="q-explain"><h4>解析</h4><p>' + escapeHtml(expl) + "</p></div>" : "") +
+      (explHtml ? '<div class="q-explain"><h4>解析</h4>' + explHtml + "</div>" : "") +
       "</div>"
     );
   }
@@ -546,6 +576,89 @@
     return html;
   }
 
+
+  function formatInlineExplanation(text) {
+    return escapeHtml(text || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  }
+
+  function parseLabeledExplanation(text) {
+    const labels = [
+      ["prediction", "预测"],
+      ["logic", "考点与原文逻辑替换"],
+      ["audio_quote", "跟音"],
+    ];
+    const src = (text || "").trim();
+    const parts = { prediction: "", logic: "", audio_quote: "" };
+    if (!src) return parts;
+    const re = /(?:^|\n)(预测|考点与原文逻辑替换|跟音)[：:]/g;
+    const matches = [];
+    let m;
+    while ((m = re.exec(src))) matches.push(m);
+    const labelToKey = {};
+    labels.forEach(([key, label]) => { labelToKey[label] = key; });
+    matches.forEach((match, i) => {
+      const key = labelToKey[match[1]];
+      if (!key) return;
+      const start = match.index + match[0].length;
+      const end = i + 1 < matches.length ? matches[i + 1].index : src.length;
+      parts[key] = src.slice(start, end).trim().replace(/^跟音[：:]\s*/, "");
+    });
+    return parts;
+  }
+
+
+  function formatGroupExplanation(rows) {
+    const unique = [];
+    const seen = new Set();
+    (rows || []).forEach((row) => {
+      const raw = (row && row.explanation) || "";
+      const html = formatExplanation(raw, row || {});
+      if (html && !seen.has(raw)) {
+        seen.add(raw);
+        unique.push(html);
+      }
+    });
+    return unique.join("");
+  }
+
+  function formatPairExplanation(row, row2) {
+    return formatGroupExplanation([row, row2]);
+  }
+
+  function formatExplanation(expl, row) {
+    const rowParts = {
+      prediction: ((row && row.prediction) || "").trim(),
+      logic: ((row && row.logic) || "").trim(),
+      audio_quote: ((row && row.audio_quote) || "").trim(),
+    };
+    const parts = (rowParts.prediction || rowParts.logic || rowParts.audio_quote)
+      ? rowParts
+      : parseLabeledExplanation(expl || (row && row.explanation) || "");
+    if (!parts.prediction && !parts.logic && !parts.audio_quote) {
+      return expl ? "<p>" + escapeHtml(expl) + "</p>" : "";
+    }
+    const labels = [
+      ["prediction", "预测"],
+      ["logic", "考点与原文逻辑替换"],
+      ["audio_quote", "跟音"],
+    ];
+    let html = '<div class="q-explain-parts">';
+    labels.forEach(([key, label]) => {
+      const val = (parts[key] || "").trim();
+      if (!val) return;
+      html +=
+        '<div class="explain-part explain-' +
+        key +
+        '"><h5 class="explain-label">' +
+        escapeHtml(label) +
+        "</h5><p>" +
+        formatInlineExplanation(val) +
+        "</p></div>";
+    });
+    html += "</div>";
+    return html;
+  }
+
   function renderReviewKey(q) {
     if (!state.attemptReview) return "";
     const row = state.reviewByQ[q] || state.reviewByQ[String(q)];
@@ -553,7 +666,7 @@
     const ok = !!row.ok;
     const student = row.student_blank || !(row.student || "").trim() ? "（未作答）" : escapeHtml(row.student);
     const correct = escapeHtml(row.correct || "");
-    const expl = row.explanation ? escapeHtml(row.explanation) : "";
+    const explHtml = formatExplanation(row.explanation || "", row);
     return (
       '<div class="q-review-key ' +
       (ok ? "is-ok" : "is-wrong") +
@@ -566,7 +679,7 @@
       "<div><dt>标准答案</dt><dd>" +
       correct +
       "</dd></div></dl>" +
-      (expl ? '<div class="q-explain"><h4>解析</h4><p>' + expl + "</p></div>" : "") +
+      (explHtml ? '<div class="q-explain"><h4>解析</h4>' + explHtml + "</div>" : "") +
       "</div>"
     );
   }
@@ -591,7 +704,7 @@
     else if (group.type === "matching") body = renderMatching(group);
     else if (group.type === "notes") body = renderNotes(group.notes) + notesReviewKeys(group);
     else if (group.type === "notes_table") body = renderNotesTable(group);
-    else if (group.type === "choose_two") body = renderChooseTwo(group);
+    else if (group.type === "choose_two" || group.type === "choose_three") body = renderChooseTwo(group);
     else body = "";
     return (
       '<section class="lis-group" data-from="' +
@@ -661,13 +774,14 @@
         if (state.attemptReview) return;
         const from = Number(node.getAttribute("data-pair-from"));
         const to = Number(node.getAttribute("data-pair-to"));
+        const max = Number(node.getAttribute("data-pair-max") || (to - from + 1) || 2);
         const box = node.closest(".choose-two-box");
         if (!box) return;
         const boxes = Array.prototype.slice.call(box.querySelectorAll("input[type=checkbox]"));
         if (node.checked) node.setAttribute("data-picked-at", String(Date.now()));
         else node.removeAttribute("data-picked-at");
         let checked = boxes.filter((b) => b.checked);
-        if (checked.length > 2) {
+        if (checked.length > max) {
           checked.sort(function (a, b) {
             return Number(a.getAttribute("data-picked-at") || 0) - Number(b.getAttribute("data-picked-at") || 0);
           });
@@ -677,8 +791,9 @@
           checked = boxes.filter((b) => b.checked);
         }
         const letters = checked.map((b) => b.value);
-        state.answers[from] = letters[0] || "";
-        state.answers[to] = letters[1] || "";
+        for (let q = from, i = 0; q <= to; q++, i++) {
+          state.answers[q] = letters[i] || "";
+        }
         setCurrent(from, false);
         updatePalette();
         persist();
@@ -862,7 +977,8 @@
   }
 
   function audioUrl(sectionId) {
-    return "/api/listening/audio/" + sectionId;
+    const setId = state.setId || (paper && paper.id) || selectedSetId() || "set-a";
+    return "/api/listening/audio/" + sectionId + "?set=" + encodeURIComponent(setId);
   }
 
   function updateAudioChrome() {
@@ -1133,12 +1249,14 @@
     return data;
   }
 
-  async function ensurePaper() {
-    if (paper && paper.sections) return true;
-    const res = await fetch("/api/listening/paper", { credentials: "same-origin" });
+  async function ensurePaper(setId) {
+    const id = setId || selectedSetId() || "set-a";
+    if (paper && paper.sections && paper.id === id) return true;
+    const res = await fetch("/api/listening/paper?set=" + encodeURIComponent(id), { credentials: "same-origin" });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) return false;
     paper = data;
+    if (paper && paper.id) state.setId = paper.id;
     return !!(paper && paper.sections);
   }
 
@@ -1186,9 +1304,11 @@
       const mode = selectedMode();
       el.btnStart.disabled = true;
       try {
+        const setId = selectedSetId();
+        state.setId = setId;
         const started = await startSession(name, mode);
         if (!started) return;
-        const loaded = await ensurePaper();
+        const loaded = await ensurePaper(setId);
         if (!loaded) {
           showSetupError("试卷加载失败，请重试。");
           return;
@@ -1200,14 +1320,15 @@
       } finally {
         el.btnStart.disabled = false;
       }
-      const saved = loadPersist();
-      if (saved && saved.running && saved.name === name) {
+      const setId = selectedSetId();
+      const saved = loadPersist(setId);
+      if (saved && saved.running && saved.name === name && (saved.setId || "set-a") === setId) {
         resumeAudio = restoreSaved(saved);
         fromSaved = true;
       } else {
         state.name = name;
         state.mode = mode;
-        state.setId = "set-a";
+        state.setId = setId;
         state.duration = durationForMode(mode);
         state.remaining = state.duration;
         state.pausedTotal = 0;
@@ -1239,14 +1360,21 @@
     persist();
   }
 
-  async function resumeIfNeeded() {
-    const saved = loadPersist();
-    if (!saved || !saved.running) return;
+  function updateResumeBanner() {
+    const saved = loadPersist(selectedSetId());
+    if (!saved || !saved.running) {
+      if (el.resumeBanner) el.resumeBanner.classList.add("hidden");
+      return;
+    }
     if (el.resumeBanner) {
       el.resumeBanner.textContent = "A test is already in progress on this device. Starting will resume it for the same name.";
       el.resumeBanner.classList.remove("hidden");
     }
     if (saved.name && el.candidateName) el.candidateName.value = saved.name;
+  }
+
+  async function resumeIfNeeded() {
+    updateResumeBanner();
   }
 
   function renderDoneResult(data, payload, auto) {
@@ -1516,6 +1644,12 @@
       label.classList.add("active");
     });
   });
+
+  if (el.promptSet) {
+    el.promptSet.addEventListener("change", () => {
+      updateResumeBanner();
+    });
+  }
 
   if (el.btnStart) el.btnStart.addEventListener("click", () => startExam(false));
   if (el.btnPause) el.btnPause.addEventListener("click", togglePause);

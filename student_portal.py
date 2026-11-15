@@ -966,7 +966,7 @@ def question_context(paper: dict, qnum: int) -> dict:
             title = summary.get("title")
             if title:
                 ctx["notes_title"] = title
-        elif gtype == "choose_two":
+        elif gtype in {"choose_two", "choose_three"}:
             ctx["stem"] = group.get("stem") or ""
             if group.get("options"):
                 ctx["options"] = group.get("options")
@@ -1015,7 +1015,7 @@ def listening_question_context(paper: dict, qnum: int) -> dict:
                 title = (source or {}).get("title")
                 if title:
                     ctx["notes_title"] = title
-            elif gtype == "choose_two":
+            elif gtype in {"choose_two", "choose_three"}:
                 ctx["stem"] = group.get("stem") or ""
                 if group.get("options"):
                     ctx["options"] = group.get("options")

@@ -42,7 +42,7 @@ SECTION_MODES = {
 
 _WRAP_PUNCT = "\"'`“”‘’.,;:!?()[]{}<>«»"
 
-_CHOICE_TYPES = {"mcq", "matching", "map", "choose_two"}
+_CHOICE_TYPES = {"mcq", "matching", "map", "choose_two", "choose_three"}
 
 # Tokens treated as a number (not a word) for IELTS word-limit checks.
 _NUMBER_RE = re.compile(
@@ -72,6 +72,89 @@ def load_paper(path: Path | None = None) -> dict:
         return {"id": "set-a", "sections": [], "check_seconds": 120}
     with target.open(encoding="utf-8") as f:
         return json.load(f)
+
+
+
+def normalize_set_id(raw) -> str:
+    token = str(raw or "").strip().lower() or "set-a"
+    return token
+
+
+def paper_path_for_set(set_id: str | None) -> Path | None:
+    token = normalize_set_id(set_id)
+    if token == "set-a":
+        return PAPER_PATH
+    candidates = [
+        BASE_DIR / "prompts" / f"listening_{token.replace('-', '_')}.json",
+        BASE_DIR / "prompts" / f"listening-{token}.json",
+        BASE_DIR / "prompts" / f"{token}.json",
+    ]
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def keys_path_for_set(set_id: str | None) -> Path | None:
+    token = normalize_set_id(set_id)
+    if token == "set-a":
+        return KEYS_PATH
+    candidates = [
+        BASE_DIR / "prompts" / f"listening_keys_{token.replace('-', '_')}.json",
+        BASE_DIR / "prompts" / f"listening_keys-{token}.json",
+        BASE_DIR / "prompts" / f"{token}-keys.json",
+    ]
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def audio_dir_for_set(set_id: str | None) -> Path:
+    token = normalize_set_id(set_id)
+    return BASE_DIR / "static" / "audio" / f"listening_{token.replace('-', '_')}"
+
+
+def load_paper_for_set(set_id: str | None = None) -> dict | None:
+    path = paper_path_for_set(set_id)
+    if not path or not path.is_file():
+        return None
+    try:
+        return load_paper(path)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def load_keys_for_set(set_id: str | None = None) -> dict | None:
+    path = keys_path_for_set(set_id)
+    if not path or not path.is_file():
+        return None
+    try:
+        return load_keys(path)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def list_listening_sets() -> list[dict]:
+    """Student-facing set summaries for the setup dropdown."""
+    seen: set[str] = set()
+    out: list[dict] = []
+    for set_id in ("set-a", "set-b"):
+        paper = load_paper_for_set(set_id)
+        if not paper:
+            continue
+        token = paper.get("id") or set_id
+        if token in seen:
+            continue
+        seen.add(token)
+        out.append(
+            {
+                "id": token,
+                "title": paper.get("title") or token,
+                "subtitle": paper.get("subtitle") or "",
+            }
+        )
+    return out
 
 
 def official_answers(keys: dict | None = None) -> dict[int, str]:
@@ -327,48 +410,66 @@ def band_for_score(score: int, total: int = 40) -> float | None:
 
 
 
-def choose_two_pairs(keys: dict | None = None) -> list[tuple[tuple[int, int], list[str]]]:
-    """Return unique choose-two pairs and their official letters."""
+def multi_choice_groups(keys: dict | None = None) -> list[tuple[tuple[int, ...], list[str], str]]:
+    """Return unique choose_two / choose_three groups and their official letters."""
     data = keys or load_keys()
     questions = data.get("questions") or data
-    seen: set[tuple[int, int]] = set()
-    pairs: list[tuple[tuple[int, int], list[str]]] = []
+    seen: set[tuple[int, ...]] = set()
+    groups: list[tuple[tuple[int, ...], list[str], str]] = []
     for meta in questions.values() if isinstance(questions, dict) else []:
-        if not isinstance(meta, dict) or meta.get("type") != "choose_two":
+        if not isinstance(meta, dict):
+            continue
+        qtype = meta.get("type")
+        expected = {"choose_two": 2, "choose_three": 3}.get(qtype)
+        if not expected:
             continue
         pair = meta.get("pair") or []
-        if len(pair) != 2:
+        if len(pair) != expected:
             continue
         try:
-            left, right = int(pair[0]), int(pair[1])
+            nums = tuple(sorted(int(x) for x in pair))
         except (TypeError, ValueError):
             continue
-        key = (min(left, right), max(left, right))
-        if key in seen:
+        if nums in seen:
             continue
-        seen.add(key)
+        seen.add(nums)
         official: list[str] = []
-        for qn in key:
+        for qn in nums:
             item = questions.get(str(qn)) or questions.get(qn) or {}
             answer = item.get("answer") if isinstance(item, dict) else item
             official.append("" if answer is None else str(answer))
-        pairs.append((key, official))
+        groups.append((nums, official, str(qtype)))
+    return groups
+
+
+def choose_two_pairs(keys: dict | None = None) -> list[tuple[tuple[int, int], list[str]]]:
+    """Return unique choose-two pairs and their official letters."""
+    pairs: list[tuple[tuple[int, int], list[str]]] = []
+    for nums, official, qtype in multi_choice_groups(keys):
+        if qtype != "choose_two" or len(nums) != 2:
+            continue
+        pairs.append(((nums[0], nums[1]), official))
     return pairs
 
 
-def _mark_choose_two_pair(student_vals: list[str], official: list[str]) -> list[bool]:
-    """Order-insensitive set marking: {A,E}=2, {A} or {A,C}=1, {A,A}=1, {B,C}=0."""
-    remaining = [canonicalize(item, "choose_two") for item in official]
+def _mark_choice_group(student_vals: list[str], official: list[str], qtype: str = "choose_two") -> list[bool]:
+    """Order-insensitive set marking with partial credit; a repeated letter counts once."""
+    remaining = [canonicalize(item, qtype) for item in official]
     remaining = [item for item in remaining if item]
     oks: list[bool] = []
     for raw in student_vals:
-        letter = canonicalize(raw, "choose_two")
+        letter = canonicalize(raw, qtype)
         if letter and letter in remaining:
             remaining.remove(letter)
             oks.append(True)
         else:
             oks.append(False)
     return oks
+
+
+def _mark_choose_two_pair(student_vals: list[str], official: list[str]) -> list[bool]:
+    """Order-insensitive set marking: {A,E}=2, {A} or {A,C}=1, {A,A}=1, {B,C}=0."""
+    return _mark_choice_group(student_vals, official, "choose_two")
 
 
 def score_paper(
@@ -397,17 +498,15 @@ def score_paper(
 
     pair_ok: dict[int, bool] = {}
     pair_correct: dict[int, str] = {}
-    for (left, right), official_pair in choose_two_pairs(key_data):
+    for nums, official_pair, qtype in multi_choice_groups(key_data):
         display = ", ".join(
-            canonicalize(item, "choose_two") or str(item) for item in official_pair
+            canonicalize(item, qtype) or str(item) for item in official_pair
         )
-        pair_correct[left] = display
-        pair_correct[right] = display
-        oks = _mark_choose_two_pair(
-            [raw_answers.get(left, ""), raw_answers.get(right, "")],
-            official_pair,
-        )
-        pair_ok[left], pair_ok[right] = oks[0], oks[1]
+        student_vals = [raw_answers.get(q, "") for q in nums]
+        oks = _mark_choice_group(student_vals, official_pair, qtype)
+        for q, ok in zip(nums, oks):
+            pair_correct[q] = display
+            pair_ok[q] = ok
 
     marking = []
     score = 0

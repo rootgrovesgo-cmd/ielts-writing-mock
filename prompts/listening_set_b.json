@@ -1,0 +1,500 @@
+{
+  "id": "set-b",
+  "title": "Set B · Academic Listening",
+  "check_seconds": 120,
+  "sections": [
+    {
+      "id": 1,
+      "title": "Section 1",
+      "context": "A conversation in which a woman books a weekend stained-glass workshop at a craft centre.",
+      "audio": {
+        "file": "section1.mp3",
+        "duration_seconds": 357
+      },
+      "groups": [
+        {
+          "id": "s1-notes",
+          "from": 1,
+          "to": 10,
+          "type": "notes",
+          "heading": "Questions 1–10",
+          "instructions": [
+            "Complete the notes below.",
+            "Write ONE WORD AND/OR A NUMBER for each answer."
+          ],
+          "word_limit": {
+            "max_words": 1,
+            "allow_number": true
+          },
+          "notes": {
+            "title": "Hartwell Craft Centre",
+            "sections": [
+              {
+                "heading": "Weekend stained-glass workshop",
+                "items": [
+                  {
+                    "parts": [
+                      "Booking"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Date of workshop: ",
+                      {
+                        "q": 1
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Studio: the ",
+                      {
+                        "q": 2
+                      },
+                      " Studio"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Materials provided: coloured ",
+                      {
+                        "q": 3
+                      },
+                      " and lead came"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Optional Sunday class: ",
+                      {
+                        "q": 4
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "heading": "Fees",
+                "items": [
+                  {
+                    "parts": [
+                      "Course fee: £",
+                      {
+                        "q": 5
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "This includes lunch and ",
+                      {
+                        "q": 6
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "heading": "Facilities and finding the centre",
+                "items": [
+                  {
+                    "parts": [
+                      "On site: a small ",
+                      {
+                        "q": 7
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Parking: use the ",
+                      {
+                        "q": 8
+                      },
+                      " car park"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Address: ",
+                      {
+                        "q": 9
+                      },
+                      " Lane, opposite the old bakery"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Nearest amenity: a ",
+                      {
+                        "q": 10
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Section 2",
+      "context": "A welcome talk by a guide at the start of a visit to a historic mill.",
+      "audio": {
+        "file": "section2.mp3",
+        "duration_seconds": 304
+      },
+      "groups": [
+        {
+          "id": "s2-ct-1112",
+          "from": 11,
+          "to": 12,
+          "type": "choose_two",
+          "heading": "Questions 11 and 12",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO pieces of information about tickets are correct?",
+          "options": {
+            "A": "Weekend tickets are cheaper online than at the desk.",
+            "B": "A valid student card is needed for the reduced price.",
+            "C": "An audio guide is included in every ticket.",
+            "D": "Tickets can be used on a later day if the mill is busy.",
+            "E": "Children under five do not need a ticket."
+          }
+        },
+        {
+          "id": "s2-ct-1315",
+          "from": 13,
+          "to": 15,
+          "type": "choose_three",
+          "heading": "Questions 13–15",
+          "instructions": [
+            "Choose THREE letters, A–F."
+          ],
+          "stem": "Which THREE attractions can visitors see on the main tour route?",
+          "options": {
+            "A": "a restored water wheel",
+            "B": "a Victorian schoolroom",
+            "C": "the miller's cottage",
+            "D": "an underground ice house",
+            "E": "a working loom room",
+            "F": "a riverside picnic lawn"
+          }
+        },
+        {
+          "id": "s2-match-1620",
+          "from": 16,
+          "to": 20,
+          "type": "matching",
+          "heading": "Questions 16–20",
+          "instructions": [
+            "What will visitors do at each of the following stops?",
+            "Choose FIVE answers from the box and write the correct letter, A–H, next to questions 16–20."
+          ],
+          "legend": [
+            {
+              "key": "A",
+              "text": "try a short milling demonstration"
+            },
+            {
+              "key": "B",
+              "text": "watch grain being weighed"
+            },
+            {
+              "key": "C",
+              "text": "hear a recorded interview"
+            },
+            {
+              "key": "D",
+              "text": "look at old photographs"
+            },
+            {
+              "key": "E",
+              "text": "collect a souvenir booklet"
+            },
+            {
+              "key": "F",
+              "text": "help to dye a sample of cloth"
+            },
+            {
+              "key": "G",
+              "text": "measure the river depth"
+            },
+            {
+              "key": "H",
+              "text": "taste traditionally baked bread"
+            }
+          ],
+          "items": [
+            {
+              "q": 16,
+              "stem": "first stop"
+            },
+            {
+              "q": 17,
+              "stem": "second stop"
+            },
+            {
+              "q": 18,
+              "stem": "third stop"
+            },
+            {
+              "q": 19,
+              "stem": "fourth stop"
+            },
+            {
+              "q": 20,
+              "stem": "last stop"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Section 3",
+      "context": "Two university students discussing a project on night-time noise in a campus residence with their tutor.",
+      "audio": {
+        "file": "section3.mp3",
+        "duration_seconds": 336
+      },
+      "groups": [
+        {
+          "id": "s3-mcq",
+          "from": 21,
+          "to": 26,
+          "type": "mcq",
+          "heading": "Questions 21–26",
+          "instructions": [
+            "Choose the correct letter, A, B or C."
+          ],
+          "items": [
+            {
+              "q": 21,
+              "stem": "The main objective of the project is to",
+              "options": {
+                "A": "compare noise in two campus buildings",
+                "B": "find out how noise affects students' sleep",
+                "C": "test a new type of sound meter"
+              }
+            },
+            {
+              "q": 22,
+              "stem": "Maya realises they forgot to",
+              "options": {
+                "A": "book the recording equipment",
+                "B": "get written permission from residents",
+                "C": "agree a deadline with the tutor"
+              }
+            },
+            {
+              "q": 23,
+              "stem": "Dr Calder suggests they should",
+              "options": {
+                "A": "reduce the number of rooms they study",
+                "B": "include weekend nights as well as weekdays",
+                "C": "interview the facilities manager first"
+              }
+            },
+            {
+              "q": 24,
+              "stem": "Tom wants to collect the data by",
+              "options": {
+                "A": "leaving meters in rooms overnight",
+                "B": "standing in corridors with a handheld meter",
+                "C": "asking students to keep a diary only"
+              }
+            },
+            {
+              "q": 25,
+              "stem": "In their first draft, the tutor says they made a mistake by",
+              "options": {
+                "A": "using the wrong statistical test",
+                "B": "mixing results from different weeks",
+                "C": "describing the site too vaguely"
+              }
+            },
+            {
+              "q": 26,
+              "stem": "The next step they agree on is to",
+              "options": {
+                "A": "submit an ethics form",
+                "B": "write a short pilot report",
+                "C": "visit another university campus"
+              }
+            }
+          ]
+        },
+        {
+          "id": "s3-ct-2728",
+          "from": 27,
+          "to": 28,
+          "type": "choose_two",
+          "heading": "Questions 27 and 28",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO problems have the students already had?",
+          "options": {
+            "A": "Some residents refused to take part.",
+            "B": "One of the meters stopped working.",
+            "C": "The corridor lights triggered a false reading.",
+            "D": "Their recording nights clashed with a campus event.",
+            "E": "The tutor was away during reading week."
+          }
+        },
+        {
+          "id": "s3-ct-2930",
+          "from": 29,
+          "to": 30,
+          "type": "choose_two",
+          "heading": "Questions 29 and 30",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO possible errors does the tutor warn them about?",
+          "options": {
+            "A": "placing meters too close to windows",
+            "B": "forgetting to label the audio files",
+            "C": "treating brief peaks as typical noise",
+            "D": "interviewing only first-year students",
+            "E": "relying on a single weather record"
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Section 4",
+      "context": "A lecture on the life of a nineteenth-century botanical illustrator.",
+      "audio": {
+        "file": "section4.mp3",
+        "duration_seconds": 314
+      },
+      "groups": [
+        {
+          "id": "s4-notes",
+          "from": 31,
+          "to": 40,
+          "type": "notes",
+          "heading": "Questions 31–40",
+          "instructions": [
+            "Complete the notes below.",
+            "Write ONE WORD ONLY for each answer."
+          ],
+          "word_limit": {
+            "max_words": 1,
+            "allow_number": false
+          },
+          "notes": {
+            "title": "The life of Ada Merrin",
+            "sections": [
+              {
+                "heading": "Early years",
+                "items": [
+                  {
+                    "parts": [
+                      "Born in 1819 in a ",
+                      {
+                        "q": 31
+                      },
+                      ", not the nearby market town"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Her father worked as a ",
+                      {
+                        "q": 32
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Her first drawings were of local ",
+                      {
+                        "q": 33
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "heading": "Career",
+                "items": [
+                  {
+                    "parts": [
+                      "In 1844 she joined an ",
+                      {
+                        "q": 34
+                      },
+                      " to the Andes"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "She became known for painting plants in their ",
+                      {
+                        "q": 35
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "A publisher delayed her book because of the cost of ",
+                      {
+                        "q": 36
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "heading": "Later life",
+                "items": [
+                  {
+                    "parts": [
+                      "After an injury to her ",
+                      {
+                        "q": 37
+                      },
+                      " she taught illustration"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "She campaigned for ",
+                      {
+                        "q": 38
+                      },
+                      " to join scientific societies"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Her final project was a guide to ",
+                      {
+                        "q": 39
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Today her work is mainly valued by ",
+                      {
+                        "q": 40
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

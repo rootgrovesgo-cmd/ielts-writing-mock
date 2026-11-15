@@ -554,8 +554,10 @@ def _plain_parts(parts, answers: dict[str, str], official: dict[int, str]) -> st
 
 def _listening_notes_tables(record: dict, styles: dict[str, ParagraphStyle]) -> list:
     """Filled Section 1 notes table for the teacher PDF."""
-    paper = ls.load_paper()
-    official = ls.official_answers()
+    set_id = record.get("prompt_set_id") or "set-a"
+    paper = ls.load_paper_for_set(set_id) or ls.load_paper()
+    keys = ls.load_keys_for_set(set_id)
+    official = ls.official_answers(keys)
     answers = {}
     raw = record.get("answers") or {}
     if isinstance(raw, dict):
@@ -796,7 +798,8 @@ def build_submission_report(
             story.append(Paragraph(mixed_xml("本题卷没有逐题记录。"), styles["muted"]))
     elif _is_listening(record):
         story.extend(_listening_notes_tables(record, styles))
-        rows = attach_explanations(record, keys=ls.load_keys())
+        key_data = ls.load_keys_for_set(record.get("prompt_set_id") or "set-a")
+        rows = attach_explanations(record, keys=key_data)
         story.append(Paragraph(mixed_xml("逐题批改"), styles["section"]))
         story.append(
             Paragraph(
@@ -809,7 +812,7 @@ def build_submission_report(
             story.append(_marking_table(rows, styles))
         else:
             story.append(Paragraph(mixed_xml("本题卷没有逐题记录。"), styles["muted"]))
-        transcripts = ls.transcripts()
+        transcripts = ls.transcripts(key_data)
         if transcripts:
             story.append(Spacer(1, 6 * mm))
             story.append(Paragraph(mixed_xml("录音文本"), styles["section"]))

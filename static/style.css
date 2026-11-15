@@ -980,3 +980,27 @@ table.notes-table td {
 table.notes-table th { background: #efeae3; font-weight: 700; }
 table.notes-table .cell-line + .cell-line { margin-top: 4px; }
 .filled-blank { font-weight: 700; }
+
+.student-passage .passage-subheading {
+  margin: 1.2em 0 0.5em;
+  font-size: 1.05em;
+  font-weight: 700;
+}
+.student-passage .para-label { margin-right: 0.45em; }
+.completion-table-review { margin: 10px 0 16px; overflow-x: auto; }
+table.completion-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+table.completion-table th,
+table.completion-table td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  vertical-align: top;
+  text-align: left;
+}
+table.completion-table th {
+  background: #efeae3;
+  font-weight: 700;
+}

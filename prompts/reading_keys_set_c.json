@@ -1,0 +1,213 @@
+{
+  "set_id": "set-c",
+  "questions": {
+    "1": {
+      "answer": "surfaces",
+      "type": "table",
+      "explanation": "定位第1段：the image recorded the temperature of surfaces, not of the air。对应 The image showed differences in the temperature of 1，原词为 surfaces。不要误填 air / parks（图像记录的是表面温度，不是空气或公园本身）。"
+    },
+    "2": {
+      "answer": "radiation",
+      "type": "table",
+      "explanation": "定位第2段：receives less radiation directly from the sun and from the ground。对应 A pedestrian receives less 2 from the sun and the ground，原词为 radiation。不要误填 sunlight（文中与地面并提的是 radiation）。"
+    },
+    "3": {
+      "answer": "stomata",
+      "type": "table",
+      "explanation": "定位第2段：tiny openings called stomata。干旱时树木会 close these openings, conserving moisture。对应 trees may close their 3 and lose less water，原词为 stomata。"
+    },
+    "4": {
+      "answer": "traffic",
+      "type": "table",
+      "explanation": "定位第3段：the two instruments experienced broadly comparable traffic and building patterns。对应 patterns of buildings and 4，原词为 traffic。"
+    },
+    "5": {
+      "answer": "shields",
+      "type": "table",
+      "explanation": "定位第3段：Air temperature sensors were fitted with white shields to prevent direct sunlight from warming the instruments。对应 White 5 kept sunlight from heating the sensors directly，原词为 shields。不要误填 instruments / sensors（挡光的是白色护罩）。"
+    },
+    "6": {
+      "answer": "directions",
+      "type": "table",
+      "explanation": "定位第3段：A separate device received radiation from several directions。对应 the input from different 6，原词为 directions。"
+    },
+    "7": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第4段：the difference in daytime air temperature between the paired locations had narrowed。与 grew larger 相反；热浪期间白天气温差是缩小而非扩大。"
+    },
+    "8": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第4段：tall buildings already kept much of the pavement out of direct sunlight ... Adding a tree in such a location was therefore unlikely to change daytime exposure by as much。与 existing shade from buildings reduced the additional daytime benefit 一致。"
+    },
+    "9": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "定位第4段：部分封闭地点树冠下夜间降温更慢，并给出热量难以逸出的暂定解释，但未比较树冠下与暴露点的风速。"
+    },
+    "10": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "explanation": "定位第5段：All the street trees monitored were mature, so the results do not establish how long a newly planted tree would take to yield a similar effect。研究并未测量新植树达到同等降温所需的时间。"
+    },
+    "11": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第5段：Averaging the readings from the shaded sites would consequently exaggerate the reduction in exposure along a route with long gaps between trees。与固定遮荫点读数会高估稀疏行道树路线上的益处一致。"
+    },
+    "12": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "explanation": "定位第6段：比较了蒸腾快与蒸腾慢的树种在不同水分条件下的表现，但未给出两类树种各测试了多少。"
+    },
+    "13": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "explanation": "定位第7段：Shading a busy bus stop at the hour when passengers actually queue may matter more than improving the average surface temperature of a large area。与适时改善一处公交站可能比降低更大范围的平均地表温度更有价值一致。"
+    },
+    "14": {
+      "answer": "E",
+      "type": "matching_info",
+      "explanation": "定位E段：the baker had been collecting on behalf of several neighbours ... the recipient named in the accounts was not necessarily the person who ultimately used the grain。对应 recorded collector 可能误导谁真正受益。不要误选D段（D谈的是区界变更造成的再分配错觉）。"
+    },
+    "15": {
+      "answer": "C",
+      "type": "matching_info",
+      "explanation": "定位C段：mineral staining on the brickwork ... The raised storage may therefore have served an additional purpose。水位渍表明高架储存可能还有第二项功能。不要误选A段（A谈的是墙面标记与入口）。"
+    },
+    "16": {
+      "answer": "B",
+      "type": "matching_info",
+      "explanation": "定位B段：receipts ... show purchases and releases in years when there was no recorded crop failure ... the arrangements outlasted the immediate crisis。对应政策在引发它的事件之后仍在继续。"
+    },
+    "17": {
+      "answer": "D",
+      "type": "matching_info",
+      "explanation": "定位D段：using a later map to interpret earlier accounts，使一些记录看上去像贫富区间的调拨。对应用错误时期的证据扭曲了对再分配的判断。"
+    },
+    "18": {
+      "answer": "A",
+      "type": "matching_info",
+      "explanation": "定位A段：Several marks, once taken for merchants’ initials, turned out to identify town wards。墙面符号的新解释挑战了早先的商人姓名说。"
+    },
+    "19": {
+      "answer": "E",
+      "type": "matching_info",
+      "explanation": "定位E段：Neither account need have been dishonest。事后的收费表区分 sales to traders 与 issues to households。收费对象不同，故两名证人可以都在说真话。"
+    },
+    "20": {
+      "answer": "platforms",
+      "type": "summary",
+      "explanation": "定位C段：the spacing corresponds to that of supports for raised platforms in surviving rural granaries。摘要 supported raised 20，原词为 platforms。"
+    },
+    "21": {
+      "answer": "mats",
+      "type": "summary",
+      "explanation": "定位C段：A merchant’s account mentions reed mats bought for this building。摘要 the purchase of reed 21，原词为 mats。"
+    },
+    "22": {
+      "answer": "canal",
+      "type": "summary",
+      "explanation": "定位F段：regular deliveries from inland were reaching Lestow by canal。摘要 regular supplies via a 22，原词为 canal。"
+    },
+    "23": {
+      "answer": "maintenance",
+      "type": "summary",
+      "explanation": "定位F段：a dispute about how maintenance costs should be shared。摘要 dividing the costs of 23，原词为 maintenance。不要误填 costs（空格要的是费用所属项目）。"
+    },
+    "24": {
+      "answer": "B",
+      "type": "choose_two",
+      "pair": [
+        24,
+        25
+      ],
+      "explanation": "定位F段：the canal trade had been brisk for nearly twenty years before the final closure。对应 Inland trade was already well established before the last closure。24与25答案为 B、C，顺序不限。不要误选D（并非运河一开始定期通航便立即关闭）。"
+    },
+    "25": {
+      "answer": "C",
+      "type": "choose_two",
+      "pair": [
+        24,
+        25
+      ],
+      "explanation": "定位F段：The surviving accounts can neither isolate a single motive nor assign each factor a weight。对应现有证据无法显示各可能原因的相对重要性。24与25答案为 B、C，顺序不限。不要误选E（账目并未把运价下降定为决定性因素）。"
+    },
+    "26": {
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "全篇通过墙面标记、建筑遗存与文献等多种证据，修正了此前对莱斯托谷仓的解释。主旨是 B。不要误选D（交通是可能因素之一，但不是文章的主要目的）。"
+    },
+    "27": {
+      "answer": "A",
+      "type": "matching_features",
+      "explanation": "定位“上网之后”Wren：a name search can make whatever happens to be indexed look like a representative sample。对应把不完整的检索结果误当作典型记录。"
+    },
+    "28": {
+      "answer": "B",
+      "type": "matching_features",
+      "explanation": "定位“上网之后”Mistry：参观所需时间与线索并非为了保护当事人，却仍提供了某种保护。对应非出于保护目的的障碍仍可起到保护作用。"
+    },
+    "29": {
+      "answer": "C",
+      "type": "matching_features",
+      "explanation": "定位“上网之后”Okafor：界面若把结果与 surrounding material 一并呈现，可以恢复可能与摘录相矛盾的上下文。对应视觉呈现有助于补回可能限定该结果的证据。"
+    },
+    "30": {
+      "answer": "B",
+      "type": "matching_features",
+      "explanation": "定位“删除请求”Mistry：he would require the restriction to be reconsidered after a set interval。对某些材料的检索限制应在固定期限后复查。"
+    },
+    "31": {
+      "answer": "C",
+      "type": "matching_features",
+      "explanation": "定位“删除请求”Okafor：make formal challenges visible ... readers who follow a link from an older copy a chance to see that the material is contested。让经由外部副本进入的读者也能看到该材料存在争议。"
+    },
+    "32": {
+      "answer": "B",
+      "type": "matching_features",
+      "explanation": "定位“如何评判”Mistry：Falling complaint numbers ... could thus accompany rising harm。举报问题减少可能与不利后果增加同时出现。"
+    },
+    "33": {
+      "answer": "C",
+      "type": "matching_endings",
+      "explanation": "定位“上网之后”：Wren 指出检索会使不完整结果显得有代表性，Okafor 指出单行结果会脱离可能与之矛盾的上下文。二人都描述检索结果更容易导向误读，对应 C。不要误选F（F是后文评估任务，不是这一讨论的共同点）。"
+    },
+    "34": {
+      "answer": "B",
+      "type": "matching_endings",
+      "explanation": "定位“删除请求”：Wren 主张附加更正；Mistry 则保留记录但把它从姓名检索中拿掉，知情者仍可按机构与时期找到。对应 leave other routes to the record open。不要误选E（E是 Okafor 对这一限制效果的质疑）。"
+    },
+    "35": {
+      "answer": "E",
+      "type": "matching_endings",
+      "explanation": "定位“删除请求”：Okafor 怀疑限制姓名检索的效果，因为 Some users will have downloaded earlier copies, and search engines may already have indexed them elsewhere。已复制的材料不受档案馆控制，对应 E。"
+    },
+    "36": {
+      "answer": "F",
+      "type": "matching_endings",
+      "explanation": "定位“如何评判”：Wren 主张测试读者能否重建文献顺序、识别目录造成的缺口；Okafor 主张观察读者如何得出结论、看到更多材料后是否修正。二人都倾向能揭示读者如何理解所读内容的任务，对应 F。不要误选A（Okafor 明确反对以速度衡量）。"
+    },
+    "37": {
+      "answer": "C",
+      "type": "mcq",
+      "explanation": "定位“上网之后”Mistry：removing it does more than increase the readership. It makes it practical to examine people who would never previously have attracted the effort。对应更容易的发现会改变哪些人的细节可能被查阅。不要误选D（他并不认为拜访成本几乎没有影响）。"
+    },
+    "38": {
+      "answer": "B",
+      "type": "mcq",
+      "explanation": "定位“删除请求”Wren：Corrections should themselves be dated, so that users can tell which version was available at a given time。给更正标注日期是为了让读者确定某一时刻能看到哪个版本。"
+    },
+    "39": {
+      "answer": "A",
+      "type": "mcq",
+      "explanation": "定位“如何评判”Okafor：If a design increases the frequency of revision for good reasons, she considers that informative even if readers take longer。在因见到更多相关材料而修正判断时，更慢的界面仍可视为成功。不要误选C（她看重的是有根据的修正，不是对初判更有信心）。"
+    },
+    "40": {
+      "answer": "D",
+      "type": "mcq",
+      "explanation": "定位末段：The immediate task is to specify what an intervention is supposed to achieve and to look for its effects on the other aims as well。主张对照预期结果及其对相关目标的影响来评判干预。不要误选A（末段并未把三人方案调和为同一优先结果）。"
+    }
+  }
+}

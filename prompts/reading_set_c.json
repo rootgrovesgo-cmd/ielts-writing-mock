@@ -1,0 +1,486 @@
+{
+  "id": "set-c",
+  "title": "Set C",
+  "subtitle": "Academic Reading",
+  "instructions": {
+    "time": "1 hour",
+    "to_candidates": [
+      "Answer all the questions.",
+      "You may write on this question paper.",
+      "You must write your answers clearly.",
+      "In a real test you would transfer your answers to an answer sheet within the time allowed."
+    ],
+    "information": [
+      "There are 40 questions on this question paper.",
+      "Each question carries one mark."
+    ]
+  },
+  "passages": [
+    {
+      "id": 1,
+      "label": "READING PASSAGE 1",
+      "time_guidance": "You should spend about 20 minutes on Questions 1–13, which are based on Reading Passage 1 below.",
+      "title": "The cooling power of city trees",
+      "paragraphs": [
+        "On a clear summer morning, a thermal image of a city can make the case for planting trees seem almost embarrassingly simple. Roofs appear in red and orange, while parks show up as islands of green. In one survey, the surfaces beneath mature trees were markedly cooler than the exposed paving nearby. This was a genuine difference, but the image recorded the temperature of surfaces, not of the air that pedestrians breathed. The distinction matters because the two temperatures need not fall by the same amount, nor do they necessarily reach their daily maximum at the same time.",
+        "Trees affect the urban environment in two principal ways. First, their leaves intercept sunlight. A person walking under a tree therefore receives less radiation directly from the sun and from the ground, which has itself been shaded. This can make a walk considerably more comfortable even when a thermometer shows little change in air temperature. Second, when water evaporates from leaves, it draws energy from the surroundings. The rate of evaporation depends partly on tiny openings called stomata. During prolonged dry periods many trees close these openings, conserving moisture but reducing evaporative cooling. Their crowns may continue to provide shade even after evaporation has slowed.",
+        "To separate the two effects, a research team in the fictional city of Mereford established paired monitoring sites on eighteen streets. Each pair consisted of a point beneath a tree and an exposed point on the same street, so that the two instruments experienced broadly comparable traffic and building patterns. Air temperature sensors were fitted with white shields to prevent direct sunlight from warming the instruments. A separate device received radiation from several directions, allowing the researchers to estimate the heat a person would experience at each site. Had they compared air temperatures alone, they would have overlooked much of the difference between the two settings.",
+        "The team returned to the same sites during a heatwave. After several rainless days, the difference in daytime air temperature between the paired locations had narrowed. The contrast in the amount of radiation reaching a pedestrian remained substantial. Yet the benefit was less evident on certain streets that ran between tall buildings. There, the buildings already kept much of the pavement out of direct sunlight during the hours sampled. Adding a tree in such a location was therefore unlikely to change daytime exposure by as much as adding one to a broad, unshaded street. At night the pattern could even reverse: at a few tightly enclosed sites, temperatures beneath dense crowns fell more slowly than at the exposed points. The researchers suggested that a crown could obstruct the escape of heat into the sky, but regarded this as a provisional explanation.",
+        "The usefulness of the campaign also depended on what it left out. All the street trees monitored were mature, so the results do not establish how long a newly planted tree would take to yield a similar effect. And although each pair of instruments was installed at pedestrian height, it sampled a fixed position. A walker spends only part of a journey beneath any one crown. Averaging the readings from the shaded sites would consequently exaggerate the reduction in exposure along a route with long gaps between trees. Continuous measurements from people following ordinary routes would offer a different and complementary picture.",
+        "There is a further difficulty in comparing planting schemes. A species that transpires rapidly while water is available may make impressive gains in a well-watered trial, yet deliver less cooling by evaporation during a dry spell. Conversely, a tree with a modest rate of evaporation may retain a broad covering of leaves through the hottest weeks. This makes it risky to rank species by a single measurement from a short experiment. It also explains why a scheme that performs well in one district may be poorly suited to another, even within the same city.",
+        "For planners, the decision starts with where exposure occurs and who experiences it. Shading a busy bus stop at the hour when passengers actually queue may matter more than improving the average surface temperature of a large area. A satellite survey can identify places worth examining, while ground measurements can establish what sort of relief people receive there. Neither instrument can decide which journeys a city ought to make more comfortable. That is a question for the people who use its streets."
+      ]
+    },
+    {
+      "id": 2,
+      "label": "READING PASSAGE 2",
+      "time_guidance": "You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.",
+      "title": "The public grain houses of Lestow",
+      "lettered": true,
+      "paragraphs": [
+        "For generations, the brick buildings lining the former quay of Lestow were described in local guidebooks as the warehouses of wealthy corn merchants. A survey of their wall markings prompted a reassessment. Several marks, once taken for merchants’ initials, turned out to identify town wards. Their distribution was curious: buildings bearing the same mark stood at opposite ends of the quay. When a group of twentieth-century shopfronts was taken down, an entrance wide enough for a handcart was revealed behind each one. The discoveries encouraged historians to ask how the buildings had worked together, and why a town with plenty of private storage had also maintained premises of its own.",
+        "The earliest reference to the scheme is a council order issued after a poor harvest in 1648. It required each ward to contribute a quantity of grain, to be released when the price at the market reached a specified level. The order names a clerk and stipulates that two people must be present when a store is opened. For a long time this was interpreted as an emergency measure, abandoned when supplies recovered. Recent work on bundles of receipts, however, shows purchases and releases in years when there was no recorded crop failure. Since the receipts cover only a fraction of the town’s wards, they do not establish the scale of the operation. Even so, they show that the arrangements outlasted the immediate crisis.",
+        "The fabric of the buildings supplies a different kind of evidence. In one store, a row of empty sockets runs along the walls well above floor level. The timber that once fitted into them has disappeared, but the spacing corresponds to that of supports for raised platforms in surviving rural granaries. A merchant’s account mentions reed mats bought for this building. The excavators suggest that the mats lay on the platforms, allowing air to circulate beneath the sacks. Lower down, mineral staining on the brickwork shows that water periodically entered the ground floor. The raised storage may therefore have served an additional purpose, though the staining cannot tell us how often the grain itself was damaged.",
+        "From the 1680s, records begin to associate particular weeks with particular wards. Deposits were entered against the ward from which they came, while releases were recorded against the one that collected them. The two were often different. At first sight, this looks like direct aid from rich wards to poor ones. But comparing meeting minutes with the grain books reveals some streets changing wards as boundaries were redrawn. In several instances, an apparent transfer between sharply unequal areas was the product of using a later map to interpret earlier accounts. The evidence still points to shared access to a town resource. It gives a much less secure basis for reconstructing who subsidised whom.",
+        "A revealing disagreement appears in testimony given during a dispute over fees. The keeper of one store said that a payment was due for every sack taken out, irrespective of its destination. A baker testified that she usually collected grain without paying, but that she had to return the empty sacks. Neither account need have been dishonest. A schedule drawn up after the hearing distinguishes sales to traders from issues to households, and the baker had been collecting on behalf of several neighbours. The schedule may have clarified an existing distinction rather than introduced a new one. What it makes clear is that the recipient named in the accounts was not necessarily the person who ultimately used the grain.",
+        "The last of the stores closed in the 1780s, by which time regular deliveries from inland were reaching Lestow by canal. The tempting conclusion is that cheaper transport made the reserve unnecessary. Delivery accounts show, however, that the canal trade had been brisk for nearly twenty years before the final closure. And a proposal to retain a small reserve was defeated only after a dispute about how maintenance costs should be shared. The surviving accounts can neither isolate a single motive nor assign each factor a weight. What they do allow is a revision of the traditional picture: the stores belonged to a system of obligations whose usefulness and expense were debated long after the emergency that first brought it into being."
+      ]
+    },
+    {
+      "id": 3,
+      "label": "READING PASSAGE 3",
+      "time_guidance": "You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.",
+      "title": "What should a public archive forget?",
+      "paragraphs": [
+        "A record that could once be consulted only on a visit to a reading room can now turn up in the results of a search for somebody’s name. Has the archive simply made good on its promise of public access, or has it brought into being a new sort of publication? Three specialists consider where the responsibilities of a digital archive begin and end.",
+        {
+          "heading": "What changes when a record goes online?"
+        },
+        "The historian Clara Wren welcomes remote access for researchers who cannot afford to travel. It also allows records to be checked against one another with far less effort. Her reservation is that a name search can make whatever happens to be indexed look like a representative sample. A family that traded under several names might appear to vanish from the record when, in fact, the search has retrieved only one part of it. She would give online visitors clearer information about the limits of the catalogue.",
+        "For Ravi Mistry, a legal scholar, the issue is what exposure used to cost. Visiting an archive required time and a plausible idea of where to look. Neither condition was imposed expressly to protect the subjects of records; both nevertheless offered some protection. He accepts that distance was an unfair barrier for many readers, but argues that removing it does more than increase the readership. It makes it practical to examine people who would never previously have attracted the effort.",
+        "The information designer Helen Okafor pays particular attention to what users see first. An online result may consist of a single line from a long file; in the reading room the equivalent line would normally be encountered among pages that might contradict it. Okafor argues that the interface can restore some of this context if it presents a result alongside the surrounding material. Doing so will not prevent every misreading, but it could make the least defensible ones harder to arrive at.",
+        {
+          "heading": "Should an archive respond to requests for removal?"
+        },
+        "Wren distinguishes between an inaccurate entry and an accurate entry whose existence embarrasses somebody. Erasing the original record in either case would make it harder for later researchers to understand what the institution that produced it believed or chose to write down. This is why she favours retaining a disputed entry but attaching a correction where an error can be demonstrated. Corrections should themselves be dated, so that users can tell which version was available at a given time.",
+        "Mistry would separate preservation from discovery. In narrowly defined cases, he would allow an archive to keep the record while removing it from the results returned by a search on an individual’s name. Someone who knew the relevant institution and period could still locate it. His aim is to reduce exposure that is incidental to the purpose for which a document is held, and he would require the restriction to be reconsidered after a set interval.",
+        "Okafor is sympathetic to the distinction, but doubts that removing an item from name searches will have a consistent effect. Some users will have downloaded earlier copies, and search engines may already have indexed them elsewhere. She would therefore make formal challenges visible on the archive’s own pages. This would give readers who follow a link from an older copy a chance to see that the material is contested.",
+        {
+          "heading": "How should the policy be judged?"
+        },
+        "Wren distrusts evaluations that count online visits without asking what readers inferred. A user may spend a long time pursuing a false lead. She proposes testing whether visitors can reconstruct the sequence in which documents were created and identify where an apparent gap might be due to the catalogue. These tasks would reveal whether access had led to better historical understanding.",
+        "Mistry asks whose difficulties are recorded in the first place. A log of complaints will show who knew the archive was responsible for making a record searchable and who had time to object. It cannot reveal the number of people who suffered a consequence without tracing it to a particular search result. Falling complaint numbers, he argues, could thus accompany rising harm. An evaluation ought to seek evidence beyond the archive’s dealings with complainants.",
+        "Okafor proposes comparing several presentations of the same file. Users would be asked to explain how they reached a conclusion, and whether they changed it on seeing more of the material. If a design increases the frequency of revision for good reasons, she considers that informative even if readers take longer to complete a task. Speed may be a convenient measure of a catalogue, but it tells us little about whether a reader knows when to hesitate.",
+        "These proposals would yield different accounts of a successful archive. A policy could improve the interpretation of records and still leave the most exposed subjects no better off. Equally, a restriction that protects some people may leave readers with a misleading impression of what survives. The immediate task is to specify what an intervention is supposed to achieve and to look for its effects on the other aims as well."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "q1-6",
+      "passage": 1,
+      "from": 1,
+      "to": 6,
+      "type": "table",
+      "heading": "Questions 1–6",
+      "instructions": [
+        "Complete the table below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 1–6 on your answer sheet."
+      ],
+      "table": {
+        "headers": [
+          "Evidence or process",
+          "What it shows"
+        ],
+        "rows": [
+          {
+            "cells": [
+              "Thermal survey",
+              [
+                "The image showed differences in the temperature of ",
+                {
+                  "q": 1
+                },
+                "."
+              ]
+            ]
+          },
+          {
+            "cells": [
+              "Shade from leaves",
+              [
+                "A pedestrian receives less ",
+                {
+                  "q": 2
+                },
+                " from the sun and the ground."
+              ]
+            ]
+          },
+          {
+            "cells": [
+              "Evaporation from leaves",
+              [
+                "In dry conditions, trees may close their ",
+                {
+                  "q": 3
+                },
+                " and lose less water."
+              ]
+            ]
+          },
+          {
+            "cells": [
+              "Paired monitoring sites",
+              [
+                "Sites within a pair had broadly comparable patterns of buildings and ",
+                {
+                  "q": 4
+                },
+                "."
+              ]
+            ]
+          },
+          {
+            "cells": [
+              "Air temperature readings",
+              [
+                "White ",
+                {
+                  "q": 5
+                },
+                " kept sunlight from heating the sensors directly."
+              ]
+            ]
+          },
+          {
+            "cells": [
+              "Separate instrument",
+              [
+                "It measured the input from different ",
+                {
+                  "q": 6
+                },
+                " to estimate pedestrian heat exposure."
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "q7-13",
+      "passage": 1,
+      "from": 7,
+      "to": 13,
+      "type": "tfng",
+      "heading": "Questions 7–13",
+      "instructions": [
+        "Do the following statements agree with the information given in Reading Passage 1?",
+        "In boxes 7–13 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "TRUE",
+          "meaning": "if the statement agrees with the information"
+        },
+        {
+          "value": "FALSE",
+          "meaning": "if the statement contradicts the information"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if there is no information on this"
+        }
+      ],
+      "items": [
+        {
+          "q": 7,
+          "stem": "During the heatwave, the difference in daytime air temperature between shaded and exposed sites grew larger."
+        },
+        {
+          "q": 8,
+          "stem": "On some streets, existing shade from buildings reduced the additional daytime benefit a tree could provide."
+        },
+        {
+          "q": 9,
+          "stem": "At the enclosed sites where cooling was slower beneath trees, overnight wind speeds below the crowns were lower than at the exposed points."
+        },
+        {
+          "q": 10,
+          "stem": "The Mereford study measured the time newly planted trees took to provide the same cooling as mature trees."
+        },
+        {
+          "q": 11,
+          "stem": "Readings from fixed shaded positions can overstate the benefit for a pedestrian using a route with widely spaced trees."
+        },
+        {
+          "q": 12,
+          "stem": "The team tested more fast-transpiring species than slow-transpiring species."
+        },
+        {
+          "q": 13,
+          "stem": "The passage suggests that a well-timed improvement at one bus stop can be more valuable than lowering the average surface temperature over a much larger area."
+        }
+      ]
+    },
+    {
+      "id": "q14-19",
+      "passage": 2,
+      "from": 14,
+      "to": 19,
+      "type": "matching_info",
+      "heading": "Questions 14–19",
+      "instructions": [
+        "The reading passage has six paragraphs, A–F.",
+        "Which paragraph contains the following information?",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–F, in boxes 14–19 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 14,
+          "stem": "a reason why the identity of a recorded collector might give a misleading impression of who benefited"
+        },
+        {
+          "q": 15,
+          "stem": "physical evidence that suggests a second function for a feature used to store grain"
+        },
+        {
+          "q": 16,
+          "stem": "documentary evidence that a policy continued beyond the event that prompted it"
+        },
+        {
+          "q": 17,
+          "stem": "an example of how using evidence from the wrong period distorted a conclusion about redistribution"
+        },
+        {
+          "q": 18,
+          "stem": "a finding that challenged an earlier interpretation of symbols on the buildings"
+        },
+        {
+          "q": 19,
+          "stem": "a reason why apparently conflicting witnesses may both have been telling the truth"
+        }
+      ]
+    },
+    {
+      "id": "q20-23",
+      "passage": 2,
+      "from": 20,
+      "to": 23,
+      "type": "summary",
+      "heading": "Questions 20–23",
+      "instructions": [
+        "Complete the summary below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 20–23 on your answer sheet."
+      ],
+      "summary": {
+        "title": "Storage arrangements and the later years",
+        "parts": [
+          "The positions of the sockets suggest that the missing timber supported raised ",
+          {
+            "q": 20
+          },
+          ". An account records the purchase of reed ",
+          {
+            "q": 21
+          },
+          ", which may have helped air move below the sacks.\nBy the time the last stores shut, the town was receiving regular supplies via a ",
+          {
+            "q": 22
+          },
+          ". A proposal to keep some grain in reserve failed after a disagreement about dividing the costs of ",
+          {
+            "q": 23
+          },
+          "."
+        ]
+      }
+    },
+    {
+      "id": "q24-25",
+      "passage": 2,
+      "from": 24,
+      "to": 25,
+      "type": "choose_two",
+      "heading": "Questions 24 and 25",
+      "instructions": [
+        "Choose TWO letters, A–E.",
+        "Write the correct letters in boxes 24 and 25 on your answer sheet."
+      ],
+      "stem": "Which TWO points does the writer make about the end of the storage scheme?",
+      "options": {
+        "A": "A reduced reserve was established once the town agreed how to pay for it.",
+        "B": "Inland trade was already well established before the last closure.",
+        "C": "The available evidence cannot show the relative importance of the possible causes.",
+        "D": "The last store closed as soon as regular canal deliveries became possible.",
+        "E": "Delivery accounts identify lower transport prices as the decisive factor."
+      }
+    },
+    {
+      "id": "q26",
+      "passage": 2,
+      "from": 26,
+      "to": 26,
+      "type": "mcq",
+      "heading": "Question 26",
+      "instructions": [
+        "Choose the correct letter, A, B, C or D.",
+        "Write the correct letter in box 26 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 26,
+          "stem": "What is the main purpose of the passage?",
+          "options": {
+            "A": "To show how a temporary relief scheme gradually turned into a private trading network.",
+            "B": "To explain how several kinds of evidence have revised the interpretation of a town’s grain stores.",
+            "C": "To establish which wards contributed most to a publicly managed emergency reserve.",
+            "D": "To argue that developments in transport determined when the town abandoned its reserve."
+          }
+        }
+      ]
+    },
+    {
+      "id": "q27-32",
+      "passage": 3,
+      "from": 27,
+      "to": 32,
+      "type": "matching_features",
+      "heading": "Questions 27–32",
+      "instructions": [
+        "Look at the following statements (Questions 27–32) and the list of people below.",
+        "Match each statement to the correct person, A–C.",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–C, in boxes 27–32 on your answer sheet."
+      ],
+      "box_title": "List of people",
+      "options": {
+        "A": "Clara Wren",
+        "B": "Ravi Mistry",
+        "C": "Helen Okafor"
+      },
+      "items": [
+        {
+          "q": 27,
+          "stem": "A search tool may cause users to mistake a partial set of records for a typical one."
+        },
+        {
+          "q": 28,
+          "stem": "An obstacle can protect people even when protection is no part of its intended purpose."
+        },
+        {
+          "q": 29,
+          "stem": "The visual presentation of a result can help restore evidence that might qualify it."
+        },
+        {
+          "q": 30,
+          "stem": "A limit on finding certain material should be reviewed after a fixed period."
+        },
+        {
+          "q": 31,
+          "stem": "A challenge should be made apparent to readers who arrive via copies circulating elsewhere."
+        },
+        {
+          "q": 32,
+          "stem": "A decline in reported problems could coincide with an increase in adverse consequences."
+        }
+      ]
+    },
+    {
+      "id": "q33-36",
+      "passage": 3,
+      "from": 33,
+      "to": 36,
+      "type": "matching_endings",
+      "heading": "Questions 33–36",
+      "instructions": [
+        "Complete each sentence with the correct ending, A–F, below.",
+        "Write the correct letter, A–F, in boxes 33–36 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 33,
+          "stem": "In their discussion of what changes when records go online, Wren and Okafor both describe how search results can"
+        },
+        {
+          "q": 34,
+          "stem": "Whereas Wren’s response to a proven error is to attach a correction, Mistry’s proposal for limiting exposure would"
+        },
+        {
+          "q": 35,
+          "stem": "Okafor questions the likely effectiveness of Mistry’s proposed restriction because it would"
+        },
+        {
+          "q": 36,
+          "stem": "In assessing an archive, Wren and Okafor both favour tasks that would"
+        }
+      ],
+      "endings": {
+        "A": "measure whether readers reach their conclusions more quickly.",
+        "B": "leave other routes to the record open.",
+        "C": "make misleading interpretations easier to reach.",
+        "D": "give users a way to identify who first supplied inaccurate material.",
+        "E": "leave material already copied beyond the archive’s control.",
+        "F": "show something about how readers interpret what they find."
+      }
+    },
+    {
+      "id": "q37-40",
+      "passage": 3,
+      "from": 37,
+      "to": 40,
+      "type": "mcq",
+      "heading": "Questions 37–40",
+      "instructions": [
+        "Choose the correct letter, A, B, C or D.",
+        "Write the correct letter in boxes 37–40 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 37,
+          "stem": "Why does Mistry draw attention to the effort a visit once required?",
+          "options": {
+            "A": "To suggest that researchers formerly had a more legitimate interest in personal records.",
+            "B": "To explain why existing rules on access originally came into force.",
+            "C": "To show that easier discovery changes whose details are likely to be examined.",
+            "D": "To argue that the cost of visiting had little effect on who used an archive."
+          }
+        },
+        {
+          "q": 38,
+          "stem": "Why does Wren want corrections to carry a date?",
+          "options": {
+            "A": "To show how quickly the archive generally responds to a challenge.",
+            "B": "To allow readers to establish what could have been seen at a particular time.",
+            "C": "To make it easier to separate inaccuracies from reports people simply found embarrassing.",
+            "D": "To preserve evidence of when the underlying event occurred."
+          }
+        },
+        {
+          "q": 39,
+          "stem": "Under which condition would Okafor regard a slower interface as potentially successful?",
+          "options": {
+            "A": "Readers reconsider a judgement because they encounter relevant additional material.",
+            "B": "Readers spend more time on a file because they are given a wider selection of records.",
+            "C": "Readers express greater confidence in their initial interpretation after the extra time.",
+            "D": "Readers follow a more consistent sequence when locating the file they need."
+          }
+        },
+        {
+          "q": 40,
+          "stem": "What is the principal function of the final paragraph?",
+          "options": {
+            "A": "To reconcile the specialists’ proposals by identifying one outcome they would all prioritise.",
+            "B": "To establish a sequence in which restrictions should be applied and then removed.",
+            "C": "To recommend treating greater exposure as an acceptable cost of better interpretation.",
+            "D": "To argue for judging an intervention against its intended result and effects on related objectives."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -75,8 +75,8 @@ _ALIASES = {
     "n": "NO",
 }
 
-_CHOICE_TYPES = {"tfng", "ynng", "mcq", "matching_endings", "matching_features", "matching_info"}
-_COMPLETION_TYPES = {"notes", "summary"}
+_CHOICE_TYPES = {"tfng", "ynng", "mcq", "matching_endings", "matching_features", "matching_info", "choose_two"}
+_COMPLETION_TYPES = {"notes", "summary", "table"}
 
 
 def load_keys(path: Path | None = None) -> dict:
@@ -251,6 +251,51 @@ def mode_question_numbers(mode: str, paper: dict | None = None) -> list[int]:
     return list(info["questions"])
 
 
+
+def choose_two_pairs(keys: dict | None = None) -> list[tuple[tuple[int, int], list[str]]]:
+    """Return unique choose-two pairs and their official letters."""
+    data = keys or load_keys()
+    questions = data.get("questions") or data
+    seen: set[tuple[int, int]] = set()
+    pairs: list[tuple[tuple[int, int], list[str]]] = []
+    for meta in questions.values() if isinstance(questions, dict) else []:
+        if not isinstance(meta, dict) or meta.get("type") != "choose_two":
+            continue
+        pair = meta.get("pair") or []
+        if len(pair) != 2:
+            continue
+        try:
+            left, right = int(pair[0]), int(pair[1])
+        except (TypeError, ValueError):
+            continue
+        key = (min(left, right), max(left, right))
+        if key in seen:
+            continue
+        seen.add(key)
+        official: list[str] = []
+        for qn in key:
+            item = questions.get(str(qn)) or questions.get(qn) or {}
+            answer = item.get("answer") if isinstance(item, dict) else item
+            official.append("" if answer is None else str(answer))
+        pairs.append((key, official))
+    return pairs
+
+
+def _mark_choose_two_pair(student_vals: list[str], official: list[str]) -> list[bool]:
+    """Order-insensitive set marking: {B,C}=2, {C,B}=2, {B,D}=1, {B,B}=1, {D,E}=0."""
+    remaining = [canonicalize(item, "choose_two") for item in official]
+    remaining = [item for item in remaining if item]
+    oks: list[bool] = []
+    for raw in student_vals:
+        letter = canonicalize(raw, "choose_two")
+        if letter and letter in remaining:
+            remaining.remove(letter)
+            oks.append(True)
+        else:
+            oks.append(False)
+    return oks
+
+
 def score_paper(
     answers: dict,
     mode: str = "full",
@@ -272,16 +317,34 @@ def score_paper(
         except (TypeError, ValueError):
             continue
 
+    pair_ok: dict[int, bool] = {}
+    pair_correct: dict[int, str] = {}
+    for (left, right), official_pair in choose_two_pairs(key_data):
+        display = ", ".join(
+            canonicalize(item, "choose_two") or str(item) for item in official_pair
+        )
+        pair_correct[left] = display
+        pair_correct[right] = display
+        oks = _mark_choose_two_pair(
+            [raw_answers.get(left, ""), raw_answers.get(right, "")],
+            official_pair,
+        )
+        pair_ok[left], pair_ok[right] = oks[0], oks[1]
+
     marking = []
     score = 0
     for q in questions:
         student = raw_answers.get(q, "")
         correct = official[q]
         qtype = types[q]
-        ok = answers_equal(student, correct, qtype)
         limit = limits.get(q)
-        if ok and limit is not None and word_count(student) > limit:
-            ok = False
+        if q in pair_ok:
+            ok = pair_ok[q]
+            correct = pair_correct.get(q, correct)
+        else:
+            ok = answers_equal(student, correct, qtype)
+            if ok and limit is not None and word_count(student) > limit:
+                ok = False
         if ok:
             score += 1
         marking.append(

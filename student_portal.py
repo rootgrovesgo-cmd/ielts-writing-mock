@@ -833,7 +833,7 @@ def _walk_notes_for_q(node: Any, qnum: int) -> str | None:
             found = _parts_to_stem(parts, qnum)
             if found:
                 return found
-        for key in ("sections", "items", "children", "notes", "table", "rows", "lines"):
+        for key in ("sections", "items", "children", "notes", "table", "rows", "lines", "cells"):
             found = _walk_notes_for_q(node.get(key), qnum)
             if found:
                 return found
@@ -870,12 +870,21 @@ def question_context(paper: dict, qnum: int) -> dict:
             title = (group.get("notes") or {}).get("title")
             if title:
                 ctx["notes_title"] = title
+        elif gtype == "table":
+            ctx["stem"] = _walk_notes_for_q(group.get("table"), qnum) or ""
+            title = (group.get("table") or {}).get("title")
+            if title:
+                ctx["notes_title"] = title
         elif gtype == "summary":
             summary = group.get("summary") or {}
             ctx["stem"] = _parts_to_stem(summary.get("parts") or [], qnum) or ""
             title = summary.get("title")
             if title:
                 ctx["notes_title"] = title
+        elif gtype == "choose_two":
+            ctx["stem"] = group.get("stem") or ""
+            if group.get("options"):
+                ctx["options"] = group.get("options")
         else:
             for item in group.get("items") or []:
                 if item.get("q") == qnum:
@@ -1048,17 +1057,25 @@ def _groups_for_detail(paper: dict, record: dict, keys: dict) -> list[dict]:
         qnums = [q for q in range(start, end + 1) if q in allowed]
         if not qnums:
             continue
-        groups.append(
-            {
-                "id": group.get("id"),
-                "heading": group.get("heading") or "",
-                "instructions": list(group.get("instructions") or []),
-                "type": group.get("type") or "",
-                "passage": group.get("passage"),
-                "notes_title": (group.get("notes") or {}).get("title") or "",
-                "questions": [rows_by_q[q] for q in qnums if q in rows_by_q],
-            }
-        )
+        notes_title = (group.get("notes") or {}).get("title") or ""
+        if group.get("type") == "summary":
+            notes_title = (group.get("summary") or {}).get("title") or notes_title
+        elif group.get("type") == "table":
+            notes_title = (group.get("table") or {}).get("title") or notes_title
+        entry = {
+            "id": group.get("id"),
+            "heading": group.get("heading") or "",
+            "instructions": list(group.get("instructions") or []),
+            "type": group.get("type") or "",
+            "passage": group.get("passage"),
+            "notes_title": notes_title,
+            "layout_html": "",
+            "questions": [rows_by_q[q] for q in qnums if q in rows_by_q],
+        }
+        if group.get("type") == "table":
+            official = rs.official_answers(keys)
+            entry["layout_html"] = reading_table_html(group, _answer_map(record), official)
+        groups.append(entry)
     return groups
 
 
@@ -1185,6 +1202,40 @@ def _fill_parts_html(parts: list, answers: dict[str, str], official: dict[int, s
         else:
             bits.append(_escape(part))
     return "".join(bits)
+
+
+
+def reading_table_html(
+    group: dict,
+    answers: dict | None = None,
+    official: dict[int, str] | None = None,
+) -> str:
+    """Render a reading completion table with gaps filled, not raw JSON."""
+    table = group.get("table") or {}
+    answers = {str(k): ("" if v is None else str(v)) for k, v in (answers or {}).items()}
+    official = official or {}
+    parts = ['<div class="table-wrap reading-table-wrap">']
+    title = table.get("title") or ""
+    if title:
+        parts.append(f'<div class="notes-title">{_escape(title)}</div>')
+    parts.append('<table class="completion-table notes-table data"><thead><tr>')
+    for header in table.get("headers") or []:
+        parts.append(f"<th>{_escape(header)}</th>")
+    parts.append("</tr></thead><tbody>")
+    for row in table.get("rows") or []:
+        cells = row.get("cells") if isinstance(row, dict) else row
+        parts.append("<tr>")
+        for cell in cells or []:
+            if isinstance(cell, dict) and cell.get("parts") is not None:
+                line_parts = cell.get("parts") or []
+            elif isinstance(cell, list):
+                line_parts = cell
+            else:
+                line_parts = [cell]
+            parts.append(f"<td>{_fill_parts_html(line_parts, answers, official)}</td>")
+        parts.append("</tr>")
+    parts.append("</tbody></table></div>")
+    return "".join(parts)
 
 
 def notes_table_html(

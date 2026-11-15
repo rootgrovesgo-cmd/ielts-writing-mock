@@ -52,8 +52,13 @@
       <section class="card student-passage">
         <p class="eyebrow">{{ passage.label }}</p>
         <h2>{{ passage.title }}</h2>
+        {% set letter_i = namespace(value=0) %}
         {% for para in passage.paragraphs %}
-        <p class="passage-para">{{ para }}</p>
+          {% if para is mapping %}
+        <h3 class="passage-subheading">{{ para.heading }}</h3>
+          {% else %}
+        <p class="passage-para">{% if passage.lettered %}<strong class="para-label">{{ "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[letter_i.value] }}</strong> {% set letter_i.value = letter_i.value + 1 %}{% endif %}{{ para }}</p>
+          {% endif %}
         {% endfor %}
       </section>
       {% endfor %}
@@ -67,10 +72,13 @@
         </div>
         {% endif %}
         {% if group.notes_title %}<p class="notes-title">{{ group.notes_title }}</p>{% endif %}
+        {% if group.layout_html %}
+        <div class="completion-table-review">{{ group.layout_html | safe }}</div>
+        {% endif %}
         {% for q in group.questions %}
         <article class="q-review {{ 'is-wrong' if not q.ok else 'is-ok' }}" id="q-{{ q.q }}">
           <h3>Question {{ q.q }}</h3>
-          {% if q.stem %}<p class="q-stem">{{ q.stem }}</p>{% endif %}
+          {% if q.stem and not group.layout_html %}<p class="q-stem">{{ q.stem }}</p>{% endif %}
           {% if q.options %}
           <ul class="q-options">
             {% for key, label in q.options.items() %}

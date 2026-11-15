@@ -24,7 +24,15 @@
   const SET_MODE_RANGES = {
     "set-a": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
     "set-b": { full: [1, 40], passage1: [1, 14], passage2: [15, 27], passage3: [28, 40] },
+    "set-c": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
   };
+  const THEME_CLASS = "reading-theme-c";
+
+  function applyReadingTheme(setId) {
+    const id = setId || (paper && paper.id) || state.setId || selectedSetId() || "";
+    document.body.classList.toggle(THEME_CLASS, id === "set-c");
+  }
+
 
   const el = {
     setup: document.getElementById("setupPanel"),
@@ -277,9 +285,12 @@
       .replace(/NO MORE THAN TWO WORDS/g, "<span class=\"emph\">NO MORE THAN TWO WORDS</span>")
       .replace(/NO MORE THAN THREE WORDS/g, "<span class=\"emph\">NO MORE THAN THREE WORDS</span>")
       .replace(/A, B, C or D/g, "<span class=\"emph\">A, B, C or D</span>")
+      .replace(/TWO letters/g, "<span class=\"emph\">TWO letters</span>")
       .replace(/A–H/g, "<span class=\"emph\">A–H</span>")
       .replace(/A–F/g, "<span class=\"emph\">A–F</span>")
-      .replace(/A–D/g, "<span class=\"emph\">A–D</span>");
+      .replace(/A–E/g, "<span class=\"emph\">A–E</span>")
+      .replace(/A–D/g, "<span class=\"emph\">A–D</span>")
+      .replace(/A–C/g, "<span class=\"emph\">A–C</span>");
   }
 
   function renderTimer() {
@@ -387,11 +398,20 @@
 
   function passageParagraphHtml(p) {
     const lettered = !!(p && p.lettered);
+    let letterIndex = 0;
     return (p.paragraphs || [])
-      .map((para, i) => {
-        const body = escapeHtml(para);
+      .map((para) => {
+        if (para && typeof para === "object") {
+          const heading = para.heading;
+          if (heading) {
+            return '<h3 class="passage-subheading">' + escapeHtml(heading) + "</h3>";
+          }
+          return "";
+        }
+        const body = escapeHtml(para == null ? "" : String(para));
         if (!lettered) return "<p>" + body + "</p>";
-        const letter = String.fromCharCode(65 + i);
+        const letter = String.fromCharCode(65 + letterIndex);
+        letterIndex += 1;
         return (
           "<p><strong class=\"para-label\">" +
           letter +
@@ -619,6 +639,90 @@
     return html;
   }
 
+  function cellParts(cell) {
+    if (Array.isArray(cell)) return cell;
+    if (cell && typeof cell === "object" && cell.parts) return cell.parts;
+    return [cell == null ? "" : cell];
+  }
+
+  function renderTable(table) {
+    let html = '<div class="table-box"><table class="completion-table">';
+    const headers = (table && table.headers) || [];
+    if (headers.length) {
+      html += "<thead><tr>";
+      headers.forEach((h) => {
+        html += "<th>" + escapeHtml(h) + "</th>";
+      });
+      html += "</tr></thead>";
+    }
+    html += "<tbody>";
+    ((table && table.rows) || []).forEach((row) => {
+      const cells = Array.isArray(row) ? row : (row && row.cells) || [];
+      html += "<tr>";
+      cells.forEach((cell) => {
+        html += "<td>" + renderParts(cellParts(cell)) + "</td>";
+      });
+      html += "</tr>";
+    });
+    html += "</tbody></table></div>";
+    return html;
+  }
+
+  function chosenPairLetters(from, to) {
+    return [state.answers[from], state.answers[to]]
+      .map((v) => (v || "").toString().toUpperCase())
+      .filter(Boolean);
+  }
+
+  function renderChooseTwo(group) {
+    const from = group.from;
+    const to = group.to;
+    const selected = chosenPairLetters(from, to);
+    const ro = state.attemptReview ? " disabled" : "";
+    const options = group.options || {};
+    let html =
+      '<div class="choose-two-box q-item" id="q-' +
+      from +
+      '" data-q="' +
+      from +
+      '" data-from="' +
+      from +
+      '" data-to="' +
+      to +
+      '"><div class="choose-two-stem"><span class="q-no">' +
+      from +
+      "–" +
+      to +
+      '</span><span class="q-stem-text">' +
+      escapeHtml(group.stem || "") +
+      '</span></div><ul class="mcq-options choose-two-options">';
+    Object.keys(options).forEach((letter) => {
+      const id = "ans-" + from + "-" + to + "-" + letter;
+      const chk = selected.indexOf(letter) >= 0 ? " checked" : "";
+      html +=
+        "<li><label for='" +
+        id +
+        "'><input type='checkbox' id='" +
+        id +
+        "' data-pair-from='" +
+        from +
+        "' data-pair-to='" +
+        to +
+        "' value='" +
+        escapeHtml(letter) +
+        "'" +
+        chk +
+        ro +
+        " /><span class='mcq-letter'>" +
+        escapeHtml(letter) +
+        "</span><span>" +
+        escapeHtml(options[letter]) +
+        "</span></label></li>";
+    });
+    html += "</ul></div>";
+    return html;
+  }
+
   function renderFeatureMatching(group) {
     let html = '<div class="endings-box features-box">';
     if (group.box_title) {
@@ -653,9 +757,22 @@
     return html;
   }
 
-  function renderMatchingInfo(group) {
+  function matchingInfoLetters(group) {
+    const passage = findPassage(group.passage);
+    const paras = (passage && passage.paragraphs) || [];
+    if (passage && passage.lettered && paras.length) {
+      const count = paras.filter((para) => typeof para === "string").length;
+      const letters = [];
+      for (let i = 0; i < count; i++) letters.push(String.fromCharCode(65 + i));
+      if (letters.length) return letters;
+    }
     const letters = [];
     for (let i = 0; i < 8; i++) letters.push(String.fromCharCode(65 + i));
+    return letters;
+  }
+
+  function renderMatchingInfo(group) {
+    const letters = matchingInfoLetters(group);
     let html = "";
     (group.items || []).forEach((item) => {
       if (!state.questions.includes(item.q)) return;
@@ -690,6 +807,8 @@
       html += "</div>";
       if (g.type === "notes") html += renderNotes(g.notes || {});
       else if (g.type === "summary") html += renderSummary(g.summary || {});
+      else if (g.type === "table") html += renderTable(g.table || {});
+      else if (g.type === "choose_two") html += renderChooseTwo(g);
       else if (g.type === "tfng" || g.type === "ynng") {
         html += renderLegend(g.legend);
         html += renderTfngLike(g);
@@ -736,6 +855,40 @@
         const q = Number(item.getAttribute("data-q"));
         if (q) setCurrent(q, false);
       });
+    });
+    bindChooseTwo();
+  }
+
+  function bindChooseTwo() {
+    if (!el.questionScroll) return;
+    el.questionScroll.querySelectorAll("input[type=checkbox][data-pair-from]").forEach((node) => {
+      node.addEventListener("change", () => {
+        if (state.attemptReview) return;
+        const from = Number(node.getAttribute("data-pair-from"));
+        const to = Number(node.getAttribute("data-pair-to"));
+        const box = node.closest(".choose-two-box");
+        if (!box) return;
+        const boxes = Array.prototype.slice.call(box.querySelectorAll("input[type=checkbox]"));
+        if (node.checked) node.setAttribute("data-picked-at", String(Date.now()));
+        else node.removeAttribute("data-picked-at");
+        let checked = boxes.filter((b) => b.checked);
+        if (checked.length > 2) {
+          checked.sort(function (a, b) {
+            return Number(a.getAttribute("data-picked-at") || 0) - Number(b.getAttribute("data-picked-at") || 0);
+          });
+          const drop = checked.find((b) => b !== node) || checked[0];
+          drop.checked = false;
+          drop.removeAttribute("data-picked-at");
+          checked = boxes.filter((b) => b.checked);
+        }
+        const letters = checked.map((b) => b.value);
+        state.answers[from] = letters[0] || "";
+        state.answers[to] = letters[1] || "";
+        setCurrent(from, false);
+        updatePalette();
+        persist();
+      });
+      node.addEventListener("focus", () => setCurrent(Number(node.getAttribute("data-pair-from")), false));
     });
   }
 
@@ -824,7 +977,10 @@
 
   function updateCurrentHighlight() {
     el.questionScroll.querySelectorAll(".q-item").forEach((item) => {
-      item.classList.toggle("current", Number(item.getAttribute("data-q")) === state.currentQ);
+      const from = Number(item.getAttribute("data-from") || item.getAttribute("data-q"));
+      const to = Number(item.getAttribute("data-to") || item.getAttribute("data-q"));
+      const on = state.currentQ >= from && state.currentQ <= to;
+      item.classList.toggle("current", on);
     });
   }
 
@@ -832,7 +988,13 @@
   function scrollQuestionIntoView(q) {
     const pane = el.questionScroll;
     if (!pane) return;
-    const item = document.getElementById("q-" + q) || document.getElementById("ans-" + q);
+    const item =
+      document.getElementById("q-" + q) ||
+      document.getElementById("ans-" + q) ||
+      (el.questionScroll &&
+        el.questionScroll.querySelector(
+          '.choose-two-box[data-from="' + q + '"], .choose-two-box[data-to="' + q + '"]'
+        ));
     if (!item) return;
     const group = item.closest(".q-group");
     let target = item;
@@ -1319,6 +1481,7 @@
     const id = setId || state.setId || selectedSetId() || "set-a";
     if (paper && paper.groups && paper.id === id) {
       applyModeRangesFromPaper(paper);
+      applyReadingTheme(paper.id);
       return true;
     }
     const res = await fetch("/api/reading/paper?set=" + encodeURIComponent(id), {
@@ -1331,6 +1494,7 @@
     paper = data;
     if (paper && paper.id) state.setId = paper.id;
     applyModeRangesFromPaper(paper);
+    applyReadingTheme(paper && paper.id);
     return !!(paper && paper.groups);
   }
 
@@ -1647,6 +1811,7 @@
     el.done.classList.add("hidden");
     if (el.doneResult) el.doneResult.classList.add("hidden");
     el.setup.classList.remove("hidden");
+    applyReadingTheme(selectedSetId());
   }
 
   el.btnStart.addEventListener("click", () => startExam(false));
@@ -1837,7 +2002,7 @@
         item.appendChild(box);
       } else {
         const input = document.getElementById("ans-" + q);
-        const notes = input && input.closest(".notes-box");
+        const notes = input && input.closest(".notes-box, .table-box, .summary-box");
         const group = input && input.closest(".q-group");
         const host = notes || group || (input && input.parentNode);
         if (host) host.insertAdjacentElement("afterend", box);
@@ -1972,6 +2137,7 @@
       state.remaining = 0;
       state.currentQ = state.questions[0];
       state.currentPassage = 0;
+      applyReadingTheme((data.paper && data.paper.id) || state.setId);
       applyReviewChrome(data);
       enterExamChrome();
       renderPassage(passageForQuestion(state.currentQ), true);
@@ -1995,9 +2161,11 @@
     el.promptSet.addEventListener("change", () => {
       const preset = SET_MODE_RANGES[el.promptSet.value];
       if (preset) applyModeRanges(preset);
+      applyReadingTheme(el.promptSet.value);
     });
     const preset = SET_MODE_RANGES[el.promptSet.value] || SET_MODE_RANGES["set-a"];
     if (preset) applyModeRanges(preset);
+    applyReadingTheme(el.promptSet.value);
   } else {
     updateModePillLabels();
   }

@@ -194,7 +194,7 @@ def list_reading_sets() -> list[dict]:
     """Student-facing set summaries for the setup dropdown."""
     seen: set[str] = set()
     out: list[dict] = []
-    for set_id in ("set-a", "set-b"):
+    for set_id in ("set-a", "set-b", "set-c"):
         paper = load_paper_for_set(set_id)
         if not paper:
             continue
@@ -376,12 +376,26 @@ def highlight_texts_from_record(record: dict | None) -> dict:
 
 
 def official_passage_html(passage: dict | None) -> str:
-    """Trusted passage HTML, matching the exam page (<p>escaped paragraphs</p>)."""
+    """Trusted passage HTML, matching the exam page (headings, letters, <p>)."""
     if not passage:
         return ""
     parts = []
+    lettered = bool(passage.get("lettered"))
+    letter_i = 0
     for para in passage.get("paragraphs") or []:
-        parts.append(f"<p>{escape(str(para), quote=True)}</p>")
+        if isinstance(para, dict) and para.get("heading"):
+            heading = escape(str(para.get("heading") or ""), quote=True)
+            parts.append(f'<h3 class="passage-subheading">{heading}</h3>')
+            continue
+        if not isinstance(para, str):
+            continue
+        body = escape(para, quote=True)
+        if lettered:
+            letter = chr(ord("A") + letter_i)
+            letter_i += 1
+            parts.append(f'<p><strong class="para-label">{letter}</strong> {body}</p>')
+        else:
+            parts.append(f"<p>{body}</p>")
     return "".join(parts)
 
 

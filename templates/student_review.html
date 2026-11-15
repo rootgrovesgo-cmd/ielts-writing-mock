@@ -68,7 +68,7 @@
       {% if q.explanation %}
       <div class="q-explain">
         <h3>解析</h3>
-        <p>{{ q.explanation }}</p>
+        {{ q.explanation | explain_html | safe }}
       </div>
       {% endif %}
     </article>

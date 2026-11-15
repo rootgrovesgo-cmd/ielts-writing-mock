@@ -37,6 +37,7 @@ import report_pdf
 import reading_review as rr
 import student_portal as sp
 import pikachu
+import explain_format
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -69,6 +70,11 @@ access.bind(DATA_DIR)
 @app.template_filter("duration")
 def jinja_duration(seconds):
     return report_pdf.format_duration(seconds)
+
+
+@app.template_filter("explain_html")
+def jinja_explain_html(value):
+    return explain_format.explanation_html(value)
 
 
 

@@ -19,6 +19,7 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 import reading_scoring as rs
 import listening_scoring as ls
 import reading_review as rr
+import explain_format
 
 BASE_DIR = Path(__file__).resolve().parent
 FONTS_DIR = BASE_DIR / "static" / "fonts"
@@ -193,6 +194,22 @@ def mixed_xml(text: object, newlines: bool = False) -> str:
     if not runs:
         return ""
     return "".join(f'<font name="{font}">{_escape(chunk)}</font>' for font, chunk in runs)
+
+
+def explanation_xml(text: object) -> str:
+    """Format a marking-table explanation, preserving the three-part layout."""
+    source = "" if text is None else str(text)
+    parts = explain_format.explanation_parts(source)
+    if not any(parts.values()):
+        return mixed_xml(source or "—", newlines=True)
+    bits: list[str] = []
+    for key, label in explain_format.PARTS:
+        value = (parts.get(key) or "").strip()
+        if not value:
+            continue
+        clean = re.sub(r"\*\*(.+?)\*\*", r"\1", value)
+        bits.append(f"<b>{mixed_xml(label + '：')}</b>{mixed_xml(clean, newlines=True)}")
+    return "<br/>".join(bits) or mixed_xml("—")
 
 
 def draw_mixed_string(canvas, x: float, y: float, text: str, size: float, align: str = "left") -> None:
@@ -624,7 +641,7 @@ def _marking_table(rows: list[dict], styles: dict[str, ParagraphStyle]) -> Table
                 Paragraph(mixed_xml(student, newlines=True), styles["td"]),
                 Paragraph(mixed_xml(correct, newlines=True), styles["td"]),
                 Paragraph(mixed_xml("正确" if ok else "错误"), verdict_style),
-                Paragraph(mixed_xml(row.get("explanation") or "—", newlines=True), styles["td"]),
+                Paragraph(explanation_xml(row.get("explanation") or "—"), styles["td"]),
             ]
         )
         bg = ROW_OK_BG if ok else ROW_BAD_BG

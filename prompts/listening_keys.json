@@ -4,79 +4,99 @@
     "1": {
       "answer": "poetry",
       "type": "notes_table",
-      "explanation": "Fraser 承认位置方便，但明确说 that’s not necessarily why I’d recommend it。人们专程来是因为诗歌（poetry）收藏。不要填 location / tram / centre。",
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 specialist collection of 后面，应填名词，表示这家店专藏的图书类别或主题。",
+      "logic": "题目要的是推荐理由，不是地点。原文先承认 The location is handy，随即用 that's not necessarily why I'd recommend it 把地点否定掉，再把 reason for recommendation 替换成 what people actually come in for / what the shop is known for，答案是 poetry。不要填 location / tram / centre。",
+      "audio_quote": "Fraser: “The location is handy, I'll give you that, but that's not necessarily why I'd recommend it. What people actually come in for is the **poetry** — they've built up this remarkably wide poetry section, and that's what the shop is known for.”",
+      "explanation": "预测：空格在 specialist collection of 后面，应填名词，表示这家店专藏的图书类别或主题。\n考点与原文逻辑替换：题目要的是推荐理由，不是地点。原文先承认 The location is handy，随即用 that's not necessarily why I'd recommend it 把地点否定掉，再把 reason for recommendation 替换成 what people actually come in for / what the shop is known for，答案是 poetry。不要填 location / tram / centre。\n跟音：Fraser: “The location is handy, I'll give you that, but that's not necessarily why I'd recommend it. What people actually come in for is the **poetry** — they've built up this remarkably wide poetry section, and that's what the shop is known for.”"
     },
     "2": {
       "answer": "courtyard",
       "type": "notes_table",
-      "explanation": "后部有 courtyard，适合坐着阅读。需要订位、能看到古城墙只是附加信息，不是空格要填的场所名词。不要填 wall 或 table。",
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 has a 与 that is good for sitting and reading 之间，应填单数名词，表示适合坐下来阅读的场所。",
+      "logic": "题目把 good for sitting and reading 对应成 a lovely place if you want to sit and read。原文先提到 noisy / trams，再给出真正的场所 courtyard；book a table、view of the old city wall 只是附加信息。说话人用 the thing itself is the courtyard 点明答案。不要填 wall 或 table。",
+      "audio_quote": "Fraser: “But they've opened a **courtyard** at the back, and it's a lovely place if you want to sit and read. You sometimes have to book a table if you plan to work there, and you get a view of the old city wall, but the thing itself is the courtyard.”",
+      "explanation": "预测：空格在 has a 与 that is good for sitting and reading 之间，应填单数名词，表示适合坐下来阅读的场所。\n考点与原文逻辑替换：题目把 good for sitting and reading 对应成 a lovely place if you want to sit and read。原文先提到 noisy / trams，再给出真正的场所 courtyard；book a table、view of the old city wall 只是附加信息。说话人用 the thing itself is the courtyard 点明答案。不要填 wall 或 table。\n跟音：Fraser: “But they've opened a **courtyard** at the back, and it's a lovely place if you want to sit and read. You sometimes have to book a table if you plan to work there, and you get a view of the old city wall, but the thing itself is the courtyard.”"
     },
     "3": {
       "answer": "academic",
       "type": "notes_table",
-      "explanation": "Naomi 以为是二手书店；Fraser 说明那是店主以前工作的 Canal Row 旧店。他用确认问句后给出 Harbour Folio 的定位：academic 库存。不要填 second-hand。",
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 mostly 与 stock 之间，应填形容词或名词作前置修饰，说明这家店库存的主要类型。",
+      "logic": "Naomi 先把 Harbour Folio 误认成 second-hand bookshop。Fraser 用 the place the owner used to work / a second-hand shop on Canal Row 把二手店排除掉，再用 Harbour Folio itself is different 转折，把 mostly stock 替换成 the stock is academic。不要填 second-hand。",
+      "audio_quote": "Fraser: “You're probably thinking of the place the owner used to work — it was a second-hand shop on Canal Row. Harbour Folio itself is different. Let me just check I've got this right for you: the stock is **academic**, isn't it? Yes — academic titles, university texts, monographs, that kind of thing.”",
+      "explanation": "预测：空格在 mostly 与 stock 之间，应填形容词或名词作前置修饰，说明这家店库存的主要类型。\n考点与原文逻辑替换：Naomi 先把 Harbour Folio 误认成 second-hand bookshop。Fraser 用 the place the owner used to work / a second-hand shop on Canal Row 把二手店排除掉，再用 Harbour Folio itself is different 转折，把 mostly stock 替换成 the stock is academic。不要填 second-hand。\n跟音：Fraser: “You're probably thinking of the place the owner used to work — it was a second-hand shop on Canal Row. Harbour Folio itself is different. Let me just check I've got this right for you: the stock is **academic**, isn't it? Yes — academic titles, university texts, monographs, that kind of thing.”"
     },
     "4": {
       "answer": "comics",
       "type": "notes_table",
-      "explanation": "Naomi 问起给十几岁侄女的读物。店里为青少年只保留有限的 comics，同时强调学术书并不短缺。不要填 academic 或 books，也不要理解成主库存不足。",
       "alternatives": [
         "comic"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 limited selection of 与 for teenage customers 之间，应填名词（复数更自然），表示面向青少年顾客的有限品类。",
+      "logic": "Naomi 问起给 teenage niece、喜欢 graphic stuff 的读物。原文把 limited selection of 直接说成 keep a limited selection of comics for teenage customers。随后用 That doesn't mean the academic shelves are thin 防止误填 academic，或理解成主库存不足。不要填 academic 或 books。",
+      "audio_quote": "Fraser: “They do keep a limited selection of **comics** for teenage customers. That doesn't mean the academic shelves are thin — those are as comprehensive as ever. It's just a small comics corner.”",
+      "explanation": "预测：空格在 limited selection of 与 for teenage customers 之间，应填名词（复数更自然），表示面向青少年顾客的有限品类。\n考点与原文逻辑替换：Naomi 问起给 teenage niece、喜欢 graphic stuff 的读物。原文把 limited selection of 直接说成 keep a limited selection of comics for teenage customers。随后用 That doesn't mean the academic shelves are thin 防止误填 academic，或理解成主库存不足。不要填 academic 或 books。\n跟音：Fraser: “They do keep a limited selection of **comics** for teenage customers. That doesn't mean the academic shelves are thin — those are as comprehensive as ever. It's just a small comics corner.”"
     },
     "5": {
       "answer": "Pellam",
       "type": "notes_table",
-      "explanation": "店名 The Pellam，逐字母拼写为 P-E-L-L-A-M，并纠正人们常误写成 Pelham（多一个 H）。只接受此拼写（大小写不限）。",
       "alternatives": [
         "PELLAM"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格是店名 The _____，应填专有名词；听时很可能出现逐字母拼写，要注意常见近音或多写一个字母的干扰。",
+      "logic": "Fraser 给出店名 The Pellam，并逐字母拼写为 P-E-L-L-A-M，随即用 Not Pelham — people often add an H 纠正常见误拼。只接受 Pellam 这一拼写（大小写不限），不要写成 Pelham。",
+      "audio_quote": "Fraser: “The last one I'd mention is called The **Pellam**.” “P-E-L-L-A-M. The Pellam. Not Pelham — people often add an H.”",
+      "explanation": "预测：空格是店名 The _____，应填专有名词；听时很可能出现逐字母拼写，要注意常见近音或多写一个字母的干扰。\n考点与原文逻辑替换：Fraser 给出店名 The Pellam，并逐字母拼写为 P-E-L-L-A-M，随即用 Not Pelham — people often add an H 纠正常见误拼。只接受 Pellam 这一拼写（大小写不限），不要写成 Pelham。\n跟音：Fraser: “The last one I'd mention is called The **Pellam**.” “P-E-L-L-A-M. The Pellam. Not Pelham — people often add an H.”"
     },
     "6": {
       "answer": "staircase",
       "type": "notes_table",
-      "explanation": "空格是 at the top of a 后面的名词。博物馆旁的咖啡馆是他人混淆的地点，不是书店位置。不要填 museum、café 或 arch。",
       "alternatives": [
         "stair"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 at the top of a 后面，应填单数可数名词，表示到达这家店要登上的建筑部位。",
+      "logic": "Naomi 先转述朋友提到的 museum，这是干扰。Fraser 用 mix it up with the café beside the museum 把博物馆旁的咖啡馆排除掉，再把地点说成 at the top of a staircase；arch / Silver Lane / dark green door 只是路线细节，不是空格要的名词。不要填 museum、café 或 arch。",
+      "audio_quote": "Fraser: “People often mix it up with the café beside the museum, but that's a completely different place. The Pellam is at the top of a **staircase** — you go through the arch on Silver Lane and then up.”",
+      "explanation": "预测：空格在 at the top of a 后面，应填单数可数名词，表示到达这家店要登上的建筑部位。\n考点与原文逻辑替换：Naomi 先转述朋友提到的 museum，这是干扰。Fraser 用 mix it up with the café beside the museum 把博物馆旁的咖啡馆排除掉，再把地点说成 at the top of a staircase；arch / Silver Lane / dark green door 只是路线细节，不是空格要的名词。不要填 museum、café 或 arch。\n跟音：Fraser: “People often mix it up with the café beside the museum, but that's a completely different place. The Pellam is at the top of a **staircase** — you go through the arch on Silver Lane and then up.”"
     },
     "7": {
       "answer": "reviews",
       "type": "notes_table",
-      "explanation": "原文是 the reviews are excellent, from all the local papers and from customers online，对应笔记 All the reviews are very good。须用复数 reviews，与空格前后语法一致。不要填 staff、papers 或 owner。",
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 All the 与 are very good 之间，应填复数名词，说明“全都很好”的是哪一类评价或事物。",
+      "logic": "笔记里 well-known owner 已经写出，不是本题答案。原文先提 The owner is quite well-known，再把 All the _____ are very good 几乎原词复现为 the reviews are excellent / All the reviews are very good。须用复数 reviews，与空格前后语法一致。不要填 staff、papers 或 owner。",
+      "audio_quote": "Fraser: “And I have to say, the **reviews** are excellent, from all the local papers and from customers online. All the reviews are very good.”",
+      "explanation": "预测：空格在 All the 与 are very good 之间，应填复数名词，说明“全都很好”的是哪一类评价或事物。\n考点与原文逻辑替换：笔记里 well-known owner 已经写出，不是本题答案。原文先提 The owner is quite well-known，再把 All the _____ are very good 几乎原词复现为 the reviews are excellent / All the reviews are very good。须用复数 reviews，与空格前后语法一致。不要填 staff、papers 或 owner。\n跟音：Fraser: “And I have to say, the **reviews** are excellent, from all the local papers and from customers online. All the reviews are very good.”"
     },
     "8": {
       "answer": "handmade",
       "type": "notes_table",
-      "explanation": "他们已停用廉价进口包装纸，改为只用本地作坊生产的 handmade paper。空格是 already printed 的 paper 前的形容词。不要填 imported 或 cheap。",
       "alternatives": [
         "hand-made",
         "hand made"
@@ -84,12 +104,15 @@
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 Only uses 与 paper 之间，应填形容词或名词作定语，说明他们用的是哪一种纸。",
+      "logic": "原文先用 stopped using the cheap imported wrapping 把 imported / cheap 排除掉，再把 only uses 对应成 they only use handmade paper（由镇外作坊生产）。不要填 imported 或 cheap。",
+      "audio_quote": "Fraser: “They've stopped using the cheap imported wrapping. Everything they wrap purchases in is produced by a workshop just outside town, so they only use **handmade** paper.”",
+      "explanation": "预测：空格在 Only uses 与 paper 之间，应填形容词或名词作定语，说明他们用的是哪一种纸。\n考点与原文逻辑替换：原文先用 stopped using the cheap imported wrapping 把 imported / cheap 排除掉，再把 only uses 对应成 they only use handmade paper（由镇外作坊生产）。不要填 imported 或 cheap。\n跟音：Fraser: “They've stopped using the cheap imported wrapping. Everything they wrap purchases in is produced by a workshop just outside town, so they only use **handmade** paper.”"
     },
     "9": {
       "answer": "30",
       "type": "notes_table",
-      "explanation": "年费本身是 thirty pounds / 30。十五镑是预留初版的押金，二十镑是学生优惠价，四十五镑是 Ink & Timber 的收费。题干已印英镑符号，填数字即可。",
       "alternatives": [
         "thirty",
         "30.00",
@@ -99,248 +122,338 @@
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格前已有英镑符号，应填会员费金额（数字或对应单词），并注意区分押金、学生价等其他价钱。",
+      "logic": "题干问的是 Membership。原文连续给出三个数字：fifteen-pound deposit（预留初版的押金）、twenty pounds（学生优惠价），再用 The membership itself, though 把年费锁定为 thirty pounds a year。Naomi 先前提到的 forty-five pounds 是 Ink and Timber 的收费。题干已印英镑符号，填 30 即可。",
+      "audio_quote": "Fraser: “There's a fifteen-pound deposit if you want them to reserve a first edition, and students can join at a concession rate of twenty pounds. The membership itself, though, is **thirty** pounds a year.”",
+      "explanation": "预测：空格前已有英镑符号，应填会员费金额（数字或对应单词），并注意区分押金、学生价等其他价钱。\n考点与原文逻辑替换：题干问的是 Membership。原文连续给出三个数字：fifteen-pound deposit（预留初版的押金）、twenty pounds（学生优惠价），再用 The membership itself, though 把年费锁定为 thirty pounds a year。Naomi 先前提到的 forty-five pounds 是 Ink and Timber 的收费。题干已印英镑符号，填 30 即可。\n跟音：Fraser: “There's a fifteen-pound deposit if you want them to reserve a first edition, and students can join at a concession rate of twenty pounds. The membership itself, though, is **thirty** pounds a year.”"
     },
     "10": {
       "answer": "average",
       "type": "notes_table",
-      "explanation": "两人原先都觉得房间太小；Fraser 用 I'd say / probably 修正为 average in size，并说价格还算合理。空格对应的是房间大小，不要填 small、tiny 或 fair。",
       "word_limit": {
         "max_words": 1,
         "allow_number": true
-      }
+      },
+      "prediction": "空格在 probably 与 in size 之间，应填形容词，描述房间的大小。probably 提示原文可能有犹豫或自我修正。",
+      "logic": "两人原先都觉得 rooms looked too small。Fraser 用 I thought the same until I went back last month 修正看法，把大小改成 I'd say the rooms are probably average in size — not tiny at all。空格对应的是房间大小，不要填 small、tiny，也不要填说的是价格的 fair。",
+      "audio_quote": "Fraser: “The prices are fair enough, and as for the space, I'd say the rooms are probably **average** in size — not tiny at all once you're inside.”",
+      "explanation": "预测：空格在 probably 与 in size 之间，应填形容词，描述房间的大小。probably 提示原文可能有犹豫或自我修正。\n考点与原文逻辑替换：两人原先都觉得 rooms looked too small。Fraser 用 I thought the same until I went back last month 修正看法，把大小改成 I'd say the rooms are probably average in size — not tiny at all。空格对应的是房间大小，不要填 small、tiny，也不要填说的是价格的 fair。\n跟音：Fraser: “The prices are fair enough, and as for the space, I'd say the rooms are probably **average** in size — not tiny at all once you're inside.”"
     },
     "11": {
       "answer": "B",
       "type": "mcq",
-      "explanation": "与其他户外活动的真正区别是：你在与已经自我组织的蜂群合作。周末可安排、入门工具比预想便宜都被提及，但那不是蜜蜂养殖的独特之处。"
+      "prediction": "题干问的是养蜂与其他户外活动的真正区别（differs / distinctive），不是一般优点。听时抓住 what really sets it apart / the distinctive thing，排除只是被提及的好处。",
+      "logic": "周末可安排、入门工具比预想便宜都被承认（which is true），但那不是独特之处。原文把 differs from other outdoor activities 替换成 what really sets beekeeping apart / the distinctive thing，对应 you're working with a colony that already organises itself，即选项 B。不要选 A 或 C。",
+      "audio_quote": "Rowan Hale: “But what really sets beekeeping apart is that you're working with a colony that already organises itself. You don't get that kind of social structure when you're growing vegetables or watching birds. That's the distinctive thing.”",
+      "explanation": "预测：题干问的是养蜂与其他户外活动的真正区别（differs / distinctive），不是一般优点。听时抓住 what really sets it apart / the distinctive thing，排除只是被提及的好处。\n考点与原文逻辑替换：周末可安排、入门工具比预想便宜都被承认（which is true），但那不是独特之处。原文把 differs from other outdoor activities 替换成 what really sets beekeeping apart / the distinctive thing，对应 you're working with a colony that already organises itself，即选项 B。不要选 A 或 C。\n跟音：Rowan Hale: “But what really sets beekeeping apart is that you're working with a colony that already organises itself. You don't get that kind of social structure when you're growing vegetables or watching birds. That's the distinctive thing.”"
     },
     "12": {
       "answer": "C",
       "type": "mcq",
-      "explanation": "检查员是根据降落板（landing board）上的划痕/磨痕判断蜂箱过去的用途。油漆颜色、材质和基本形状都被当作不可靠的判断依据。"
+      "prediction": "题干问检查员有时根据什么判断蜂箱过去的用途。A/B/C 分别是油漆颜色、材质、降落板上的痕迹。注意哪些依据被否定，哪个才是可靠线索。",
+      "logic": "paint colour、material（wood versus polystyrene）、甚至 basic shape 都被当作不可靠依据。原文把 marks left on the landing board 替换成 the scratch marks left on the landing board / little grooves where earlier colonies wore the wood away，答案是 C。不要选 A 或 B。",
+      "audio_quote": "Rowan Hale: “In fact, inspectors often identify a hive's previous use from the scratch marks left on the landing board, those little grooves where earlier colonies wore the wood away. The paint and the material won't tell you that.”",
+      "explanation": "预测：题干问检查员有时根据什么判断蜂箱过去的用途。A/B/C 分别是油漆颜色、材质、降落板上的痕迹。注意哪些依据被否定，哪个才是可靠线索。\n考点与原文逻辑替换：paint colour、material（wood versus polystyrene）、甚至 basic shape 都被当作不可靠依据。原文把 marks left on the landing board 替换成 the scratch marks left on the landing board / little grooves where earlier colonies wore the wood away，答案是 C。不要选 A 或 B。\n跟音：Rowan Hale: “In fact, inspectors often identify a hive's previous use from the scratch marks left on the landing board, those little grooves where earlier colonies wore the wood away. The paint and the material won't tell you that.”"
     },
     "13": {
       "answer": "B",
       "type": "mcq",
-      "explanation": "卖蜂蜜、仿效邻居都是部分人的动机；演讲者强调相当一部分人是为了把蜂箱传给子女或孙辈，这才是题目问的 longer-term / legacy 动机。"
+      "prediction": "题干是 Some people join the class because they want to，要听加入课程的动机。A、C 可能先被提及，注意哪一个被强调为更常见或更长远的理由。",
+      "logic": "卖蜂蜜、仿效邻居都是部分人的动机，演讲者称 those are perfectly good reasons，但随后用 a surprising number / that longer view 把真正要点落到 leave a hive to their children or grandchildren / passed on，对应 B。不要把先出现的 A 或 C 当成答案。",
+      "audio_quote": "Rowan Hale: “But a surprising number of people sign up because they want to leave a hive to their children or grandchildren — they see it as something that can be passed on. That longer view is more common than you'd think.”",
+      "explanation": "预测：题干是 Some people join the class because they want to，要听加入课程的动机。A、C 可能先被提及，注意哪一个被强调为更常见或更长远的理由。\n考点与原文逻辑替换：卖蜂蜜、仿效邻居都是部分人的动机，演讲者称 those are perfectly good reasons，但随后用 a surprising number / that longer view 把真正要点落到 leave a hive to their children or grandchildren / passed on，对应 B。不要把先出现的 A 或 C 当成答案。\n跟音：Rowan Hale: “But a surprising number of people sign up because they want to leave a hive to their children or grandchildren — they see it as something that can be passed on. That longer view is more common than you'd think.”"
     },
     "14": {
       "answer": "A",
       "type": "mcq",
-      "explanation": "孩子喜欢messy、退休学员看重体力活动，但演讲者自己最珍视的是查看蜂箱时的平静感（calming）。注意 MOST / personally prize most。"
+      "prediction": "题干有 MOST / value most，问的是演讲者本人最看重的一点，不是孩子们或退休学员的感受。",
+      "logic": "messy and unpredictable 是孩子们喜欢的（C），lifting the boxes 是退休学员看重的体力活动（B），都被 they aren't what I personally prize most 排除。原文把 value most 替换成 What I value most is how calming it is / Once you start inspecting a hive，对应 A。",
+      "audio_quote": "Rowan Hale: “Those are real benefits, but they aren't what I personally prize most. What I value most is how calming it is. Once you start inspecting a hive, the rest of the day just drops away.”",
+      "explanation": "预测：题干有 MOST / value most，问的是演讲者本人最看重的一点，不是孩子们或退休学员的感受。\n考点与原文逻辑替换：messy and unpredictable 是孩子们喜欢的（C），lifting the boxes 是退休学员看重的体力活动（B），都被 they aren't what I personally prize most 排除。原文把 value most 替换成 What I value most is how calming it is / Once you start inspecting a hive，对应 A。\n跟音：Rowan Hale: “Those are real benefits, but they aren't what I personally prize most. What I value most is how calming it is. Once you start inspecting a hive, the rest of the day just drops away.”"
     },
     "15": {
       "answer": "B",
       "type": "mcq",
-      "explanation": "有人结伴而来，也有人急于尝试高级技法，但大多数来访者是第一次来的初学者。不要把少数情况当成 majority fact。"
+      "prediction": "题干关键词是 Most，问大多数来访者的情况，不要把 some / a few 当成 majority。",
+      "logic": "结伴而来、急于尝试 advanced techniques 都以 Some / a few 被提及，随即用 I wouldn't encourage that 和 The fact is 转折。原文把 Most of the visitors 对应成 most of the visitors to the apiary are coming for the first time / complete beginners，答案是 B。",
+      "audio_quote": "Rowan Hale: “Some do arrive with a friend, and a few are in a hurry to try advanced techniques before they've learned the basics. I wouldn't encourage that. The fact is, most of the visitors to the apiary are coming for the first time.”",
+      "explanation": "预测：题干关键词是 Most，问大多数来访者的情况，不要把 some / a few 当成 majority。\n考点与原文逻辑替换：结伴而来、急于尝试 advanced techniques 都以 Some / a few 被提及，随即用 I wouldn't encourage that 和 The fact is 转折。原文把 Most of the visitors 对应成 most of the visitors to the apiary are coming for the first time / complete beginners，答案是 B。\n跟音：Rowan Hale: “Some do arrive with a friend, and a few are in a hurry to try advanced techniques before they've learned the basics. I wouldn't encourage that. The fact is, most of the visitors to the apiary are coming for the first time.”"
     },
     "16": {
       "answer": "C",
       "type": "mcq",
-      "explanation": "珠宝和束发已在上周邮件里说明，点火器用法要等到上午晚些时候。现在立刻要做的是戴上身后长凳上的面罩（veil）。"
+      "prediction": "题干是 The speaker reminds visitors that they should，问的是此刻要求立刻去做的事，不是上周已经交代、或稍后再教的内容。",
+      "logic": "珠宝和束发已在上周邮件里说明（I won't repeat those now），点火器用法则是 Later this morning，都不是现在的任务。原文把现在立刻要做的事说成 What I need you to do now is put on the veils that are on the bench behind you / don't start the tour without one，对应 C。",
+      "audio_quote": "Rowan Hale: “The joining instructions I emailed last week already cover jewellery and tying back long hair, so I won't repeat those now. Later this morning we'll go through how to light the smoker. What I need you to do now, though, is put on the veils that are on the bench behind you.”",
+      "explanation": "预测：题干是 The speaker reminds visitors that they should，问的是此刻要求立刻去做的事，不是上周已经交代、或稍后再教的内容。\n考点与原文逻辑替换：珠宝和束发已在上周邮件里说明（I won't repeat those now），点火器用法则是 Later this morning，都不是现在的任务。原文把现在立刻要做的事说成 What I need you to do now is put on the veils that are on the bench behind you / don't start the tour without one，对应 C。\n跟音：Rowan Hale: “The joining instructions I emailed last week already cover jewellery and tying back long hair, so I won't repeat those now. Later this morning we'll go through how to light the smoker. What I need you to do now, though, is put on the veils that are on the bench behind you.”"
     },
     "17": {
       "answer": "B",
       "type": "choose_two",
-      "explanation": "17–18 题选 B 和 D，顺序不限。演讲者解释了烟雾的作用（掩盖蜜蜂的警报气味），以及有人改用水喷雾代替点火器。他只顺带提到发明很早，但没说发明时间（A 是陷阱）；说在家里放点火器不方便，但没有说明该放在哪里（C）；破损风箱的修理要以后再讲（E）。",
       "pair": [
         17,
         18
-      ]
+      ],
+      "prediction": "17–18 题要选演讲者实际“解释了”关于 smoker 的两件事，不是仅仅提到的话题。听时区分 explain / function 与 I won't go into / I'm not going to tell you / another time。",
+      "logic": "本题对应选项 B。原文用 What I will explain is what the smoke actually does: it masks the alarm scent 直接对应 what the smoke actually does to the bees。陷阱：他只说 first version 出现在 a long time ago，随即 I couldn't tell you exactly when it was invented（A）；说在家里放点火器 awkward，但 I'm not going to tell you where to put one（C）；破损风箱的修理要以后再讲（E）。本题先抓住烟雾作用这一项；另一正确项是 D。",
+      "audio_quote": "Rowan Hale: “I won't go into the history, and I couldn't tell you exactly when it was invented. What I will explain is what the smoke actually does: it masks the alarm scent the bees release, so they become less defensive.”",
+      "explanation": "预测：17–18 题要选演讲者实际“解释了”关于 smoker 的两件事，不是仅仅提到的话题。听时区分 explain / function 与 I won't go into / I'm not going to tell you / another time。\n考点与原文逻辑替换：本题对应选项 B。原文用 What I will explain is what the smoke actually does: it masks the alarm scent 直接对应 what the smoke actually does to the bees。陷阱：他只说 first version 出现在 a long time ago，随即 I couldn't tell you exactly when it was invented（A）；说在家里放点火器 awkward，但 I'm not going to tell you where to put one（C）；破损风箱的修理要以后再讲（E）。本题先抓住烟雾作用这一项；另一正确项是 D。\n跟音：Rowan Hale: “I won't go into the history, and I couldn't tell you exactly when it was invented. What I will explain is what the smoke actually does: it masks the alarm scent the bees release, so they become less defensive.”"
     },
     "18": {
       "answer": "D",
       "type": "choose_two",
-      "explanation": "17–18 题选 B 和 D，顺序不限。演讲者解释了烟雾的作用（掩盖蜜蜂的警报气味），以及有人改用水喷雾代替点火器。他只顺带提到发明很早，但没说发明时间（A 是陷阱）；说在家里放点火器不方便，但没有说明该放在哪里（C）；破损风箱的修理要以后再讲（E）。",
       "pair": [
         17,
         18
-      ]
+      ],
+      "prediction": "17–18 题要选演讲者实际“解释了”关于 smoker 的两件事。本题重点听有没有提到“用别的东西代替点火器”。",
+      "logic": "本题对应选项 D。原文 use a water spray instead of a smoker 把 what some beekeepers use instead of a smoker 直接说出来。A（发明时间）、C（家里该放哪里）、E（如何修理风箱）都被明确推掉，不要误选。另一正确项是 B（烟雾的作用）。",
+      "audio_quote": "Rowan Hale: “A number of beekeepers, especially in urban settings, use a water spray instead of a smoker, and that works perfectly well with a calm colony. Don't worry about repairing a torn bellows today — we'll look at maintenance another time.”",
+      "explanation": "预测：17–18 题要选演讲者实际“解释了”关于 smoker 的两件事。本题重点听有没有提到“用别的东西代替点火器”。\n考点与原文逻辑替换：本题对应选项 D。原文 use a water spray instead of a smoker 把 what some beekeepers use instead of a smoker 直接说出来。A（发明时间）、C（家里该放哪里）、E（如何修理风箱）都被明确推掉，不要误选。另一正确项是 B（烟雾的作用）。\n跟音：Rowan Hale: “A number of beekeepers, especially in urban settings, use a water spray instead of a smoker, and that works perfectly well with a calm colony. Don't worry about repairing a torn bellows today — we'll look at maintenance another time.”"
     },
     "19": {
       "answer": "C",
       "type": "choose_two",
-      "explanation": "19–20 题选 C 和 D，顺序不限。他明确指出有些工具是从油漆或抹灰等其他行业改来的，而且有些工具每次离开养蜂场后都需要清洁。名称只是被拿来开玩笑，他并不认为难记（A）；他也否认工具难拿或很重（B）；停产只是谣言，他予以否定（E）。",
       "pair": [
         19,
         20
-      ]
+      ],
+      "prediction": "19–20 题要选演讲者对养蜂工具真正“指出”的两点。注意哪些说法被 I wouldn't say / despite what you might have heard / that's not the case 否定。",
+      "logic": "本题对应选项 C。原文 Some of them, like the scraper, are simply adapted from tools used in other trades, painting or plastering，几乎原词对应 C。陷阱：名称只是被拿来开玩笑，他并不认为难记（A）；也否认工具难拿或很重（B）；停产只是谣言，予以否定（E）。另一正确项是 D。",
+      "audio_quote": "Rowan Hale: “Some of them, like the scraper, are simply adapted from tools used in other trades, painting or plastering.”",
+      "explanation": "预测：19–20 题要选演讲者对养蜂工具真正“指出”的两点。注意哪些说法被 I wouldn't say / despite what you might have heard / that's not the case 否定。\n考点与原文逻辑替换：本题对应选项 C。原文 Some of them, like the scraper, are simply adapted from tools used in other trades, painting or plastering，几乎原词对应 C。陷阱：名称只是被拿来开玩笑，他并不认为难记（A）；也否认工具难拿或很重（B）；停产只是谣言，予以否定（E）。另一正确项是 D。\n跟音：Rowan Hale: “Some of them, like the scraper, are simply adapted from tools used in other trades, painting or plastering.”"
     },
     "20": {
       "answer": "D",
       "type": "choose_two",
-      "explanation": "19–20 题选 C 和 D，顺序不限。他明确指出有些工具是从油漆或抹灰等其他行业改来的，而且有些工具每次离开养蜂场后都需要清洁。名称只是被拿来开玩笑，他并不认为难记（A）；他也否认工具难拿或很重（B）；停产只是谣言，他予以否定（E）。",
       "pair": [
         19,
         20
-      ]
+      ],
+      "prediction": "19–20 题要选演讲者对养蜂工具真正“指出”的两点。本题重点听工具是否需要清洁，以及“已经停产”等说法是否被否定。",
+      "logic": "本题对应选项 D。原文 And some do need to be cleaned after every visit to the apiary 几乎原词复现。E 是谣言：There's a rumour that one or two items have gone out of production, but that's not the case。A、B 也被否定。另一正确项是 C（从其他行业改来的工具）。",
+      "audio_quote": "Rowan Hale: “And some do need to be cleaned after every visit to the apiary, particularly anything that's been inside a hive. There's a rumour that one or two items have gone out of production, but that's not the case — you can still buy everything you see here.”",
+      "explanation": "预测：19–20 题要选演讲者对养蜂工具真正“指出”的两点。本题重点听工具是否需要清洁，以及“已经停产”等说法是否被否定。\n考点与原文逻辑替换：本题对应选项 D。原文 And some do need to be cleaned after every visit to the apiary 几乎原词复现。E 是谣言：There's a rumour that one or two items have gone out of production, but that's not the case。A、B 也被否定。另一正确项是 C（从其他行业改来的工具）。\n跟音：Rowan Hale: “And some do need to be cleaned after every visit to the apiary, particularly anything that's been inside a hive. There's a rumour that one or two items have gone out of production, but that's not the case — you can still buy everything you see here.”"
     },
     "21": {
       "answer": "A",
       "type": "choose_two",
-      "explanation": "21–22 题选 A 和 C，顺序不限。两人明确同意评估负担加重（I think you're right）以及通勤变长（That's true）。社交媒体被 Jonah 否定为主要原因；学期日期变动发生在多年前，无法解释近期上升；经济压力由 Lila 提出，但 Jonah 拒绝把它当作近期增加的原因，不能算双方共识。",
       "pair": [
         21,
         22
-      ]
+      ],
+      "prediction": "21–22 题要选两人共同认为导致 academic burnout 增加的原因。听双方达成一致的表述（I think you're right / That's true / we're agreed），一人提出但另一人拒绝的不能算。本题先关注通勤是否被双方接受。",
+      "logic": "本题对应选项 A。Lila 提起 commuting，Jonah 用 That's true 和 I'd put that down as a cause as well 表示同意，longer journeys 对应 longer commuting times。社交媒体被 Jonah 否定（B）；学期日期变动发生在多年前，无法解释近期上升（D）；经济压力由 Lila 提出，但 Jonah 拒绝把它当作近期增加的原因（E）。另一正确项是 C（评估负担加重）。",
+      "audio_quote": "Lila: “And commuting? A lot of people live further out than they used to, because of rents near campus.”\nJonah: “That's true. Longer journeys are leaving people exhausted before they even start work. I'd put that down as a cause as well.”",
+      "explanation": "预测：21–22 题要选两人共同认为导致 academic burnout 增加的原因。听双方达成一致的表述（I think you're right / That's true / we're agreed），一人提出但另一人拒绝的不能算。本题先关注通勤是否被双方接受。\n考点与原文逻辑替换：本题对应选项 A。Lila 提起 commuting，Jonah 用 That's true 和 I'd put that down as a cause as well 表示同意，longer journeys 对应 longer commuting times。社交媒体被 Jonah 否定（B）；学期日期变动发生在多年前，无法解释近期上升（D）；经济压力由 Lila 提出，但 Jonah 拒绝把它当作近期增加的原因（E）。另一正确项是 C（评估负担加重）。\n跟音：Lila: “And commuting? A lot of people live further out than they used to, because of rents near campus.”\nJonah: “That's true. Longer journeys are leaving people exhausted before they even start work. I'd put that down as a cause as well.”"
     },
     "22": {
       "answer": "C",
       "type": "choose_two",
-      "explanation": "21–22 题选 A 和 C，顺序不限。两人明确同意评估负担加重（I think you're right）以及通勤变长（That's true）。社交媒体被 Jonah 否定为主要原因；学期日期变动发生在多年前，无法解释近期上升；经济压力由 Lila 提出，但 Jonah 拒绝把它当作近期增加的原因，不能算双方共识。",
       "pair": [
         21,
         22
-      ]
+      ],
+      "prediction": "21–22 题要选两人共同认为导致 burnout 增加的原因。本题重点听评估负担是否被双方接受。",
+      "logic": "本题对应选项 C。Lila 提出 sheer number of assessments / continuous，Jonah 用 I think you're right. The assessment load has definitely gone up 明确同意，对应 a heavier assessment load。B、D、E 都不是双方共识。另一正确项是 A（通勤变长）。",
+      "audio_quote": "Lila: “I think one reason burnout has increased is the sheer number of assessments now. It's continuous — not just a set of exams at the end of the year.”\nJonah: “I think you're right. The assessment load has definitely gone up, and I don't see how students get a break.”",
+      "explanation": "预测：21–22 题要选两人共同认为导致 burnout 增加的原因。本题重点听评估负担是否被双方接受。\n考点与原文逻辑替换：本题对应选项 C。Lila 提出 sheer number of assessments / continuous，Jonah 用 I think you're right. The assessment load has definitely gone up 明确同意，对应 a heavier assessment load。B、D、E 都不是双方共识。另一正确项是 A（通勤变长）。\n跟音：Lila: “I think one reason burnout has increased is the sheer number of assessments now. It's continuous — not just a set of exams at the end of the year.”\nJonah: “I think you're right. The assessment load has definitely gone up, and I don't see how students get a break.”"
     },
     "23": {
       "answer": "A",
       "type": "choose_two",
-      "explanation": "23–24 题选 A 和 C，顺序不限。退学率有坚实的队列研究，双方接受；短期记忆一项在 Lila 引用 York 实验室 2021 年研究后两人同意证据充分。抑郁的定义含糊，不能说有直接因果关系；成绩永久下降的研究结果互相矛盾；小组活动无法进行只是 Lila 的个案，不能当作证据。",
       "pair": [
         23,
         24
-      ]
+      ],
+      "prediction": "23–24 题要选两人同意“有坚实证据”的两项发现。注意 initially unsure / changed my mind，以及 definitions are vague、contradict、anecdote 等否定证据的说法。本题关注短期记忆。",
+      "logic": "本题对应选项 A。Jonah 起初对 memory 证据没把握，Lila 引用 York 实验室 2021 年研究后，两人同意 the evidence that it reduces short-term memory is actually quite strong / That one stands up。抑郁定义含糊，不能说有直接因果关系（B）；成绩永久下降的研究结果互相矛盾（D）；小组活动无法进行只是 Lila 的个案（E）。另一正确项是 C（退学率）。",
+      "audio_quote": "Lila: “After I looked at that, I changed my mind — the evidence that it reduces short-term memory is actually quite strong.”\nJonah: “Yes, I agree now. That one stands up. We should include it.”",
+      "explanation": "预测：23–24 题要选两人同意“有坚实证据”的两项发现。注意 initially unsure / changed my mind，以及 definitions are vague、contradict、anecdote 等否定证据的说法。本题关注短期记忆。\n考点与原文逻辑替换：本题对应选项 A。Jonah 起初对 memory 证据没把握，Lila 引用 York 实验室 2021 年研究后，两人同意 the evidence that it reduces short-term memory is actually quite strong / That one stands up。抑郁定义含糊，不能说有直接因果关系（B）；成绩永久下降的研究结果互相矛盾（D）；小组活动无法进行只是 Lila 的个案（E）。另一正确项是 C（退学率）。\n跟音：Lila: “After I looked at that, I changed my mind — the evidence that it reduces short-term memory is actually quite strong.”\nJonah: “Yes, I agree now. That one stands up. We should include it.”"
     },
     "24": {
       "answer": "C",
       "type": "choose_two",
-      "explanation": "23–24 题选 A 和 C，顺序不限。退学率有坚实的队列研究，双方接受；短期记忆一项在 Lila 引用 York 实验室 2021 年研究后两人同意证据充分。抑郁的定义含糊，不能说有直接因果关系；成绩永久下降的研究结果互相矛盾；小组活动无法进行只是 Lila 的个案，不能当作证据。",
       "pair": [
         23,
         24
-      ]
+      ],
+      "prediction": "23–24 题要选两人同意有坚实证据支持的发现。本题重点听 drop-out rates 是否被双方接受。",
+      "logic": "本题对应选项 C。Jonah 提出 burnout is linked to higher drop-out rates，Lila 用 those cohort studies are pretty solid 表示同意，Jonah 再确认 Same here。这是题目里 linked to higher drop-out rates 的近乎原词对应。B、D、E 的证据都被否定。另一正确项是 A（损害短期记忆）。",
+      "audio_quote": "Jonah: “The review we both read said burnout is linked to higher drop-out rates.”\nLila: “That's true — those cohort studies are pretty solid. I'm happy to include that.”",
+      "explanation": "预测：23–24 题要选两人同意有坚实证据支持的发现。本题重点听 drop-out rates 是否被双方接受。\n考点与原文逻辑替换：本题对应选项 C。Jonah 提出 burnout is linked to higher drop-out rates，Lila 用 those cohort studies are pretty solid 表示同意，Jonah 再确认 Same here。这是题目里 linked to higher drop-out rates 的近乎原词对应。B、D、E 的证据都被否定。另一正确项是 A（损害短期记忆）。\n跟音：Jonah: “The review we both read said burnout is linked to higher drop-out rates.”\nLila: “That's true — those cohort studies are pretty solid. I'm happy to include that.”"
     },
     "25": {
       "answer": "A",
       "type": "choose_two",
-      "explanation": "25–26 题选 A 和 E，顺序不限。两人都说该模型难以理解，并且没什么实际用处。misleading 只是 Jonah 更进一步的看法，Lila 并不赞同；更广泛接受被 Lila 明确拒绝；需要进一步研究由 Lila 提起，Jonah 不愿把它作为两人的共同观点。",
       "pair": [
         25,
         26
-      ]
+      ],
+      "prediction": "25–26 题要选两人对 Merrow 的 threshold model 都表达的看法。听双方共同认可的评价；一人加码、另一人不同意的不能算。本题关注实际用处。",
+      "logic": "本题对应选项 A。Lila 说 I don't think it has much practical relevance，Jonah 用 That's true — little practical relevance 附和，对应 It has little practical relevance。misleading 只是 Jonah 更进一步的看法，Lila 并不赞同（C）；更广泛接受被 Lila 明确拒绝（D）；需要进一步研究由 Lila 提起，Jonah 不愿把它作为共同观点（B）。另一正确项是 E（难以理解）。",
+      "audio_quote": "Lila: “And I don't think it has much practical relevance. It doesn't tell a student what to do on a Sunday evening when they're exhausted.”\nJonah: “That's true — little practical relevance.”",
+      "explanation": "预测：25–26 题要选两人对 Merrow 的 threshold model 都表达的看法。听双方共同认可的评价；一人加码、另一人不同意的不能算。本题关注实际用处。\n考点与原文逻辑替换：本题对应选项 A。Lila 说 I don't think it has much practical relevance，Jonah 用 That's true — little practical relevance 附和，对应 It has little practical relevance。misleading 只是 Jonah 更进一步的看法，Lila 并不赞同（C）；更广泛接受被 Lila 明确拒绝（D）；需要进一步研究由 Lila 提起，Jonah 不愿把它作为共同观点（B）。另一正确项是 E（难以理解）。\n跟音：Lila: “And I don't think it has much practical relevance. It doesn't tell a student what to do on a Sunday evening when they're exhausted.”\nJonah: “That's true — little practical relevance.”"
     },
     "26": {
       "answer": "E",
       "type": "choose_two",
-      "explanation": "25–26 题选 A 和 E，顺序不限。两人都说该模型难以理解，并且没什么实际用处。misleading 只是 Jonah 更进一步的看法，Lila 并不赞同；更广泛接受被 Lila 明确拒绝；需要进一步研究由 Lila 提起，Jonah 不愿把它作为两人的共同观点。",
       "pair": [
         25,
         26
-      ]
+      ],
+      "prediction": "25–26 题要选两人共同表达的两点看法。本题重点听对该模型是否“难懂”的评价是否一致。",
+      "logic": "本题对应选项 E。Jonah 先说 I find it difficult to understand，Lila 用 I find it difficult to understand as well 明确同意，几乎原词对应 It is difficult to understand。B、C、D 都不是双方共识。另一正确项是 A（没什么实际用处）。",
+      "audio_quote": "Jonah: “I have, and I have to say I find it difficult to understand. The way he defines the threshold keeps shifting from chapter to chapter.”\nLila: “I find it difficult to understand as well.”",
+      "explanation": "预测：25–26 题要选两人共同表达的两点看法。本题重点听对该模型是否“难懂”的评价是否一致。\n考点与原文逻辑替换：本题对应选项 E。Jonah 先说 I find it difficult to understand，Lila 用 I find it difficult to understand as well 明确同意，几乎原词对应 It is difficult to understand。B、C、D 都不是双方共识。另一正确项是 A（没什么实际用处）。\n跟音：Jonah: “I have, and I have to say I find it difficult to understand. The way he defines the threshold keeps shifting from chapter to chapter.”\nLila: “I find it difficult to understand as well.”"
     },
     "27": {
       "answer": "C",
       "type": "mcq",
-      "explanation": "比较 burnout 与 ordinary stress 时，两人都表达frustrated：学校不当回事。Lila 明确说联系并非被夸大，也不讨论有没有cure。不要选 A 或 B。"
+      "prediction": "题干是比较 burnout 与 ordinary stress 时两人的态度。注意 frustration / overstated / cure 分别对应哪一选项，以及哪些说法被否定。",
+      "logic": "两人都表达 frustrated：universities still treat it as a busy week / It isn't taken seriously，对应 C。Lila 明确说 I don't think the link between the two is overstated（排除 B），也不讨论有没有 cure（排除 A）。不要选 A 或 B。",
+      "audio_quote": "Jonah: “When we compare burnout to ordinary stress, I get frustrated. Universities still treat it as a busy week. It isn't taken seriously.”\nLila: “I feel the same. It's frustrating that tutors still say everyone gets stressed. I don't think the link between the two is overstated, actually; if anything, people underplay how different they are. And I'm not going to claim there's no cure — that's not a question we can settle in a ten-minute presentation.”",
+      "explanation": "预测：题干是比较 burnout 与 ordinary stress 时两人的态度。注意 frustration / overstated / cure 分别对应哪一选项，以及哪些说法被否定。\n考点与原文逻辑替换：两人都表达 frustrated：universities still treat it as a busy week / It isn't taken seriously，对应 C。Lila 明确说 I don't think the link between the two is overstated（排除 B），也不讨论有没有 cure（排除 A）。不要选 A 或 B。\n跟音：Jonah: “When we compare burnout to ordinary stress, I get frustrated. Universities still treat it as a busy week. It isn't taken seriously.”\nLila: “I feel the same. It's frustrating that tutors still say everyone gets stressed. I don't think the link between the two is overstated, actually; if anything, people underplay how different they are. And I'm not going to claim there's no cure — that's not a question we can settle in a ten-minute presentation.”"
     },
     "28": {
       "answer": "B",
       "type": "mcq",
-      "explanation": "用自身例子开头是为了让听众 recognise the situation / see themselves in it。严重程度统计和性别差异可以稍后用，不是开场的理由。"
+      "prediction": "题干问为什么用自身经历作为开场，要听决定的理由（That's why I want to open with it），而不是可以稍后使用的材料。",
+      "logic": "严重程度统计和男女差异都可以稍后用（Those are useful later），不是开场理由。原文把开场目的说成 people in the room will recognise the situation / the audience sees themselves in it, not so we can dramatise how bad it was, and not to make a point about gender，对应 B，并排除 A、C。",
+      "audio_quote": "Jonah: “Those are useful later. If we start with an example from our own experience — like last term, when we both stopped sleeping before the research methods deadline — people in the room will recognise the situation. That's why I want to open with it.”\nLila: “Yes. So the audience sees themselves in it, not so we can dramatise how bad it was, and not to make a point about gender.”",
+      "explanation": "预测：题干问为什么用自身经历作为开场，要听决定的理由（That's why I want to open with it），而不是可以稍后使用的材料。\n考点与原文逻辑替换：严重程度统计和男女差异都可以稍后用（Those are useful later），不是开场理由。原文把开场目的说成 people in the room will recognise the situation / the audience sees themselves in it, not so we can dramatise how bad it was, and not to make a point about gender，对应 B，并排除 A、C。\n跟音：Jonah: “Those are useful later. If we start with an example from our own experience — like last term, when we both stopped sleeping before the research methods deadline — people in the room will recognise the situation. That's why I want to open with it.”\nLila: “Yes. So the audience sees themselves in it, not so we can dramatise how bad it was, and not to make a point about gender.”"
     },
     "29": {
       "answer": "B",
       "type": "mcq",
-      "explanation": "两人同意短时散步有效，是因为能 interrupt / break the cycle。有人赞散步能激发新想法，Jonah 否定这一点，因此 A 不是双方同意的理由。"
+      "prediction": "题干是两人同意短时散步有效的原因（because），要听双方共同接受的理由；被否定的好处不能选。",
+      "logic": "有人 / 指南说散步能激发新想法，Jonah 用 I don't buy that 否定，因此 A 不是双方同意的理由。C（大多数学习指南推荐）只是带出 A 的来源，并非他们给出的原因。原文把同意的理由说成 they interrupt the cycle before it builds / They break the cycle，对应 B。",
+      "audio_quote": "Jonah: “I don't buy that — I never get any ideas from walking. I do agree they're a good strategy because they interrupt the cycle before it builds, as you said in your notes.”\nLila: “Exactly. That's the reason we should give. They break the cycle, not because they generate ideas.”",
+      "explanation": "预测：题干是两人同意短时散步有效的原因（because），要听双方共同接受的理由；被否定的好处不能选。\n考点与原文逻辑替换：有人 / 指南说散步能激发新想法，Jonah 用 I don't buy that 否定，因此 A 不是双方同意的理由。C（大多数学习指南推荐）只是带出 A 的来源，并非他们给出的原因。原文把同意的理由说成 they interrupt the cycle before it builds / They break the cycle，对应 B。\n跟音：Jonah: “I don't buy that — I never get any ideas from walking. I do agree they're a good strategy because they interrupt the cycle before it builds, as you said in your notes.”\nLila: “Exactly. That's the reason we should give. They break the cycle, not because they generate ideas.”"
     },
     "30": {
       "answer": "A",
       "type": "mcq",
-      "explanation": "两人都不理解何以在压力下工作会被视为 enjoyable；他们自己并不喜欢压力，尽管研究认为它可能有益。题目问的是被视为怎样，不是 necessary 或 similar to burnout。"
+      "prediction": "空缺在 considered to be 之后，问的是“在压力下工作被认为是怎样的”，不是他们自己的感受，也不是与 burnout 是否相似。",
+      "logic": "原文几乎原词复现 why working under pressure is considered to be enjoyable。两人都不理解这一点；他们自己并不喜欢压力，尽管研究认为它可能有益。题目问的是被视为怎样，不是 necessary，也不是 similar to burnout。",
+      "audio_quote": "Jonah: “One last thing I find hard to understand is why working under pressure is considered to be **enjoyable**. The papers say some students actually like a tight deadline, and that it can be beneficial.”\nLila: “I find that difficult to understand too. I don't enjoy pressure at all, even though the research says it can help performance.”",
+      "explanation": "预测：空缺在 considered to be 之后，问的是“在压力下工作被认为是怎样的”，不是他们自己的感受，也不是与 burnout 是否相似。\n考点与原文逻辑替换：原文几乎原词复现 why working under pressure is considered to be enjoyable。两人都不理解这一点；他们自己并不喜欢压力，尽管研究认为它可能有益。题目问的是被视为怎样，不是 necessary，也不是 similar to burnout。\n跟音：Jonah: “One last thing I find hard to understand is why working under pressure is considered to be **enjoyable**. The papers say some students actually like a tight deadline, and that it can be beneficial.”\nLila: “I find that difficult to understand too. I don't enjoy pressure at all, even though the research says it can help performance.”"
     },
     "31": {
       "answer": "bitumen",
       "type": "notes",
-      "explanation": "后来诸多问题被追溯到二十世纪初把 bitumen 当作标准防水材料。chimneys、water tanks 是十九世纪屋顶上已有的东西，不是后来问题的成因。",
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 the use of 与 as waterproofing 之间，应填名词，表示后来被当作防水材料、并导致问题的那种物质。",
+      "logic": "chimneys 和 water tanks 是十九世纪屋顶上已有的东西，不是后来问题的成因。原文把 Later problems often traced to 替换成 The difficulties that came later are often traced to / the source of those later problems，答案是 bitumen（二十世纪初的标准防水材料）。",
+      "audio_quote": "Professor Bram Ellerby: “The difficulties that came later are often traced to a single cause. In the early twentieth century, **bitumen** became the standard waterproofing material.”",
+      "explanation": "预测：空格在 the use of 与 as waterproofing 之间，应填名词，表示后来被当作防水材料、并导致问题的那种物质。\n考点与原文逻辑替换：chimneys 和 water tanks 是十九世纪屋顶上已有的东西，不是后来问题的成因。原文把 Later problems often traced to 替换成 The difficulties that came later are often traced to / the source of those later problems，答案是 bitumen（二十世纪初的标准防水材料）。\n跟音：Professor Bram Ellerby: “The difficulties that came later are often traced to a single cause. In the early twentieth century, **bitumen** became the standard waterproofing material.”"
     },
     "32": {
       "answer": "sterile",
       "type": "notes",
-      "explanation": "1974 年政府调查的结论是典型内城屋顶被宣布为 sterile。不要填 dead、empty 或 industrial。",
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 declared the typical inner-city roof 后面，应填形容词（或过去分词），是 1974 年政府调查对该类屋顶的结论性用词。",
+      "logic": "原文几乎原词复现：the typical inner-city roof was declared sterile，并强调 That word — sterile — was deliberate。不要填 dead、empty 或 industrial（industrial 只是调查对象的修饰）。",
+      "audio_quote": "Professor Bram Ellerby: “Then, in 1974, a government survey of industrial and commercial roofs delivered a blunt verdict: the typical inner-city roof was declared **sterile**. That word — sterile — was deliberate.”",
+      "explanation": "预测：空格在 declared the typical inner-city roof 后面，应填形容词（或过去分词），是 1974 年政府调查对该类屋顶的结论性用词。\n考点与原文逻辑替换：原文几乎原词复现：the typical inner-city roof was declared sterile，并强调 That word — sterile — was deliberate。不要填 dead、empty 或 industrial（industrial 只是调查对象的修饰）。\n跟音：Professor Bram Ellerby: “Then, in 1974, a government survey of industrial and commercial roofs delivered a blunt verdict: the typical inner-city roof was declared **sterile**. That word — sterile — was deliberate.”"
     },
     "33": {
       "answer": "lizards",
       "type": "notes",
-      "explanation": "出乎意料出现在种植屋顶上的是 lizards。pigeons 和 fox 是调查人员原本预期会看到的，不是 unexpected sighting。",
       "alternatives": [
         "lizard"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格是 unexpected sighting 的具体对象，应填名词（更可能是动物名称）。注意区分“原先预期会看到的”和“出乎意料出现的”。",
+      "logic": "pigeons 和 fox 是调查人员原本预期会看到的，不是 unexpected sighting。原文用 What they did not expect was the appearance of lizards / That unexpected sighting 把答案锁定为 lizards。",
+      "audio_quote": "Professor Bram Ellerby: “Wildlife surveys expected pigeons, and perhaps the occasional fox using a fire escape. What they did not expect was the appearance of **lizards**, which have been recorded on planted roofs in several inland cities, well away from their usual habitats.”",
+      "explanation": "预测：空格是 unexpected sighting 的具体对象，应填名词（更可能是动物名称）。注意区分“原先预期会看到的”和“出乎意料出现的”。\n考点与原文逻辑替换：pigeons 和 fox 是调查人员原本预期会看到的，不是 unexpected sighting。原文用 What they did not expect was the appearance of lizards / That unexpected sighting 把答案锁定为 lizards。\n跟音：Professor Bram Ellerby: “Wildlife surveys expected pigeons, and perhaps the occasional fox using a fire escape. What they did not expect was the appearance of **lizards**, which have been recorded on planted roofs in several inland cities, well away from their usual habitats.”"
     },
     "34": {
       "answer": "gyms",
       "type": "notes",
-      "explanation": "旧屋顶房间被改成 studios 或 gyms。studios 已在笔记中给出，不要再填 studio。",
       "alternatives": [
         "gym"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 studios or 后面，应填复数名词，表示旧屋顶房间被改成的另一类用途。studios 已印在笔记里，不要再填 studio。",
+      "logic": "原文 have been converted into studios, and, in other cases, into gyms，把 converted into studios or _____ 补全为 gyms。不要只盯着更常被杂志报道的 studios。",
+      "audio_quote": "Professor Bram Ellerby: “Former lift-motor rooms and top-floor workshops, which used to stand empty, have been converted into studios, and, in other cases, into **gyms**.”",
+      "explanation": "预测：空格在 studios or 后面，应填复数名词，表示旧屋顶房间被改成的另一类用途。studios 已印在笔记里，不要再填 studio。\n考点与原文逻辑替换：原文 have been converted into studios, and, in other cases, into gyms，把 converted into studios or _____ 补全为 gyms。不要只盯着更常被杂志报道的 studios。\n跟音：Professor Bram Ellerby: “Former lift-motor rooms and top-floor workshops, which used to stand empty, have been converted into studios, and, in other cases, into **gyms**.”"
     },
     "35": {
       "answer": "theatre",
       "type": "notes",
-      "explanation": "Tampere 计划建造屋顶 theatre（露天小剧场）。不要填 auditorium 或 store。",
       "alternatives": [
         "theater"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 build a rooftop 后面，应填单数名词，表示坦佩雷计划在屋顶建造的设施。",
+      "logic": "原文 has announced plans to build a rooftop theatre — a small open-air auditorium。theatre 是要填的词，auditorium 只是同位解释，store 是“前百货商店”这一地点，都不要填。",
+      "audio_quote": "Professor Bram Ellerby: “The city of Tampere, for example, has announced plans to build a rooftop **theatre** — a small open-air auditorium on a former department store.”",
+      "explanation": "预测：空格在 build a rooftop 后面，应填单数名词，表示坦佩雷计划在屋顶建造的设施。\n考点与原文逻辑替换：原文 has announced plans to build a rooftop theatre — a small open-air auditorium。theatre 是要填的词，auditorium 只是同位解释，store 是“前百货商店”这一地点，都不要填。\n跟音：Professor Bram Ellerby: “The city of Tampere, for example, has announced plans to build a rooftop **theatre** — a small open-air auditorium on a former department store.”"
     },
     "36": {
       "answer": "pilot",
       "type": "notes",
-      "explanation": "该市还计划公开展示 pilot projects，供其他城区仿效。不要填 public、community 或 design。",
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 display 与 projects 之间，应填形容词或名词作定语，说明坦佩雷计划公开展示的是哪一类项目。",
+      "logic": "原文 Tampere's second commitment is to display pilot projects，把 display _____ projects 直接补全为 pilot。不要填 public、community 或 design（public display 是展示方式，不是项目类型）。",
+      "audio_quote": "Professor Bram Ellerby: “Tampere's second commitment is to display **pilot** projects — modest, carefully monitored installations that other districts can copy.”",
+      "explanation": "预测：空格在 display 与 projects 之间，应填形容词或名词作定语，说明坦佩雷计划公开展示的是哪一类项目。\n考点与原文逻辑替换：原文 Tampere's second commitment is to display pilot projects，把 display _____ projects 直接补全为 pilot。不要填 public、community 或 design（public display 是展示方式，不是项目类型）。\n跟音：Professor Bram Ellerby: “Tampere's second commitment is to display **pilot** projects — modest, carefully monitored installations that other districts can copy.”"
     },
     "37": {
       "answer": "cinemas",
       "type": "notes",
-      "explanation": "Coimbra 每年夏天在屋顶举办 cinemas。与 Tampere 的长期建设项目不同，这是夏季临时活动。语法上需要复数。",
       "alternatives": [
         "cinema"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 Coimbra 之后、are created on rooftops every summer 之前，应填复数名词，表示每年夏天在屋顶举办的活动或设施。",
+      "logic": "与 Tampere 的长期建设项目不同，这是夏季临时活动。原文几乎原词复现 cinemas are created on rooftops every summer。语法上需要复数 cinemas。不要填 auditorium，也不要把临时 screens 当成空格答案。",
+      "audio_quote": "Professor Bram Ellerby: “A different approach can be seen in Coimbra, where **cinemas** are created on rooftops every summer.”",
+      "explanation": "预测：空格在 Coimbra 之后、are created on rooftops every summer 之前，应填复数名词，表示每年夏天在屋顶举办的活动或设施。\n考点与原文逻辑替换：与 Tampere 的长期建设项目不同，这是夏季临时活动。原文几乎原词复现 cinemas are created on rooftops every summer。语法上需要复数 cinemas。不要填 auditorium，也不要把临时 screens 当成空格答案。\n跟音：Professor Bram Ellerby: “A different approach can be seen in Coimbra, where **cinemas** are created on rooftops every summer.”"
     },
     "38": {
       "answer": "playground",
       "type": "notes",
-      "explanation": "许多城市学校已经拥有屋顶 playground，这是现有做法，不是未来设想。不要填 garden 或 greenhouse。",
       "alternatives": [
         "playgrounds"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 already have a rooftop 后面，应填单数可数名词，表示许多城市学校屋顶上已经有的设施。already 提示这是现有做法，不是未来设想。",
+      "logic": "原文 A surprising number of city schools already have a rooftop playground，把 large number 替换成 surprising number，答案是 playground。说话人强调 That is not a future idea; it is current practice。不要填 garden 或 greenhouse。",
+      "audio_quote": "Professor Bram Ellerby: “A surprising number of city schools already have a rooftop **playground**. That is not a future idea; it is current practice.”",
+      "explanation": "预测：空格在 already have a rooftop 后面，应填单数可数名词，表示许多城市学校屋顶上已经有的设施。already 提示这是现有做法，不是未来设想。\n考点与原文逻辑替换：原文 A surprising number of city schools already have a rooftop playground，把 large number 替换成 surprising number，答案是 playground。说话人强调 That is not a future idea; it is current practice。不要填 garden 或 greenhouse。\n跟音：Professor Bram Ellerby: “A surprising number of city schools already have a rooftop **playground**. That is not a future idea; it is current practice.”"
     },
     "39": {
       "answer": "lamps",
       "type": "notes",
-      "explanation": "现在可用土壤苗床和 electric lamps 在屋顶种植；lamps 是当前已在室内园艺中使用的方式。不要填 glasshouses 或 trucks。",
       "alternatives": [
         "lights",
         "lamp",
@@ -349,19 +462,26 @@
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 soil beds and electric 后面，应填名词，表示当前在屋顶种植所使用的用电设备；后面还有 or in future by，要注意“现在”和“未来”不要填反。",
+      "logic": "原文把 using soil beds and electric _____ 说成 by soil beds and electric lamps — the lamps already used in indoor horticulture。不要填 glasshouses 或 trucks，那是旧的运输方式（truck lettuce in from rural glasshouses）。",
+      "audio_quote": "Professor Bram Ellerby: “The old method was to truck lettuce in from rural glasshouses. Instead of relying on that, leafy crops could be produced on roofs by soil beds and electric **lamps** — the lamps already used in indoor horticulture — or, in future, by robots.”",
+      "explanation": "预测：空格在 soil beds and electric 后面，应填名词，表示当前在屋顶种植所使用的用电设备；后面还有 or in future by，要注意“现在”和“未来”不要填反。\n考点与原文逻辑替换：原文把 using soil beds and electric _____ 说成 by soil beds and electric lamps — the lamps already used in indoor horticulture。不要填 glasshouses 或 trucks，那是旧的运输方式（truck lettuce in from rural glasshouses）。\n跟音：Professor Bram Ellerby: “The old method was to truck lettuce in from rural glasshouses. Instead of relying on that, leafy crops could be produced on roofs by soil beds and electric **lamps** — the lamps already used in indoor horticulture — or, in future, by robots.”"
     },
     "40": {
       "answer": "robots",
       "type": "notes",
-      "explanation": "未来则可由 robots（小型自动机械臂）完成种植与收获。这是 in future 的手段，不要与当前的 lamps 填反。",
       "alternatives": [
         "robot"
       ],
       "word_limit": {
         "max_words": 1,
         "allow_number": false
-      }
+      },
+      "prediction": "空格在 or in future by 后面，应填名词，表示未来完成种植与收获的手段，与前面当前使用的 lamps 相对。",
+      "logic": "原文 or, in future, by robots, meaning small automated arms that plant, thin and harvest。这是 in future 的手段，不要与当前的 lamps 填反。",
+      "audio_quote": "Professor Bram Ellerby: “Instead of relying on that, leafy crops could be produced on roofs by soil beds and electric lamps — the lamps already used in indoor horticulture — or, in future, by **robots**, meaning small automated arms that plant, thin and harvest without a person standing on the roof all day.”",
+      "explanation": "预测：空格在 or in future by 后面，应填名词，表示未来完成种植与收获的手段，与前面当前使用的 lamps 相对。\n考点与原文逻辑替换：原文 or, in future, by robots, meaning small automated arms that plant, thin and harvest。这是 in future 的手段，不要与当前的 lamps 填反。\n跟音：Professor Bram Ellerby: “Instead of relying on that, leafy crops could be produced on roofs by soil beds and electric lamps — the lamps already used in indoor horticulture — or, in future, by **robots**, meaning small automated arms that plant, thin and harvest without a person standing on the roof all day.”"
     }
   },
   "transcripts": {

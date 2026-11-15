@@ -1023,6 +1023,20 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
   color: var(--accent-deep);
 }
 .q-explain p { margin: 0; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+.q-explain-parts { display: flex; flex-direction: column; gap: 8px; }
+.explain-part { margin: 0; }
+.explain-label {
+  margin: 0 0 2px;
+  font-size: 12px;
+  letter-spacing: .04em;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+.explain-part p { margin: 0; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
+.explain-audio_quote p { font-style: normal; }
+.mark-table td.explain .q-explain-parts { gap: 6px; }
+.mark-table td.explain .explain-label { font-size: 11px; }
+.mark-table td.explain .explain-part p { font-size: 13px; }
 .answer-heading { margin: 16px 0 8px; font-size: 15px; }
 .student-back { margin: 8px 0 24px; }
 .done-actions {

@@ -117,7 +117,7 @@
               <td>{{ row.student or "（未作答）" }}</td>
               <td>{{ row.correct }}</td>
               <td>{% if row.ok %}✓{% else %}✗{% endif %}</td>
-              <td class="explain">{{ row.explanation }}</td>
+              <td class="explain">{{ row.explanation | explain_html | safe }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -158,7 +158,7 @@
               <td>{{ row.student or "（未作答）" }}</td>
               <td>{{ row.correct }}</td>
               <td>{% if row.ok %}✓{% else %}✗{% endif %}</td>
-              <td class="explain">{{ row.explanation }}</td>
+              <td class="explain">{{ row.explanation | explain_html | safe }}</td>
             </tr>
             {% endfor %}
           </tbody>

@@ -1728,6 +1728,13 @@
         el.btnReviewMistakes.classList.add("hidden");
       }
     }
+
+    if (window.ScoreCelebrate) {
+      window.ScoreCelebrate.play({
+        band: data && data.band_estimate,
+        submissionId: data && data.id,
+      });
+    }
   }
 
   async function submitAnswers(auto) {

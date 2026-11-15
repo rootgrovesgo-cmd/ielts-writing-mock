@@ -1,0 +1,123 @@
+/* Pixel celebrations on reading/listening post-submit results.
+   Original 8-bit style art; no third-party animation libraries. */
+
+.score-celebrate {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  font-family: var(--font, "Segoe UI", sans-serif);
+}
+
+.score-celebrate-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.score-celebrate-emblem {
+  position: fixed;
+  left: 50%;
+  top: 12vh;
+  z-index: 85;
+  pointer-events: none;
+  transform: translate(-50%, 0);
+  animation: score-celebrate-bob 1.2s steps(4, end) infinite;
+}
+
+.score-celebrate.is-small_fireworks .score-celebrate-emblem {
+  top: auto;
+  animation-duration: 1.4s;
+}
+
+.score-celebrate-sprite {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 16), 1fr);
+  width: calc(var(--cols) * var(--px, 5px));
+  image-rendering: pixelated;
+  filter: drop-shadow(0 3px 0 rgba(47, 44, 42, 0.18));
+}
+
+.score-celebrate.is-fireworks_ring .score-celebrate-sprite { --px: 5px; }
+.score-celebrate.is-fireworks_crown .score-celebrate-sprite { --px: 6px; }
+.score-celebrate.is-small_fireworks .score-celebrate-sprite { --px: 4px; }
+
+.score-celebrate-cell { aspect-ratio: 1; background: transparent; }
+.score-celebrate-cell.is-empty { background: transparent; }
+.score-celebrate-cell.px-K { background: #2f2c2a; }
+.score-celebrate-cell.px-G { background: #e6c24d; }
+.score-celebrate-cell.px-D { background: #c49a3a; }
+.score-celebrate-cell.px-Y { background: #f3d56a; }
+.score-celebrate-cell.px-W { background: #f7f4f0; }
+.score-celebrate-cell.px-R { background: #c45c4a; }
+.score-celebrate-cell.px-C { background: #7eb8c9; }
+.score-celebrate-cell.px-B { background: #d7eef4; }
+.score-celebrate-cell.px-N { background: #4a7f96; }
+
+.score-celebrate-skip {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 86;
+  pointer-events: auto;
+  margin: 0;
+  padding: 8px 14px;
+  border: 3px solid #2f2c2a;
+  background: #f7f4f0;
+  color: #3f3c3a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  image-rendering: pixelated;
+  box-shadow: 3px 3px 0 #2f2c2a;
+  cursor: pointer;
+}
+
+.score-celebrate-skip:hover,
+.score-celebrate-skip:focus-visible {
+  background: #e6c24d;
+  outline: none;
+}
+
+body.score-celebrate-on #donePanel {
+  position: relative;
+  z-index: 80;
+}
+
+@keyframes score-celebrate-bob {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+
+@keyframes score-celebrate-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.score-celebrate-emblem {
+  animation-name: score-celebrate-bob, score-celebrate-fade;
+  animation-duration: 1.2s, 0.2s;
+  animation-timing-function: steps(4, end), steps(2, end);
+  animation-iteration-count: infinite, 1;
+}
+
+@media (max-width: 640px) {
+  .score-celebrate.is-fireworks_ring .score-celebrate-sprite { --px: 4px; }
+  .score-celebrate.is-fireworks_crown .score-celebrate-sprite { --px: 4px; }
+  .score-celebrate-emblem { top: 8vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-celebrate-canvas { display: none; pointer-events: none; }
+  .score-celebrate-emblem {
+    animation: score-celebrate-fade 0.2s steps(2, end);
+    top: 10vh;
+  }
+  .score-celebrate-skip { box-shadow: none; }
+}

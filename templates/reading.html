@@ -6,6 +6,7 @@
   <title>Academic Reading · Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='reading.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='score_celebrate.css') }}" />
 </head>
 <body class="reading-page{% if review %} attempt-review{% endif %}">
   <header class="topbar">
@@ -200,6 +201,7 @@
     };
   </script>
   {% endif %}
+  <script src="{{ url_for('static', filename='score_celebrate.js') }}"></script>
   <script src="{{ url_for('static', filename='reading.js') }}"></script>
 </body>
 </html>

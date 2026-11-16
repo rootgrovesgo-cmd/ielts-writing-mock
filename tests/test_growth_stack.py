@@ -183,12 +183,12 @@ class SpriteTests(unittest.TestCase):
             rows = gs.SPRITES[stage_id]
             with self.subTest(stage_id=stage_id):
                 self.assertTrue(rows)
-                # Higher-fidelity grid than the first 18-column draft.
-                self.assertGreaterEqual(len(rows), 24)
+                # Denser grid than the 32-column draft, still a pixel totem.
+                self.assertGreaterEqual(len(rows), 48)
                 widths = {len(line) for line in rows}
                 self.assertEqual(len(widths), 1)
                 width = next(iter(widths))
-                self.assertGreaterEqual(width, 28)
+                self.assertGreaterEqual(width, 56)
                 letters = {ch for line in rows for ch in line if ch != "."}
                 self.assertTrue(letters)
                 self.assertTrue(letters <= gs.COLOR_LETTERS)
@@ -291,9 +291,9 @@ class RenderTests(unittest.TestCase):
         css = (ROOT / "static" / "growth_stack.css").read_text(encoding="utf-8")
         self.assertIn("image-rendering: pixelated", css)
         self.assertIn("growth-stack-cell", css)
-        self.assertIn("grid-auto-rows: 4px", css)
-        self.assertIn("width: 4px", css)
-        self.assertIn("height: 4px", css)
+        self.assertIn("grid-auto-rows: 2px", css)
+        self.assertIn("width: 2px", css)
+        self.assertIn("height: 2px", css)
         self.assertIn("background: #f3e6b0", css)
         self.assertNotIn("growth-stack-svg", css)
         for letter, hexcol in gs.PALETTE.items():

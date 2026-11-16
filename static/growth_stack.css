@@ -66,17 +66,17 @@
 
 .growth-stack-sprite {
   display: grid;
-  grid-template-columns: repeat(var(--growth-cols, 32), 4px);
-  grid-auto-rows: 4px;
-  width: calc(var(--growth-cols, 32) * 4px);
+  grid-template-columns: repeat(var(--growth-cols, 64), 2px);
+  grid-auto-rows: 2px;
+  width: calc(var(--growth-cols, 64) * 2px);
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   flex: 0 0 auto;
 }
 
 .growth-stack-cell {
-  width: 4px;
-  height: 4px;
+  width: 2px;
+  height: 2px;
   background: transparent;
 }
 

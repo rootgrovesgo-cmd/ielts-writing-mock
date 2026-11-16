@@ -1868,13 +1868,98 @@
     return state.reviewByQ[q] || state.reviewByQ[String(q)] || null;
   }
 
+  function formatInlineExplanation(text) {
+    return escapeHtml(text || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  }
+
+  const READING_EXPLAIN_PARTS = [
+    ["stem_keywords", "题干关键词"],
+    ["locate", "原文定位"],
+    ["paraphrase", "关键词替换"],
+    ["judgment", "判定点"],
+  ];
+  const LISTENING_EXPLAIN_PARTS = [
+    ["prediction", "预测"],
+    ["logic", "考点与原文逻辑替换"],
+    ["audio_quote", "跟音"],
+  ];
+
+  function parseLabeledExplanation(text) {
+    const labels = READING_EXPLAIN_PARTS.concat(LISTENING_EXPLAIN_PARTS);
+    const src = (text || "").trim();
+    const parts = {};
+    labels.forEach(([key]) => {
+      parts[key] = "";
+    });
+    if (!src) return parts;
+    const re = /(?:^|\n)(预测|考点与原文逻辑替换|跟音|题干关键词|原文定位|关键词替换|判定点)[：:]/g;
+    const matches = [];
+    let m;
+    while ((m = re.exec(src))) matches.push(m);
+    const labelToKey = {};
+    labels.forEach(([key, label]) => {
+      labelToKey[label] = key;
+    });
+    matches.forEach((match, i) => {
+      const key = labelToKey[match[1]];
+      if (!key) return;
+      const start = match.index + match[0].length;
+      const end = i + 1 < matches.length ? matches[i + 1].index : src.length;
+      parts[key] = src.slice(start, end).trim();
+    });
+    return parts;
+  }
+
+  function schemaPartsFromRow(expl, row) {
+    const readingFields = {
+      stem_keywords: ((row && row.stem_keywords) || "").trim(),
+      locate: ((row && row.locate) || "").trim(),
+      paraphrase: ((row && row.paraphrase) || "").trim(),
+      judgment: ((row && row.judgment) || "").trim(),
+    };
+    const listeningFields = {
+      prediction: ((row && row.prediction) || "").trim(),
+      logic: ((row && row.logic) || "").trim(),
+      audio_quote: ((row && row.audio_quote) || "").trim(),
+    };
+    const parsed = parseLabeledExplanation(expl || (row && row.explanation) || "");
+    const has = (obj, schema) => schema.some(([key]) => (obj[key] || "").trim());
+    if (has(readingFields, READING_EXPLAIN_PARTS)) return [READING_EXPLAIN_PARTS, readingFields];
+    if (has(parsed, READING_EXPLAIN_PARTS)) return [READING_EXPLAIN_PARTS, parsed];
+    if (has(listeningFields, LISTENING_EXPLAIN_PARTS)) return [LISTENING_EXPLAIN_PARTS, listeningFields];
+    if (has(parsed, LISTENING_EXPLAIN_PARTS)) return [LISTENING_EXPLAIN_PARTS, parsed];
+    return [null, null];
+  }
+
+  function formatExplanation(expl, row) {
+    const [schema, parts] = schemaPartsFromRow(expl, row);
+    if (!schema) {
+      return expl ? "<p>" + escapeHtml(expl) + "</p>" : "";
+    }
+    let html = '<div class="q-explain-parts">';
+    schema.forEach(([key, label]) => {
+      const val = (parts[key] || "").trim();
+      if (!val) return;
+      html +=
+        '<div class="explain-part explain-' +
+        key +
+        '"><h5 class="explain-label">' +
+        escapeHtml(label) +
+        "</h5><p>" +
+        formatInlineExplanation(val) +
+        "</p></div>";
+    });
+    html += "</div>";
+    return html;
+  }
+
   function renderReviewKey(q) {
     const row = reviewRow(q);
     if (!row) return "";
     const ok = !!row.ok;
     const student = row.student_blank || !(row.student || "").trim() ? "（未作答）" : escapeHtml(row.student);
     const correct = escapeHtml(row.correct || "");
-    const expl = row.explanation ? escapeHtml(row.explanation) : "";
+    const explHtml = formatExplanation(row.explanation || "", row);
     return (
       '<div class="q-review-key ' +
       (ok ? "is-ok" : "is-wrong") +
@@ -1887,7 +1972,7 @@
       "<div><dt>标准答案</dt><dd>" +
       correct +
       "</dd></div></dl>" +
-      (expl ? '<div class="q-explain"><h4>解析</h4><p>' + expl + "</p></div>" : "") +
+      (explHtml ? '<div class="q-explain"><h4>解析</h4>' + explHtml + "</div>" : "") +
       "</div>"
     );
   }

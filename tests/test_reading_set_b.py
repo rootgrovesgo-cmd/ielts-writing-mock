@@ -16,8 +16,10 @@ if str(ROOT) not in sys.path:
 
 import access as accessmod  # noqa: E402
 import app as appmod  # noqa: E402
+import explain_format  # noqa: E402
 import reading_review as rr  # noqa: E402
 import reading_scoring as rs  # noqa: E402
+import report_pdf  # noqa: E402
 
 PAPER_PATH = ROOT / "prompts" / "reading_set_b.json"
 KEYS_PATH = ROOT / "prompts" / "reading_keys_set_b.json"
@@ -123,7 +125,10 @@ class SetBPaperTests(unittest.TestCase):
     def test_student_json_has_no_keys_or_official_names(self):
         dumped = json.dumps(self.paper)
         self.assertNotIn("explanation", dumped)
+        self.assertNotIn("stem_keywords", dumped)
         self.assertNotIn("correct_answer", dumped)
+        for label in ("题干关键词", "原文定位", "关键词替换", "判定点"):
+            self.assertNotIn(label, dumped)
         self.assertNotRegex(dumped, r'"answer"\s*:')
         lower = dumped.lower()
         for word in FORBIDDEN_OFFICIAL:
@@ -287,11 +292,15 @@ class SetBRouteTests(unittest.TestCase):
         self.assertEqual(data["id"], "set-b")
         self.assertEqual(len(data["passages"]), 3)
         self.assertEqual(len(data["groups"]), 7)
-        body = res.get_data(as_text=True).lower()
-        self.assertNotIn("explanation", body)
-        self.assertNotIn("correct_answer", body)
+        body = res.get_data(as_text=True)
+        lower = body.lower()
+        self.assertNotIn("explanation", lower)
+        self.assertNotIn("stem_keywords", lower)
+        self.assertNotIn("correct_answer", lower)
+        for label in ("题干关键词", "原文定位", "关键词替换", "判定点"):
+            self.assertNotIn(label, body)
         for word in FORBIDDEN_OFFICIAL:
-            self.assertNotIn(word, body)
+            self.assertNotIn(word, lower)
         missing = self.client.get("/api/reading/paper?set=set-zz")
         self.assertEqual(missing.status_code, 404)
 
@@ -373,6 +382,163 @@ class SetBRouteTests(unittest.TestCase):
         lower = html.lower()
         for word in FORBIDDEN_OFFICIAL:
             self.assertNotIn(word, lower)
+
+
+
+READING_LABELS = ("题干关键词：", "原文定位：", "关键词替换：", "判定点：")
+READING_FIELDS = ("stem_keywords", "locate", "paraphrase", "judgment")
+TRAP_RE = re.compile(r"不要误填|不要误选|不可填|不能选|不要选|不可选|不能填|不要填")
+
+FROZEN_SET_B_ANSWERS = {
+    1: "Liverpool",
+    2: "dues",
+    3: "landowners",
+    4: "Parliament",
+    5: "cuttings",
+    6: "contractor",
+    7: "TRUE",
+    8: "FALSE",
+    9: "NOT GIVEN",
+    10: "TRUE",
+    11: "FALSE",
+    12: "NOT GIVEN",
+    13: "FALSE",
+    14: "TRUE",
+    15: "history",
+    16: "role",
+    17: "review",
+    18: "rely",
+    19: "repeated visits",
+    20: "outdoor activity",
+    21: "amateur",
+    22: "share credit",
+    23: "A",
+    24: "C",
+    25: "A",
+    26: "B",
+    27: "D",
+    28: "C",
+    29: "H",
+    30: "D",
+    31: "G",
+    32: "E",
+    33: "C",
+    34: "TRUE",
+    35: "FALSE",
+    36: "NOT GIVEN",
+    37: "methane",
+    38: "molecular hydrogen",
+    39: "photochemical destruction",
+    40: "reducing atmosphere",
+}
+
+FROZEN_SET_B_TYPES = {
+    1: "notes",
+    2: "notes",
+    3: "notes",
+    4: "notes",
+    5: "notes",
+    6: "notes",
+    7: "tfng",
+    8: "tfng",
+    9: "tfng",
+    10: "tfng",
+    11: "tfng",
+    12: "tfng",
+    13: "tfng",
+    14: "tfng",
+    15: "summary",
+    16: "summary",
+    17: "summary",
+    18: "summary",
+    19: "summary",
+    20: "summary",
+    21: "summary",
+    22: "summary",
+    23: "matching_features",
+    24: "matching_features",
+    25: "matching_features",
+    26: "matching_features",
+    27: "matching_features",
+    28: "matching_info",
+    29: "matching_info",
+    30: "matching_info",
+    31: "matching_info",
+    32: "matching_info",
+    33: "matching_info",
+    34: "tfng",
+    35: "tfng",
+    36: "tfng",
+    37: "summary",
+    38: "summary",
+    39: "summary",
+    40: "summary",
+}
+
+
+class SetBExplanationFormatTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.keys = load_keys()
+        cls.questions = cls.keys["questions"]
+
+    def test_answers_and_types_unchanged(self):
+        self.assertEqual(self.keys.get("set_id"), "set-b")
+        self.assertEqual(set(self.questions), {str(q) for q in range(1, 41)})
+        for num, answer in FROZEN_SET_B_ANSWERS.items():
+            meta = self.questions[str(num)]
+            self.assertEqual(meta["answer"], answer, num)
+            self.assertEqual(meta["type"], FROZEN_SET_B_TYPES[num], num)
+
+    def test_each_item_has_structured_reading_parts(self):
+        for num in range(1, 41):
+            meta = self.questions[str(num)]
+            for field in READING_FIELDS:
+                self.assertTrue(str(meta.get(field) or "").strip(), f"Q{num} missing {field}")
+            text = meta.get("explanation") or ""
+            for label in READING_LABELS:
+                self.assertIn(label, text, f"Q{num} explanation missing {label}")
+            self.assertEqual(text, explain_format.compose_explanation(meta), num)
+            self.assertTrue(explain_format.has_structured_parts(meta), num)
+            parts = explain_format.explanation_parts(meta)
+            for field in READING_FIELDS:
+                self.assertEqual(parts.get(field), str(meta[field]).strip(), (num, field))
+            self.assertNotIn("prediction", parts)
+
+    def test_explanations_have_no_trap_phrases(self):
+        for num in range(1, 41):
+            meta = self.questions[str(num)]
+            blob = "\n".join(
+                [meta.get("explanation") or ""] + [str(meta.get(field) or "") for field in READING_FIELDS]
+            )
+            self.assertIsNone(TRAP_RE.search(blob), f"Q{num} still has a distractor warning")
+
+    def test_explain_format_renders_four_chinese_labels(self):
+        html = explain_format.explanation_html(self.questions["1"])
+        self.assertIn('class="q-explain-parts"', html)
+        for label in ("题干关键词", "原文定位", "关键词替换", "判定点"):
+            self.assertIn(f'<h5 class="explain-label">{label}</h5>', html)
+        self.assertIn("<strong>Liverpool</strong>", html)
+        self.assertNotIn("**Liverpool**", html)
+        # Must be structured blocks, not one escaped paragraph.
+        self.assertFalse(html.startswith("<p>"))
+
+        from_text = explain_format.explanation_html(self.questions["1"]["explanation"])
+        self.assertIn('class="q-explain-parts"', from_text)
+        self.assertIn("题干关键词", from_text)
+        self.assertIn("判定点", from_text)
+
+        xml = report_pdf.explanation_xml(self.questions["1"]["explanation"])
+        for label in READING_LABELS:
+            self.assertIn(label, xml)
+        self.assertIn("<b>", xml)
+        self.assertIn("<br/>", xml)
+        self.assertNotIn("**Liverpool**", xml)
+
+    def test_plain_explanation_still_falls_back_to_a_paragraph(self):
+        html = explain_format.explanation_html("定位第三段，答案是 sand。")
+        self.assertEqual(html, "<p>定位第三段，答案是 sand。</p>")
+        self.assertNotIn("q-explain-parts", html)
 
 
 if __name__ == "__main__":

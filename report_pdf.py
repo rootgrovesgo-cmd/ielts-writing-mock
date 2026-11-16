@@ -197,13 +197,13 @@ def mixed_xml(text: object, newlines: bool = False) -> str:
 
 
 def explanation_xml(text: object) -> str:
-    """Format a marking-table explanation, preserving the three-part layout."""
+    """Format a marking-table explanation, preserving the labeled part layout."""
     source = "" if text is None else str(text)
     parts = explain_format.explanation_parts(source)
     if not any(parts.values()):
         return mixed_xml(source or "—", newlines=True)
     bits: list[str] = []
-    for key, label in explain_format.PARTS:
+    for key, label in explain_format.explanation_schema(source):
         value = (parts.get(key) or "").strip()
         if not value:
             continue

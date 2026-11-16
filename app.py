@@ -38,7 +38,9 @@ import reading_review as rr
 import student_portal as sp
 import pikachu
 import sprout
+import growth_stack
 import explain_format
+from markupsafe import Markup
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -505,12 +507,14 @@ def student_home():
         )
     attempts = sp.list_own_attempts(load_index(), ident)
     theme, gallery = records_gallery(ident, attempts)
+    growth_html = Markup(growth_stack.render(scores=sp.growth_stack_scores(attempts)))
     return render_template(
         "student_home.html",
         student_name=ident.get("candidate_name") or "",
         attempts=attempts,
         gallery=gallery,
         gallery_theme=theme,
+        growth_stack_html=growth_html,
     )
 
 

@@ -265,6 +265,36 @@ def summarize_attempt(item: dict) -> dict:
     return summary
 
 
+def growth_stack_scores(attempts: list[dict] | None) -> list[dict]:
+    """Usable reading, listening, and teacher-writing bands for the growth stack.
+
+    Reading and listening use the same official/reference band already shown
+    on 我的记录 (``band_estimate`` / ``band_label``). Writing contributes
+    only the teacher band, never ``official_score`` or other hidden auto
+    scores. Speaking papers and papers with no usable half-band are skipped.
+    """
+    scores: list[dict] = []
+    for item in attempts or []:
+        module = records_module(item)
+        if module not in RECORDS_MODULES:
+            continue
+        if module == "writing":
+            band = item.get("teacher_band")
+            if band in (None, ""):
+                band = writing_teacher_band(item)
+            if band is not None:
+                scores.append({"module": "writing", "teacher_band": band})
+            continue
+        band = item.get("band_estimate")
+        if band in (None, ""):
+            band = item.get("band")
+        if band in (None, ""):
+            band = item.get("band_label")
+        if band not in (None, ""):
+            scores.append({"module": module, "band_estimate": band})
+    return scores
+
+
 def writing_prompts_for(record: dict, prompts_data: dict) -> tuple[dict | None, dict | None, dict | None]:
     set_id = record.get("prompt_set_id")
     found = None

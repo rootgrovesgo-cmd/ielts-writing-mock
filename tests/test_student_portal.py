@@ -23,6 +23,7 @@ import reading_scoring as rs  # noqa: E402
 import listening_scoring as ls  # noqa: E402
 import pikachu  # noqa: E402
 import sprout  # noqa: E402
+import growth_stack as gs  # noqa: E402
 
 # Throwaway credentials used only in tests. Not production values.
 TEST_ADMIN_USER = "TestAdmin"
@@ -667,8 +668,17 @@ class ReviewContentTests(StudentPortalTestCase):
         self.assertIn("查看整卷", home)
         self.assertNotIn("查看错题", home)
         self.assertIn("55min12s", home)
-        self.assertNotIn("7.5", home)
+        # The growth-stack widget always labels stages 5.5–9.0, including 7.5,
+        # but a hidden writing official/auto score must not light it or appear
+        # as a writing result on 我的记录.
         self.assertNotIn("参考分数", home)
+        self.assertNotIn("教师评分 7", home)
+        self.assertNotIn("教师评分 7.5", home)
+        self.assertIn("待评分", home)
+        self.assertIn('class="growth-stack is-empty"', home)
+        self.assertIn("暂无评分", home)
+        self.assertNotIn("当前最高", home)
+        self.assertNotIn("official_score", home)
 
         detail = self.client.get(f"/me/submission/{sid}")
         self.assertEqual(detail.status_code, 200)
@@ -1946,6 +1956,198 @@ class RainieSproutGalleryTests(StudentPortalTestCase):
         self.assertIn("写作 Set A · 7", self._sprout_plain_captions(home))
         self.assertNotIn("写作 Set A · 待评分", home)
 
+
+
+class GrowthStackScoresTests(unittest.TestCase):
+    def test_best_band_uses_teacher_writing_and_reference_scores(self):
+        attempts = [
+            {"module": "reading", "band_label": "6.5", "band_estimate": 6.5},
+            {"module": "listening", "band_label": "7.0"},
+            {"module": "writing", "teacher_band": 6.0, "official_score": 9.0},
+            {"module": "speaking", "band_estimate": 9.0, "band_label": "9.0"},
+            {"module": "writing", "official_score": 8.5},
+        ]
+        scores = sp.growth_stack_scores(attempts)
+        self.assertEqual(gs.best_growth_band(scores), 7.0)
+        modules = [row["module"] for row in scores]
+        self.assertEqual(modules, ["reading", "listening", "writing"])
+        self.assertTrue(all("official_score" not in row for row in scores))
+
+    def test_empty_scores_when_nothing_usable(self):
+        self.assertEqual(sp.growth_stack_scores([]), [])
+        self.assertEqual(
+            sp.growth_stack_scores([
+                {"module": "writing"},
+                {"module": "speaking", "band_estimate": 9.0},
+                {"module": "writing", "official_score": 9.0},
+            ]),
+            [],
+        )
+        self.assertIsNone(gs.best_growth_band(sp.growth_stack_scores(None)))
+
+
+class GrowthStackRecordsTests(StudentPortalTestCase):
+    def setUp(self):
+        super().setUp()
+        os.environ["IELTS_ADMIN_USERNAME"] = TEST_ADMIN_USER
+        os.environ["IELTS_ADMIN_PASSWORD"] = TEST_ADMIN_PASS
+
+    def _login_admin(self):
+        return self.client.post(
+            "/admin/login",
+            data={"username": TEST_ADMIN_USER, "password": TEST_ADMIN_PASS},
+        )
+
+    def _add_index_row(self, rec, *, name, module, **fields):
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        sid = fields.pop("id", None) or f"{module}-{len(index.get('submissions') or []):04d}-bbbb-cccc-dddd-eeeeeeeeeeee"
+        record = {
+            "id": sid,
+            "timestamp": fields.pop("timestamp", "2026-11-16T09:15:00+08:00"),
+            "candidate_name": name,
+            "module": module,
+            "mode": "full",
+            "prompt_set_id": "set-a",
+            "time_used_seconds": 12,
+            "invite_code_id": rec["id"],
+        }
+        record.update(fields)
+        (appmod.SUBMISSIONS_DIR / f"{sid}.json").write_text(
+            json.dumps(record, ensure_ascii=False), encoding="utf-8"
+        )
+        index_row = {
+            "id": sid,
+            "timestamp": record["timestamp"],
+            "candidate_name": name,
+            "module": module,
+            "mode": "full",
+            "prompt_set_id": "set-a",
+            "time_used_seconds": 12,
+            "invite_code_id": rec["id"],
+        }
+        for key in ("score", "total", "band_estimate", "teacher_band", "official_score"):
+            if key in record:
+                index_row[key] = record[key]
+        index.setdefault("submissions", []).insert(0, index_row)
+        appmod.save_index(index)
+        return sid
+
+    def test_stack_appears_for_normal_code_and_rainie_keeps_galleries(self):
+        self._create_code()
+        self._login()
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn('class="growth-stack is-empty"', html)
+        self.assertIn("成长进度", html)
+        self.assertIn("暂无评分", html)
+        self.assertIn("pikachu-progress", html)
+        self.assertNotIn("sprout-progress", html)
+        self.assertIn("records-progress-row", html)
+        self.assertNotIn("growth_stack.css", html)
+
+        rainie = appmod.app.test_client()
+        self._create_code(code="Rainie")
+        rainie.post(
+            "/me/login",
+            data={"candidate_name": "Grove Student", "invite_code": "Rainie"},
+        )
+        rainie_html = rainie.get("/me").get_data(as_text=True)
+        self.assertIn('class="growth-stack is-empty"', rainie_html)
+        self.assertIn("成长进度", rainie_html)
+        self.assertIn("sprout-progress", rainie_html)
+        self.assertIn("我的妙蛙种子", rainie_html)
+        self.assertNotIn("pikachu-progress", rainie_html)
+        self.assertIn("sprout-gallery", rainie_html)
+
+    def test_empty_state_when_no_scores(self):
+        rec = self._create_code()
+        self._login()
+        self._start(module="writing")
+        submitted = self._submit_writing()
+        self.assertEqual(submitted.status_code, 200)
+
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("成长进度", html)
+        self.assertIn("暂无评分", html)
+        self.assertIn('class="growth-stack is-empty"', html)
+        self.assertNotIn("当前最高", html)
+        self.assertEqual(html.count('<li class="growth-stack-stage is-lit'), 0)
+        self.assertEqual(html.count('<li class="growth-stack-stage is-unlit'), 8)
+        self.assertIn("pikachu-progress", html)
+        self.assertIn("写作 Set A · 待评分", html)
+
+        # A speaking paper still leaves the stack empty.
+        self._add_index_row(
+            rec,
+            name="Ada Student",
+            module="speaking",
+            id="speak-empty-bbbb-cccc-dddd-eeeeeeeeeeee",
+            band_estimate=9.0,
+        )
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn('class="growth-stack is-empty"', html)
+        self.assertIn("暂无评分", html)
+        self.assertNotIn("speak-empty", html)
+
+    def test_best_band_ignores_speaking_and_writing_official_score(self):
+        rec = self._create_code()
+        self._login()
+        self._add_index_row(
+            rec,
+            name="Ada Student",
+            module="writing",
+            id="write-off-bbbb-cccc-dddd-eeeeeeeeeeee",
+            official_score=9.0,
+        )
+        self._add_index_row(
+            rec,
+            name="Ada Student",
+            module="reading",
+            id="read-band-bbbb-cccc-dddd-eeeeeeeeeeee",
+            score=28,
+            total=40,
+            band_estimate=6.5,
+        )
+        self._add_index_row(
+            rec,
+            name="Ada Student",
+            module="listening",
+            id="listen-band-bbbb-cccc-dddd-eeeeeeeeeeee",
+            score=25,
+            total=40,
+            band_estimate=6.0,
+        )
+        self._add_index_row(
+            rec,
+            name="Ada Student",
+            module="speaking",
+            id="speak-band-bbbb-cccc-dddd-eeeeeeeeeeee",
+            band_estimate=9.0,
+        )
+
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn('class="growth-stack" data-band="6.5"', html)
+        self.assertIn("当前最高 6.5", html)
+        self.assertEqual(html.count('<li class="growth-stack-stage is-lit'), 3)
+        self.assertIn("pikachu-progress", html)
+        self.assertNotIn("sprout-progress", html)
+        self.assertNotIn("speak-band", html)
+
+        # Teacher writing band becomes the new best; hidden official_score stays ignored.
+        writing_path = appmod.SUBMISSIONS_DIR / "write-off-bbbb-cccc-dddd-eeeeeeeeeeee.json"
+        record = json.loads(writing_path.read_text(encoding="utf-8"))
+        record["teacher_band"] = 8.0
+        writing_path.write_text(json.dumps(record, ensure_ascii=False), encoding="utf-8")
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        for row in index.get("submissions") or []:
+            if row.get("id") == "write-off-bbbb-cccc-dddd-eeeeeeeeeeee":
+                row["teacher_band"] = 8.0
+        appmod.save_index(index)
+
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn('class="growth-stack" data-band="8.0"', html)
+        self.assertIn("当前最高 8.0", html)
+        self.assertEqual(html.count('<li class="growth-stack-stage is-lit'), 6)
+        self.assertIn("写作 Set A · 8", html)
 
 
 if __name__ == "__main__":

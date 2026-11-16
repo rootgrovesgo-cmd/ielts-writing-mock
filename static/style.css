@@ -1242,3 +1242,30 @@ table.completion-table th {
   background: #efeae3;
   font-weight: 700;
 }
+
+.records-progress-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.records-progress-row .growth-stack {
+  flex: 0 0 auto;
+}
+.records-mascot {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.records-progress-row .pikachu-progress,
+.records-progress-row .sprout-progress {
+  margin-bottom: 0;
+}
+@media (max-width: 720px) {
+  .records-progress-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .records-mascot {
+    width: 100%;
+  }
+}

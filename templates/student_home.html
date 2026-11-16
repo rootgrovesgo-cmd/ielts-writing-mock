@@ -34,12 +34,65 @@
       </div>
     </section>
 
-    <section class="card pikachu-progress{% if pikachu.complete %} is-complete{% endif %}" aria-label="练习点亮皮卡丘">
+    {% if gallery_theme == 'sprout' %}
+    <section class="card sprout-progress{% if gallery.complete %} is-complete{% endif %}" aria-label="练习点亮妙蛙种子">
+      <p class="eyebrow">Sprout gallery</p>
+      <h2 class="sprout-heading">我的妙蛙种子</h2>
+      <p class="muted sprout-lead">每做完一套写作、阅读或听力，就会点亮一只妙蛙种子；评分跟在每只后面。阅读和听力按作答自动评分，写作为教师评分，未评时显示「待评分」。</p>
+      <div class="sprout-gallery">
+        {% for deco in gallery.decos %}
+        <div
+          class="sprout-deco is-{{ deco.kind }} slot-{{ deco.slot }}"
+          aria-hidden="true"
+          style="--sprout-cols: {{ deco.cols }};"
+        >
+          {% for cell in deco.cells %}
+          <span class="sprout-deco-cell{% if cell.empty %} is-empty{% else %} sprout-{{ cell.color }}{% endif %}"></span>
+          {% endfor %}
+        </div>
+        {% endfor %}
+        {% for fig in gallery.figures %}
+        <figure
+          class="sprout-figure is-{{ fig.size }}{% if fig.lit %} is-lit{% else %} is-unlit{% endif %}{% if fig.cluster %} is-cluster{% endif %}"
+          style="--sprout-nudge: {{ fig.nudge }}px; --sprout-nudge-x: {{ fig.nudge_x }}px; --sprout-tilt: {{ fig.tilt }}deg;"
+        >
+          <div
+            class="sprout-sprite"
+            role="img"
+            aria-label="{% if fig.lit %}{{ fig.caption }}{% else %}未点亮的像素妙蛙种子{% endif %}"
+            style="--sprout-cols: {{ fig.cols }};"
+          >
+            {% for cell in fig.cells %}
+            <span class="sprout-cell{% if cell.empty %} is-empty{% elif cell.lit %} is-lit sprout-{{ cell.color }}{% else %} is-unlit{% endif %}"></span>
+            {% endfor %}
+          </div>
+          {% if fig.lit and fig.caption %}
+          <figcaption class="sprout-caption">
+            {% if fig.attempt_id %}
+            <a href="{{ url_for('student_submission', sid=fig.attempt_id) }}">{{ fig.caption }}</a>
+            {% else %}
+            {{ fig.caption }}
+            {% endif %}
+          </figcaption>
+          {% endif %}
+        </figure>
+        {% endfor %}
+      </div>
+      <p class="sprout-status">
+        {% if gallery.lit %}
+        已点亮 {{ gallery.lit }} 只妙蛙种子，每做完一套点亮一只
+        {% else %}
+        还没有点亮的妙蛙种子，每做完一套点亮一只
+        {% endif %}
+      </p>
+    </section>
+    {% else %}
+    <section class="card pikachu-progress{% if gallery.complete %} is-complete{% endif %}" aria-label="练习点亮皮卡丘">
       <p class="eyebrow">Pikachu gallery</p>
       <h2 class="pikachu-heading">我的皮卡丘</h2>
       <p class="muted pikachu-lead">每做完一套写作、阅读或听力，就会点亮一只皮卡丘；评分跟在每只后面。阅读和听力按作答自动评分，写作为教师评分，未评时显示「待评分」。</p>
       <div class="pikachu-gallery">
-        {% for deco in pikachu.decos %}
+        {% for deco in gallery.decos %}
         <div
           class="pikachu-deco is-{{ deco.kind }} slot-{{ deco.slot }}"
           aria-hidden="true"
@@ -50,7 +103,7 @@
           {% endfor %}
         </div>
         {% endfor %}
-        {% for fig in pikachu.figures %}
+        {% for fig in gallery.figures %}
         <figure
           class="pikachu-figure is-{{ fig.size }}{% if fig.lit %} is-lit{% else %} is-unlit{% endif %}{% if fig.cluster %} is-cluster{% endif %}"
           style="--pikachu-nudge: {{ fig.nudge }}px;"
@@ -78,13 +131,14 @@
         {% endfor %}
       </div>
       <p class="pikachu-status">
-        {% if pikachu.lit %}
-        已点亮 {{ pikachu.lit }} 只皮卡丘，每做完一套点亮一只
+        {% if gallery.lit %}
+        已点亮 {{ gallery.lit }} 只皮卡丘，每做完一套点亮一只
         {% else %}
         还没有点亮的皮卡丘，每做完一套点亮一只
         {% endif %}
       </p>
     </section>
+    {% endif %}
 
     {% if attempts %}
     <section class="attempt-list" aria-label="已交答卷">

@@ -22,6 +22,7 @@ import student_portal as sp  # noqa: E402
 import reading_scoring as rs  # noqa: E402
 import listening_scoring as ls  # noqa: E402
 import pikachu  # noqa: E402
+import sprout  # noqa: E402
 
 # Throwaway credentials used only in tests. Not production values.
 TEST_ADMIN_USER = "TestAdmin"
@@ -1619,6 +1620,331 @@ class AdminPaperViewTests(StudentPortalTestCase):
         self.assertEqual(own_api.status_code, 200)
         self.assertTrue(own_api.get_json().get("ok"))
 
+
+
+
+
+class SproutSpriteTests(unittest.TestCase):
+    def test_sprite_poses_are_original_grids(self):
+        ids = sprout.pose_ids()
+        self.assertGreaterEqual(len(ids), 14)
+        self.assertLessEqual(len(ids), 18)
+        self.assertEqual(len(ids), len(set(ids)))
+        seen = set()
+        for name in ids:
+            rows = sprout.POSES[name]
+            widths = {len(line) for line in rows}
+            self.assertEqual(len(widths), 1, name)
+            width = len(rows[0])
+            self.assertGreaterEqual(width, 12)
+            self.assertLessEqual(width, 28)
+            self.assertGreaterEqual(len(rows), 9)
+            letters = {ch for line in rows for ch in line if ch != "."}
+            self.assertTrue(letters <= sprout.COLOR_LETTERS, name)
+            self.assertTrue({"T", "K", "L"} <= letters, name)
+            key = tuple(rows)
+            self.assertNotIn(key, seen)
+            seen.add(key)
+            raster = sprout.sprite_cells(rows, lit=True)
+            self.assertGreater(len(raster["cells"]), 0, name)
+            self.assertEqual(raster["cols"] * raster["rows"], len(raster["cells"]))
+            self.assertTrue(any(not cell["empty"] and cell["lit"] and cell["color"] for cell in raster["cells"]))
+        self.assertNotIn("ball", sprout.DECOS)
+        self.assertNotIn("pokeball", sprout.DECOS)
+        for name, rows in sprout.DECOS.items():
+            letters = {ch for line in rows for ch in line if ch != "."}
+            self.assertTrue(letters <= sprout.COLOR_LETTERS, name)
+            # No red-and-white official-looking balls.
+            self.assertFalse({"R", "W"} <= letters and name in {"ball", "pokeball"})
+
+    def test_gallery_reuses_poses_when_it_grows(self):
+        extra = 3
+        attempts = [{"id": f"a{i}", "caption": f"写作 Set A · {i}"} for i in range(sprout.pose_count() + extra)]
+        gallery = sprout.gallery(attempts)
+        self.assertEqual(gallery["theme"], "sprout")
+        self.assertEqual(gallery["lit"], sprout.pose_count() + extra)
+        self.assertEqual(gallery["total"], sprout.pose_count() + extra)
+        self.assertEqual(len(gallery["figures"]), sprout.pose_count() + extra)
+        ids = sprout.pose_ids()
+        self.assertEqual(gallery["figures"][0]["pose"], ids[0])
+        self.assertEqual(gallery["figures"][len(ids)]["pose"], ids[0])
+        self.assertEqual(gallery["figures"][-1]["pose"], ids[extra - 1])
+        self.assertTrue(all(fig["lit"] for fig in gallery["figures"]))
+        self.assertTrue(all(
+            cell["lit"]
+            for fig in gallery["figures"]
+            for cell in fig["cells"]
+            if not cell["empty"]
+        ))
+        self.assertTrue(gallery["decos"])
+        unlit = sprout.gallery([])
+        self.assertEqual(unlit["lit"], 0)
+        self.assertEqual(len(unlit["figures"]), sprout.pose_count())
+        self.assertTrue(all(not fig["lit"] for fig in unlit["figures"]))
+
+    def test_is_rainie_code_matches_invite_string_only(self):
+        self.assertTrue(sprout.is_rainie_code("Rainie"))
+        self.assertTrue(sprout.is_rainie_code("rainie"))
+        self.assertTrue(sprout.is_rainie_code("RAINIE"))
+        self.assertTrue(sprout.is_rainie_code(" Rainie "))
+        self.assertFalse(sprout.is_rainie_code("CLASS01"))
+        self.assertFalse(sprout.is_rainie_code("Rainie1"))
+        self.assertFalse(sprout.is_rainie_code("Rainies"))
+        self.assertFalse(sprout.is_rainie_code(""))
+        self.assertFalse(sprout.is_rainie_code(None))
+
+
+class RainieSproutGalleryTests(StudentPortalTestCase):
+    def setUp(self):
+        super().setUp()
+        os.environ["IELTS_ADMIN_USERNAME"] = TEST_ADMIN_USER
+        os.environ["IELTS_ADMIN_PASSWORD"] = TEST_ADMIN_PASS
+
+    def _login_admin(self, client=None):
+        client = client or self.client
+        return client.post(
+            "/admin/login",
+            data={"username": TEST_ADMIN_USER, "password": TEST_ADMIN_PASS},
+        )
+
+    def _submit_listening(self, name="Ada Student", prompt_set_id="set-a"):
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        return self.client.post(
+            "/api/listening/submit",
+            json={
+                "candidate_name": name,
+                "mode": "full",
+                "prompt_set_id": prompt_set_id,
+                "answers": answers,
+                "duration_seconds": 1800,
+                "time_used_seconds": 1500,
+            },
+        )
+
+    def _seed_attempts(self, count, rec, name="Ada Student"):
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        submissions = index.setdefault("submissions", [])
+        modules = ("writing", "reading", "listening")
+        for i in range(count):
+            sid = f"sprout-{i:04d}-bbbb-cccc-dddd-eeeeeeeeeeee"
+            module = modules[i % 3]
+            set_id = f"set-{chr(ord('a') + (i % 6))}"
+            record = {
+                "id": sid,
+                "timestamp": f"2026-11-{(i % 28) + 1:02d}T09:15:00+08:00",
+                "candidate_name": name,
+                "module": module,
+                "mode": "full",
+                "prompt_set_id": set_id,
+                "time_used_seconds": 12,
+                "invite_code_id": rec["id"],
+            }
+            if module in {"reading", "listening"}:
+                record["score"] = 30 + (i % 10)
+                record["total"] = 40
+                record["band_estimate"] = 7.0
+            (appmod.SUBMISSIONS_DIR / f"{sid}.json").write_text(
+                json.dumps(record, ensure_ascii=False), encoding="utf-8"
+            )
+            index_row = {
+                "id": sid,
+                "timestamp": record["timestamp"],
+                "candidate_name": name,
+                "module": module,
+                "mode": "full",
+                "prompt_set_id": set_id,
+                "time_used_seconds": 12,
+                "invite_code_id": rec["id"],
+            }
+            if module in {"reading", "listening"}:
+                index_row["score"] = record["score"]
+                index_row["total"] = record["total"]
+                index_row["band_estimate"] = record["band_estimate"]
+            submissions.insert(0, index_row)
+        appmod.save_index(index)
+
+    def _figures(self, html):
+        return re.findall(r'<figure\s+class="pikachu-figure([^"]*)"', html)
+
+    def _sprout_figures(self, html):
+        return re.findall(r'<figure\s+class="sprout-figure([^"]*)"', html)
+
+    def _sprout_caption_texts(self, html):
+        return re.findall(r'<figcaption class="sprout-caption">\s*(.*?)\s*</figcaption>', html, flags=re.S)
+
+    def _sprout_plain_captions(self, html):
+        out = []
+        for raw in self._sprout_caption_texts(html):
+            text = re.sub(r"<[^>]+>", "", raw)
+            out.append(" ".join(unescape(text).split()))
+        return out
+
+    def _login_rainie(self, code="Rainie", name="Grove Student"):
+        rec = self._create_code(code=code)
+        self._login(name=name, code=code)
+        return rec
+
+    def test_rainie_records_use_sprout_gallery_not_pikachu(self):
+        self._login_rainie()
+        home = self.client.get("/me")
+        self.assertEqual(home.status_code, 200)
+        html = home.get_data(as_text=True)
+        self.assertIn("sprout-progress", html)
+        self.assertIn("我的妙蛙种子", html)
+        self.assertIn("还没有点亮的妙蛙种子，每做完一套点亮一只", html)
+        self.assertIn("未点亮的像素妙蛙种子", html)
+        self.assertNotIn("pikachu-progress", html)
+        self.assertNotIn("我的皮卡丘", html)
+        self.assertNotIn("还没有点亮的皮卡丘", html)
+        figures = self._sprout_figures(html)
+        self.assertEqual(len(figures), sprout.pose_count())
+        self.assertTrue(all("is-unlit" in cls for cls in figures))
+        self.assertEqual(html.count("sprout-cell is-lit"), 0)
+        self.assertGreater(html.count("sprout-cell"), 0)
+        self.assertEqual(self._sprout_plain_captions(html), [])
+
+    def test_other_invite_code_still_gets_pikachu(self):
+        self._create_code(code="CLASS01")
+        self._login(name="Rainie", code="CLASS01")
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("pikachu-progress", html)
+        self.assertIn("我的皮卡丘", html)
+        self.assertNotIn("sprout-progress", html)
+        self.assertNotIn("我的妙蛙种子", html)
+        self.assertEqual(len(self._figures(html)), pikachu.pose_count())
+
+    def test_rainie_code_match_is_case_insensitive(self):
+        self._create_code(code="rainie")
+        self._login(name="Grove Student", code="RAINIE")
+        html = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("sprout-progress", html)
+        self.assertIn("我的妙蛙种子", html)
+        self.assertNotIn("pikachu-progress", html)
+
+    def test_each_submitted_paper_lights_one_sprout_oldest_first(self):
+        self._login_rainie()
+
+        self._start(name="Grove Student", code="Rainie", module="writing")
+        writing = self._submit_writing(name="Grove Student")
+        self.assertEqual(writing.status_code, 200)
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("已点亮 1 只妙蛙种子，每做完一套点亮一只", home)
+        figures = self._sprout_figures(home)
+        self.assertEqual(len(figures), sprout.pose_count())
+        self.assertIn("is-lit", figures[0])
+        self.assertTrue(all("is-unlit" in cls for cls in figures[1:]))
+        self.assertIn("写作 Set A · 待评分", self._sprout_plain_captions(home))
+        self.assertIn("/me/submission/" + writing.get_json()["id"], home)
+
+        self._start(name="Grove Student", code="Rainie", module="reading")
+        reading = self._submit_reading(name="Grove Student")
+        self.assertEqual(reading.status_code, 200)
+        reading_payload = reading.get_json()
+        reading_caption = f"阅读 Set A · {reading_payload['score']}/{reading_payload['total']} · {rs.format_band(reading_payload['band_estimate'])}"
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("已点亮 2 只妙蛙种子，每做完一套点亮一只", home)
+        figures = self._sprout_figures(home)
+        self.assertIn("is-lit", figures[0])
+        self.assertIn("is-lit", figures[1])
+        self.assertTrue(all("is-unlit" in cls for cls in figures[2:]))
+        captions = self._sprout_plain_captions(home)
+        self.assertEqual(captions[0], "写作 Set A · 待评分")
+        self.assertEqual(captions[1], reading_caption)
+        writing_pos = home.find("写作 Set A · 待评分")
+        reading_pos = home.find(reading_caption)
+        self.assertLess(writing_pos, reading_pos)
+
+        self._start(name="Grove Student", code="Rainie", module="listening")
+        listening = self._submit_listening(name="Grove Student")
+        self.assertEqual(listening.status_code, 200)
+        listening_payload = listening.get_json()
+        listening_caption = f"听力 Set A · {listening_payload['score']}/{listening_payload['total']} · {ls.format_band(listening_payload['band_estimate'])}"
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("已点亮 3 只妙蛙种子，每做完一套点亮一只", home)
+        self.assertIn(listening_caption, self._sprout_plain_captions(home))
+
+    def test_speaking_does_not_light_a_sprout(self):
+        rec = self._login_rainie()
+        self._start(name="Grove Student", code="Rainie", module="writing")
+        writing = self._submit_writing(name="Grove Student")
+        self.assertEqual(writing.status_code, 200)
+
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        sid = "speak-0001-bbbb-cccc-dddd-eeeeeeeeeeee"
+        record = {
+            "id": sid,
+            "timestamp": "2026-11-16T12:00:00+08:00",
+            "candidate_name": "Grove Student",
+            "module": "speaking",
+            "mode": "full",
+            "prompt_set_id": "set-a",
+            "time_used_seconds": 12,
+            "invite_code_id": rec["id"],
+        }
+        (appmod.SUBMISSIONS_DIR / f"{sid}.json").write_text(
+            json.dumps(record, ensure_ascii=False), encoding="utf-8"
+        )
+        index.setdefault("submissions", []).insert(0, {
+            "id": sid,
+            "timestamp": record["timestamp"],
+            "candidate_name": "Grove Student",
+            "module": "speaking",
+            "mode": "full",
+            "prompt_set_id": "set-a",
+            "time_used_seconds": 12,
+            "invite_code_id": rec["id"],
+        })
+        appmod.save_index(index)
+
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("已点亮 1 只妙蛙种子，每做完一套点亮一只", home)
+        figures = self._sprout_figures(home)
+        self.assertEqual(len(figures), sprout.pose_count())
+        lit = [cls for cls in figures if "is-lit" in cls]
+        self.assertEqual(len(lit), 1)
+        self.assertEqual(self._sprout_plain_captions(home), ["写作 Set A · 待评分"])
+        self.assertNotIn(sid, home)
+
+    def test_gallery_grows_on_rainie_records_when_attempts_exceed_poses(self):
+        rec = self._login_rainie()
+        extra = 2
+        self._seed_attempts(sprout.pose_count() + extra, rec, name="Grove Student")
+        home = self.client.get("/me").get_data(as_text=True)
+        figures = self._sprout_figures(home)
+        self.assertEqual(len(figures), sprout.pose_count() + extra)
+        self.assertTrue(all("is-lit" in cls for cls in figures))
+        self.assertIn(f"已点亮 {sprout.pose_count() + extra} 只妙蛙种子，每做完一套点亮一只", home)
+        captions = self._sprout_plain_captions(home)
+        self.assertEqual(len(captions), sprout.pose_count() + extra)
+        self.assertTrue(any("待评分" in cap for cap in captions))
+        self.assertTrue(any(cap.startswith("阅读") and "/40" in cap for cap in captions))
+        self.assertNotIn("pikachu-progress", home)
+
+    def test_teacher_writing_score_appears_on_sprout_caption(self):
+        self._login_rainie()
+        self._start(name="Grove Student", code="Rainie", module="writing")
+        submitted = self._submit_writing(name="Grove Student")
+        self.assertEqual(submitted.status_code, 200)
+        sid = submitted.get_json()["id"]
+
+        self._login_admin()
+        saved = self.client.post(
+            f"/admin/submission/{sid}/score",
+            data={
+                "teacher_band": "7.0",
+                "teacher_task1_band": "7",
+                "teacher_task2_band": "7",
+                "teacher_comment": "Clear and organised.",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(saved.status_code, 200)
+
+        # Re-login as the student; admin login may have cleared the student session.
+        self._login(name="Grove Student", code="Rainie")
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("写作 Set A · 7", self._sprout_plain_captions(home))
+        self.assertNotIn("写作 Set A · 待评分", home)
 
 
 

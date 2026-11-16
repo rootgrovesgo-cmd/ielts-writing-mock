@@ -37,6 +37,7 @@ import report_pdf
 import reading_review as rr
 import student_portal as sp
 import pikachu
+import sprout
 import explain_format
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -477,6 +478,22 @@ def speaking():
     return render_template("speaking.html")
 
 
+def mascot_attempts(attempts: list[dict]) -> list[dict]:
+    """Oldest-first papers that light a records-page mascot. Speaking never counts."""
+    items = [item for item in attempts if sp.records_module(item) in sp.RECORDS_MODULES]
+    return list(reversed(items))
+
+
+def records_gallery(ident: dict | None, attempts: list[dict]) -> tuple[str, dict]:
+    """Pick the records mascot from the invite *code string*, not the display name."""
+    invite = access.get_code((ident or {}).get("invite_code_id"))
+    code = (invite or {}).get("code") or ""
+    items = mascot_attempts(attempts)
+    if sprout.is_rainie_code(code):
+        return "sprout", sprout.gallery(items)
+    return "pikachu", pikachu.gallery(items)
+
+
 @app.route("/me")
 def student_home():
     ident = current_student()
@@ -487,12 +504,13 @@ def student_home():
             next=safe_student_next(request.args.get("next")),
         )
     attempts = sp.list_own_attempts(load_index(), ident)
-    oldest_first = list(reversed(attempts))
+    theme, gallery = records_gallery(ident, attempts)
     return render_template(
         "student_home.html",
         student_name=ident.get("candidate_name") or "",
         attempts=attempts,
-        pikachu=pikachu.gallery(oldest_first),
+        gallery=gallery,
+        gallery_theme=theme,
     )
 
 

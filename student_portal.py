@@ -203,11 +203,28 @@ def owns_record(record: dict | None, ident: dict | None) -> bool:
     return bool(rec_name) and rec_name == ident_name
 
 
+RECORDS_MODULES = frozenset({"writing", "reading", "listening"})
+
+
+def records_module(item: dict | None) -> str:
+    """Raw paper module for the records list and mascot gallery.
+
+    Speaking is never included. A missing module is treated as writing, matching
+    older writing-only records.
+    """
+    if not item:
+        return "writing"
+    module = (item.get("module") or "writing").strip().lower()
+    return module
+
+
 def list_own_attempts(index: dict, ident: dict) -> list[dict]:
     items = [
         item
         for item in (index.get("submissions") or [])
-        if owns_record(item, ident) and item.get("id")
+        if owns_record(item, ident)
+        and item.get("id")
+        and records_module(item) in RECORDS_MODULES
     ]
     items.sort(key=lambda s: s.get("timestamp") or "", reverse=True)
     return [summarize_attempt(item) for item in items]

@@ -888,6 +888,7 @@ def api_submit():
 
 PART_TIME_KEYS = ("1", "2", "3")
 LISTENING_PART_TIME_KEYS = ("1", "2", "3", "4")
+SECTION_HIGHLIGHT_KEYS = ("1", "2", "3", "4")
 HIGHLIGHTS_MAX_BYTES = 400_000
 
 
@@ -932,6 +933,15 @@ def normalize_highlights(raw, max_bytes: int = HIGHLIGHTS_MAX_BYTES) -> dict | N
     questions = raw.get("questions")
     if isinstance(questions, str) and questions:
         cleaned["questions"] = questions
+    elif isinstance(questions, dict):
+        questions_out: dict[str, str] = {}
+        for key, html in questions.items():
+            token = str(key).strip()
+            if token not in SECTION_HIGHLIGHT_KEYS or not isinstance(html, str) or not html:
+                continue
+            questions_out[token] = html
+        if questions_out:
+            cleaned["questions"] = questions_out
     if not cleaned:
         return None
     encoded = json.dumps(cleaned, ensure_ascii=False)
@@ -1128,6 +1138,7 @@ def api_listening_submit():
     auto_submitted = bool(data.get("auto_submitted", False))
     paused_total_seconds = int(data.get("paused_total_seconds") or 0)
     part_times = normalize_listening_part_times(data.get("part_times"), duration_seconds)
+    highlights = normalize_highlights(data.get("highlights"))
 
     result = ls.score_paper(answers, mode=mode, keys=keys)
 
@@ -1155,6 +1166,8 @@ def api_listening_submit():
         "user_id": ident.get("user_id"),
         "invite_code_id": ident.get("invite_code_id"),
     }
+    if highlights:
+        record["highlights"] = highlights
 
     out_path = SUBMISSIONS_DIR / f"{sid}.json"
     with out_path.open("w", encoding="utf-8") as f:

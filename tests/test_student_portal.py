@@ -920,18 +920,94 @@ class ListeningPortalTests(StudentPortalTestCase):
         self.assertEqual(review.status_code, 200)
         self.assertIn("listening.js", review.get_data(as_text=True))
 
-    def _client_submit_listening(self, answers):
-        return self.client.post(
-            "/api/listening/submit",
-            json={
-                "candidate_name": "Ada Student",
-                "mode": "full",
-                "prompt_set_id": "set-a",
-                "answers": answers,
-                "duration_seconds": 1800,
-                "time_used_seconds": 1500,
-            },
+    def test_listening_review_restores_highlights_but_not_raw_or_scripts(self):
+        self._create_code()
+        self._start(name="Ada Student", module="listening")
+        phrase = "Bookshop recommendations"
+        stem = "it involves working with a self-organising colony"
+        dirty = {
+            "1": (
+                f'<div class="lis-group">ignored snapshot <mark class="hl">{phrase}</mark></div>'
+                '<script>alert(1)</script>'
+                '<img src=x onerror="alert(1)">'
+            ),
+            "2": (
+                f'<div><mark class="hl">{stem}</mark></div>'
+                "<script>document.cookie</script>"
+                '<img src=x onerror="alert(2)">'
+            ),
+        }
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        res = self._client_submit_listening(answers, highlights={"questions": dirty})
+        self.assertEqual(res.status_code, 200)
+        sid = res.get_json()["id"]
+
+        api = self.client.get(f"/api/me/submission/{sid}")
+        self.assertEqual(api.status_code, 200)
+        payload = api.get_json()
+        rh = payload["review_highlights"]
+        self.assertEqual(rh["questions_by_section"]["1"], [phrase])
+        self.assertEqual(rh["questions_by_section"]["2"], [stem])
+        self.assertEqual(rh["questions"], [phrase, stem])
+        raw = api.get_data(as_text=True)
+        for banned in ("<script", "</script>", "onerror", "alert(1)", "alert(2)", "document.cookie"):
+            self.assertNotIn(banned, raw)
+        self.assertNotIn("ignored snapshot", raw)
+
+        page = self.client.get(f"/me/submission/{sid}").get_data(as_text=True)
+        self.assertIn("回顾模式", page)
+        self.assertIn("btnHighlight", page)
+        self.assertNotIn("<script>alert(1)</script>", page)
+        self.assertNotIn("onerror=", page)
+        js = (ROOT / "static" / "listening.js").read_text(encoding="utf-8")
+        self.assertIn("applyReviewHighlightsTo", js)
+        self.assertIn('mark.className = "hl"', js)
+        self.assertIn("review_highlights", js)
+        self.assertIn("questionHtmlBySection", js)
+        self.assertIn("function updateCurrentHighlight()", js)
+        self.assertNotIn("restoreSectionHighlights(data", js)
+        self.assertNotIn("review_highlights.questions_html", js)
+
+        other = appmod.app.test_client()
+        self._create_code(code="OTHERCODE")
+        login = other.post(
+            "/me/login",
+            data={"candidate_name": "Lin Student", "invite_code": "OTHERCODE"},
         )
+        self.assertIn(login.status_code, (200, 302))
+        stolen = other.get(f"/api/me/submission/{sid}")
+        self.assertEqual(stolen.status_code, 404)
+        stolen_body = stolen.get_data(as_text=True)
+        self.assertNotIn(phrase, stolen_body)
+        self.assertNotIn("review_highlights", stolen_body)
+
+    def test_listening_review_without_highlights_has_no_marks(self):
+        self._create_code()
+        self._start(name="Ada Student", module="listening")
+        answers = {str(q): a for q, a in ls.official_answers().items()}
+        res = self._client_submit_listening(answers)
+        self.assertEqual(res.status_code, 200)
+        sid = res.get_json()["id"]
+        payload = self.client.get(f"/api/me/submission/{sid}").get_json()
+        rh = payload["review_highlights"]
+        self.assertEqual(rh["questions"], [])
+        self.assertEqual(rh.get("questions_by_section") or {}, {})
+        for html in (rh.get("passage_html") or {}).values():
+            self.assertNotIn("<mark", html)
+            self.assertNotIn('class="hl"', html)
+
+    def _client_submit_listening(self, answers, highlights=None):
+        payload = {
+            "candidate_name": "Ada Student",
+            "mode": "full",
+            "prompt_set_id": "set-a",
+            "answers": answers,
+            "duration_seconds": 1800,
+            "time_used_seconds": 1500,
+        }
+        if highlights is not None:
+            payload["highlights"] = highlights
+        return self.client.post("/api/listening/submit", json=payload)
 
 
 
@@ -1578,6 +1654,7 @@ class AdminPaperViewTests(StudentPortalTestCase):
             else:
                 self.assertTrue(payload.get("questions"))
                 self.assertIn("1", payload.get("transcripts") or {})
+                self.assertIn("review_highlights", payload)
 
             student_api = self.client.get(f"/api/me/submission/{sid}")
             self.assertEqual(student_api.status_code, 200, module)

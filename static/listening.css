@@ -338,3 +338,20 @@
   max-width: 520px;
   margin: 0 0 14px;
 }
+
+.listening-hl-tools {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 5px 12px;
+  border-bottom: 1px solid var(--line, #d6d0c8);
+  background: #efeae4;
+  flex-shrink: 0;
+}
+.listening-page .hl-menu {
+  position: fixed;
+}
+.listening-page.attempt-review .listening-hl-tools {
+  display: none;
+}

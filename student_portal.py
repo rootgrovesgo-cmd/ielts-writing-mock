@@ -1553,6 +1553,7 @@ def attempt_review_payload(
                 "mistake_count": detail.get("mistake_count") or 0,
                 "total_questions": detail.get("total_questions") or 0,
                 "transcripts": detail.get("transcripts") or {},
+                "review_highlights": rr.review_highlights(record, paper=paper),
             }
         )
         return payload

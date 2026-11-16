@@ -94,6 +94,11 @@
   <section id="examPanel" class="listening-shell reading-shell{% if not review %} hidden{% endif %}">
     <div id="statusBanner" class="banner info hidden listening-status"></div>
     <div class="section-tabs" id="sectionTabs" role="tablist" aria-label="Sections"></div>
+    <div class="hl-tools listening-hl-tools" id="listeningHlTools">
+      <button type="button" id="btnHighlight" class="btn ghost sm" title="Highlight selected text">Highlight</button>
+      <button type="button" id="btnClearHighlight" class="btn ghost sm" title="Clear highlight from the selection">Clear</button>
+      <button type="button" id="btnAddNote" class="btn ghost sm" title="Add a short note to the selection">Note</button>
+    </div>
     <div class="listening-main">
       <div class="question-scroll" id="questionScroll"></div>
     </div>
@@ -138,6 +143,23 @@
       </div>
     </footer>
   </section>
+
+  <div id="hlMenu" class="hl-menu hidden" role="menu">
+    <button type="button" data-act="highlight">Highlight</button>
+    <button type="button" data-act="note">Add note</button>
+    <button type="button" data-act="clear">Clear highlight</button>
+  </div>
+
+  <div id="noteModal" class="note-modal hidden">
+    <div class="note-modal-card">
+      <h3>Note</h3>
+      <textarea id="noteText" maxlength="240" placeholder="Write a short note…"></textarea>
+      <div class="actions">
+        <button type="button" id="btnNoteSave" class="btn sm">Save</button>
+        <button type="button" id="btnNoteCancel" class="btn ghost sm">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <section id="donePanel" class="wrap hidden">
     <div class="card done-card">

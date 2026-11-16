@@ -438,6 +438,50 @@ class RouteTests(unittest.TestCase):
         self.assertEqual(stolen_html.status_code, 404)
         self.assertNotEqual(stolen_html.status_code, 403)
 
+    def test_submit_stores_section_highlights_without_changing_score(self):
+        self._create_code()
+        self.assertEqual(self._start().status_code, 200)
+        answers = {str(q): a for q, a in OFFICIAL.items()}
+        phrase = "Bookshop recommendations"
+        highlights = {
+            "questions": {
+                "1": f'<div>keep <mark class="hl">{phrase}</mark></div><script>alert(1)</script>',
+                "2": '<p><mark class="hl">it involves working with a self-organising colony</mark></p>',
+            }
+        }
+        res = self.client.post(
+            "/api/listening/submit",
+            json={
+                "candidate_name": "Test Candidate",
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "answers": answers,
+                "duration_seconds": 1800,
+                "time_used_seconds": 1600,
+                "highlights": highlights,
+            },
+        )
+        self.assertEqual(res.status_code, 200, res.get_data(as_text=True))
+        data = res.get_json()
+        self.assertTrue(data["ok"])
+        self.assertEqual(data["score"], 40)
+        self.assertEqual(data["total"], 40)
+        self.assertNotIn("highlights", data)
+        self.assertNotIn("marking", data)
+        sid = data["id"]
+        saved = json.loads((appmod.SUBMISSIONS_DIR / f"{sid}.json").read_text(encoding="utf-8"))
+        self.assertIn("highlights", saved)
+        self.assertIn("1", saved["highlights"]["questions"])
+        self.assertIn(phrase, saved["highlights"]["questions"]["1"])
+        # Client-facing review extracts texts and never echoes stored markup.
+        payload = self.client.get(f"/api/me/submission/{sid}").get_json()
+        rh = payload["review_highlights"]
+        self.assertEqual(rh["questions_by_section"]["1"], [phrase])
+        self.assertIn("it involves working with a self-organising colony", rh["questions"])
+        raw = self.client.get(f"/api/me/submission/{sid}").get_data(as_text=True)
+        self.assertNotIn("<script", raw)
+        self.assertNotIn("alert(1)", raw)
+
 
 if __name__ == "__main__":
     unittest.main()

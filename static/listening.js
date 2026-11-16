@@ -53,6 +53,14 @@
     btnReviewPaper: document.getElementById("btnReviewPaper"),
     btnReviewMistakes: document.getElementById("btnReviewMistakes"),
     btnAgain: document.getElementById("btnAgain"),
+    btnHighlight: document.getElementById("btnHighlight"),
+    btnClearHighlight: document.getElementById("btnClearHighlight"),
+    btnAddNote: document.getElementById("btnAddNote"),
+    hlMenu: document.getElementById("hlMenu"),
+    noteModal: document.getElementById("noteModal"),
+    noteText: document.getElementById("noteText"),
+    btnNoteSave: document.getElementById("btnNoteSave"),
+    btnNoteCancel: document.getElementById("btnNoteCancel"),
   };
 
   const state = {
@@ -89,6 +97,12 @@
     reviewMistakeQs: [],
     transcripts: {},
     showTranscript: false,
+    questionHtmlBySection: {},
+    renderedSection: 0,
+    hlSeq: 0,
+    reviewHighlights: { questions: [], questionsBySection: {} },
+    pendingNoteMark: null,
+    pendingNoteRange: null,
   };
 
   let paper = null;
@@ -218,6 +232,7 @@
   function persist() {
     if (state.attemptReview) return;
     if (!state.running || state.submitted) return;
+    snapshotCurrentSectionHtml();
     const payload = {
       running: true,
       savedAt: Date.now(),
@@ -240,6 +255,8 @@
       audioEnded: state.audioEnded,
       warned5: state.warned5,
       warned1: state.warned1,
+      questionHtmlBySection: Object.assign({}, state.questionHtmlBySection),
+      hlSeq: state.hlSeq,
     };
     try {
       localStorage.setItem(storageKey(state.setId || selectedSetId()), JSON.stringify(payload));
@@ -731,7 +748,422 @@
     return ((paper && paper.sections) || []).find((s) => Number(s.id) === Number(id));
   }
 
+
+  const UNHIGHLIGHTABLE = "input, textarea, select, button, option, area, .map-svg-wrap, .map-box svg, [data-hotspot], .hotspot";
+
+  function snapshotCurrentSectionHtml() {
+    if (state.attemptReview) return;
+    if (!el.questionScroll || !state.renderedSection) return;
+    state.questionHtmlBySection[String(state.renderedSection)] = el.questionScroll.innerHTML;
+  }
+
+  function snapshotAllQuestionHtml() {
+    snapshotCurrentSectionHtml();
+    const out = {};
+    Object.keys(state.questionHtmlBySection).forEach((key) => {
+      const html = state.questionHtmlBySection[key];
+      if (html) out[key] = html;
+    });
+    return out;
+  }
+
+  function refreshHlSeq() {
+    let max = state.hlSeq || 0;
+    if (el.questionScroll) {
+      el.questionScroll.querySelectorAll("mark.hl[data-hid]").forEach((m) => {
+        const n = Number(m.dataset.hid);
+        if (n > max) max = n;
+      });
+    }
+    state.hlSeq = max;
+  }
+
+  function syncAnswersToInputs() {
+    if (!el.questionScroll) return;
+    state.questions.forEach((q) => {
+      const val = state.answers[q] != null ? String(state.answers[q]) : "";
+      const input = document.getElementById("ans-" + q);
+      if (input) {
+        input.value = val;
+        return;
+      }
+      const radios = el.questionScroll.querySelectorAll('input[type="radio"][data-q="' + q + '"]');
+      if (radios.length) {
+        radios.forEach((r) => {
+          r.checked = r.value === val || r.value === val.toUpperCase();
+        });
+        return;
+      }
+      const select = el.questionScroll.querySelector('select[data-q="' + q + '"]');
+      if (select) {
+        select.value = val;
+      }
+    });
+    el.questionScroll.querySelectorAll("input[type=checkbox][data-pair-from]").forEach((box) => {
+      if (box.dataset.pairSynced) return;
+      const from = Number(box.getAttribute("data-pair-from"));
+      const to = Number(box.getAttribute("data-pair-to"));
+      const host = box.closest(".choose-two-box") || el.questionScroll;
+      const boxes = Array.prototype.slice.call(
+        host.querySelectorAll('input[type=checkbox][data-pair-from="' + from + '"]')
+      );
+      const letters = [];
+      for (let q = from; q <= to; q++) {
+        const ans = state.answers[q] != null ? String(state.answers[q]).trim() : "";
+        if (ans) letters.push(ans);
+      }
+      boxes.forEach((node) => {
+        node.dataset.pairSynced = "1";
+        node.checked = letters.indexOf(node.value) >= 0;
+        if (node.checked) node.setAttribute("data-picked-at", String(Date.now()));
+        else node.removeAttribute("data-picked-at");
+      });
+    });
+    el.questionScroll.querySelectorAll("input[type=checkbox][data-pair-from]").forEach((node) => {
+      delete node.dataset.pairSynced;
+    });
+  }
+
+  function restoreSectionHighlights(sectionId) {
+    if (state.attemptReview) return;
+    const html = state.questionHtmlBySection[String(sectionId)];
+    if (!html || !el.questionScroll) return;
+    el.questionScroll.innerHTML = html;
+    syncAnswersToInputs();
+    bindQuestionInputs();
+    refreshHlSeq();
+  }
+
+  function textHighlightRoots() {
+    return [el.questionScroll].filter(Boolean);
+  }
+
+  function nodeIsControl(node) {
+    const eln = node && (node.nodeType === 1 ? node : node.parentElement);
+    if (!eln || typeof eln.closest !== "function") return true;
+    return !!eln.closest(UNHIGHLIGHTABLE);
+  }
+
+  function rangeTouchesControl(range) {
+    if (nodeIsControl(range.startContainer) || nodeIsControl(range.endContainer)) {
+      return true;
+    }
+    const root = range.commonAncestorContainer;
+    const eln = root.nodeType === 1 ? root : root.parentElement;
+    if (!eln || !eln.querySelectorAll) return false;
+    const controls = eln.querySelectorAll(UNHIGHLIGHTABLE);
+    for (let i = 0; i < controls.length; i++) {
+      try {
+        if (range.intersectsNode(controls[i])) return true;
+      } catch (err) {
+        /* ignore */
+      }
+    }
+    return false;
+  }
+
+  function selectionInHighlightable() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return null;
+    const range = sel.getRangeAt(0);
+    if (!String(range).trim()) return null;
+    const ancestor = range.commonAncestorContainer;
+    const node = ancestor.nodeType === 1 ? ancestor : ancestor.parentElement;
+    if (!node || typeof node.closest !== "function") return null;
+    const root = node.closest("#questionScroll");
+    if (!root) return null;
+    if (!root.contains(range.startContainer) || !root.contains(range.endContainer)) return null;
+    if (rangeTouchesControl(range)) return null;
+    return { sel, range, root };
+  }
+
+  function hideHlMenu() {
+    if (el.hlMenu) el.hlMenu.classList.add("hidden");
+  }
+
+  function showHlMenuNear(clientX, clientY) {
+    if (!el.hlMenu || state.attemptReview) return;
+    el.hlMenu.classList.remove("hidden");
+    const x = Math.min(clientX, window.innerWidth - 160);
+    const y = Math.min(clientY, window.innerHeight - 120);
+    el.hlMenu.style.left = x + "px";
+    el.hlMenu.style.top = y + "px";
+  }
+
+  function applyTextHighlight(range) {
+    if (state.attemptReview) return null;
+    const mark = document.createElement("mark");
+    mark.className = "hl";
+    state.hlSeq += 1;
+    mark.dataset.hid = String(state.hlSeq);
+    try {
+      range.surroundContents(mark);
+    } catch (err) {
+      mark.appendChild(range.extractContents());
+      range.insertNode(mark);
+    }
+    window.getSelection().removeAllRanges();
+    persist();
+    return mark;
+  }
+
+  function unwrapMark(mark) {
+    if (!mark || !mark.parentNode) return;
+    const parent = mark.parentNode;
+    while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+    parent.removeChild(mark);
+    parent.normalize();
+  }
+
+  function marksInRange(range) {
+    const marks = [];
+    textHighlightRoots().forEach((root) => {
+      root.querySelectorAll("mark.hl").forEach((m) => {
+        try {
+          if (range.intersectsNode(m)) marks.push(m);
+        } catch (err) {
+          /* ignore */
+        }
+      });
+    });
+    return marks;
+  }
+
+  function activeMark() {
+    for (const root of textHighlightRoots()) {
+      const found = root.querySelector("mark.hl[data-active='1']");
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function doHighlight() {
+    if (state.attemptReview) return;
+    const ctx = selectionInHighlightable();
+    if (!ctx) return;
+    applyTextHighlight(ctx.range);
+    hideHlMenu();
+  }
+
+  function doClearHighlight() {
+    if (state.attemptReview) return;
+    const ctx = selectionInHighlightable();
+    if (ctx) {
+      marksInRange(ctx.range).forEach(unwrapMark);
+      window.getSelection().removeAllRanges();
+    } else {
+      const focused = activeMark();
+      if (focused) unwrapMark(focused);
+    }
+    hideHlMenu();
+    persist();
+  }
+
+  function openNoteModal(mark, range) {
+    if (state.attemptReview) return;
+    state.pendingNoteMark = mark || null;
+    state.pendingNoteRange = range || null;
+    if (el.noteText) el.noteText.value = mark && mark.dataset.note ? mark.dataset.note : "";
+    if (el.noteModal) el.noteModal.classList.remove("hidden");
+    if (el.noteText) el.noteText.focus();
+  }
+
+  function closeNoteModal() {
+    if (el.noteModal) el.noteModal.classList.add("hidden");
+    state.pendingNoteMark = null;
+    state.pendingNoteRange = null;
+  }
+
+  function attachNoteToMark(mark, text) {
+    const note = (text || "").trim();
+    if (!note) {
+      delete mark.dataset.note;
+      mark.classList.remove("has-note");
+      const dot = mark.querySelector(".note-dot");
+      if (dot) dot.remove();
+      mark.removeAttribute("title");
+      return;
+    }
+    mark.dataset.note = note;
+    mark.classList.add("has-note");
+    mark.setAttribute("title", note);
+    if (!mark.querySelector(".note-dot")) {
+      const dot = document.createElement("span");
+      dot.className = "note-dot";
+      dot.setAttribute("aria-hidden", "true");
+      mark.appendChild(dot);
+    }
+  }
+
+  function doAddNote() {
+    if (state.attemptReview) return;
+    hideHlMenu();
+    const active = activeMark();
+    const ctx = selectionInHighlightable();
+    if (active && (!ctx || ctx.range.intersectsNode(active))) {
+      openNoteModal(active, null);
+      return;
+    }
+    if (ctx) {
+      openNoteModal(null, ctx.range);
+      return;
+    }
+    if (active) openNoteModal(active, null);
+  }
+
+  function onHighlightableMouseUp(e) {
+    if (state.attemptReview) return;
+    setTimeout(() => {
+      const ctx = selectionInHighlightable();
+      if (!ctx) {
+        hideHlMenu();
+        return;
+      }
+      showHlMenuNear(e.clientX + 8, e.clientY + 8);
+    }, 0);
+  }
+
+  function onHighlightableClick(e) {
+    if (state.attemptReview) return;
+    const root = e.currentTarget;
+    const mark = e.target.closest("mark.hl");
+    root.querySelectorAll("mark.hl").forEach((m) => m.removeAttribute("data-active"));
+    if (mark && root.contains(mark)) {
+      mark.dataset.active = "1";
+      if (mark.classList.contains("has-note") && !selectionInHighlightable()) {
+        openNoteModal(mark, null);
+      }
+    }
+  }
+
+  function bindTextHighlightUi() {
+    if (el.btnHighlight) el.btnHighlight.addEventListener("click", doHighlight);
+    if (el.btnClearHighlight) el.btnClearHighlight.addEventListener("click", doClearHighlight);
+    if (el.btnAddNote) el.btnAddNote.addEventListener("click", doAddNote);
+    if (el.questionScroll) {
+      el.questionScroll.addEventListener("mouseup", onHighlightableMouseUp);
+      el.questionScroll.addEventListener("click", onHighlightableClick);
+    }
+    if (el.hlMenu) {
+      el.hlMenu.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-act]");
+        if (!btn) return;
+        const act = btn.getAttribute("data-act");
+        if (act === "highlight") doHighlight();
+        else if (act === "clear") doClearHighlight();
+        else if (act === "note") doAddNote();
+      });
+    }
+    document.addEventListener("mousedown", (e) => {
+      if (el.hlMenu && !el.hlMenu.contains(e.target)) hideHlMenu();
+    });
+    if (el.btnNoteSave) {
+      el.btnNoteSave.addEventListener("click", () => {
+        let mark = state.pendingNoteMark;
+        if (!mark && state.pendingNoteRange) {
+          mark = applyTextHighlight(state.pendingNoteRange);
+        }
+        if (mark) attachNoteToMark(mark, el.noteText ? el.noteText.value : "");
+        closeNoteModal();
+        persist();
+      });
+    }
+    if (el.btnNoteCancel) el.btnNoteCancel.addEventListener("click", closeNoteModal);
+  }
+
+  function reviewHighlightTexts(sectionId) {
+    const hl = state.reviewHighlights || {};
+    const bySec = hl.questionsBySection || hl.questions_by_section || {};
+    const key = String(sectionId);
+    if (bySec[key] && bySec[key].length) return bySec[key];
+    if (bySec[sectionId] && bySec[sectionId].length) return bySec[sectionId];
+    return Array.isArray(hl.questions) ? hl.questions : [];
+  }
+
+  function normalizeHighlightText(s) {
+    return String(s || "").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function applyReviewHighlightsTo(root, marks) {
+    if (!root || !marks || !marks.length) return;
+    marks.forEach((raw) => {
+      const needle = normalizeHighlightText(raw);
+      if (needle) wrapReviewHighlight(root, needle);
+    });
+  }
+
+  function wrapReviewHighlight(root, needle) {
+    const skipSel = "script,style,textarea,select,button,input,mark.hl,.q-review-key,.hl-tools,.map-svg-wrap";
+    const nodes = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        if (parent.closest(skipSel)) return NodeFilter.FILTER_REJECT;
+        if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+    if (!nodes.length) return false;
+
+    let orig = "";
+    const map = [];
+    nodes.forEach((n) => {
+      const text = n.nodeValue;
+      for (let i = 0; i < text.length; i++) {
+        map.push({ node: n, offset: i });
+        orig += text[i];
+      }
+    });
+
+    let norm = "";
+    const normMap = [];
+    let prevSpace = false;
+    for (let i = 0; i < orig.length; i++) {
+      const ch = orig[i];
+      const isSpace = ch === "\u00a0" || /\s/.test(ch);
+      if (isSpace) {
+        if (!prevSpace) {
+          norm += " ";
+          normMap.push(i);
+        }
+        prevSpace = true;
+      } else {
+        norm += ch;
+        normMap.push(i);
+        prevSpace = false;
+      }
+    }
+
+    const pos = norm.indexOf(needle);
+    if (pos < 0) return false;
+    const origStart = normMap[pos];
+    const origLast = normMap[pos + needle.length - 1];
+    const start = map[origStart];
+    const end = map[origLast];
+    if (!start || !end) return false;
+    const range = document.createRange();
+    range.setStart(start.node, start.offset);
+    range.setEnd(end.node, end.offset + 1);
+    const mark = document.createElement("mark");
+    mark.className = "hl";
+    try {
+      range.surroundContents(mark);
+    } catch (err) {
+      try {
+        mark.appendChild(range.extractContents());
+        range.insertNode(mark);
+      } catch (err2) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   function renderQuestions() {
+    snapshotCurrentSectionHtml();
     const section = findSection(state.visibleSection);
     if (!el.questionScroll || !section) return;
     const allowed = new Set(state.questions);
@@ -743,6 +1175,12 @@
     });
     el.questionScroll.innerHTML = html;
     bindQuestionInputs();
+    state.renderedSection = Number(section.id);
+    if (state.attemptReview) {
+      applyReviewHighlightsTo(el.questionScroll, reviewHighlightTexts(state.visibleSection));
+    } else {
+      restoreSectionHighlights(state.visibleSection);
+    }
     updateCurrentHighlight();
   }
 
@@ -1279,6 +1717,9 @@
     state.audioSection = saved.audioSection || 0;
     state.audioEnded = !!saved.audioEnded;
     state.paused = !!saved.paused;
+    state.questionHtmlBySection = saved.questionHtmlBySection || {};
+    state.hlSeq = saved.hlSeq || 0;
+    state.renderedSection = 0;
     if (state.paused) {
       state.remaining = saved.remaining || 0;
       state.partTickAt = null;
@@ -1347,6 +1788,9 @@
         state.visibleSection = sectionIdForQuestion(state.currentQ);
         state.audioSection = 0;
         state.audioEnded = false;
+        state.questionHtmlBySection = {};
+        state.hlSeq = 0;
+        state.renderedSection = 0;
       }
     }
     if (!paper || !paper.sections) {
@@ -1468,6 +1912,9 @@
         "4": state.partTimes[4] || 0,
       },
       auto_submitted: !!auto,
+      highlights: {
+        questions: snapshotAllQuestionHtml(),
+      },
     };
 
     el.btnSubmit.disabled = true;
@@ -1535,6 +1982,8 @@
     }
     if (el.btnToggleTranscript) el.btnToggleTranscript.classList.remove("hidden");
     if (el.audioProgress) el.audioProgress.classList.add("is-seekable");
+    const tools = document.querySelector(".hl-tools");
+    if (tools) tools.classList.add("hidden");
   }
 
   function renderTranscript(sectionId) {
@@ -1614,6 +2063,11 @@
         .map((row) => row.q);
       state.transcripts = data.transcripts || {};
       state.flags = {};
+      const rh = data.review_highlights || {};
+      state.reviewHighlights = {
+        questions: Array.isArray(rh.questions) ? rh.questions : [],
+        questionsBySection: rh.questions_by_section || rh.questionsBySection || {},
+      };
       state.duration = data.time_used_seconds || 0;
       state.remaining = 0;
       state.currentQ = state.questions[0];
@@ -1715,6 +2169,8 @@
       if (state.showTranscript) renderTranscript(state.visibleSection || state.audioSection || 1);
     });
   }
+
+  bindTextHighlightUi();
 
   if (window.REVIEW_CONFIG && window.REVIEW_CONFIG.sid) {
     enterAttemptReview();

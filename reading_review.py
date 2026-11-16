@@ -369,10 +369,32 @@ def highlight_texts_from_record(record: dict | None) -> dict:
             if marks:
                 passage_out[key] = marks
     questions = []
+    questions_by_section: dict[str, list[str]] = {}
     qhtml = payload.get("questions")
     if isinstance(qhtml, str) and qhtml:
         questions = extract_highlight_marks(qhtml)
-    return {"passage": passage_out, "questions": questions}
+    elif isinstance(qhtml, dict):
+        def _section_key(key) -> tuple:
+            token = str(key).strip()
+            try:
+                return (0, int(token))
+            except (TypeError, ValueError):
+                return (1, token)
+
+        for key in sorted(qhtml, key=_section_key):
+            html = qhtml[key]
+            if not isinstance(html, str) or not html:
+                continue
+            marks = extract_highlight_marks(html)
+            if not marks:
+                continue
+            questions_by_section[str(key).strip()] = marks
+            questions.extend(marks)
+    return {
+        "passage": passage_out,
+        "questions": questions,
+        "questions_by_section": questions_by_section,
+    }
 
 
 def official_passage_html(passage: dict | None) -> str:
@@ -527,6 +549,7 @@ def review_highlights(record: dict | None, paper: dict | None = None) -> dict:
     return {
         "passage": texts.get("passage") or {},
         "questions": list(texts.get("questions") or []),
+        "questions_by_section": dict(texts.get("questions_by_section") or {}),
         "passage_html": passage_html,
     }
 

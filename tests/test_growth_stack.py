@@ -160,31 +160,40 @@ class BestBandTests(unittest.TestCase):
 
 
 class SpriteTests(unittest.TestCase):
-    def test_each_sprite_renders_non_empty(self):
-        self.assertEqual(len(gs.SPRITES), 8)
+    BANNED = (
+        "pikachu",
+        "pokemon",
+        "pokémon",
+        "poké",
+        "poke ball",
+        "pokeball",
+        "charmander",
+        "squirtle",
+        "bulbasaur",
+        "jigglypuff",
+        "togepi",
+        "eevee",
+        "psyduck",
+        "nintendo",
+    )
+
+    def test_each_stage_has_distinct_svg(self):
+        self.assertEqual(len(gs._STAGE_DRAW), 8)
         seen = set()
         for stage_id in gs.STAGE_IDS:
-            rows = gs.SPRITES[stage_id]
             with self.subTest(stage_id=stage_id):
-                self.assertTrue(rows)
-                widths = {len(line) for line in rows}
-                self.assertEqual(len(widths), 1)
-                letters = {ch for line in rows for ch in line if ch != "."}
-                self.assertTrue(letters)
-                self.assertTrue(letters <= gs.COLOR_LETTERS)
-                self.assertIn("K", letters)
-                key = tuple(rows)
-                self.assertNotIn(key, seen)
-                seen.add(key)
-                lit = gs.sprite_cells(rows, lit=True)
-                unlit = gs.sprite_cells(rows, lit=False)
-                self.assertEqual(lit["cols"] * lit["rows"], len(lit["cells"]))
-                painted = [c for c in lit["cells"] if not c["empty"]]
-                self.assertTrue(painted)
-                self.assertTrue(all(c["lit"] and c["color"] for c in painted))
-                grey = [c for c in unlit["cells"] if not c["empty"]]
-                self.assertEqual(len(grey), len(painted))
-                self.assertTrue(all(not c["lit"] for c in grey))
+                lit = gs.stage_svg(stage_id, lit=True)
+                unlit = gs.stage_svg(stage_id, lit=False)
+                self.assertIn("<svg", lit)
+                self.assertIn("<svg", unlit)
+                self.assertIn('class="growth-stack-svg is-lit"', lit)
+                self.assertIn('class="growth-stack-svg is-unlit"', unlit)
+                self.assertNotEqual(lit, unlit)
+                self.assertIn(gs.UNLIT_FILL, unlit)
+                self.assertNotIn("image-rendering:pixelated", lit)
+                self.assertNotIn("image-rendering: pixelated", lit)
+                self.assertNotIn(lit, seen)
+                seen.add(lit)
 
     def test_gallery_has_eight_top_down_stages(self):
         data = gs.gallery(7.0)
@@ -205,8 +214,13 @@ class SpriteTests(unittest.TestCase):
         current = [s["id"] for s in data["stages"] if s["current"]]
         self.assertEqual(current, ["sprout"])
         for fig in data["stages"]:
-            painted = [c for c in fig["cells"] if not c["empty"]]
-            self.assertTrue(painted)
+            self.assertIn("<svg", fig["svg"])
+            if fig["lit"]:
+                self.assertIn("is-lit", fig["svg"])
+                self.assertNotEqual(fig["svg"], gs.stage_svg(fig["id"], lit=False))
+            else:
+                self.assertIn("is-unlit", fig["svg"])
+                self.assertIn(gs.UNLIT_FILL, fig["svg"])
 
     def test_gallery_from_scores_and_empty_state(self):
         data = gs.gallery(scores={"reading": 8.0, "official_score": 9.0, "speaking": 9.0})
@@ -229,7 +243,9 @@ class RenderTests(unittest.TestCase):
         self.assertIn("当前最高 7.0", markup)
         self.assertIn('class="growth-stack"', markup)
         self.assertIn('data-band="7.0"', markup)
-        self.assertIn("image-rendering: pixelated", markup)
+        self.assertNotIn("image-rendering: pixelated", markup)
+        self.assertNotIn("image-rendering:pixelated", markup)
+        self.assertEqual(markup.count("<svg"), 8)
         self.assertEqual(markup.count('<li class="growth-stack-stage '), 8)
         self.assertEqual(markup.count('<li class="growth-stack-stage is-lit'), 4)
         self.assertEqual(markup.count('<li class="growth-stack-stage is-unlit'), 4)
@@ -240,18 +256,27 @@ class RenderTests(unittest.TestCase):
         self.assertIn("is-empty", gs.render(None))
         self.assertNotIn("/tmp/growth-ref", markup)
         self.assertNotIn("stack.png", markup)
+        lowered = markup.lower()
+        for name in SpriteTests.BANNED:
+            self.assertNotIn(name, lowered)
 
-    def test_css_palette_matches_module(self):
+    def test_css_is_illustration_not_pixel_grid(self):
         css = (ROOT / "static" / "growth_stack.css").read_text(encoding="utf-8")
-        self.assertIn("image-rendering: pixelated", css)
+        self.assertNotIn("image-rendering: pixelated", css)
+        self.assertNotIn("image-rendering:pixelated", css)
+        self.assertNotIn("growth-stack-cell", css)
+        self.assertNotIn("grid-auto-rows: 4px", css)
+        self.assertNotIn("width: 4px", css)
+        self.assertNotIn("height: 4px", css)
         self.assertIn("background: #f3e6b0", css)
-        for letter, hexcol in gs.PALETTE.items():
-            self.assertIn(f".growth-stack-cell.is-lit.growth-{letter} {{ background: {hexcol}; }}", css)
         source = Path(gs.__file__).read_text(encoding="utf-8")
         self.assertIn("never", source.lower())
         self.assertNotIn("/tmp/growth-ref", source)
         self.assertNotIn("stack.png", css)
         self.assertNotIn("stack.png", source)
+        lowered = (css + chr(10) + source).lower()
+        for name in SpriteTests.BANNED:
+            self.assertNotIn(name, lowered)
 
 
 if __name__ == "__main__":

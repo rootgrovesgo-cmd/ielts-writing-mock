@@ -1,13 +1,13 @@
-/* Rounded illustration totem. Colors live with the inline SVG in growth_stack.py. */
+/* Pixel totem widget. Color letters stay in sync with growth_stack.PALETTE. */
 
 .growth-stack {
   box-sizing: border-box;
-  width: 156px;
+  width: 180px;
   max-width: 100%;
   margin: 0;
   padding: 12px 8px 14px;
   background: #f3e6b0;
-  border-radius: 22px;
+  border-radius: 18px;
   text-align: center;
   color: #3a342c;
   font-family: inherit;
@@ -46,8 +46,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 4px;
-  margin: -18px 0 0;
+  gap: 6px;
+  margin: -12px 0 0;
   position: relative;
 }
 
@@ -65,23 +65,55 @@
 .growth-stack-stage:nth-child(8) { z-index: 8; }
 
 .growth-stack-sprite {
+  display: grid;
+  grid-template-columns: repeat(var(--growth-cols, 32), 4px);
+  grid-auto-rows: 4px;
+  width: calc(var(--growth-cols, 32) * 4px);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
   flex: 0 0 auto;
-  width: 112px;
-  line-height: 0;
 }
 
-.growth-stack-svg {
-  display: block;
-  width: 112px;
-  height: auto;
-  overflow: visible;
+.growth-stack-cell {
+  width: 4px;
+  height: 4px;
+  background: transparent;
 }
+
+.growth-stack-cell.is-unlit { background: #c4bdb4; }
+.growth-stack-cell.is-empty { background: transparent; }
+.growth-stack-cell.is-lit.growth-K { background: #2a2826; }
+.growth-stack-cell.is-lit.growth-W { background: #fffdf7; }
+.growth-stack-cell.is-lit.growth-Y { background: #f6d34a; }
+.growth-stack-cell.is-lit.growth-H { background: #ffea7a; }
+.growth-stack-cell.is-lit.growth-D { background: #e0b03a; }
+.growth-stack-cell.is-lit.growth-B { background: #7a4c22; }
+.growth-stack-cell.is-lit.growth-R { background: #e05650; }
+.growth-stack-cell.is-lit.growth-F { background: #d2a06a; }
+.growth-stack-cell.is-lit.growth-T { background: #9a6438; }
+.growth-stack-cell.is-lit.growth-C { background: #fff3d8; }
+.growth-stack-cell.is-lit.growth-E { background: #fffaf0; }
+.growth-stack-cell.is-lit.growth-O { background: #f09a64; }
+.growth-stack-cell.is-lit.growth-N { background: #e07848; }
+.growth-stack-cell.is-lit.growth-A { background: #f8d4b4; }
+.growth-stack-cell.is-lit.growth-P { background: #f5b6c0; }
+.growth-stack-cell.is-lit.growth-J { background: #fbd0d6; }
+.growth-stack-cell.is-lit.growth-I { background: #e8909c; }
+.growth-stack-cell.is-lit.growth-L { background: #7ec85e; }
+.growth-stack-cell.is-lit.growth-V { background: #4e9a4a; }
+.growth-stack-cell.is-lit.growth-M { background: #8ad8c4; }
+.growth-stack-cell.is-lit.growth-G { background: #b4ead8; }
+.growth-stack-cell.is-lit.growth-S { background: #5eae9c; }
+.growth-stack-cell.is-lit.growth-Q { background: #84d0ee; }
+.growth-stack-cell.is-lit.growth-U { background: #5aa8d0; }
+.growth-stack-cell.is-lit.growth-X { background: #d8c08c; }
+.growth-stack-cell.is-lit.growth-Z { background: #c4a66c; }
 
 .growth-stack-stage-band {
   flex: 0 0 28px;
   font-size: 10px;
   line-height: 1;
-  padding-bottom: 14px;
+  padding-bottom: 8px;
   color: #8a8276;
   font-variant-numeric: tabular-nums;
   text-align: left;
@@ -96,6 +128,6 @@
   color: #7a4e12;
 }
 
-.growth-stack-stage.is-current .growth-stack-svg {
-  filter: drop-shadow(0 0 6px rgba(215, 168, 62, 0.5));
+.growth-stack-stage.is-current .growth-stack-sprite {
+  filter: drop-shadow(0 0 5px rgba(215, 168, 62, 0.45));
 }

@@ -257,6 +257,7 @@ def summarize_attempt(item: dict) -> dict:
         "band_label": band,
         "teacher_band": teacher_band,
         "teacher_band_label": format_teacher_band(teacher_band) if module == "writing" else None,
+        "teacher_scored_at": item.get("teacher_scored_at") or "",
         "task1_word_count": item.get("task1_word_count") if module == "writing" else None,
         "task2_word_count": item.get("task2_word_count") if module == "writing" else None,
         "auto_submitted": bool(item.get("auto_submitted")),
@@ -266,24 +267,29 @@ def summarize_attempt(item: dict) -> dict:
 
 
 def growth_stack_scores(attempts: list[dict] | None) -> list[dict]:
-    """Usable reading, listening, and teacher-writing bands for the growth stack.
+    """Usable reading, listening, and teacher-writing bands for the top-average widget.
 
     Reading and listening use the same official/reference band already shown
     on 我的记录 (``band_estimate`` / ``band_label``). Writing contributes
     only the teacher band, never ``official_score`` or other hidden auto
     scores. Speaking papers and papers with no usable half-band are skipped.
+    Timestamps are passed through so a later paper can raise the average.
     """
     scores: list[dict] = []
     for item in attempts or []:
         module = records_module(item)
         if module not in RECORDS_MODULES:
             continue
+        meta = {
+            "timestamp": item.get("timestamp") or "",
+            "teacher_scored_at": item.get("teacher_scored_at") or "",
+        }
         if module == "writing":
             band = item.get("teacher_band")
             if band in (None, ""):
                 band = writing_teacher_band(item)
             if band is not None:
-                scores.append({"module": "writing", "teacher_band": band})
+                scores.append({"module": "writing", "teacher_band": band, **meta})
             continue
         band = item.get("band_estimate")
         if band in (None, ""):
@@ -291,7 +297,7 @@ def growth_stack_scores(attempts: list[dict] | None) -> list[dict]:
         if band in (None, ""):
             band = item.get("band_label")
         if band not in (None, ""):
-            scores.append({"module": module, "band_estimate": band})
+            scores.append({"module": module, "band_estimate": band, **meta})
     return scores
 
 

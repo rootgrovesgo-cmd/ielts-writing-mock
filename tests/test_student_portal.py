@@ -23,7 +23,7 @@ import reading_scoring as rs  # noqa: E402
 import listening_scoring as ls  # noqa: E402
 import pikachu  # noqa: E402
 import sprout  # noqa: E402
-import growth_stack as gs  # noqa: E402
+import top_average as ta  # noqa: E402
 
 # Throwaway credentials used only in tests. Not production values.
 TEST_ADMIN_USER = "TestAdmin"
@@ -668,17 +668,19 @@ class ReviewContentTests(StudentPortalTestCase):
         self.assertIn("查看整卷", home)
         self.assertNotIn("查看错题", home)
         self.assertIn("55min12s", home)
-        # The growth-stack widget always labels stages 5.5–9.0, including 7.5,
-        # but a hidden writing official/auto score must not light it or appear
-        # as a writing result on 我的记录.
+        # A hidden writing official/auto score must not enter the highest-three
+        # average or appear as a writing result on 我的记录.
         self.assertNotIn("参考分数", home)
         self.assertNotIn("教师评分 7", home)
         self.assertNotIn("教师评分 7.5", home)
         self.assertIn("待评分", home)
-        self.assertIn('class="growth-stack is-empty"', home)
-        self.assertIn("暂无评分", home)
+        self.assertIn('class="top-average is-empty"', home)
+        self.assertIn("完成一次练习，这里就会亮起来", home)
+        self.assertNotIn("暂无评分", home)
+        self.assertNotIn("成长进度", home)
         self.assertNotIn("当前最高", home)
         self.assertNotIn("official_score", home)
+        self.assertNotIn("growth-stack", home)
 
         detail = self.client.get(f"/me/submission/{sid}")
         self.assertEqual(detail.status_code, 200)
@@ -2036,7 +2038,7 @@ class RainieSproutGalleryTests(StudentPortalTestCase):
 
 
 class GrowthStackScoresTests(unittest.TestCase):
-    def test_best_band_uses_teacher_writing_and_reference_scores(self):
+    def test_average_uses_teacher_writing_and_reference_scores(self):
         attempts = [
             {"module": "reading", "band_label": "6.5", "band_estimate": 6.5},
             {"module": "listening", "band_label": "7.0"},
@@ -2045,10 +2047,12 @@ class GrowthStackScoresTests(unittest.TestCase):
             {"module": "writing", "official_score": 8.5},
         ]
         scores = sp.growth_stack_scores(attempts)
-        self.assertEqual(gs.best_growth_band(scores), 7.0)
+        data = ta.snapshot(scores)
+        self.assertEqual(data["average_label"], "6.50")
         modules = [row["module"] for row in scores]
         self.assertEqual(modules, ["reading", "listening", "writing"])
         self.assertTrue(all("official_score" not in row for row in scores))
+        self.assertEqual({part["module"] for part in data["parts"]}, {"reading", "listening", "writing"})
 
     def test_empty_scores_when_nothing_usable(self):
         self.assertEqual(sp.growth_stack_scores([]), [])
@@ -2060,7 +2064,7 @@ class GrowthStackScoresTests(unittest.TestCase):
             ]),
             [],
         )
-        self.assertIsNone(gs.best_growth_band(sp.growth_stack_scores(None)))
+        self.assertTrue(ta.snapshot(sp.growth_stack_scores(None))["empty"])
 
 
 class GrowthStackRecordsTests(StudentPortalTestCase):
@@ -2102,7 +2106,7 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             "time_used_seconds": 12,
             "invite_code_id": rec["id"],
         }
-        for key in ("score", "total", "band_estimate", "teacher_band", "official_score"):
+        for key in ("score", "total", "band_estimate", "teacher_band", "official_score", "teacher_scored_at"):
             if key in record:
                 index_row[key] = record[key]
         index.setdefault("submissions", []).insert(0, index_row)
@@ -2113,13 +2117,17 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
         self._create_code()
         self._login()
         html = self.client.get("/me").get_data(as_text=True)
-        self.assertIn('class="growth-stack is-empty"', html)
-        self.assertIn("成长进度", html)
-        self.assertIn("暂无评分", html)
+        self.assertIn('class="top-average is-empty"', html)
+        self.assertIn("最高三项平均分", html)
+        self.assertIn("完成一次练习，这里就会亮起来", html)
+        self.assertNotIn("成长进度", html)
+        self.assertNotIn("暂无评分", html)
+        self.assertNotIn("growth-stack", html)
         self.assertIn("pikachu-progress", html)
         self.assertNotIn("sprout-progress", html)
         self.assertIn("records-progress-row", html)
         self.assertNotIn("growth_stack.css", html)
+        self.assertNotIn("top_average.css", html)
 
         rainie = appmod.app.test_client()
         self._create_code(code="Rainie")
@@ -2128,12 +2136,14 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             data={"candidate_name": "Grove Student", "invite_code": "Rainie"},
         )
         rainie_html = rainie.get("/me").get_data(as_text=True)
-        self.assertIn('class="growth-stack is-empty"', rainie_html)
-        self.assertIn("成长进度", rainie_html)
+        self.assertIn('class="top-average is-empty"', rainie_html)
+        self.assertIn("最高三项平均分", rainie_html)
         self.assertIn("sprout-progress", rainie_html)
         self.assertIn("我的妙蛙种子", rainie_html)
         self.assertNotIn("pikachu-progress", rainie_html)
         self.assertIn("sprout-gallery", rainie_html)
+        self.assertNotIn("成长进度", rainie_html)
+        self.assertNotIn("growth-stack", rainie_html)
 
     def test_empty_state_when_no_scores(self):
         rec = self._create_code()
@@ -2143,16 +2153,17 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
         self.assertEqual(submitted.status_code, 200)
 
         html = self.client.get("/me").get_data(as_text=True)
-        self.assertIn("成长进度", html)
-        self.assertIn("暂无评分", html)
-        self.assertIn('class="growth-stack is-empty"', html)
+        self.assertIn("最高三项平均分", html)
+        self.assertIn("完成一次练习，这里就会亮起来", html)
+        self.assertIn('class="top-average is-empty"', html)
+        self.assertNotIn("成长进度", html)
+        self.assertNotIn("暂无评分", html)
         self.assertNotIn("当前最高", html)
-        self.assertEqual(html.count('<li class="growth-stack-stage is-lit'), 0)
-        self.assertEqual(html.count('<li class="growth-stack-stage is-unlit'), 8)
+        self.assertNotIn("growth-stack", html)
         self.assertIn("pikachu-progress", html)
         self.assertIn("写作 Set A · 待评分", html)
 
-        # A speaking paper still leaves the stack empty.
+        # A speaking paper still leaves the widget empty.
         self._add_index_row(
             rec,
             name="Ada Student",
@@ -2161,9 +2172,11 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             band_estimate=9.0,
         )
         html = self.client.get("/me").get_data(as_text=True)
-        self.assertIn('class="growth-stack is-empty"', html)
-        self.assertIn("暂无评分", html)
+        self.assertIn('class="top-average is-empty"', html)
+        self.assertIn("完成一次练习，这里就会亮起来", html)
+        self.assertNotIn("暂无评分", html)
         self.assertNotIn("speak-empty", html)
+        self.assertNotIn("9.0", html.split("attempt-list")[0] if "attempt-list" in html else html)
 
     def test_best_band_ignores_speaking_and_writing_official_score(self):
         rec = self._create_code()
@@ -2174,6 +2187,7 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             module="writing",
             id="write-off-bbbb-cccc-dddd-eeeeeeeeeeee",
             official_score=9.0,
+            timestamp="2026-11-16T09:00:00+08:00",
         )
         self._add_index_row(
             rec,
@@ -2183,6 +2197,7 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             score=28,
             total=40,
             band_estimate=6.5,
+            timestamp="2026-11-16T10:00:00+08:00",
         )
         self._add_index_row(
             rec,
@@ -2192,6 +2207,7 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             score=25,
             total=40,
             band_estimate=6.0,
+            timestamp="2026-11-16T11:00:00+08:00",
         )
         self._add_index_row(
             rec,
@@ -2199,32 +2215,47 @@ class GrowthStackRecordsTests(StudentPortalTestCase):
             module="speaking",
             id="speak-band-bbbb-cccc-dddd-eeeeeeeeeeee",
             band_estimate=9.0,
+            timestamp="2026-11-16T12:00:00+08:00",
         )
 
         html = self.client.get("/me").get_data(as_text=True)
-        self.assertIn('class="growth-stack" data-band="6.5"', html)
-        self.assertIn("当前最高 6.5", html)
-        self.assertEqual(html.count('<li class="growth-stack-stage is-lit'), 3)
+        # Reading 6.5 and listening 6.0; writing official_score and speaking stay out.
+        self.assertIn('class="top-average"', html)
+        self.assertIn('data-average="6.25"', html)
+        self.assertIn("已计入 2 次成绩，再完成一次会更稳", html)
+        self.assertIn("阅读 6.5", html)
+        self.assertIn("听力 6.0", html)
+        self.assertNotIn("写作 9", html)
+        self.assertNotIn("写作 9.0", html)
         self.assertIn("pikachu-progress", html)
         self.assertNotIn("sprout-progress", html)
         self.assertNotIn("speak-band", html)
+        self.assertNotIn("成长进度", html)
+        self.assertNotIn("growth-stack", html)
 
-        # Teacher writing band becomes the new best; hidden official_score stays ignored.
+        # Teacher writing band joins the top three; hidden official_score stays ignored.
         writing_path = appmod.SUBMISSIONS_DIR / "write-off-bbbb-cccc-dddd-eeeeeeeeeeee.json"
         record = json.loads(writing_path.read_text(encoding="utf-8"))
         record["teacher_band"] = 8.0
+        record["teacher_scored_at"] = "2026-11-16T18:00:00+08:00"
         writing_path.write_text(json.dumps(record, ensure_ascii=False), encoding="utf-8")
         index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
         for row in index.get("submissions") or []:
             if row.get("id") == "write-off-bbbb-cccc-dddd-eeeeeeeeeeee":
                 row["teacher_band"] = 8.0
+                row["teacher_scored_at"] = "2026-11-16T18:00:00+08:00"
         appmod.save_index(index)
 
         html = self.client.get("/me").get_data(as_text=True)
-        self.assertIn('class="growth-stack" data-band="8.0"', html)
-        self.assertIn("当前最高 8.0", html)
-        self.assertEqual(html.count('<li class="growth-stack-stage is-lit'), 6)
+        self.assertIn('data-average="6.83"', html)
+        self.assertIn('data-delta="0.58"', html)
+        self.assertIn("比上次高 0.58", html)
+        self.assertIn("三项成绩都到齐了，继续保持", html)
+        self.assertIn("写作 8.0", html)
+        self.assertIn("阅读 6.5", html)
+        self.assertIn("听力 6.0", html)
         self.assertIn("写作 Set A · 8", html)
+        self.assertNotIn("当前最高", html)
 
 
 if __name__ == "__main__":

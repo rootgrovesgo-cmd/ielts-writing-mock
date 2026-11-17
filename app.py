@@ -38,7 +38,7 @@ import reading_review as rr
 import student_portal as sp
 import pikachu
 import sprout
-import growth_stack
+import top_average
 import explain_format
 from markupsafe import Markup
 
@@ -507,14 +507,14 @@ def student_home():
         )
     attempts = sp.list_own_attempts(load_index(), ident)
     theme, gallery = records_gallery(ident, attempts)
-    growth_html = Markup(growth_stack.render(scores=sp.growth_stack_scores(attempts)))
+    growth_html = Markup(top_average.render(scores=sp.growth_stack_scores(attempts)))
     return render_template(
         "student_home.html",
         student_name=ident.get("candidate_name") or "",
         attempts=attempts,
         gallery=gallery,
         gallery_theme=theme,
-        growth_stack_html=growth_html,
+        top_average_html=growth_html,
     )
 
 
@@ -1445,6 +1445,7 @@ def admin_submission_score(sid: str):
         teacher_band=overall,
         teacher_task1_band=task1,
         teacher_task2_band=task2,
+        teacher_scored_at=record["teacher_scored_at"],
     )
     flash(f"已保存写作评分：{sp.format_teacher_band(overall)}。", "success")
     return redirect(url_for("admin_submission", sid=sid))

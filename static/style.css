@@ -1249,7 +1249,7 @@ table.completion-table th {
   gap: 16px;
   margin-bottom: 16px;
 }
-.records-progress-row .growth-stack {
+.records-progress-row .top-average {
   flex: 0 0 auto;
 }
 .records-mascot {

@@ -67,6 +67,7 @@ class SetListTests(unittest.TestCase):
         sets = ls.list_listening_sets()
         ids = [item["id"] for item in sets]
         self.assertEqual(ids[:2], ["set-a", "set-b"])
+        self.assertEqual(ids, ["set-a", "set-b", "set-c"])
         self.assertIn("set-a", ids)
         self.assertIn("set-b", ids)
         default_paper = ls.load_paper()
@@ -267,6 +268,7 @@ class RouteTests(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         ids = [item["id"] for item in res.get_json()]
         self.assertEqual(ids[:2], ["set-a", "set-b"])
+        self.assertEqual(ids, ["set-a", "set-b", "set-c"])
         default = self.client.get("/api/listening/paper")
         self.assertEqual(default.status_code, 200)
         self.assertEqual(default.get_json()["id"], "set-a")

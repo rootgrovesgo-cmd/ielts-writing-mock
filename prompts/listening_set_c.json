@@ -1,0 +1,565 @@
+{
+  "id": "set-c",
+  "title": "Set C · Academic Listening",
+  "check_seconds": 120,
+  "sections": [
+    {
+      "id": 1,
+      "title": "Section 1",
+      "context": "A conversation in which a woman books a weekend shuttle to a harvest fair.",
+      "audio": {
+        "file": "section1.mp3",
+        "duration_seconds": 294
+      },
+      "groups": [
+        {
+          "id": "s1-notes",
+          "from": 1,
+          "to": 5,
+          "type": "notes",
+          "heading": "Questions 1–5",
+          "instructions": [
+            "Complete the notes below.",
+            "Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer."
+          ],
+          "word_limit": {
+            "max_words": 2,
+            "allow_number": true
+          },
+          "notes": {
+            "title": "Langridge Harvest Fair — weekend shuttle",
+            "sections": [
+              {
+                "heading": "The service",
+                "items": [
+                  {
+                    "parts": [
+                      "First bus departs at: ",
+                      {
+                        "q": 1
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Nearest stop: ",
+                      {
+                        "q": 2
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Destination shown on the timetable: ",
+                      {
+                        "q": 3
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Service number: ",
+                      {
+                        "q": 4
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Earlier departure (from the depot only): ",
+                      {
+                        "q": 5
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "s1-fares",
+          "from": 6,
+          "to": 10,
+          "type": "notes_table",
+          "heading": "Questions 6–10",
+          "instructions": [
+            "Complete the table below.",
+            "Write ONE WORD AND/OR A NUMBER for each answer."
+          ],
+          "word_limit": {
+            "max_words": 1,
+            "allow_number": true
+          },
+          "table": {
+            "title": "Fares",
+            "headers": [
+              "Ticket",
+              "Cash",
+              "Travel card"
+            ],
+            "rows": [
+              [
+                [
+                  [
+                    "Day return (before 9.30 am)"
+                  ]
+                ],
+                [
+                  [
+                    "£",
+                    {
+                      "q": 6
+                    }
+                  ]
+                ],
+                [
+                  [
+                    "£4.20"
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    "Day return (after ",
+                    {
+                      "q": 7
+                    },
+                    ")"
+                  ]
+                ],
+                [
+                  [
+                    "£6.50"
+                  ]
+                ],
+                [
+                  [
+                    "£",
+                    {
+                      "q": 8
+                    }
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    {
+                      "q": 9
+                    },
+                    " service"
+                  ]
+                ],
+                [
+                  [
+                    "£8.00"
+                  ]
+                ],
+                [
+                  [
+                    "not available"
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    "Family ticket (includes a ",
+                    {
+                      "q": 10
+                    },
+                    ")"
+                  ]
+                ],
+                [
+                  [
+                    "£18"
+                  ]
+                ],
+                [
+                  [
+                    "£15"
+                  ]
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Section 2",
+      "context": "A welcome talk by the coordinator of a community tool library.",
+      "audio": {
+        "file": "section2.mp3",
+        "duration_seconds": 311
+      },
+      "groups": [
+        {
+          "id": "s2-mcq",
+          "from": 11,
+          "to": 16,
+          "type": "mcq",
+          "heading": "Questions 11–16",
+          "instructions": [
+            "Choose the correct letter, A, B or C."
+          ],
+          "items": [
+            {
+              "q": 11,
+              "stem": "The speaker was surprised to discover that",
+              "options": {
+                "A": "membership of the library had fallen",
+                "B": "most loans were for garden tools",
+                "C": "many reserved tools were never collected"
+              }
+            },
+            {
+              "q": 12,
+              "stem": "New members can immediately",
+              "options": {
+                "A": "book a session in the wood workshop",
+                "B": "download the inventory app",
+                "C": "join a weekend repair class"
+              }
+            },
+            {
+              "q": 13,
+              "stem": "What pleased the speaker about the insurance provider was",
+              "options": {
+                "A": "the low cost of the premium",
+                "B": "how quickly a claim was processed",
+                "C": "the range of optional extra cover"
+              }
+            },
+            {
+              "q": 14,
+              "stem": "The speaker had a problem with",
+              "options": {
+                "A": "a battery charger that overheated",
+                "B": "the usage meter on a tile cutter",
+                "C": "an online booking that was recorded twice"
+              }
+            },
+            {
+              "q": 15,
+              "stem": "The next method the library will try is",
+              "options": {
+                "A": "posting video tutorials",
+                "B": "offering more evening drop-in sessions",
+                "C": "introducing a locker collection system"
+              }
+            },
+            {
+              "q": 16,
+              "stem": "The speaker is doubtful about weekend deliveries because",
+              "options": {
+                "A": "the library van is unreliable",
+                "B": "the service would be too expensive to run",
+                "C": "insurance would not cover a staffed delivery"
+              }
+            }
+          ]
+        },
+        {
+          "id": "s2-ct-1718",
+          "from": 17,
+          "to": 18,
+          "type": "choose_two",
+          "heading": "Questions 17 and 18",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO tips does the speaker NOT recommend?",
+          "options": {
+            "A": "oiling blades before returning them",
+            "B": "storing batteries in a refrigerator",
+            "C": "labelling borrowed boxes with a membership number",
+            "D": "tightening drill chucks with pliers",
+            "E": "photographing any damage when collecting an item"
+          }
+        },
+        {
+          "id": "s2-ct-1920",
+          "from": 19,
+          "to": 20,
+          "type": "choose_two",
+          "heading": "Questions 19 and 20",
+          "instructions": [
+            "Choose TWO letters, A–E."
+          ],
+          "stem": "Which TWO topics do people most frequently ask about?",
+          "options": {
+            "A": "how to renew a late loan",
+            "B": "whether children may enter the workshop",
+            "C": "how donations of tools are valued",
+            "D": "whether safety glasses are provided",
+            "E": "how to volunteer as a fixer"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Section 3",
+      "context": "Two university students discussing a presentation on the conversion of disused textile mills into arts venues.",
+      "audio": {
+        "file": "section3.mp3",
+        "duration_seconds": 360
+      },
+      "groups": [
+        {
+          "id": "s3-mcq",
+          "from": 21,
+          "to": 25,
+          "type": "mcq",
+          "heading": "Questions 21–25",
+          "instructions": [
+            "Choose the correct letter, A, B or C."
+          ],
+          "items": [
+            {
+              "q": 21,
+              "stem": "The assessment is marked as incomplete if students",
+              "options": {
+                "A": "use more than ten slides",
+                "B": "do not include a primary source",
+                "C": "work as a pair rather than alone"
+              }
+            },
+            {
+              "q": 22,
+              "stem": "Keira wants to remove some of the photographs because",
+              "options": {
+                "A": "they are of poor quality",
+                "B": "they would take too long to talk through",
+                "C": "the tutor has already seen them"
+              }
+            },
+            {
+              "q": 23,
+              "stem": "What do they agree to do about the uncertain construction date?",
+              "options": {
+                "A": "leave the date out of the presentation",
+                "B": "present it as a definite fact",
+                "C": "include it but show that it is uncertain"
+              }
+            },
+            {
+              "q": 24,
+              "stem": "Felix wants to include the example of Kelmara Mill because",
+              "options": {
+                "A": "the tutor has written an article about it",
+                "B": "the audience will already recognise it",
+                "C": "it has the best photographs"
+              }
+            },
+            {
+              "q": 25,
+              "stem": "They agree to leave out the quay warehouse conversion because",
+              "options": {
+                "A": "another group is already presenting it",
+                "B": "there is not enough published research",
+                "C": "the building has been demolished"
+              }
+            }
+          ]
+        },
+        {
+          "id": "s3-match",
+          "from": 26,
+          "to": 30,
+          "type": "matching",
+          "heading": "Questions 26–30",
+          "instructions": [
+            "What does each statement refer to?",
+            "Choose FIVE answers from the box and write the correct letter, A–F, next to questions 26–30."
+          ],
+          "legend": [
+            {
+              "key": "A",
+              "text": "The argument was hard to follow"
+            },
+            {
+              "key": "B",
+              "text": "Start with a research question"
+            },
+            {
+              "key": "C",
+              "text": "They repeat claims from promotional websites"
+            },
+            {
+              "key": "D",
+              "text": "He had to present immediately after a very confident group"
+            },
+            {
+              "key": "E",
+              "text": "To show how funding sources affect the final design"
+            },
+            {
+              "key": "F",
+              "text": "The projector failed"
+            }
+          ],
+          "items": [
+            {
+              "q": 26,
+              "stem": "why Keira's last presentation was criticised"
+            },
+            {
+              "q": 27,
+              "stem": "what the tutor suggested they do next time"
+            },
+            {
+              "q": 28,
+              "stem": "what people do because they do not know enough about the topic"
+            },
+            {
+              "q": 29,
+              "stem": "why Felix felt nervous"
+            },
+            {
+              "q": 30,
+              "stem": "why they are comparing two categories of conversion"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Section 4",
+      "context": "A lecture on the conservation of seahorses in a temperate estuary.",
+      "audio": {
+        "file": "section4.mp3",
+        "duration_seconds": 263
+      },
+      "groups": [
+        {
+          "id": "s4-notes",
+          "from": 31,
+          "to": 40,
+          "type": "notes",
+          "heading": "Questions 31–40",
+          "instructions": [
+            "Complete the notes below.",
+            "Write ONE WORD ONLY for each answer."
+          ],
+          "word_limit": {
+            "max_words": 1,
+            "allow_number": false
+          },
+          "notes": {
+            "title": "Seahorses in the Eddow estuary",
+            "sections": [
+              {
+                "heading": "Habitat and population",
+                "items": [
+                  {
+                    "parts": [
+                      "Found mainly in beds of ",
+                      {
+                        "q": 31
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Breeding takes place in late ",
+                      {
+                        "q": 32
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "A historic low was recorded in 1996"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Population size is difficult to ",
+                      {
+                        "q": 33
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "heading": "Threats",
+                "items": [
+                  {
+                    "parts": [
+                      "Human activity: in particular ",
+                      {
+                        "q": 34
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Predators: mainly certain ",
+                      {
+                        "q": 35
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Natural disasters: winter ",
+                      {
+                        "q": 36
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "heading": "Protection measures",
+                "items": [
+                  {
+                    "parts": [
+                      "Recruit a local ",
+                      {
+                        "q": 37
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Build a ",
+                      {
+                        "q": 38
+                      },
+                      " to keep boats off the beds"
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Also necessary to protect ",
+                      {
+                        "q": 39
+                      }
+                    ]
+                  },
+                  {
+                    "parts": [
+                      "Public awareness has been raised through local ",
+                      {
+                        "q": 40
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

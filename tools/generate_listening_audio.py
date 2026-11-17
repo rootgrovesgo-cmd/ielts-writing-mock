@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate listening mp3s from tools/listening_script.py (Set A) or tools/listening_script_set_b.py (Set B) using edge-tts + ffmpeg.
+"""Generate listening mp3s from tools/listening_script.py (Set A) or tools/listening_script_set_b.py (Set B) or tools/listening_script_set_c.py (Set C) using edge-tts + ffmpeg.
 
 Audio is pre-generated practice TTS, not official Cambridge recordings.
 Do not add edge-tts to the web app requirements — this script is build-time only.
@@ -25,6 +25,11 @@ def script_config(set_id: str) -> tuple[dict, dict, Path, Path]:
         from listening_script_set_b import SECTIONS, VOICES  # noqa: E402
         out_dir = ROOT / "static" / "audio" / "listening_set_b"
         paper_path = ROOT / "prompts" / "listening_set_b.json"
+        return SECTIONS, VOICES, out_dir, paper_path
+    if token == "set-c":
+        from listening_script_set_c import SECTIONS, VOICES  # noqa: E402
+        out_dir = ROOT / "static" / "audio" / "listening_set_c"
+        paper_path = ROOT / "prompts" / "listening_set_c.json"
         return SECTIONS, VOICES, out_dir, paper_path
     from listening_script import SECTIONS, VOICES  # noqa: E402
     out_dir = ROOT / "static" / "audio" / "listening_set_a"
@@ -241,8 +246,8 @@ async def main_async(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate Listening Set A or Set B mp3s")
-    parser.add_argument("--set", choices=["set-a", "set-b"], default="set-a")
+    parser = argparse.ArgumentParser(description="Generate Listening Set A, Set B or Set C mp3s")
+    parser.add_argument("--set", choices=["set-a", "set-b", "set-c"], default="set-a")
     parser.add_argument("--section", type=int, action="append", choices=[1, 2, 3, 4])
     parser.add_argument("--force", action="store_true", help="Regenerate clips even if cached")
     parser.add_argument("--work", type=Path, help="Working directory for intermediate clips")

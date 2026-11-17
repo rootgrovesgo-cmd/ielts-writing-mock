@@ -1,0 +1,509 @@
+{
+  "set_id": "set-c",
+  "questions": {
+    "1": {
+      "answer": "8.15",
+      "type": "notes",
+      "prediction": "空格在 First bus departs at 后面，应填出发时间，注意可能出现被更正的时间干扰。",
+      "logic": "题目要的是首班车出发时间。原文先指出网站仍显示去年的八点三十，随后说明那是过时信息，并给出真正时间：The first bus actually departs at eight fifteen。九点是第二班，不是首班。",
+      "audio_quote": "Gareth: “The first bus actually departs at **eight fifteen**. There's a later one at nine o'clock, but that's the second departure, not the first.”",
+      "alternatives": [
+        "8:15",
+        "08.15",
+        "08:15",
+        "8.15am",
+        "8:15am",
+        "8.15 am",
+        "8.15a.m."
+      ],
+      "word_limit": {
+        "max_words": 2,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 First bus departs at 后面，应填出发时间，注意可能出现被更正的时间干扰。\n考点与原文逻辑替换：题目要的是首班车出发时间。原文先指出网站仍显示去年的八点三十，随后说明那是过时信息，并给出真正时间：The first bus actually departs at eight fifteen。九点是第二班，不是首班。\n跟音：Gareth: “The first bus actually departs at **eight fifteen**. There's a later one at nine o'clock, but that's the second departure, not the first.”"
+    },
+    "2": {
+      "answer": "hospital gates",
+      "type": "notes",
+      "prediction": "空格在 Nearest stop 后面，应填离问询者最近的停靠站名称，可能是两个词。",
+      "logic": "题目要的是离她最近的车站。火车站那一站已关闭，retail park 那一站要走很远。原文把 nearest stop to you now 替换成 hospital gates，并补充它在 Park Road 尽头、门诊入口对面。",
+      "audio_quote": "Gareth: “The nearest stop to you now is the **hospital gates** — that's at the end of Park Road, opposite the outpatients' entrance.”",
+      "alternatives": [
+        "Hospital Gates"
+      ],
+      "word_limit": {
+        "max_words": 2,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 Nearest stop 后面，应填离问询者最近的停靠站名称，可能是两个词。\n考点与原文逻辑替换：题目要的是离她最近的车站。火车站那一站已关闭，retail park 那一站要走很远。原文把 nearest stop to you now 替换成 hospital gates，并补充它在 Park Road 尽头、门诊入口对面。\n跟音：Gareth: “The nearest stop to you now is the **hospital gates** — that's at the end of Park Road, opposite the outpatients' entrance.”"
+    },
+    "3": {
+      "answer": "west pavilion",
+      "type": "notes",
+      "prediction": "空格在 Destination shown on the timetable 后面，应填时刻表上的终到站或目的地名称。",
+      "logic": "题目要的是时刻表上的目的地，不是乘客常下车的地方。许多人在 town square 下车，但车会继续开，终点是 west pavilion。原文用 the destination you want on the timetable 直接对应题干。",
+      "audio_quote": "Gareth: “So the destination you want on the timetable is **west pavilion**.”",
+      "alternatives": [
+        "West Pavilion"
+      ],
+      "word_limit": {
+        "max_words": 2,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 Destination shown on the timetable 后面，应填时刻表上的终到站或目的地名称。\n考点与原文逻辑替换：题目要的是时刻表上的目的地，不是乘客常下车的地方。许多人在 town square 下车，但车会继续开，终点是 west pavilion。原文用 the destination you want on the timetable 直接对应题干。\n跟音：Gareth: “So the destination you want on the timetable is **west pavilion**.”"
+    },
+    "4": {
+      "answer": "R12",
+      "type": "notes",
+      "prediction": "空格在 Service number 后面，应填线路编号，可能是字母加数字的组合。",
+      "logic": "题目要的是周末班车的线路号。邻人所说的 fourteen 是工作日通勤线，周末不停。原文随即更正：The weekend shuttle is service R twelve。",
+      "audio_quote": "Gareth: “The weekend shuttle is service **R twelve** — that's the letter R, then twelve.”",
+      "alternatives": [
+        "r12",
+        "R 12",
+        "r 12"
+      ],
+      "word_limit": {
+        "max_words": 2,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 Service number 后面，应填线路编号，可能是字母加数字的组合。\n考点与原文逻辑替换：题目要的是周末班车的线路号。邻人所说的 fourteen 是工作日通勤线，周末不停。原文随即更正：The weekend shuttle is service R twelve。\n跟音：Gareth: “The weekend shuttle is service **R twelve** — that's the letter R, then twelve.”"
+    },
+    "5": {
+      "answer": "7.40",
+      "type": "notes",
+      "prediction": "空格在 Earlier departure 后面，应填一班更早的出发时间。",
+      "logic": "题目要的是更早一班的发车时间。原文用 an earlier departure at seven forty 对应题干，并说明这班只从车场始发。曾经有过的六点三十已经取消。",
+      "audio_quote": "Gareth: “If you need to be there before the stalls open, there's an earlier departure at **seven forty**.”",
+      "alternatives": [
+        "7:40",
+        "07.40",
+        "07:40",
+        "7.40am",
+        "7:40am",
+        "7.40 am"
+      ],
+      "word_limit": {
+        "max_words": 2,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 Earlier departure 后面，应填一班更早的出发时间。\n考点与原文逻辑替换：题目要的是更早一班的发车时间。原文用 an earlier departure at seven forty 对应题干，并说明这班只从车场始发。曾经有过的六点三十已经取消。\n跟音：Gareth: “If you need to be there before the stalls open, there's an earlier departure at **seven forty**.”"
+    },
+    "6": {
+      "answer": "5.80",
+      "type": "notes_table",
+      "prediction": "空格在早上 9.30 前的 Day return 现金票价栏，应填一个价格。",
+      "logic": "题目要的是高峰日前往返的现金票价。原文把 cash fare 说成 five pounds eighty。six fifty 是去年的旧价，four pounds twenty 是同一班次的 travel card 价格，已印在表里。",
+      "audio_quote": "Gareth: “For a day return leaving before nine thirty in the morning, the cash fare is **five pounds eighty**.”",
+      "alternatives": [
+        "£5.80",
+        "5.80 pounds",
+        "5.8"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在早上 9.30 前的 Day return 现金票价栏，应填一个价格。\n考点与原文逻辑替换：题目要的是高峰日前往返的现金票价。原文把 cash fare 说成 five pounds eighty。six fifty 是去年的旧价，four pounds twenty 是同一班次的 travel card 价格，已印在表里。\n跟音：Gareth: “For a day return leaving before nine thirty in the morning, the cash fare is **five pounds eighty**.”"
+    },
+    "7": {
+      "answer": "16.00",
+      "type": "notes_table",
+      "prediction": "空格在 Day return (after …) 中，应填开始实行较便宜票价的钟点。",
+      "logic": "题目要的是非高峰往返票开始的时间。原文先说 after four o'clock in the afternoon，随即明确 that's sixteen hundred，并说明不是三点（fifteen hundred）。",
+      "audio_quote": "Gareth: “The cheaper off-peak day return starts after four o'clock in the afternoon — that's **sixteen hundred**, not three o'clock.”",
+      "alternatives": [
+        "16:00",
+        "4pm",
+        "4.00pm",
+        "4:00pm",
+        "4.00",
+        "16.00pm"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 Day return (after …) 中，应填开始实行较便宜票价的钟点。\n考点与原文逻辑替换：题目要的是非高峰往返票开始的时间。原文先说 after four o'clock in the afternoon，随即明确 that's sixteen hundred，并说明不是三点（fifteen hundred）。\n跟音：Gareth: “The cheaper off-peak day return starts after four o'clock in the afternoon — that's **sixteen hundred**, not three o'clock.”"
+    },
+    "8": {
+      "answer": "3.25",
+      "type": "notes_table",
+      "prediction": "空格在非高峰 Day return 的 Travel card 一栏，应填一个价格。",
+      "logic": "题目要的是非高峰往返的 travel card 票价。原文说 with a travel card it's three pounds twenty-five。six pounds fifty 是同一时段的现金价，three fifty 是旧卡价。",
+      "audio_quote": "Gareth: “Cash for that off-peak return is six pounds fifty, and with a travel card it's **three pounds twenty-five**.”",
+      "alternatives": [
+        "£3.25",
+        "3.25 pounds"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在非高峰 Day return 的 Travel card 一栏，应填一个价格。\n考点与原文逻辑替换：题目要的是非高峰往返的 travel card 票价。原文说 with a travel card it's three pounds twenty-five。six pounds fifty 是同一时段的现金价，three fifty 是旧卡价。\n跟音：Gareth: “Cash for that off-peak return is six pounds fifty, and with a travel card it's **three pounds twenty-five**.”"
+    },
+    "9": {
+      "answer": "express",
+      "type": "notes_table",
+      "prediction": "空格在 service 前面，应填一种服务类型或修饰词，对应现金八英镑、不能用 travel card 的那一档。",
+      "logic": "题目要的是票种或服务类型。原文用 There is an express service 对应空格，并说明该服务走旁路、现金八镑、不能刷卡。她问到的 night service 周末并不运行。",
+      "audio_quote": "Gareth: “There is an **express** service, which goes via the bypass and skips the town square.”",
+      "alternatives": [
+        "Express"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 service 前面，应填一种服务类型或修饰词，对应现金八英镑、不能用 travel card 的那一档。\n考点与原文逻辑替换：题目要的是票种或服务类型。原文用 There is an express service 对应空格，并说明该服务走旁路、现金八镑、不能刷卡。她问到的 night service 周末并不运行。\n跟音：Gareth: “There is an **express** service, which goes via the bypass and skips the town square.”"
+    },
+    "10": {
+      "answer": "programme",
+      "type": "notes_table",
+      "prediction": "空格在 Family ticket (includes a …) 中，应填家庭票所包含的一件物品。",
+      "logic": "题目要的是家庭票包含的附加项。原文说 that includes a programme — the printed guide to the stalls，并排除 meal 和 parking。",
+      "audio_quote": "Gareth: “A family ticket is eighteen pounds cash, or fifteen with a travel card, and that includes a **programme** — the printed guide to the stalls.”",
+      "alternatives": [
+        "program",
+        "Programme"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "explanation": "预测：空格在 Family ticket (includes a …) 中，应填家庭票所包含的一件物品。\n考点与原文逻辑替换：题目要的是家庭票包含的附加项。原文说 that includes a programme — the printed guide to the stalls，并排除 meal 和 parking。\n跟音：Gareth: “A family ticket is eighteen pounds cash, or fifteen with a travel card, and that includes a **programme** — the printed guide to the stalls.”"
+    },
+    "11": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问的是演讲者感到惊讶的发现（was surprised to discover），不是一般事实。听时抓住 What surprised me。",
+      "logic": "会员人数并没有下降，预订的工具也几乎都会被取走，这两点只是附带说明。原文把 surprised 替换成 What surprised me was that the majority of loans were actually for garden tools，对应选项 B。",
+      "audio_quote": "Mara Ellison: “What surprised me was that the majority of loans were actually for **garden tools** — hedge trimmers, spades, that kind of thing — not drills and saws.”",
+      "explanation": "预测：题干问的是演讲者感到惊讶的发现（was surprised to discover），不是一般事实。听时抓住 What surprised me。\n考点与原文逻辑替换：会员人数并没有下降，预订的工具也几乎都会被取走，这两点只是附带说明。原文把 surprised 替换成 What surprised me was that the majority of loans were actually for garden tools，对应选项 B。\n跟音：Mara Ellison: “What surprised me was that the majority of loans were actually for **garden tools** — hedge trimmers, spades, that kind of thing — not drills and saws.”"
+    },
+    "12": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问新会员可以立刻做的事（immediately / straight away），需区分需要等待的项目。",
+      "logic": "木工车间要先完成 induction 才能预约，周末修理课下个月才开始。原文把 immediately 替换成 The one thing you can do straight away is download the inventory app，对应选项 B。",
+      "audio_quote": "Mara Ellison: “The one thing you can do straight away is **download the inventory app**. It shows what's on the shelves in real time, and you can reserve items from your phone.”",
+      "explanation": "预测：题干问新会员可以立刻做的事（immediately / straight away），需区分需要等待的项目。\n考点与原文逻辑替换：木工车间要先完成 induction 才能预约，周末修理课下个月才开始。原文把 immediately 替换成 The one thing you can do straight away is download the inventory app，对应选项 B。\n跟音：Mara Ellison: “The one thing you can do straight away is **download the inventory app**. It shows what's on the shelves in real time, and you can reserve items from your phone.”"
+    },
+    "13": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问的是保险服务中让演讲者感到满意的一点（pleased），不是被否定的特点。",
+      "logic": "保费并不低，附加险也不多，这两点被明确排除。原文用 What did please me, though, was how quickly they processed a claim 对应选项 B。",
+      "audio_quote": "Mara Ellison: “What did please me, though, was **how quickly they processed a claim** last autumn, when a borrowed sander was damaged.”",
+      "explanation": "预测：题干问的是保险服务中让演讲者感到满意的一点（pleased），不是被否定的特点。\n考点与原文逻辑替换：保费并不低，附加险也不多，这两点被明确排除。原文用 What did please me, though, was how quickly they processed a claim 对应选项 B。\n跟音：Mara Ellison: “What did please me, though, was **how quickly they processed a claim** last autumn, when a borrowed sander was damaged.”"
+    },
+    "14": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问的是设备或读数方面遇到的困难（had a problem with），听时抓住 The problem was。",
+      "logic": "充电器过热和网上预订被记了两次都被否定。原文把困难说成 the usage meter on the tile cutter: the reading kept jumping，对应选项 B。",
+      "audio_quote": "Mara Ellison: “The problem was the **usage meter on the tile cutter**: the reading kept jumping, so we couldn't tell whether the machine was due for a service.”",
+      "explanation": "预测：题干问的是设备或读数方面遇到的困难（had a problem with），听时抓住 The problem was。\n考点与原文逻辑替换：充电器过热和网上预订被记了两次都被否定。原文把困难说成 the usage meter on the tile cutter: the reading kept jumping，对应选项 B。\n跟音：Mara Ellison: “The problem was the **usage meter on the tile cutter**: the reading kept jumping, so we couldn't tell whether the machine was due for a service.”"
+    },
+    "15": {
+      "answer": "C",
+      "type": "mcq",
+      "prediction": "题干问的是接下来将尝试的方法（the next method），不是已经做过或暂不扩大的做法。",
+      "logic": "视频教程只是考虑过、耗时太长；晚间 drop-in 虽受欢迎但暂不扩大。原文用 The next method we're going to try is a locker collection system 对应选项 C。",
+      "audio_quote": "Mara Ellison: “The next method we're going to try is a **locker collection system**, so you can pick up reserved tools after we close.”",
+      "explanation": "预测：题干问的是接下来将尝试的方法（the next method），不是已经做过或暂不扩大的做法。\n考点与原文逻辑替换：视频教程只是考虑过、耗时太长；晚间 drop-in 虽受欢迎但暂不扩大。原文用 The next method we're going to try is a locker collection system 对应选项 C。\n跟音：Mara Ellison: “The next method we're going to try is a **locker collection system**, so you can pick up reserved tools after we close.”"
+    },
+    "16": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问的是演讲者对周末送货表示怀疑的原因（doubtful / hesitant），需抓住真正的理由。",
+      "logic": "货车并不不可靠，保险也可以覆盖有人随车的配送。原文把 doubtful 的原因说成 it would be too expensive to run for the small number of requests，对应选项 B。",
+      "audio_quote": "Mara Ellison: “The reason I'm hesitant is that it would be **too expensive to run** for the small number of requests we actually receive.”",
+      "explanation": "预测：题干问的是演讲者对周末送货表示怀疑的原因（doubtful / hesitant），需抓住真正的理由。\n考点与原文逻辑替换：货车并不不可靠，保险也可以覆盖有人随车的配送。原文把 doubtful 的原因说成 it would be too expensive to run for the small number of requests，对应选项 B。\n跟音：Mara Ellison: “The reason I'm hesitant is that it would be **too expensive to run** for the small number of requests we actually receive.”"
+    },
+    "17": {
+      "answer": "B",
+      "type": "choose_two",
+      "prediction": "17–18 题要选演讲者明确不推荐的两项建议（NOT recommend），需区分她赞成的做法与反对的做法。本题先关注电池存放。",
+      "logic": "本题对应选项 B。原文用 What I would not recommend is storing batteries in a refrigerator 直接对应 B。上油、贴会员号、拍照记录损坏都是她赞成的做法。另一正确项是 D。",
+      "audio_quote": "Mara Ellison: “What I would not recommend is **storing batteries in a refrigerator**. Despite what you may have read, the moisture can damage them.”",
+      "pair": [
+        17,
+        18
+      ],
+      "explanation": "预测：17–18 题要选演讲者明确不推荐的两项建议（NOT recommend），需区分她赞成的做法与反对的做法。本题先关注电池存放。\n考点与原文逻辑替换：本题对应选项 B。原文用 What I would not recommend is storing batteries in a refrigerator 直接对应 B。上油、贴会员号、拍照记录损坏都是她赞成的做法。另一正确项是 D。\n跟音：Mara Ellison: “What I would not recommend is **storing batteries in a refrigerator**. Despite what you may have read, the moisture can damage them.”"
+    },
+    "18": {
+      "answer": "D",
+      "type": "choose_two",
+      "prediction": "17–18 题要选演讲者明确不推荐的两项建议。本题关注她提醒不要用错误工具操作的那一项。",
+      "logic": "本题对应选项 D。原文用 never tighten a drill chuck with pliers 对应 D，并说明会损坏夹头。另一正确项是 B。",
+      "audio_quote": "Mara Ellison: “And never **tighten a drill chuck with pliers**; you'll ruin the jaws. Use the key that's supplied, or just your hand.”",
+      "pair": [
+        17,
+        18
+      ],
+      "explanation": "预测：17–18 题要选演讲者明确不推荐的两项建议。本题关注她提醒不要用错误工具操作的那一项。\n考点与原文逻辑替换：本题对应选项 D。原文用 never tighten a drill chuck with pliers 对应 D，并说明会损坏夹头。另一正确项是 B。\n跟音：Mara Ellison: “And never **tighten a drill chuck with pliers**; you'll ruin the jaws. Use the key that's supplied, or just your hand.”"
+    },
+    "19": {
+      "answer": "B",
+      "type": "choose_two",
+      "prediction": "19–20 题要选人们最常询问的两个话题（most frequently ask about），需与偶尔提到或几乎不问的话题区分开。本题先关注工作坊准入。",
+      "logic": "本题对应选项 B。原文用 The two topics people most frequently ask about are whether children can come into the workshop … and whether safety glasses are provided 点出 B。捐赠估值和做志愿者只是偶尔被问；逾期续借几乎没人问。另一正确项是 D。",
+      "audio_quote": "Mara Ellison: “The two topics people most frequently ask about are whether **children can come into the workshop** — and the answer is yes, if they're with an adult and wearing closed shoes — and whether safety glasses are provided.”",
+      "pair": [
+        19,
+        20
+      ],
+      "explanation": "预测：19–20 题要选人们最常询问的两个话题（most frequently ask about），需与偶尔提到或几乎不问的话题区分开。本题先关注工作坊准入。\n考点与原文逻辑替换：本题对应选项 B。原文用 The two topics people most frequently ask about are whether children can come into the workshop … and whether safety glasses are provided 点出 B。捐赠估值和做志愿者只是偶尔被问；逾期续借几乎没人问。另一正确项是 D。\n跟音：Mara Ellison: “The two topics people most frequently ask about are whether **children can come into the workshop** — and the answer is yes, if they're with an adult and wearing closed shoes — and whether safety glasses are provided.”"
+    },
+    "20": {
+      "answer": "D",
+      "type": "choose_two",
+      "prediction": "19–20 题要选人们最常询问的两个话题。本题关注防护用品是否提供。",
+      "logic": "本题对应选项 D。原文在 most frequently ask about 后同时给出工作坊儿童准入和 whether safety glasses are provided，对应 D。另一正确项是 B。",
+      "audio_quote": "Mara Ellison: “The two topics people most frequently ask about are whether children can come into the workshop … and whether **safety glasses are provided**. They are, in the dispenser by the door.”",
+      "pair": [
+        19,
+        20
+      ],
+      "explanation": "预测：19–20 题要选人们最常询问的两个话题。本题关注防护用品是否提供。\n考点与原文逻辑替换：本题对应选项 D。原文在 most frequently ask about 后同时给出工作坊儿童准入和 whether safety glasses are provided，对应 D。另一正确项是 B。\n跟音：Mara Ellison: “The two topics people most frequently ask about are whether children can come into the workshop … and whether **safety glasses are provided**. They are, in the dispenser by the door.”"
+    },
+    "21": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问的是什么情况下评估会被判为 incomplete，也就是硬性要求或不合格条件，不是轻微扣分项。",
+      "logic": "幻灯片超过十张、两人一组都不构成问题。原文把硬性要求说成 If you don't include at least one — an interview, or an archive document — the assessment is marked as incomplete，对应选项 B。超时只扣少量分数。",
+      "audio_quote": "Keira: “If you don't include at least one — an interview, or an archive document — the assessment is **marked as incomplete**.”",
+      "explanation": "预测：题干问的是什么情况下评估会被判为 incomplete，也就是硬性要求或不合格条件，不是轻微扣分项。\n考点与原文逻辑替换：幻灯片超过十张、两人一组都不构成问题。原文把硬性要求说成 If you don't include at least one — an interview, or an archive document — the assessment is marked as incomplete，对应选项 B。超时只扣少量分数。\n跟音：Keira: “If you don't include at least one — an interview, or an archive document — the assessment is **marked as incomplete**.”"
+    },
+    "22": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问 Keira 想删掉部分照片的原因，听时抓住她否定掉的理由和真正的问题。",
+      "logic": "照片质量其实没问题，导师也还没看过这组图。原文把原因说成 they'd take too long to talk through，几张图几乎是同一个院落角落，对应选项 B。",
+      "audio_quote": "Keira: “The problem is they'd **take too long to talk through**. Three of them show almost the same corner of the yard, and we'd spend minutes repeating ourselves.”",
+      "explanation": "预测：题干问 Keira 想删掉部分照片的原因，听时抓住她否定掉的理由和真正的问题。\n考点与原文逻辑替换：照片质量其实没问题，导师也还没看过这组图。原文把原因说成 they'd take too long to talk through，几张图几乎是同一个院落角落，对应选项 B。\n跟音：Keira: “The problem is they'd **take too long to talk through**. Three of them show almost the same corner of the yard, and we'd spend minutes repeating ourselves.”"
+    },
+    "23": {
+      "answer": "C",
+      "type": "mcq",
+      "prediction": "题干问两人如何处理不确定的建造年代，需抓住他们达成一致的处理方式。",
+      "logic": "他们既不同意把它当成确定事实，也不主张完全删掉日期。原文用 keep it but make it clear it's uncertain / we can say 'around eighteen forty' 对应选项 C。",
+      "audio_quote": "Keira: “Let's keep it but make it clear it's **uncertain** — we can say 'around eighteen forty'.”",
+      "explanation": "预测：题干问两人如何处理不确定的建造年代，需抓住他们达成一致的处理方式。\n考点与原文逻辑替换：他们既不同意把它当成确定事实，也不主张完全删掉日期。原文用 keep it but make it clear it's uncertain / we can say 'around eighteen forty' 对应选项 C。\n跟音：Keira: “Let's keep it but make it clear it's **uncertain** — we can say 'around eighteen forty'.”"
+    },
+    "24": {
+      "answer": "B",
+      "type": "mcq",
+      "prediction": "题干问 Felix 坚持保留这个广为人知的例子的原因，需区分他真正看重的点。",
+      "logic": "导师并没有写过相关文章，照片也不是最好的。原文用 The audience will already recognise it, and it illustrates the mixed-use model more clearly 说明他看重的是听众已经认识这个例子，对应选项 B。",
+      "audio_quote": "Felix: “The audience will already **recognise it**, and it illustrates the mixed-use model more clearly than the quieter examples.”",
+      "explanation": "预测：题干问 Felix 坚持保留这个广为人知的例子的原因，需区分他真正看重的点。\n考点与原文逻辑替换：导师并没有写过相关文章，照片也不是最好的。原文用 The audience will already recognise it, and it illustrates the mixed-use model more clearly 说明他看重的是听众已经认识这个例子，对应选项 B。\n跟音：Felix: “The audience will already **recognise it**, and it illustrates the mixed-use model more clearly than the quieter examples.”"
+    },
+    "25": {
+      "answer": "A",
+      "type": "mcq",
+      "prediction": "题干问两人同意放弃码头仓库案例的原因，听时抓住被排除的理由和最后达成的共识。",
+      "logic": "建筑并未拆除，发表过的研究也并不少。原文说明 another seminar group has already taken that building，再补上 Let's drop the quay warehouse because of the overlap，对应选项 A。",
+      "audio_quote": "Felix: “The difficulty, though, is that **another seminar group has already taken that building**. If we include it, we'll just be repeating their case.”",
+      "explanation": "预测：题干问两人同意放弃码头仓库案例的原因，听时抓住被排除的理由和最后达成的共识。\n考点与原文逻辑替换：建筑并未拆除，发表过的研究也并不少。原文说明 another seminar group has already taken that building，再补上 Let's drop the quay warehouse because of the overlap，对应选项 A。\n跟音：Felix: “The difficulty, though, is that **another seminar group has already taken that building**. If we include it, we'll just be repeating their case.”"
+    },
+    "26": {
+      "answer": "A",
+      "type": "matching",
+      "prediction": "题干问 Keira 上一次演讲被批评的原因，应将批评内容与选项对应。",
+      "logic": "原文用 The tutor said my argument was hard to follow 直接对应选项 A。她排除了超时和声音太小，强调问题在结构。",
+      "audio_quote": "Keira: “The tutor said my **argument was hard to follow** — I jumped between examples without signposting.”",
+      "explanation": "预测：题干问 Keira 上一次演讲被批评的原因，应将批评内容与选项对应。\n考点与原文逻辑替换：原文用 The tutor said my argument was hard to follow 直接对应选项 A。她排除了超时和声音太小，强调问题在结构。\n跟音：Keira: “The tutor said my **argument was hard to follow** — I jumped between examples without signposting.”"
+    },
+    "27": {
+      "answer": "B",
+      "type": "matching",
+      "prediction": "题干问导师建议下次怎么做，听建议本身，而不是她并未提出的做法。",
+      "logic": "原文用 She suggested we start with a research question, and keep coming back to it 对应选项 B。她没有要求做一页讲义，也没有提到用计时器排练。",
+      "audio_quote": "Keira: “She suggested we **start with a research question**, and keep coming back to it, so the argument stays in view.”",
+      "explanation": "预测：题干问导师建议下次怎么做，听建议本身，而不是她并未提出的做法。\n考点与原文逻辑替换：原文用 She suggested we start with a research question, and keep coming back to it 对应选项 B。她没有要求做一页讲义，也没有提到用计时器排练。\n跟音：Keira: “She suggested we **start with a research question**, and keep coming back to it, so the argument stays in view.”"
+    },
+    "28": {
+      "answer": "C",
+      "type": "matching",
+      "prediction": "题干问人们对主题了解不足时会怎么做，听 because they do not know enough 的对应表述。",
+      "logic": "原文把 when people don't know enough about these conversions 与 they just repeat claims from the promotional websites 连在一起，对应选项 C。",
+      "audio_quote": "Felix: “When people don't know enough about these conversions, they just **repeat claims from the promotional websites** — visitor numbers, 'award-winning design', that kind of thing.”",
+      "explanation": "预测：题干问人们对主题了解不足时会怎么做，听 because they do not know enough 的对应表述。\n考点与原文逻辑替换：原文把 when people don't know enough about these conversions 与 they just repeat claims from the promotional websites 连在一起，对应选项 C。\n跟音：Felix: “When people don't know enough about these conversions, they just **repeat claims from the promotional websites** — visitor numbers, 'award-winning design', that kind of thing.”"
+    },
+    "29": {
+      "answer": "D",
+      "type": "matching",
+      "prediction": "题干问 Felix 感到紧张的原因，需抓住他否定掉的因素和真正的情境。",
+      "logic": "幻灯片已经做完，投影仪也没有出问题。原文用 I had to present immediately after a very confident group 对应选项 D。",
+      "audio_quote": "Felix: “I had to **present immediately after a very confident group**, and I felt we looked hesitant by comparison.”",
+      "explanation": "预测：题干问 Felix 感到紧张的原因，需抓住他否定掉的因素和真正的情境。\n考点与原文逻辑替换：幻灯片已经做完，投影仪也没有出问题。原文用 I had to present immediately after a very confident group 对应选项 D。\n跟音：Felix: “I had to **present immediately after a very confident group**, and I felt we looked hesitant by comparison.”"
+    },
+    "30": {
+      "answer": "E",
+      "type": "matching",
+      "prediction": "题干问他们为什么要比较两类改造项目，听比较的目的，而不是另一种可能的分类方式。",
+      "logic": "Keira 问为什么比较私人资助与公共资助，而不是两个地区。Felix 回答 we want to show how the funding source affects the final design，对应选项 E。",
+      "audio_quote": "Felix: “Because we want to show how the **funding source affects the final design** — which spaces stay public, which become offices, that kind of thing.”",
+      "explanation": "预测：题干问他们为什么要比较两类改造项目，听比较的目的，而不是另一种可能的分类方式。\n考点与原文逻辑替换：Keira 问为什么比较私人资助与公共资助，而不是两个地区。Felix 回答 we want to show how the funding source affects the final design，对应选项 E。\n跟音：Felix: “Because we want to show how the **funding source affects the final design** — which spaces stay public, which become offices, that kind of thing.”"
+    },
+    "31": {
+      "answer": "seagrass",
+      "type": "notes",
+      "prediction": "空格在 Found mainly in beds of 后面，应填栖息地中的一种植物或基质名词。",
+      "logic": "题目要的是主要栖息地。旧野外指南把它们写成开阔水域鱼类，海藻只是偶尔附着处。原文用 they are found mainly in beds of seagrass 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “In the Eddow estuary they are found mainly in beds of **seagrass**.”",
+      "alternatives": [
+        "sea-grass"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Found mainly in beds of 后面，应填栖息地中的一种植物或基质名词。\n考点与原文逻辑替换：题目要的是主要栖息地。旧野外指南把它们写成开阔水域鱼类，海藻只是偶尔附着处。原文用 they are found mainly in beds of seagrass 对应空格。\n跟音：Professor Rhea Coldwell: “In the Eddow estuary they are found mainly in beds of **seagrass**.”"
+    },
+    "32": {
+      "answer": "summer",
+      "type": "notes",
+      "prediction": "空格在 Breeding takes place in late 后面，应填一个季节名词。",
+      "logic": "题目要的是繁殖高峰所在的季节。许多人以为是春天，因为近岸鱼类多在那时产卵。原文说明 the peak is late summer，对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “Breeding takes place in late **summer**. People often assume it is in spring … but the surveys show that the peak is late summer.”",
+      "alternatives": [
+        "Summer"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Breeding takes place in late 后面，应填一个季节名词。\n考点与原文逻辑替换：题目要的是繁殖高峰所在的季节。许多人以为是春天，因为近岸鱼类多在那时产卵。原文说明 the peak is late summer，对应空格。\n跟音：Professor Rhea Coldwell: “Breeding takes place in late **summer**. People often assume it is in spring … but the surveys show that the peak is late summer.”"
+    },
+    "33": {
+      "answer": "estimate",
+      "type": "notes",
+      "prediction": "空格在 Population size is difficult to 后面，应填一个动词，说明数量难以把握的原因。",
+      "logic": "题目要的是“难以……”的那个动词。一九九六年的历史低值已印在笔记里。原文用 Population size is difficult to estimate, because the fish camouflage so well 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “Population size is difficult to **estimate**, because the fish camouflage so well against the plants.”",
+      "alternatives": [
+        "Estimate"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Population size is difficult to 后面，应填一个动词，说明数量难以把握的原因。\n考点与原文逻辑替换：题目要的是“难以……”的那个动词。一九九六年的历史低值已印在笔记里。原文用 Population size is difficult to estimate, because the fish camouflage so well 对应空格。\n跟音：Professor Rhea Coldwell: “Population size is difficult to **estimate**, because the fish camouflage so well against the plants.”"
+    },
+    "34": {
+      "answer": "dredging",
+      "type": "notes",
+      "prediction": "空格在 Human activity: in particular 后面，应填一种具体的人类活动。",
+      "logic": "题目要的是主要人为压力。皮划艇数量和挖饵都不是重点。原文用 In particular, dredging of the shipping channel 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “In particular, **dredging** of the shipping channel disturbs the sediment and uproots the seagrass itself.”",
+      "alternatives": [
+        "Dredging"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Human activity: in particular 后面，应填一种具体的人类活动。\n考点与原文逻辑替换：题目要的是主要人为压力。皮划艇数量和挖饵都不是重点。原文用 In particular, dredging of the shipping channel 对应空格。\n跟音：Professor Rhea Coldwell: “In particular, **dredging** of the shipping channel disturbs the sediment and uproots the seagrass itself.”"
+    },
+    "35": {
+      "answer": "crabs",
+      "type": "notes",
+      "prediction": "空格在 Predators: mainly certain 后面，应填主要捕食者的名称，注意用复数还是原文用词。",
+      "logic": "题目要的是主要捕食者。海鸥偶尔会捕食靠近水面的个体，但并不常见；较大的鱼也很少捕食它们。原文用 The main predators are certain crabs 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “The main predators are certain **crabs**, which can reach them among the stems.”",
+      "alternatives": [
+        "crab"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Predators: mainly certain 后面，应填主要捕食者的名称，注意用复数还是原文用词。\n考点与原文逻辑替换：题目要的是主要捕食者。海鸥偶尔会捕食靠近水面的个体，但并不常见；较大的鱼也很少捕食它们。原文用 The main predators are certain crabs 对应空格。\n跟音：Professor Rhea Coldwell: “The main predators are certain **crabs**, which can reach them among the stems.”"
+    },
+    "36": {
+      "answer": "storms",
+      "type": "notes",
+      "prediction": "空格在 Natural disasters: winter 后面，应填一种自然灾害。",
+      "logic": "题目要的是造成严重破坏的自然灾害。夏季干旱会让溪水变浅，但动物通常还能随潮移动。原文用 The serious damage comes from winter storms 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “The serious damage comes from winter **storms**, which tear up whole patches of seagrass and leave the fish with nowhere to hold on.”",
+      "alternatives": [
+        "storm"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Natural disasters: winter 后面，应填一种自然灾害。\n考点与原文逻辑替换：题目要的是造成严重破坏的自然灾害。夏季干旱会让溪水变浅，但动物通常还能随潮移动。原文用 The serious damage comes from winter storms 对应空格。\n跟音：Professor Rhea Coldwell: “The serious damage comes from winter **storms**, which tear up whole patches of seagrass and leave the fish with nowhere to hold on.”"
+    },
+    "37": {
+      "answer": "warden",
+      "type": "notes",
+      "prediction": "空格在 Recruit a local 后面，应填要招募的人员或职责名称。",
+      "logic": "题目要的是要招募的角色。他们无法资助专职科学家，季节性志愿者也会在秋天离开。原文用 recruit a local warden 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “The first practical step is to recruit a local **warden**.”",
+      "alternatives": [
+        "Warden"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Recruit a local 后面，应填要招募的人员或职责名称。\n考点与原文逻辑替换：题目要的是要招募的角色。他们无法资助专职科学家，季节性志愿者也会在秋天离开。原文用 recruit a local warden 对应空格。\n跟音：Professor Rhea Coldwell: “The first practical step is to recruit a local **warden**.”"
+    },
+    "38": {
+      "answer": "barrier",
+      "type": "notes",
+      "prediction": "空格在 Build a 与 to keep boats off the beds 之间，应填一种实体阻隔设施。",
+      "logic": "题目要的是要建造的物理屏障。fence 因潮水无法保留，沿岸也不建墙。原文用 We plan to build a barrier to keep boats off the shallow beds 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “We plan to build a **barrier** to keep boats off the shallow beds.”",
+      "alternatives": [
+        "Barrier"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Build a 与 to keep boats off the beds 之间，应填一种实体阻隔设施。\n考点与原文逻辑替换：题目要的是要建造的物理屏障。fence 因潮水无法保留，沿岸也不建墙。原文用 We plan to build a barrier to keep boats off the shallow beds 对应空格。\n跟音：Professor Rhea Coldwell: “We plan to build a **barrier** to keep boats off the shallow beds.”"
+    },
+    "39": {
+      "answer": "juveniles",
+      "type": "notes",
+      "prediction": "空格在 Also necessary to protect 后面，应填还需要保护的对象，可能是某一阶段的个体。",
+      "logic": "题目要的是保护对象。成年雄性和海草已有相应关注或既有规则。原文说明 It is the juveniles … that are most easily lost, and they now have a formal protection target，对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “It is the **juveniles**, in the first weeks after they leave the pouch, that are most easily lost, and they now have a formal protection target.”",
+      "alternatives": [
+        "juvenile"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Also necessary to protect 后面，应填还需要保护的对象，可能是某一阶段的个体。\n考点与原文逻辑替换：题目要的是保护对象。成年雄性和海草已有相应关注或既有规则。原文说明 It is the juveniles … that are most easily lost, and they now have a formal protection target，对应空格。\n跟音：Professor Rhea Coldwell: “It is the **juveniles**, in the first weeks after they leave the pouch, that are most easily lost, and they now have a formal protection target.”"
+    },
+    "40": {
+      "answer": "radio",
+      "type": "notes",
+      "prediction": "空格在 Public awareness has been raised through local 后面，应填一种公众宣传渠道。",
+      "logic": "题目要的是当前有效的宣传渠道。宣传单和网站都收效有限，进学校宣讲也还不是现在的渠道。原文用 A campaign on local radio has been more effective 对应空格。",
+      "audio_quote": "Professor Rhea Coldwell: “A campaign on local **radio** has been more effective — short interviews in the morning programme, reminding skippers to avoid the marked beds.”",
+      "alternatives": [
+        "Radio"
+      ],
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "explanation": "预测：空格在 Public awareness has been raised through local 后面，应填一种公众宣传渠道。\n考点与原文逻辑替换：题目要的是当前有效的宣传渠道。宣传单和网站都收效有限，进学校宣讲也还不是现在的渠道。原文用 A campaign on local radio has been more effective 对应空格。\n跟音：Professor Rhea Coldwell: “A campaign on local **radio** has been more effective — short interviews in the morning programme, reminding skippers to avoid the marked beds.”"
+    }
+  },
+  "transcripts": {
+    "1": "Narrator: This is the Academic Listening practice test, Set C.\n\nNarrator: Section 1. You will hear a woman booking a weekend shuttle to a harvest fair.\n\nNarrator: First, you have some time to look at questions 1 to 5.\n\nNarrator: Now listen carefully and answer questions 1 to 5.\n\nCallie: Hello, is that the Redford Travel Desk? I'd like to book a seat on the weekend shuttle to the Langridge Harvest Fair.\n\nGareth: Yes, this is Gareth. I can book you on the Saturday service. Were you looking at a particular departure?\n\nCallie: The first bus, please. The website said it leaves at eight thirty.\n\nGareth: The website is still showing last year's timetable, I'm afraid. People often arrive for eight thirty and find they've missed it. The first bus actually departs at eight fifteen. There's a later one at nine o'clock, but that's the second departure, not the first.\n\nCallie: Eight fifteen. And where's the nearest stop to me? I live just by the railway station.\n\nGareth: The station stop was closed in March, when the roadworks began. There's also a stop at the retail park, but that's a good twenty-minute walk from where you are. The nearest stop to you now is the hospital gates — that's at the end of Park Road, opposite the outpatients' entrance.\n\nCallie: Hospital gates. And where does the shuttle actually go? I thought it terminated at the town square.\n\nGareth: A lot of people get off at the town square because the cafés are there, but the service itself continues and terminates at the west pavilion. That's the entrance to the fairground, beside the flower display. So the destination you want on the timetable is west pavilion.\n\nCallie: West pavilion. What's the service number? A neighbour thought it was fourteen.\n\nGareth: Fourteen is the weekday commuter service, and that doesn't run at weekends. I nearly quoted that myself. The weekend shuttle is service R twelve — that's the letter R, then twelve.\n\nCallie: R twelve. Is there anything earlier if I want to help with the set-up?\n\nGareth: Yes. If you need to be there before the stalls open, there's an earlier departure at seven forty. It only starts from the depot, though, not from the hospital gates, so you'd have to make your way to the depot first. There isn't a six-thirty service any more — that was withdrawn last autumn.\n\nCallie: Seven forty. That's useful to know.\n\nNarrator: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n\nNarrator: Now listen carefully and answer questions 6 to 10.\n\nCallie: Could you go through the fares? I wasn't sure about paying cash versus using a travel card.\n\nGareth: Of course. For a day return leaving before nine thirty in the morning, the cash fare is five pounds eighty. It used to be six fifty last year, but that's been reduced. If you pay with a travel card on that same early service, it's four pounds twenty.\n\nCallie: Five pounds eighty cash. And after the morning rush?\n\nGareth: The cheaper off-peak day return starts after four o'clock in the afternoon — that's sixteen hundred, not three o'clock. A few people have asked about fifteen hundred, but off-peak begins at sixteen hundred. Cash for that off-peak return is six pounds fifty, and with a travel card it's three pounds twenty-five. Not three fifty — that was the old card rate.\n\nCallie: Sixteen hundred, and three twenty-five with the card. Is there a faster option?\n\nGareth: There is an express service, which goes via the bypass and skips the town square. That's eight pounds cash, and I'm afraid you can't use a travel card on the express. There's no night service at weekends, before you ask — we only run during the day.\n\nCallie: Express, eight pounds. What about a family ticket?\n\nGareth: A family ticket is eighteen pounds cash, or fifteen with a travel card, and that includes a programme — the printed guide to the stalls. It doesn't include a meal, and it doesn't cover parking. Just the programme.\n\nCallie: A programme. Please book me on the eight fifteen from the hospital gates, a cash day return.\n\nGareth: Done. I'll email a confirmation this afternoon.\n\nCallie: Thank you.\n\nNarrator: That is the end of Section 1. You now have 30 seconds to check your answers.",
+    "2": "Narrator: Section 2. You will hear a welcome talk by the coordinator of a community tool library.\n\nNarrator: First, you have some time to look at questions 11 to 16.\n\nNarrator: Now listen carefully and answer questions 11 to 16.\n\nMara Ellison: Good evening, and welcome to Elmwood Tool Library. My name is Mara Ellison, and I coordinate the loans and the workshop. I'm glad so many of you have come along, especially those of you who have only just joined.\n\nMara Ellison: I want to start with something I learned from last year's loan figures. When I first looked at them, I expected power tools to dominate, as they do in most hire shops. Membership itself has been steady, by the way, not falling, and almost everyone who reserves an item does come in to collect it. What surprised me was that the majority of loans were actually for garden tools — hedge trimmers, spades, that kind of thing — not drills and saws.\n\nMara Ellison: If you've only just joined, there are a few things you might be tempted to do this evening. You can't book the wood workshop until you've completed a short induction, and the weekend repair classes don't start until next month. The one thing you can do straight away is download the inventory app. It shows what's on the shelves in real time, and you can reserve items from your phone.\n\nMara Ellison: I also want to mention our insurance provider, because people do ask. The premium isn't particularly low, and they don't offer much in the way of optional extra cover. What did please me, though, was how quickly they processed a claim last autumn, when a borrowed sander was damaged. The replacement was agreed in two days, and the wording of the policy was unusually clear.\n\nMara Ellison: We have had one practical difficulty with a piece of equipment. It wasn't a battery charger overheating — we replaced those last year — and it wasn't a booking that was recorded twice on the website. The problem was the usage meter on the tile cutter: the reading kept jumping, so we couldn't tell whether the machine was due for a service. We've sent that meter back to the manufacturer.\n\nMara Ellison: We've already tried putting up posters about return dates, and we did consider posting video tutorials, but those take a long time to produce. Evening drop-in sessions are popular, but we're not expanding those just yet. The next method we're going to try is a locker collection system, so you can pick up reserved tools after we close.\n\nMara Ellison: A few members have asked about weekend home deliveries. I'm doubtful about that option, not because the van is unreliable — it's fairly new — and not because insurance would refuse to cover a staffed delivery. The reason I'm hesitant is that it would be too expensive to run for the small number of requests we actually receive.\n\nNarrator: Before you hear the rest of the talk, you have some time to look at questions 17 to 20.\n\nNarrator: Now listen carefully and answer questions 17 to 20.\n\nMara Ellison: Before I finish, a few practical tips, including two things you should not do, however often you see them recommended online. Do oil the blades before you return them; that helps the next member. Do label the borrowed boxes with your membership number, and do photograph any damage when you collect an item. What I would not recommend is storing batteries in a refrigerator. Despite what you may have read, the moisture can damage them. And never tighten a drill chuck with pliers; you'll ruin the jaws. Use the key that's supplied, or just your hand.\n\nMara Ellison: Finally, the questions people bring to the desk. We do occasionally get asked how donations of tools are valued, and how to volunteer as a fixer, but those come up only a few times a term. How to renew a late loan is almost never asked, because the procedure is printed on the receipt. The two topics people most frequently ask about are whether children can come into the workshop — and the answer is yes, if they're with an adult and wearing closed shoes — and whether safety glasses are provided. They are, in the dispenser by the door.\n\nMara Ellison: That's all from me. Please collect a membership card on your way out, and I hope we'll see you in the workshop soon.\n\nNarrator: That is the end of Section 2. You now have 30 seconds to check your answers.",
+    "3": "Narrator: Section 3. You will hear two students discussing a presentation on the conversion of disused textile mills into arts venues.\n\nNarrator: First, you have some time to look at questions 21 to 25.\n\nNarrator: Now listen carefully and answer questions 21 to 25.\n\nKeira: Felix, have you looked at the assessment criteria again? I keep worrying we'll be marked down for the wrong thing.\n\nFelix: I had the same worry. I thought we might fail if we used more than ten slides, or even if we worked as a pair instead of alone. I asked Dr Yarrow, and she said neither of those is a problem.\n\nKeira: The hard requirement is the primary source. If you don't include at least one — an interview, or an archive document — the assessment is marked as incomplete. Going slightly over the twelve-minute limit just loses a couple of marks; it doesn't fail you.\n\nFelix: Right. So we must keep that archive letter in, even if it means cutting a slide.\n\nKeira: Speaking of cutting, I want to drop some of the photographs of the courtyard at Kelmara Mill.\n\nFelix: Because of the quality? A few of them are a bit dark. Or has the tutor already seen them?\n\nKeira: The quality is fine, actually, and Dr Yarrow hasn't seen this set. The problem is they'd take too long to talk through. Three of them show almost the same corner of the yard, and we'd spend minutes repeating ourselves.\n\nFelix: That's fair. Let's keep one wide shot and lose the close-ups.\n\nFelix: I'm less comfortable with the construction date. The board outside the mill says eighteen forty, but the archive catalogue says 'circa eighteen forty', and one article even gives eighteen fifty-two.\n\nKeira: We shouldn't present it as a definite fact, and I don't think we should leave the date out, because the timeline matters for the later conversions. Let's keep it but make it clear it's uncertain — we can say 'around eighteen forty'.\n\nFelix: Agreed. A caveat is better than pretending we know.\n\nFelix: I still want to include Kelmara Mill itself as a case study, even though it's the well-known one.\n\nKeira: Everyone already recognises it. Isn't that a reason to leave it out? And the photographs aren't even our best ones. I don't think Dr Yarrow has written about it, either.\n\nFelix: I know it's familiar, but that's exactly why I want it in. The audience will already recognise it, and it illustrates the mixed-use model more clearly than the quieter examples. The photos aren't the point.\n\nKeira: All right, we'll keep Kelmara as the familiar example.\n\nKeira: What about the quay warehouse conversion? It's a strong story.\n\nFelix: It hasn't been demolished — it's still in use — and there's plenty of published research. The difficulty, though, is that another seminar group has already taken that building. If we include it, we'll just be repeating their case.\n\nKeira: That's a good reason to leave it out. Let's drop the quay warehouse because of the overlap.\n\nFelix: Agreed.\n\nNarrator: Before you hear the rest of the discussion, you have some time to look at questions 26 to 30.\n\nNarrator: Now listen carefully and answer questions 26 to 30.\n\nFelix: Can I ask about last term? You said your presentation was criticised, but you never said why.\n\nKeira: I still wince about it. The tutor said my argument was hard to follow — I jumped between examples without signposting. It wasn't that I ran out of time, and I don't think I spoke too quietly. It was the structure.\n\nFelix: What did she suggest you do next time?\n\nKeira: She suggested we start with a research question, and keep coming back to it, so the argument stays in view. She didn't ask for a one-page handout, and she didn't mention rehearsing with a timer, though that might still be wise.\n\nFelix: That helps. I've also noticed that when people don't know enough about these conversions, they just repeat claims from the promotional websites — visitor numbers, 'award-winning design', that kind of thing — as if those were independent findings.\n\nKeira: Yes, instead of checking the planning reports. We should be careful not to do that.\n\nFelix: That's partly why I felt so nervous in the practice seminar. It wasn't that I hadn't finished the slides — they were ready — and the projector was fine. I had to present immediately after a very confident group, and I felt we looked hesitant by comparison.\n\nKeira: That would make anyone nervous. You'll be fine on the day.\n\nKeira: One last thing. Why are we comparing the privately funded conversions with the publicly funded ones, rather than, say, mills in two different regions?\n\nFelix: Because we want to show how the funding source affects the final design — which spaces stay public, which become offices, that kind of thing. It isn't a regional contrast.\n\nKeira: Good. I'll redraft the outline tonight and send it over.\n\nFelix: Thanks. See you in the archive tomorrow.\n\nNarrator: That is the end of Section 3. You now have 30 seconds to check your answers.",
+    "4": "Narrator: Section 4. You will hear a lecture on the conservation of seahorses in a temperate estuary.\n\nNarrator: First, you have some time to look at questions 31 to 40.\n\nNarrator: Now listen carefully and answer questions 31 to 40.\n\nProfessor Rhea Coldwell: Good morning. I'm Professor Rhea Coldwell, and in this lecture I'll be talking about the conservation of seahorses in the Eddow estuary, a temperate inlet on the west coast. I want to look first at habitat and population, then at the main threats, and finally at the protection measures now being put in place.\n\nProfessor Rhea Coldwell: Although some older field guides still describe seahorses as open-water fish, in the Eddow estuary they are found mainly in beds of seagrass. They do sometimes cling to seaweed along the edge of the channel, but that is not their usual habitat, and they are rarely seen over bare sand.\n\nProfessor Rhea Coldwell: Breeding takes place in late summer. People often assume it is in spring, because that is when many inshore fish spawn, but the surveys show that the peak is late summer, when the water is at its warmest.\n\nProfessor Rhea Coldwell: As for numbers, counts reached a historic low in nineteen ninety-six, after a period of poor water quality. They have recovered somewhat since then, but we should be cautious. Population size is difficult to estimate, because the fish camouflage so well against the plants. We can count individuals in a sample square, but scaling up from that is far from straightforward. It is not that they migrate out of the estuary; they simply hide.\n\nProfessor Rhea Coldwell: I turn now to threats. The main human pressure is not, as some newspaper reports have claimed, the number of visiting kayaks, and it is not bait-digging, which is already restricted. In particular, dredging of the shipping channel disturbs the sediment and uproots the seagrass itself.\n\nProfessor Rhea Coldwell: Seahorses also have predators. Gulls will take one if they come across it near the surface, but that is uncommon. The main predators are certain crabs, which can reach them among the stems. Larger fish take surprisingly few.\n\nProfessor Rhea Coldwell: Natural disasters matter as well. Summer droughts can lower the water in the creeks, but the animals are usually able to move with the tide. The serious damage comes from winter storms, which tear up whole patches of seagrass and leave the fish with nowhere to hold on.\n\nProfessor Rhea Coldwell: Turning to protection, the first practical step is to recruit a local warden. We cannot fund a full research scientist, and a seasonal volunteer would leave in the autumn. A warden who already lives on the estuary can monitor the beds through the year.\n\nProfessor Rhea Coldwell: We also need a physical structure. We plan to build a barrier to keep boats off the shallow beds. A fence was discussed, but it would not survive the tides, and we are not building a wall along the shore. A submerged barrier, marked with buoys, is what we have settled on.\n\nProfessor Rhea Coldwell: The programme must also decide what, exactly, to protect. Adult males are already watched during the breeding season, and the seagrass itself is covered by existing habitat rules. It is the juveniles, in the first weeks after they leave the pouch, that are most easily lost, and they now have a formal protection target.\n\nProfessor Rhea Coldwell: Finally, public awareness. Leaflets were tried a few years ago, and a page on the council website still exists, but neither changed behaviour very much. A campaign on local radio has been more effective — short interviews in the morning programme, reminding skippers to avoid the marked beds. Visits to schools will come later; they are not the current channel.\n\nProfessor Rhea Coldwell: I'll stop there, and in the seminar we can look at how these measures are being evaluated.\n\nNarrator: That is the end of Section 4. You now have 30 seconds to check your answers.\n\nNarrator: That is the end of the Listening test. You now have some time to check your answers."
+  }
+}

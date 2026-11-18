@@ -133,6 +133,13 @@ def modes_for_paper(paper: dict | None = None) -> dict:
             "seconds": 20 * 60,
             "label": f"Passage {index} · 20 min",
         }
+    full_lo = min(lo for lo, _hi in ranges.values())
+    full_hi = max(hi for _lo, hi in ranges.values())
+    modes["full"] = {
+        "questions": list(range(full_lo, full_hi + 1)),
+        "seconds": 60 * 60,
+        "label": "Full test · 60 min",
+    }
     return modes
 
 
@@ -236,12 +243,24 @@ def answers_equal(student: str | None, official: str, qtype: str) -> bool:
 
 
 def band_for_score(score: int, total: int = 40) -> float | None:
-    """Return an Academic Reading band for a full 40-question paper only."""
-    if total != 40:
+    """Return an Academic Reading band for a full paper.
+
+    Official conversion uses the 40-question table. A full sitting with a
+    different total (for example 42 questions) is scaled first:
+    equivalent = round(score * 40 / total). Totals below 40, such as a
+    passage-only script, stay unbanded.
+    """
+    if total <= 0:
         return None
-    score = max(0, min(int(score), 40))
+    if total == 40:
+        equivalent = max(0, min(int(score), 40))
+    elif total > 40:
+        equivalent = int(round(int(score) * 40 / total))
+        equivalent = max(0, min(equivalent, 40))
+    else:
+        return None
     for lo, hi, band in BAND_TABLE:
-        if lo <= score <= hi:
+        if lo <= equivalent <= hi:
             return band
     return 0.0
 
@@ -356,7 +375,7 @@ def score_paper(
             }
         )
 
-    band = band_for_score(score, total) if mode == "full" and total == 40 else None
+    band = band_for_score(score, total) if mode == "full" else None
     return {
         "score": score,
         "total": total,

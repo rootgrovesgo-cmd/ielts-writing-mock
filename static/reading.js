@@ -25,6 +25,7 @@
     "set-a": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
     "set-b": { full: [1, 40], passage1: [1, 14], passage2: [15, 27], passage3: [28, 40] },
     "set-c": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
+    "set-d": { full: [1, 42], passage1: [1, 14], passage2: [15, 28], passage3: [29, 42] },
   };
   const THEME_CLASS = "reading-theme-c";
 
@@ -168,7 +169,9 @@
 
   function applyModeRangesFromPaper(p) {
     if (!p || !p.groups) return;
-    const ranges = { full: [1, 40] };
+    const ranges = {};
+    let fullLo = Infinity;
+    let fullHi = -Infinity;
     (p.groups || []).forEach((g) => {
       const pid = Number(g.passage);
       if (!pid || g.from == null || g.to == null) return;
@@ -178,7 +181,10 @@
         ranges[key][0] = Math.min(ranges[key][0], g.from);
         ranges[key][1] = Math.max(ranges[key][1], g.to);
       }
+      fullLo = Math.min(fullLo, g.from);
+      fullHi = Math.max(fullHi, g.to);
     });
+    if (fullLo !== Infinity) ranges.full = [fullLo, fullHi];
     applyModeRanges(ranges);
   }
 

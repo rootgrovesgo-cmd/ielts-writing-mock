@@ -1,0 +1,383 @@
+{
+  "set_id": "set-d",
+  "questions": {
+    "1": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "An audience may detect an improvement; without being able to identify what it helped them understand",
+      "locate": "定位 Passage 1「What should a hall make audible?」Sarah Nduka 一段：An audience unfamiliar with a work may **welcome a striking increase in clarity without being able to say which relationships it has revealed**.",
+      "paraphrase": "题干 An audience may detect an improvement ↔ 原文 welcome a striking increase in clarity；题干 without being able to identify what it helped them understand ↔ 原文 without being able to say which relationships it has revealed",
+      "judgment": "Nduka 把听众察觉到清晰度提高，与说清由此揭示了哪些音乐关系区分开来：他们可能感到有改进，却说不出自己因此理解了什么。对应选项 **C** Sarah Nduka。",
+      "explanation": "题干关键词：An audience may detect an improvement; without being able to identify what it helped them understand\n原文定位：定位 Passage 1「What should a hall make audible?」Sarah Nduka 一段：An audience unfamiliar with a work may **welcome a striking increase in clarity without being able to say which relationships it has revealed**.\n关键词替换：题干 An audience may detect an improvement ↔ 原文 welcome a striking increase in clarity；题干 without being able to identify what it helped them understand ↔ 原文 without being able to say which relationships it has revealed\n判定点：Nduka 把听众察觉到清晰度提高，与说清由此揭示了哪些音乐关系区分开来：他们可能感到有改进，却说不出自己因此理解了什么。对应选项 **C** Sarah Nduka。"
+    },
+    "2": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "increase in the ability to identify a source; need not be accompanied by a change in perceived volume",
+      "locate": "定位 Passage 1「What should a hall make audible?」Mira Fenwick 一段：listeners **placed the woodwind correctly more often** after the overhead panels were lowered, **although they rated the overall sound no louder**.",
+      "paraphrase": "题干 identify a source ↔ 原文 placed the woodwind correctly；题干 need not be accompanied by a change in perceived volume ↔ 原文 although they rated the overall sound no louder",
+      "judgment": "Fenwick 的木管试验表明，听者更能判断声源位置，但响度评价并未改变，因此定位能力的提高不必伴随音量感知的变化。对应选项 **A** Mira Fenwick。",
+      "explanation": "题干关键词：increase in the ability to identify a source; need not be accompanied by a change in perceived volume\n原文定位：定位 Passage 1「What should a hall make audible?」Mira Fenwick 一段：listeners **placed the woodwind correctly more often** after the overhead panels were lowered, **although they rated the overall sound no louder**.\n关键词替换：题干 identify a source ↔ 原文 placed the woodwind correctly；题干 need not be accompanied by a change in perceived volume ↔ 原文 although they rated the overall sound no louder\n判定点：Fenwick 的木管试验表明，听者更能判断声源位置，但响度评价并未改变，因此定位能力的提高不必伴随音量感知的变化。对应选项 **A** Mira Fenwick。"
+    },
+    "3": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "A feature valued by listeners; can cause difficulties for people producing the sound",
+      "locate": "定位 Passage 1「What should a hall make audible?」Julian Vale 一段：Vale **values some uncertainty about the origin of a sound** … But he is **less tolerant of such blending when it affects the performers themselves**. A violinist who cannot tell whether a colleague has finished a phrase **may enter too late**.",
+      "paraphrase": "题干 A feature valued by listeners ↔ 原文 values some uncertainty about the origin of a sound（融合对听众可以是作品要点）；题干 difficulties for people producing the sound ↔ 原文 less tolerant … when it affects the performers；may enter too late",
+      "judgment": "Vale 认为对听众来说，声源上的某种不确定可以是作品要表达的效果，但同一融合若影响演奏者彼此配合，则可能造成进拍过晚等困难。对应选项 **B** Julian Vale。",
+      "explanation": "题干关键词：A feature valued by listeners; can cause difficulties for people producing the sound\n原文定位：定位 Passage 1「What should a hall make audible?」Julian Vale 一段：Vale **values some uncertainty about the origin of a sound** … But he is **less tolerant of such blending when it affects the performers themselves**. A violinist who cannot tell whether a colleague has finished a phrase **may enter too late**.\n关键词替换：题干 A feature valued by listeners ↔ 原文 values some uncertainty about the origin of a sound（融合对听众可以是作品要点）；题干 difficulties for people producing the sound ↔ 原文 less tolerant … when it affects the performers；may enter too late\n判定点：Vale 认为对听众来说，声源上的某种不确定可以是作品要表达的效果，但同一融合若影响演奏者彼此配合，则可能造成进拍过晚等困难。对应选项 **B** Julian Vale。"
+    },
+    "4": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "Limiting the range of choices; justified if it makes a useful result easier to reproduce",
+      "locate": "定位 Passage 1「Who should choose the settings?」Fenwick 一段：She is willing to **accept a relatively small menu of settings if it makes reliable recall possible**.",
+      "paraphrase": "题干 Limiting the range of choices ↔ 原文 a relatively small menu of settings；题干 makes a useful result easier to reproduce ↔ 原文 makes reliable recall possible（前文强调设置须能被 reproduced）",
+      "judgment": "Fenwick 接受选项较少的设置菜单，条件是技术员能够可靠地再现已取得的效果。对应选项 **A** Mira Fenwick。",
+      "explanation": "题干关键词：Limiting the range of choices; justified if it makes a useful result easier to reproduce\n原文定位：定位 Passage 1「Who should choose the settings?」Fenwick 一段：She is willing to **accept a relatively small menu of settings if it makes reliable recall possible**.\n关键词替换：题干 Limiting the range of choices ↔ 原文 a relatively small menu of settings；题干 makes a useful result easier to reproduce ↔ 原文 makes reliable recall possible（前文强调设置须能被 reproduced）\n判定点：Fenwick 接受选项较少的设置菜单，条件是技术员能够可靠地再现已取得的效果。对应选项 **A** Mira Fenwick。"
+    },
+    "5": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "People should give their impressions; before learning which option has been endorsed",
+      "locate": "定位 Passage 1「Who should choose the settings?」Nduka 一段：she would **ask for their observations before telling them which setting was recommended**.",
+      "paraphrase": "题干 give their impressions ↔ 原文 ask for their observations；题干 before learning which option has been endorsed ↔ 原文 before telling them which setting was recommended",
+      "judgment": "Nduka 要求听众先陈述自己的印象，再告知哪一种设置已获推荐。对应选项 **C** Sarah Nduka。",
+      "explanation": "题干关键词：People should give their impressions; before learning which option has been endorsed\n原文定位：定位 Passage 1「Who should choose the settings?」Nduka 一段：she would **ask for their observations before telling them which setting was recommended**.\n关键词替换：题干 give their impressions ↔ 原文 ask for their observations；题干 before learning which option has been endorsed ↔ 原文 before telling them which setting was recommended\n判定点：Nduka 要求听众先陈述自己的印象，再告知哪一种设置已获推荐。对应选项 **C** Sarah Nduka。"
+    },
+    "6": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "The person proposing a setting; may experience a change differently from someone elsewhere in the room",
+      "locate": "定位 Passage 1「Who should choose the settings?」Vale 一段：**From the podium, a small alteration may seem far more consequential than it is from the back of the hall.**",
+      "paraphrase": "题干 The person proposing a setting ↔ 原文 the visiting conductor / From the podium；题干 experience a change differently from someone elsewhere in the room ↔ 原文 may seem far more consequential than it is from the back of the hall",
+      "judgment": "Vale 把指挥台上的感受与厅后座位上的感受相对照：提出设置的人可能把一次改动体验得比厅内其他人更为重大。对应选项 **B** Julian Vale。",
+      "explanation": "题干关键词：The person proposing a setting; may experience a change differently from someone elsewhere in the room\n原文定位：定位 Passage 1「Who should choose the settings?」Vale 一段：**From the podium, a small alteration may seem far more consequential than it is from the back of the hall.**\n关键词替换：题干 The person proposing a setting ↔ 原文 the visiting conductor / From the podium；题干 experience a change differently from someone elsewhere in the room ↔ 原文 may seem far more consequential than it is from the back of the hall\n判定点：Vale 把指挥台上的感受与厅后座位上的感受相对照：提出设置的人可能把一次改动体验得比厅内其他人更为重大。对应选项 **B** Julian Vale。"
+    },
+    "7": {
+      "answer": "D",
+      "type": "matching_endings",
+      "stem_keywords": "Fenwick’s description of the woodwind trial; Vale’s example of a note of uncertain origin; both suggest that",
+      "locate": "定位 Passage 1「What should a hall make audible?」：Fenwick 写道，trial 中 listeners **placed the woodwind correctly more often** … although they rated the overall sound no louder，并强调 a listener’s grasp … **can depend on its location, a quality that a simple test of loudness would miss**。Vale **values some uncertainty about the origin of a sound**，认为 a note that seems to belong to neither instrument alone can be the point of the exercise。",
+      "paraphrase": "题干 woodwind trial ↔ 原文 placed the woodwind correctly / depend on its location；题干 a note of uncertain origin ↔ 原文 uncertainty about the origin of a sound；选项 D the ability to locate a sound is a distinct aspect ↔ 原文 location 是 loudness 测验所忽略的品质，而 Vale 把 origin 的确定与否当作可单独衡量的听感要素",
+      "judgment": "两人谈的都是辨认声源：试验把定位当作不同于响度的听感品质，Vale 有时则看重这种定位的缺失。二者都表明，定位声音的能力是听赏经验中一个独立的方面，对应结尾 **D**。",
+      "explanation": "题干关键词：Fenwick’s description of the woodwind trial; Vale’s example of a note of uncertain origin; both suggest that\n原文定位：定位 Passage 1「What should a hall make audible?」：Fenwick 写道，trial 中 listeners **placed the woodwind correctly more often** … although they rated the overall sound no louder，并强调 a listener’s grasp … **can depend on its location, a quality that a simple test of loudness would miss**。Vale **values some uncertainty about the origin of a sound**，认为 a note that seems to belong to neither instrument alone can be the point of the exercise。\n关键词替换：题干 woodwind trial ↔ 原文 placed the woodwind correctly / depend on its location；题干 a note of uncertain origin ↔ 原文 uncertainty about the origin of a sound；选项 D the ability to locate a sound is a distinct aspect ↔ 原文 location 是 loudness 测验所忽略的品质，而 Vale 把 origin 的确定与否当作可单独衡量的听感要素\n判定点：两人谈的都是辨认声源：试验把定位当作不同于响度的听感品质，Vale 有时则看重这种定位的缺失。二者都表明，定位声音的能力是听赏经验中一个独立的方面，对应结尾 **D**。"
+    },
+    "8": {
+      "answer": "A",
+      "type": "matching_endings",
+      "stem_keywords": "Vale’s colleague and Nduka’s listeners; both asked to provide evidence that",
+      "locate": "定位 Passage 1「Who should choose the settings?」：Vale would let the conductor propose a setting but **ask a colleague to listen from several seats** before it was adopted。Nduka would **ask for their observations before telling them which setting was recommended**。",
+      "paraphrase": "题干 Vale’s colleague ↔ 原文 ask a colleague to listen from several seats；题干 Nduka’s listeners ↔ 原文 ask for their observations before telling them which setting was recommended；选项 A comes from a perspective other than that of the person making the recommendation ↔ 原文 colleague / listeners 的观察，而非提出或推荐该设置的人本人的看法",
+      "judgment": "Vale 请同事从多个座位听，Nduka 请听众在得知推荐之前先报告印象，两人都要来自推荐者以外视角的证据，对应结尾 **A**。",
+      "explanation": "题干关键词：Vale’s colleague and Nduka’s listeners; both asked to provide evidence that\n原文定位：定位 Passage 1「Who should choose the settings?」：Vale would let the conductor propose a setting but **ask a colleague to listen from several seats** before it was adopted。Nduka would **ask for their observations before telling them which setting was recommended**。\n关键词替换：题干 Vale’s colleague ↔ 原文 ask a colleague to listen from several seats；题干 Nduka’s listeners ↔ 原文 ask for their observations before telling them which setting was recommended；选项 A comes from a perspective other than that of the person making the recommendation ↔ 原文 colleague / listeners 的观察，而非提出或推荐该设置的人本人的看法\n判定点：Vale 请同事从多个座位听，Nduka 请听众在得知推荐之前先报告印象，两人都要来自推荐者以外视角的证据，对应结尾 **A**。"
+    },
+    "9": {
+      "answer": "F",
+      "type": "matching_endings",
+      "stem_keywords": "Fenwick’s proposal for recording settings is meant to reproduce a result; Nduka’s two accounts of a musical exchange are meant to establish",
+      "locate": "定位 Passage 1：Fenwick 要求 each setting can be reproduced，controls should **retain a record of positions used in rehearsals**。Nduka 则让人们 **describe a musical exchange twice**，once immediately and again after hearing a short demonstration；**A difference between the accounts would help show which details required help to become meaningful**.",
+      "paraphrase": "题干 reproduce a result ↔ 原文 each setting can be reproduced / record of positions；题干 two accounts … establish ↔ 原文 a difference between the accounts would help show which details required help；选项 F which aspects of listening benefit from additional guidance ↔ 原文 which details required help to become meaningful",
+      "judgment": "对照句的前半承认 Fenwick 记录设置是为了再现效果；后半则表明 Nduka 比较两次描述，是为了弄清听赏的哪些方面需要额外说明才能变得有意义，对应结尾 **F**。",
+      "explanation": "题干关键词：Fenwick’s proposal for recording settings is meant to reproduce a result; Nduka’s two accounts of a musical exchange are meant to establish\n原文定位：定位 Passage 1：Fenwick 要求 each setting can be reproduced，controls should **retain a record of positions used in rehearsals**。Nduka 则让人们 **describe a musical exchange twice**，once immediately and again after hearing a short demonstration；**A difference between the accounts would help show which details required help to become meaningful**.\n关键词替换：题干 reproduce a result ↔ 原文 each setting can be reproduced / record of positions；题干 two accounts … establish ↔ 原文 a difference between the accounts would help show which details required help；选项 F which aspects of listening benefit from additional guidance ↔ 原文 which details required help to become meaningful\n判定点：对照句的前半承认 Fenwick 记录设置是为了再现效果；后半则表明 Nduka 比较两次描述，是为了弄清听赏的哪些方面需要额外说明才能变得有意义，对应结尾 **F**。"
+    },
+    "10": {
+      "answer": "C",
+      "type": "matching_endings",
+      "stem_keywords": "In the discussion of improvement; Fenwick and Vale both allow for the possibility that",
+      "locate": "定位 Passage 1「What would count as improvement?」：Fenwick 认为 **A configuration that consistently improves the location of instruments could still be unsuitable for a programme that depends on blending**. For Vale, **the test is whether the performers can produce an intended effect** in the first place and then vary it within the performance.",
+      "paraphrase": "题干 both allow for the possibility that ↔ 原文 Fenwick 承认同一配置可能不适合依赖融合的曲目，Vale 则以 intended effect 为检验标准；选项 C the merits of an acoustic effect depend on what the music is trying to do ↔ 原文 unsuitable for a programme that depends on blending / produce an intended effect",
+      "judgment": "在讨论何为改进时，Fenwick 为需要融合的节目留出余地，Vale 则按预定的音乐效果来判断设置，两人都承认一种声学效果好不好取决于音乐想达到什么，对应结尾 **C**。",
+      "explanation": "题干关键词：In the discussion of improvement; Fenwick and Vale both allow for the possibility that\n原文定位：定位 Passage 1「What would count as improvement?」：Fenwick 认为 **A configuration that consistently improves the location of instruments could still be unsuitable for a programme that depends on blending**. For Vale, **the test is whether the performers can produce an intended effect** in the first place and then vary it within the performance.\n关键词替换：题干 both allow for the possibility that ↔ 原文 Fenwick 承认同一配置可能不适合依赖融合的曲目，Vale 则以 intended effect 为检验标准；选项 C the merits of an acoustic effect depend on what the music is trying to do ↔ 原文 unsuitable for a programme that depends on blending / produce an intended effect\n判定点：在讨论何为改进时，Fenwick 为需要融合的节目留出余地，Vale 则按预定的音乐效果来判断设置，两人都承认一种声学效果好不好取决于音乐想达到什么，对应结尾 **C**。"
+    },
+    "11": {
+      "answer": "C",
+      "type": "mcq",
+      "stem_keywords": "Why does Vale mention a violinist entering late",
+      "locate": "定位 Passage 1「What should a hall make audible?」Vale 一段：他先肯定对听众而言 blending 可以是要点，接着说 **he is less tolerant of such blending when it affects the performers themselves**. **A violinist who cannot tell whether a colleague has finished a phrase may enter too late.**",
+      "paraphrase": "题干 a violinist entering late ↔ 原文 A violinist … may enter too late；选项 C qualify his defence of blending by showing its potential cost to performers ↔ 原文 less tolerant of such blending when it affects the performers themselves",
+      "judgment": "提到小提琴手进拍过晚，是为了限定他对融合的肯定：这一对听众可取的效果，可能给演奏者造成实际代价。故答案为 **C**。",
+      "explanation": "题干关键词：Why does Vale mention a violinist entering late\n原文定位：定位 Passage 1「What should a hall make audible?」Vale 一段：他先肯定对听众而言 blending 可以是要点，接着说 **he is less tolerant of such blending when it affects the performers themselves**. **A violinist who cannot tell whether a colleague has finished a phrase may enter too late.**\n关键词替换：题干 a violinist entering late ↔ 原文 A violinist … may enter too late；选项 C qualify his defence of blending by showing its potential cost to performers ↔ 原文 less tolerant of such blending when it affects the performers themselves\n判定点：提到小提琴手进拍过晚，是为了限定他对融合的肯定：这一对听众可取的效果，可能给演奏者造成实际代价。故答案为 **C**。"
+    },
+    "12": {
+      "answer": "B",
+      "type": "mcq",
+      "stem_keywords": "function of the afternoon and evening comparison in Fenwick’s argument",
+      "locate": "定位 Passage 1「Who should choose the settings?」Fenwick 一段：**A promising result in an afternoon session is of little practical value if the technician must reconstruct it from memory before the evening performance.**",
+      "paraphrase": "题干 afternoon and evening comparison ↔ 原文 afternoon session … before the evening performance；选项 B illustrates what is lost when a successful configuration cannot be recalled ↔ 原文 a promising result … is of little practical value if the technician must reconstruct it from memory",
+      "judgment": "下午排练与晚间演出的对照，说明一旦成功的配置无法被记起并再现，这一发现便失去实用价值。故答案为 **B**。",
+      "explanation": "题干关键词：function of the afternoon and evening comparison in Fenwick’s argument\n原文定位：定位 Passage 1「Who should choose the settings?」Fenwick 一段：**A promising result in an afternoon session is of little practical value if the technician must reconstruct it from memory before the evening performance.**\n关键词替换：题干 afternoon and evening comparison ↔ 原文 afternoon session … before the evening performance；选项 B illustrates what is lost when a successful configuration cannot be recalled ↔ 原文 a promising result … is of little practical value if the technician must reconstruct it from memory\n判定点：下午排练与晚间演出的对照，说明一旦成功的配置无法被记起并再现，这一发现便失去实用价值。故答案为 **B**。"
+    },
+    "13": {
+      "answer": "D",
+      "type": "mcq",
+      "stem_keywords": "Why does Nduka want people without specialist training to take part",
+      "locate": "定位 Passage 1「Who should choose the settings?」Nduka 一段：Nduka would invite some **listeners without specialist training** into the process. **She expects them to notice problems that experienced musicians have learnt to compensate for.**",
+      "paraphrase": "题干 people without specialist training ↔ 原文 listeners without specialist training；选项 D draw attention to difficulties that experts have learnt to work around ↔ 原文 notice problems that experienced musicians have learnt to compensate for",
+      "judgment": "Nduka 邀请无专业训练的听者参与，是因为他们可能注意到经验丰富的乐师已经学会加以弥补的困难。故答案为 **D**。",
+      "explanation": "题干关键词：Why does Nduka want people without specialist training to take part\n原文定位：定位 Passage 1「Who should choose the settings?」Nduka 一段：Nduka would invite some **listeners without specialist training** into the process. **She expects them to notice problems that experienced musicians have learnt to compensate for.**\n关键词替换：题干 people without specialist training ↔ 原文 listeners without specialist training；选项 D draw attention to difficulties that experts have learnt to work around ↔ 原文 notice problems that experienced musicians have learnt to compensate for\n判定点：Nduka 邀请无专业训练的听者参与，是因为他们可能注意到经验丰富的乐师已经学会加以弥补的困难。故答案为 **D**。"
+    },
+    "14": {
+      "answer": "A",
+      "type": "mcq",
+      "stem_keywords": "What does the final paragraph contribute to the argument",
+      "locate": "定位 Passage 1 末段：Making musical sources easier to distinguish, giving players room to respond to one another and helping new listeners interpret what they hear are all plausible objectives. **A successful change on one measure could be neutral or costly on another. The first decision about the controls is therefore what the orchestra wants a particular performance to achieve.**",
+      "paraphrase": "题干 the final paragraph contribute ↔ 原文末段先指出三项目标可能冲突，再提出须先决定演出目的；选项 A a useful judgement requires a prior decision about the performance’s aims ↔ 原文 The first decision … is therefore what the orchestra wants a particular performance to achieve",
+      "judgment": "末段说明各项改进可能彼此冲突，因此要作出有用的判断，必须先确定这场演出想达到的目的。故答案为 **A**。",
+      "explanation": "题干关键词：What does the final paragraph contribute to the argument\n原文定位：定位 Passage 1 末段：Making musical sources easier to distinguish, giving players room to respond to one another and helping new listeners interpret what they hear are all plausible objectives. **A successful change on one measure could be neutral or costly on another. The first decision about the controls is therefore what the orchestra wants a particular performance to achieve.**\n关键词替换：题干 the final paragraph contribute ↔ 原文末段先指出三项目标可能冲突，再提出须先决定演出目的；选项 A a useful judgement requires a prior decision about the performance’s aims ↔ 原文 The first decision … is therefore what the orchestra wants a particular performance to achieve\n判定点：末段说明各项改进可能彼此冲突，因此要作出有用的判断，必须先确定这场演出想达到的目的。故答案为 **A**。"
+    },
+    "15": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "Using an object can destroy clues; even in the absence of an obvious fault",
+      "locate": "定位 Passage 2「What survives in a repaired object?」Hugh Bell 一段：**Repeated operation may erase such traces even when the clock appears to be running smoothly.**",
+      "paraphrase": "题干 Using an object can destroy clues ↔ 原文 Repeated operation may erase such traces（划痕等痕迹）；题干 even in the absence of an obvious fault ↔ 原文 even when the clock appears to be running smoothly",
+      "judgment": "Bell 指出，反复走时即使在钟看起来运转顺畅、并无明显故障时，也可能磨去刮痕一类线索。对应选项 **B** Hugh Bell。",
+      "explanation": "题干关键词：Using an object can destroy clues; even in the absence of an obvious fault\n原文定位：定位 Passage 2「What survives in a repaired object?」Hugh Bell 一段：**Repeated operation may erase such traces even when the clock appears to be running smoothly.**\n关键词替换：题干 Using an object can destroy clues ↔ 原文 Repeated operation may erase such traces（划痕等痕迹）；题干 even in the absence of an obvious fault ↔ 原文 even when the clock appears to be running smoothly\n判定点：Bell 指出，反复走时即使在钟看起来运转顺畅、并无明显故障时，也可能磨去刮痕一类线索。对应选项 **B** Hugh Bell。"
+    },
+    "16": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "A technically unimpressive feature; may be valuable evidence of an economic decision",
+      "locate": "定位 Passage 2「What survives in a repaired object?」Amara Firth 一段：She points to a **crude bracket, probably installed when metal was expensive** … The bracket has **little to teach a modern maker about elegant construction**. It may nevertheless **explain how the town kept a public service going when a more expensive repair was out of reach**.",
+      "paraphrase": "题干 technically unimpressive feature ↔ 原文 crude bracket … little to teach … about elegant construction；题干 valuable evidence of an economic decision ↔ 原文 installed when metal was expensive / when a more expensive repair was out of reach",
+      "judgment": "Firth 用制作粗糙的支架说明：尽管在工艺上并不出色，它却可以证明城镇在材料昂贵时如何维持公共服务。对应选项 **C** Amara Firth。",
+      "explanation": "题干关键词：A technically unimpressive feature; may be valuable evidence of an economic decision\n原文定位：定位 Passage 2「What survives in a repaired object?」Amara Firth 一段：She points to a **crude bracket, probably installed when metal was expensive** … The bracket has **little to teach a modern maker about elegant construction**. It may nevertheless **explain how the town kept a public service going when a more expensive repair was out of reach**.\n关键词替换：题干 technically unimpressive feature ↔ 原文 crude bracket … little to teach … about elegant construction；题干 valuable evidence of an economic decision ↔ 原文 installed when metal was expensive / when a more expensive repair was out of reach\n判定点：Firth 用制作粗糙的支架说明：尽管在工艺上并不出色，它却可以证明城镇在材料昂贵时如何维持公共服务。对应选项 **C** Amara Firth。"
+    },
+    "17": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "A replacement may be justified; if a removed piece is retained and a process becomes observable",
+      "locate": "定位 Passage 2「What survives in a repaired object?」Edith Sayer 一段：Sayer would therefore **accept the replacement of a worn component where it makes the behaviour of the whole intelligible, so long as the discarded component remains available for study**.",
+      "paraphrase": "题干 A replacement may be justified ↔ 原文 accept the replacement of a worn component；题干 a process becomes observable ↔ 原文 makes the behaviour of the whole intelligible；题干 a removed piece is retained ↔ 原文 the discarded component remains available for study",
+      "judgment": "Sayer 接受更换磨损零件，条件是整机的运行过程因此变得可观察，并且卸下的旧件仍可供研究。对应选项 **A** Edith Sayer。",
+      "explanation": "题干关键词：A replacement may be justified; if a removed piece is retained and a process becomes observable\n原文定位：定位 Passage 2「What survives in a repaired object?」Edith Sayer 一段：Sayer would therefore **accept the replacement of a worn component where it makes the behaviour of the whole intelligible, so long as the discarded component remains available for study**.\n关键词替换：题干 A replacement may be justified ↔ 原文 accept the replacement of a worn component；题干 a process becomes observable ↔ 原文 makes the behaviour of the whole intelligible；题干 a removed piece is retained ↔ 原文 the discarded component remains available for study\n判定点：Sayer 接受更换磨损零件，条件是整机的运行过程因此变得可观察，并且卸下的旧件仍可供研究。对应选项 **A** Edith Sayer。"
+    },
+    "18": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "A marking may lose much of its value; once an item is separated from its usual setting",
+      "locate": "定位 Passage 2「Should the new parts stand out?」Bell 一段：If a component **breaks and is sent to a workshop on its own, a date may be meaningless** to somebody who has no idea where the part came from.",
+      "paraphrase": "题干 A marking may lose much of its value ↔ 原文 a date may be meaningless；题干 separated from its usual setting ↔ 原文 sent to a workshop on its own / no idea where the part came from",
+      "judgment": "Bell 用单独送往作坊的零件说明：一旦部件离开原来的位置，上面的日期标记也可能失去解释力。对应选项 **B** Hugh Bell。",
+      "explanation": "题干关键词：A marking may lose much of its value; once an item is separated from its usual setting\n原文定位：定位 Passage 2「Should the new parts stand out?」Bell 一段：If a component **breaks and is sent to a workshop on its own, a date may be meaningless** to somebody who has no idea where the part came from.\n关键词替换：题干 A marking may lose much of its value ↔ 原文 a date may be meaningless；题干 separated from its usual setting ↔ 原文 sent to a workshop on its own / no idea where the part came from\n判定点：Bell 用单独送往作坊的零件说明：一旦部件离开原来的位置，上面的日期标记也可能失去解释力。对应选项 **B** Hugh Bell。"
+    },
+    "19": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "Information should be available at the object; without constantly drawing attention to itself",
+      "locate": "定位 Passage 2「Should the new parts stand out?」Sayer 一段：She favours **discreet dates engraved in accessible places**, enabling a visitor to establish the age of an individual part **without having that information forced on them throughout the demonstration**.",
+      "paraphrase": "题干 available at the object ↔ 原文 engraved in accessible places；题干 without constantly drawing attention to itself ↔ 原文 discreet dates / without having that information forced on them",
+      "judgment": "Sayer 主张在便于查看之处刻上不张扬的日期，使信息就在器物上可以读到，却不必在演示过程中一直吸引注意。对应选项 **A** Edith Sayer。",
+      "explanation": "题干关键词：Information should be available at the object; without constantly drawing attention to itself\n原文定位：定位 Passage 2「Should the new parts stand out?」Sayer 一段：She favours **discreet dates engraved in accessible places**, enabling a visitor to establish the age of an individual part **without having that information forced on them throughout the demonstration**.\n关键词替换：题干 available at the object ↔ 原文 engraved in accessible places；题干 without constantly drawing attention to itself ↔ 原文 discreet dates / without having that information forced on them\n判定点：Sayer 主张在便于查看之处刻上不张扬的日期，使信息就在器物上可以读到，却不必在演示过程中一直吸引注意。对应选项 **A** Edith Sayer。"
+    },
+    "20": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "The most recent intervention should be identified; within a longer account of alterations",
+      "locate": "定位 Passage 2「Should the new parts stand out?」Firth 一段：She would **begin with a history of decisions, showing how the object reached its present form, before identifying which alteration was made most recently**.",
+      "paraphrase": "题干 The most recent intervention should be identified ↔ 原文 identifying which alteration was made most recently；题干 within a longer account of alterations ↔ 原文 begin with a history of decisions, showing how the object reached its present form",
+      "judgment": "Firth 主张先叙述一连串改变如何造就现状，然后再标出最近一次改动。对应选项 **C** Amara Firth。",
+      "explanation": "题干关键词：The most recent intervention should be identified; within a longer account of alterations\n原文定位：定位 Passage 2「Should the new parts stand out?」Firth 一段：She would **begin with a history of decisions, showing how the object reached its present form, before identifying which alteration was made most recently**.\n关键词替换：题干 The most recent intervention should be identified ↔ 原文 identifying which alteration was made most recently；题干 within a longer account of alterations ↔ 原文 begin with a history of decisions, showing how the object reached its present form\n判定点：Firth 主张先叙述一连串改变如何造就现状，然后再标出最近一次改动。对应选项 **C** Amara Firth。"
+    },
+    "21": {
+      "answer": "E",
+      "type": "matching_endings",
+      "stem_keywords": "Sayer’s example of the apprentice and Bell’s example of scratched surfaces; both challenge the assumption that",
+      "locate": "定位 Passage 2：Sayer 认为 **a running mechanism preserves information that a stationary one cannot readily convey**，学徒能看见一处轻微延迟如何改变别处运动，也能听到practitioner 据以判断动作不对的声音。Bell 则指出 **Repeated operation may erase such traces even when the clock appears to be running smoothly**.",
+      "paraphrase": "题干 Sayer’s example of the apprentice ↔ 原文 running mechanism preserves information … apprentice can see / sound；题干 Bell’s example of scratched surfaces ↔ 原文 scratches … Repeated operation may erase such traces；选项 E putting a clock back into service makes no difference to the evidence it offers ↔ 原文运行既可揭示静止时不易传达的信息，也可能消除原有痕迹，因而“重新投入使用并不改变其所提供的证据”这一假定不成立",
+      "judgment": "Sayer 指出运行能揭示静止时难以传达的信息，Bell 指出运行也可能消除刮痕证据，二人都在质疑“把钟重新投入使用对其证据毫无影响”的假定，对应结尾 **E**。",
+      "explanation": "题干关键词：Sayer’s example of the apprentice and Bell’s example of scratched surfaces; both challenge the assumption that\n原文定位：定位 Passage 2：Sayer 认为 **a running mechanism preserves information that a stationary one cannot readily convey**，学徒能看见一处轻微延迟如何改变别处运动，也能听到practitioner 据以判断动作不对的声音。Bell 则指出 **Repeated operation may erase such traces even when the clock appears to be running smoothly**.\n关键词替换：题干 Sayer’s example of the apprentice ↔ 原文 running mechanism preserves information … apprentice can see / sound；题干 Bell’s example of scratched surfaces ↔ 原文 scratches … Repeated operation may erase such traces；选项 E putting a clock back into service makes no difference to the evidence it offers ↔ 原文运行既可揭示静止时不易传达的信息，也可能消除原有痕迹，因而“重新投入使用并不改变其所提供的证据”这一假定不成立\n判定点：Sayer 指出运行能揭示静止时难以传达的信息，Bell 指出运行也可能消除刮痕证据，二人都在质疑“把钟重新投入使用对其证据毫无影响”的假定，对应结尾 **E**。"
+    },
+    "22": {
+      "answer": "B",
+      "type": "matching_endings",
+      "stem_keywords": "For Firth, the crude bracket and the oldest surviving component both illustrate why",
+      "locate": "定位 Passage 2：Firth 指出 **crude bracket, probably installed when metal was expensive**，可说明城镇在无力承担更昂贵修理时如何维持公共服务；她又质疑把 original 与 replacement 截然分开，因为 **the oldest surviving piece may itself belong to a later rebuilding of the tower**.",
+      "paraphrase": "题干 the crude bracket ↔ 原文 a crude bracket … earlier repair / economic decision；题干 the oldest surviving component ↔ 原文 the oldest surviving piece may itself belong to a later rebuilding；选项 B later changes deserve attention as part of the object’s history ↔ 原文支架是后来的决定，而现存最旧零件也可能属于后来的重建，二者都表明后期改动应作为对象历史的一部分来看待",
+      "judgment": "对 Firth 而言，粗糙支架揭示了较早的一次决定，而现存最旧的零件也可能来自后来的重建，二者都说明后期变化应作为该物历史的一部分加以关注，对应结尾 **B**。",
+      "explanation": "题干关键词：For Firth, the crude bracket and the oldest surviving component both illustrate why\n原文定位：定位 Passage 2：Firth 指出 **crude bracket, probably installed when metal was expensive**，可说明城镇在无力承担更昂贵修理时如何维持公共服务；她又质疑把 original 与 replacement 截然分开，因为 **the oldest surviving piece may itself belong to a later rebuilding of the tower**.\n关键词替换：题干 the crude bracket ↔ 原文 a crude bracket … earlier repair / economic decision；题干 the oldest surviving component ↔ 原文 the oldest surviving piece may itself belong to a later rebuilding；选项 B later changes deserve attention as part of the object’s history ↔ 原文支架是后来的决定，而现存最旧零件也可能属于后来的重建，二者都表明后期改动应作为对象历史的一部分来看待\n判定点：对 Firth 而言，粗糙支架揭示了较早的一次决定，而现存最旧的零件也可能来自后来的重建，二者都说明后期变化应作为该物历史的一部分加以关注，对应结尾 **B**。"
+    },
+    "23": {
+      "answer": "D",
+      "type": "matching_endings",
+      "stem_keywords": "Sayer and Bell both give a mark on a replacement part a role, but Bell stresses that it should",
+      "locate": "定位 Passage 2「Should the new parts stand out?」：Sayer favours **discreet dates engraved in accessible places**。Bell 则认为 a durable mark offers only partial protection，并要求 **each marked piece to have a corresponding description in the record, with its position and purpose shown in a photograph**.",
+      "paraphrase": "题干 both give a mark … a role ↔ 原文 Sayer 的 engraved dates 与 Bell 承认 durable mark 的作用；题干 Bell stresses that it should ↔ 原文 corresponding description … position and purpose shown in a photograph；选项 D be supported by a source that explains where and how the part was used ↔ 原文 description in the record / position and purpose",
+      "judgment": "两人都给替换件上的标记以作用，但 Bell 强调标记须有另一份材料支撑，说明该零件曾用在何处、如何使用，对应结尾 **D**。",
+      "explanation": "题干关键词：Sayer and Bell both give a mark on a replacement part a role, but Bell stresses that it should\n原文定位：定位 Passage 2「Should the new parts stand out?」：Sayer favours **discreet dates engraved in accessible places**。Bell 则认为 a durable mark offers only partial protection，并要求 **each marked piece to have a corresponding description in the record, with its position and purpose shown in a photograph**.\n关键词替换：题干 both give a mark … a role ↔ 原文 Sayer 的 engraved dates 与 Bell 承认 durable mark 的作用；题干 Bell stresses that it should ↔ 原文 corresponding description … position and purpose shown in a photograph；选项 D be supported by a source that explains where and how the part was used ↔ 原文 description in the record / position and purpose\n判定点：两人都给替换件上的标记以作用，但 Bell 强调标记须有另一份材料支撑，说明该零件曾用在何处、如何使用，对应结尾 **D**。"
+    },
+    "24": {
+      "answer": "F",
+      "type": "matching_endings",
+      "stem_keywords": "The assessments suggested by Sayer and Firth both ask a participant to",
+      "locate": "定位 Passage 2「How should a repair be assessed?」：Sayer would ask an apprentice to diagnose an unfamiliar problem；**Correctly naming the wheels would count for little if the apprentice could not predict how a change would affect their combined movement**. Firth would ask visitors **which feature they regarded as evidence of a decision by the town and what conclusion they thought it justified**.",
+      "paraphrase": "题干 both ask a participant to ↔ 原文 apprentice … predict / visitors … what conclusion they thought it justified；选项 F use what they observe to reason about something beyond simple identification ↔ 原文 naming the wheels would count for little / justify a historical inference",
+      "judgment": "Sayer 要求学徒在观察后推断机械效应，Firth 要求参观者为一则历史推论提出依据，两人都让参与者超越简单辨认、根据所见进行推理，对应结尾 **F**。",
+      "explanation": "题干关键词：The assessments suggested by Sayer and Firth both ask a participant to\n原文定位：定位 Passage 2「How should a repair be assessed?」：Sayer would ask an apprentice to diagnose an unfamiliar problem；**Correctly naming the wheels would count for little if the apprentice could not predict how a change would affect their combined movement**. Firth would ask visitors **which feature they regarded as evidence of a decision by the town and what conclusion they thought it justified**.\n关键词替换：题干 both ask a participant to ↔ 原文 apprentice … predict / visitors … what conclusion they thought it justified；选项 F use what they observe to reason about something beyond simple identification ↔ 原文 naming the wheels would count for little / justify a historical inference\n判定点：Sayer 要求学徒在观察后推断机械效应，Firth 要求参观者为一则历史推论提出依据，两人都让参与者超越简单辨认、根据所见进行推理，对应结尾 **F**。"
+    },
+    "25": {
+      "answer": "B",
+      "type": "mcq",
+      "stem_keywords": "Why does Sayer refer to the sound of a mechanism",
+      "locate": "定位 Passage 2「What survives in a repaired object?」Sayer 一段：**Drawings can represent the relationship, but they rarely communicate the sound by which a practitioner recognises that the action is wrong.**",
+      "paraphrase": "题干 the sound of a mechanism ↔ 原文 the sound by which a practitioner recognises that the action is wrong；选项 B an example of practical knowledge that a static representation may fail to convey ↔ 原文 Drawings … rarely communicate the sound",
+      "judgment": "Sayer 提到机械的声音，是为了举例说明一种实践知识：图纸这类静态呈现往往难以传达。故答案为 **B**。",
+      "explanation": "题干关键词：Why does Sayer refer to the sound of a mechanism\n原文定位：定位 Passage 2「What survives in a repaired object?」Sayer 一段：**Drawings can represent the relationship, but they rarely communicate the sound by which a practitioner recognises that the action is wrong.**\n关键词替换：题干 the sound of a mechanism ↔ 原文 the sound by which a practitioner recognises that the action is wrong；选项 B an example of practical knowledge that a static representation may fail to convey ↔ 原文 Drawings … rarely communicate the sound\n判定点：Sayer 提到机械的声音，是为了举例说明一种实践知识：图纸这类静态呈现往往难以传达。故答案为 **B**。"
+    },
+    "26": {
+      "answer": "D",
+      "type": "mcq",
+      "stem_keywords": "purpose of Bell’s example of a part sent away to a workshop",
+      "locate": "定位 Passage 2「Should the new parts stand out?」Bell 一段：If a component **breaks and is sent to a workshop on its own, a date may be meaningless** to somebody who has **no idea where the part came from**. He wants each marked piece to have a corresponding description … What matters is whether **evidence from two sources can be brought together**.",
+      "paraphrase": "题干 a part sent away to a workshop ↔ 原文 sent to a workshop on its own；选项 D a mark alone may not furnish enough information in a different context ↔ 原文 a date may be meaningless … no idea where the part came from",
+      "judgment": "把零件单独送往作坊的例子，是为了说明仅有标记在脱离原有语境后，可能不足以提供解释所需的信息。故答案为 **D**。",
+      "explanation": "题干关键词：purpose of Bell’s example of a part sent away to a workshop\n原文定位：定位 Passage 2「Should the new parts stand out?」Bell 一段：If a component **breaks and is sent to a workshop on its own, a date may be meaningless** to somebody who has **no idea where the part came from**. He wants each marked piece to have a corresponding description … What matters is whether **evidence from two sources can be brought together**.\n关键词替换：题干 a part sent away to a workshop ↔ 原文 sent to a workshop on its own；选项 D a mark alone may not furnish enough information in a different context ↔ 原文 a date may be meaningless … no idea where the part came from\n判定点：把零件单独送往作坊的例子，是为了说明仅有标记在脱离原有语境后，可能不足以提供解释所需的信息。故答案为 **D**。"
+    },
+    "27": {
+      "answer": "A",
+      "type": "mcq",
+      "stem_keywords": "What misconception is Firth’s proposed display designed to address",
+      "locate": "定位 Passage 2「Should the new parts stand out?」Firth 一段：她质疑 a display that makes a **sharp initial distinction between original and replacement material**. **Such a distinction can obscure the fact that the oldest surviving piece may itself belong to a later rebuilding of the tower.**",
+      "paraphrase": "题干 misconception … designed to address ↔ 原文 Such a distinction can obscure the fact that …；选项 A the oldest material still present necessarily dates from the first construction ↔ 原文 the oldest surviving piece may itself belong to a later rebuilding",
+      "judgment": "Firth 主张的陈列针对这样一种误解：现存最旧的材料必定属于最初的建造。故答案为 **A**。",
+      "explanation": "题干关键词：What misconception is Firth’s proposed display designed to address\n原文定位：定位 Passage 2「Should the new parts stand out?」Firth 一段：她质疑 a display that makes a **sharp initial distinction between original and replacement material**. **Such a distinction can obscure the fact that the oldest surviving piece may itself belong to a later rebuilding of the tower.**\n关键词替换：题干 misconception … designed to address ↔ 原文 Such a distinction can obscure the fact that …；选项 A the oldest material still present necessarily dates from the first construction ↔ 原文 the oldest surviving piece may itself belong to a later rebuilding\n判定点：Firth 主张的陈列针对这样一种误解：现存最旧的材料必定属于最初的建造。故答案为 **A**。"
+    },
+    "28": {
+      "answer": "C",
+      "type": "mcq",
+      "stem_keywords": "the two cases beginning ‘A display could’ and ‘Conversely’ in the final paragraph",
+      "locate": "定位 Passage 2 末段：**A display could succeed in explaining the machine as a working whole while giving an entirely misleading account of its history. Conversely, the survival of every worn surface may be of little practical help to somebody trying to learn the skills of a clockmaker.**",
+      "paraphrase": "题干 two cases beginning ‘A display could’ and ‘Conversely’ ↔ 原文这两句对照；选项 C success with one objective can coexist with limited value for another ↔ 原文 succeed in explaining … while … misleading account of its history / survival of every worn surface … little practical help",
+      "judgment": "作者用这两个例子表明：在一个目标上取得成功，可以与对另一目标价值有限同时存在。故答案为 **C**。",
+      "explanation": "题干关键词：the two cases beginning ‘A display could’ and ‘Conversely’ in the final paragraph\n原文定位：定位 Passage 2 末段：**A display could succeed in explaining the machine as a working whole while giving an entirely misleading account of its history. Conversely, the survival of every worn surface may be of little practical help to somebody trying to learn the skills of a clockmaker.**\n关键词替换：题干 two cases beginning ‘A display could’ and ‘Conversely’ ↔ 原文这两句对照；选项 C success with one objective can coexist with limited value for another ↔ 原文 succeed in explaining … while … misleading account of its history / survival of every worn surface … little practical help\n判定点：作者用这两个例子表明：在一个目标上取得成功，可以与对另一目标价值有限同时存在。故答案为 **C**。"
+    },
+    "29": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "A change in what observers can see; need not indicate a comparable change in the sky itself",
+      "locate": "定位 Passage 3「What exactly is being restored?」Owen Drew 一段：Residents who complain that the stars are barely visible may be responding partly to **a lamp shining straight into their eyes, even when the sky above them is relatively dark**. **Changing the lamp’s direction can alter what people see without producing a comparable reduction in light reflected upwards.**",
+      "paraphrase": "题干 A change in what observers can see ↔ 原文 alter what people see / a lamp shining straight into their eyes；题干 need not indicate a comparable change in the sky itself ↔ 原文 without producing a comparable reduction in light reflected upwards / even when the sky above them is relatively dark",
+      "judgment": "Drew 把直射眩光与向上反射的光区分开来：人们所见的改变，并不必然表示天空本身有相应变化。对应选项 **B** Owen Drew。",
+      "explanation": "题干关键词：A change in what observers can see; need not indicate a comparable change in the sky itself\n原文定位：定位 Passage 3「What exactly is being restored?」Owen Drew 一段：Residents who complain that the stars are barely visible may be responding partly to **a lamp shining straight into their eyes, even when the sky above them is relatively dark**. **Changing the lamp’s direction can alter what people see without producing a comparable reduction in light reflected upwards.**\n关键词替换：题干 A change in what observers can see ↔ 原文 alter what people see / a lamp shining straight into their eyes；题干 need not indicate a comparable change in the sky itself ↔ 原文 without producing a comparable reduction in light reflected upwards / even when the sky above them is relatively dark\n判定点：Drew 把直射眩光与向上反射的光区分开来：人们所见的改变，并不必然表示天空本身有相应变化。对应选项 **B** Owen Drew。"
+    },
+    "30": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "Comparable conditions at two destinations; can conceal differences in whether they can be reached",
+      "locate": "定位 Passage 3「What exactly is being restored?」Leila Mercer 一段：She describes **two fields of similar size and brightness**. One is **linked to a wood by an unlit hedge** while the other is **cut off by a brightly illuminated road**. **Measuring the fields alone would suggest that animals found the same opportunities in both places.**",
+      "paraphrase": "题干 Comparable conditions at two destinations ↔ 原文 two fields of similar size and brightness；题干 conceal differences in whether they can be reached ↔ 原文 linked … by an unlit hedge / cut off by a brightly illuminated road；Measuring the fields alone would suggest … the same opportunities",
+      "judgment": "Mercer 用两块条件相近的田说明：仅比较目的地本身，可能掩盖动物能否抵达的差异。对应选项 **A** Leila Mercer。",
+      "explanation": "题干关键词：Comparable conditions at two destinations; can conceal differences in whether they can be reached\n原文定位：定位 Passage 3「What exactly is being restored?」Leila Mercer 一段：She describes **two fields of similar size and brightness**. One is **linked to a wood by an unlit hedge** while the other is **cut off by a brightly illuminated road**. **Measuring the fields alone would suggest that animals found the same opportunities in both places.**\n关键词替换：题干 Comparable conditions at two destinations ↔ 原文 two fields of similar size and brightness；题干 conceal differences in whether they can be reached ↔ 原文 linked … by an unlit hedge / cut off by a brightly illuminated road；Measuring the fields alone would suggest … the same opportunities\n判定点：Mercer 用两块条件相近的田说明：仅比较目的地本身，可能掩盖动物能否抵达的差异。对应选项 **A** Leila Mercer。"
+    },
+    "31": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "An overall rating may hide differences; between what people use the night for",
+      "locate": "定位 Passage 3「What exactly is being restored?」Nina Holt 一段：A person taking a child outside to look at the moon may experience it as an amenity. Someone who walks home after the last bus may experience the same stretch of road as a barrier. **Holt doubts the usefulness of an average rating of satisfaction from people who make such different use of the night.**",
+      "paraphrase": "题干 An overall rating ↔ 原文 an average rating of satisfaction；题干 hide differences between what people use the night for ↔ 原文 people who make such different use of the night / amenity versus barrier",
+      "judgment": "Holt 对照不同活动，并质疑平均满意度评分的用处，因为总体评分可能掩盖人们夜间用途上的差别。对应选项 **C** Nina Holt。",
+      "explanation": "题干关键词：An overall rating may hide differences; between what people use the night for\n原文定位：定位 Passage 3「What exactly is being restored?」Nina Holt 一段：A person taking a child outside to look at the moon may experience it as an amenity. Someone who walks home after the last bus may experience the same stretch of road as a barrier. **Holt doubts the usefulness of an average rating of satisfaction from people who make such different use of the night.**\n关键词替换：题干 An overall rating ↔ 原文 an average rating of satisfaction；题干 hide differences between what people use the night for ↔ 原文 people who make such different use of the night / amenity versus barrier\n判定点：Holt 对照不同活动，并质疑平均满意度评分的用处，因为总体评分可能掩盖人们夜间用途上的差别。对应选项 **C** Nina Holt。"
+    },
+    "32": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "An expensive commitment; may make people less willing to acknowledge that a measure has failed",
+      "locate": "定位 Passage 3「How should a trial be arranged?」Drew 一段：if **equipment is replaced first, the cost of reinstatement may make people reluctant to report a failure**.",
+      "paraphrase": "题干 An expensive commitment ↔ 原文 equipment is replaced first / the cost of reinstatement；题干 less willing to acknowledge that a measure has failed ↔ 原文 reluctant to report a failure",
+      "judgment": "Drew 指出，若先更换设备，恢复原状的费用可能使人不愿意报告该项措施失败。对应选项 **B** Owen Drew。",
+      "explanation": "题干关键词：An expensive commitment; may make people less willing to acknowledge that a measure has failed\n原文定位：定位 Passage 3「How should a trial be arranged?」Drew 一段：if **equipment is replaced first, the cost of reinstatement may make people reluctant to report a failure**.\n关键词替换：题干 An expensive commitment ↔ 原文 equipment is replaced first / the cost of reinstatement；题干 less willing to acknowledge that a measure has failed ↔ 原文 reluctant to report a failure\n判定点：Drew 指出，若先更换设备，恢复原状的费用可能使人不愿意报告该项措施失败。对应选项 **B** Owen Drew。"
+    },
+    "33": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "A trade-off at one location; may justify looking for another connection nearby",
+      "locate": "定位 Passage 3「How should a trial be arranged?」Mercer 一段：Mercer would **leave some lamps on where switching them off might isolate a pedestrian route, even if doing so interrupted a corridor for wildlife**. In that case, however, **she would look for an alternative route through nearby ground**.",
+      "paraphrase": "题干 A trade-off at one location ↔ 原文 leave some lamps on … even if doing so interrupted a corridor for wildlife；题干 looking for another connection nearby ↔ 原文 look for an alternative route through nearby ground",
+      "judgment": "Mercer 会在必要时保留行人照明，即使这会打断野生动物通道，并转而在附近寻找另一条连接。对应选项 **A** Leila Mercer。",
+      "explanation": "题干关键词：A trade-off at one location; may justify looking for another connection nearby\n原文定位：定位 Passage 3「How should a trial be arranged?」Mercer 一段：Mercer would **leave some lamps on where switching them off might isolate a pedestrian route, even if doing so interrupted a corridor for wildlife**. In that case, however, **she would look for an alternative route through nearby ground**.\n关键词替换：题干 A trade-off at one location ↔ 原文 leave some lamps on … even if doing so interrupted a corridor for wildlife；题干 looking for another connection nearby ↔ 原文 look for an alternative route through nearby ground\n判定点：Mercer 会在必要时保留行人照明，即使这会打断野生动物通道，并转而在附近寻找另一条连接。对应选项 **A** Leila Mercer。"
+    },
+    "34": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "Fewer reports of difficulty; can result from a decline in participation",
+      "locate": "定位 Passage 3「What would justify expansion?」Holt 一段：A decline in negative reports might mean that a troublesome journey had become easier, **but it might also mean that those affected no longer attempted it**.",
+      "paraphrase": "题干 Fewer reports of difficulty ↔ 原文 A decline in negative reports；题干 a decline in participation ↔ 原文 those affected no longer attempted it",
+      "judgment": "Holt 指出，困难报告减少，也可能是因为受影响的人不再尝试那趟出行。对应选项 **C** Nina Holt。",
+      "explanation": "题干关键词：Fewer reports of difficulty; can result from a decline in participation\n原文定位：定位 Passage 3「What would justify expansion?」Holt 一段：A decline in negative reports might mean that a troublesome journey had become easier, **but it might also mean that those affected no longer attempted it**.\n关键词替换：题干 Fewer reports of difficulty ↔ 原文 A decline in negative reports；题干 a decline in participation ↔ 原文 those affected no longer attempted it\n判定点：Holt 指出，困难报告减少，也可能是因为受影响的人不再尝试那趟出行。对应选项 **C** Nina Holt。"
+    },
+    "35": {
+      "answer": "C",
+      "type": "matching_endings",
+      "stem_keywords": "Mercer’s comparison of fields and Drew’s example of a lamp shining into people’s eyes both show that",
+      "locate": "定位 Passage 3「What exactly is being restored?」：Mercer 的两块田 **similar size and brightness**，但连通性不同，**Measuring the fields alone would suggest that animals found the same opportunities in both places**。Drew 指出，居民可能是在对 **a lamp shining straight into their eyes** 作出反应，**even when the sky above them is relatively dark**。",
+      "paraphrase": "题干 Mercer’s comparison of fields ↔ 原文 Measuring the fields alone would suggest … the same opportunities；题干 Drew’s example of a lamp shining into people’s eyes ↔ 原文 a lamp shining straight into their eyes … even when the sky … is relatively dark；选项 C a readily observed feature can be misleading as an indicator of the outcome of interest ↔ 原文田块亮度或居民所见并不能可靠表明连通性或天空实际亮度",
+      "judgment": "测量田块会忽略连通性，而依据居民所见则可能把眩光与天空亮度混为一谈：二者都表明，容易观察到的特征可能误导人们对真正关心的结果的判断，对应结尾 **C**。",
+      "explanation": "题干关键词：Mercer’s comparison of fields and Drew’s example of a lamp shining into people’s eyes both show that\n原文定位：定位 Passage 3「What exactly is being restored?」：Mercer 的两块田 **similar size and brightness**，但连通性不同，**Measuring the fields alone would suggest that animals found the same opportunities in both places**。Drew 指出，居民可能是在对 **a lamp shining straight into their eyes** 作出反应，**even when the sky above them is relatively dark**。\n关键词替换：题干 Mercer’s comparison of fields ↔ 原文 Measuring the fields alone would suggest … the same opportunities；题干 Drew’s example of a lamp shining into people’s eyes ↔ 原文 a lamp shining straight into their eyes … even when the sky … is relatively dark；选项 C a readily observed feature can be misleading as an indicator of the outcome of interest ↔ 原文田块亮度或居民所见并不能可靠表明连通性或天空实际亮度\n判定点：测量田块会忽略连通性，而依据居民所见则可能把眩光与天空亮度混为一谈：二者都表明，容易观察到的特征可能误导人们对真正关心的结果的判断，对应结尾 **C**。"
+    },
+    "36": {
+      "answer": "E",
+      "type": "matching_endings",
+      "stem_keywords": "Drew and Holt both favour reversible trials, but Holt’s distinctive concern is that",
+      "locate": "定位 Passage 3「How should a trial be arranged?」：Drew 和 Holt **both favour a reversible trial**。Holt asks whose habits it will have time to capture：regular walkers may notice a change immediately, whereas others use a route only on the occasional night when a shift finishes late. **A short trial could be technically easy to reverse while still giving the least frequent users little chance to register its effects.**",
+      "paraphrase": "题干 both favour reversible trials ↔ 原文 Holt also favours a reversible trial；题干 Holt’s distinctive concern ↔ 原文 whose habits it will have time to capture / least frequent users little chance to register its effects；选项 E some of those affected may not encounter the new conditions while the trial is running ↔ 原文 giving the least frequent users little chance to register its effects",
+      "judgment": "两人都赞成可逆试验，但 Holt 特别担心：部分受影响的人在试验结束前可能还没遇上新的条件，对应结尾 **E**。",
+      "explanation": "题干关键词：Drew and Holt both favour reversible trials, but Holt’s distinctive concern is that\n原文定位：定位 Passage 3「How should a trial be arranged?」：Drew 和 Holt **both favour a reversible trial**。Holt asks whose habits it will have time to capture：regular walkers may notice a change immediately, whereas others use a route only on the occasional night when a shift finishes late. **A short trial could be technically easy to reverse while still giving the least frequent users little chance to register its effects.**\n关键词替换：题干 both favour reversible trials ↔ 原文 Holt also favours a reversible trial；题干 Holt’s distinctive concern ↔ 原文 whose habits it will have time to capture / least frequent users little chance to register its effects；选项 E some of those affected may not encounter the new conditions while the trial is running ↔ 原文 giving the least frequent users little chance to register its effects\n判定点：两人都赞成可逆试验，但 Holt 特别担心：部分受影响的人在试验结束前可能还没遇上新的条件，对应结尾 **E**。"
+    },
+    "37": {
+      "answer": "B",
+      "type": "matching_endings",
+      "stem_keywords": "Mercer’s proposal for monitoring expansion and Holt’s comparison of journeys both give particular weight to",
+      "locate": "定位 Passage 3「What would justify expansion?」：Mercer would look for **evidence of movement along proposed links, as well as activity at individual sites**. Holt would **compare journeys made before and after the change**，并关注人们是否仍尝试那些出行。",
+      "paraphrase": "题干 Mercer’s proposal for monitoring expansion ↔ 原文 evidence of movement along proposed links；题干 Holt’s comparison of journeys ↔ 原文 compare journeys made before and after the change；选项 B whether and how routes affected by the change are actually used ↔ 原文 movement along proposed links / journeys … no longer attempted it",
+      "judgment": "Mercer 要看连接线上是否真有移动，Holt 要看人们是否继续出行，两人都特别看重受影响的路径是否以及如何被实际使用，对应结尾 **B**。",
+      "explanation": "题干关键词：Mercer’s proposal for monitoring expansion and Holt’s comparison of journeys both give particular weight to\n原文定位：定位 Passage 3「What would justify expansion?」：Mercer would look for **evidence of movement along proposed links, as well as activity at individual sites**. Holt would **compare journeys made before and after the change**，并关注人们是否仍尝试那些出行。\n关键词替换：题干 Mercer’s proposal for monitoring expansion ↔ 原文 evidence of movement along proposed links；题干 Holt’s comparison of journeys ↔ 原文 compare journeys made before and after the change；选项 B whether and how routes affected by the change are actually used ↔ 原文 movement along proposed links / journeys … no longer attempted it\n判定点：Mercer 要看连接线上是否真有移动，Holt 要看人们是否继续出行，两人都特别看重受影响的路径是否以及如何被实际使用，对应结尾 **B**。"
+    },
+    "38": {
+      "answer": "F",
+      "type": "matching_endings",
+      "stem_keywords": "Drew’s advice on cloud conditions implies that a conclusion based on a clear night may",
+      "locate": "定位 Passage 3「What would justify expansion?」Drew：he would **repeat observations under different cloud conditions, because a result obtained on a clear night might misrepresent the effects observed under cloud**.",
+      "paraphrase": "题干 a conclusion based on a clear night ↔ 原文 a result obtained on a clear night；选项 F fail to apply under other conditions in the same place ↔ 原文 might misrepresent the effects observed under cloud",
+      "judgment": "Drew 关于云况的建议意味着：依据晴夜得出的结论，在同一地点的其他条件下可能并不适用，对应结尾 **F**。",
+      "explanation": "题干关键词：Drew’s advice on cloud conditions implies that a conclusion based on a clear night may\n原文定位：定位 Passage 3「What would justify expansion?」Drew：he would **repeat observations under different cloud conditions, because a result obtained on a clear night might misrepresent the effects observed under cloud**.\n关键词替换：题干 a conclusion based on a clear night ↔ 原文 a result obtained on a clear night；选项 F fail to apply under other conditions in the same place ↔ 原文 might misrepresent the effects observed under cloud\n判定点：Drew 关于云况的建议意味着：依据晴夜得出的结论，在同一地点的其他条件下可能并不适用，对应结尾 **F**。"
+    },
+    "39": {
+      "answer": "D",
+      "type": "mcq",
+      "stem_keywords": "function of the two people in Holt’s opening paragraph",
+      "locate": "定位 Passage 3「What exactly is being restored?」Holt 一段：**A person taking a child outside to look at the moon may experience it as an amenity. Someone who walks home after the last bus may experience the same stretch of road as a barrier.**",
+      "paraphrase": "题干 the two people in Holt’s opening paragraph ↔ 原文带孩子看月亮的人与末班车后步行回家的人；选项 D reactions to the same conditions may reflect different activities ↔ 原文 the same stretch of road 既可能是 amenity，也可能是 barrier，取决于活动不同",
+      "judgment": "这两个例子表明，同一段黑暗的路对一个人可能便利某种活动，对另一个人则构成障碍，反应的差异反映的是活动不同。故答案为 **D**。",
+      "explanation": "题干关键词：function of the two people in Holt’s opening paragraph\n原文定位：定位 Passage 3「What exactly is being restored?」Holt 一段：**A person taking a child outside to look at the moon may experience it as an amenity. Someone who walks home after the last bus may experience the same stretch of road as a barrier.**\n关键词替换：题干 the two people in Holt’s opening paragraph ↔ 原文带孩子看月亮的人与末班车后步行回家的人；选项 D reactions to the same conditions may reflect different activities ↔ 原文 the same stretch of road 既可能是 amenity，也可能是 barrier，取决于活动不同\n判定点：这两个例子表明，同一段黑暗的路对一个人可能便利某种活动，对另一个人则构成障碍，反应的差异反映的是活动不同。故答案为 **D**。"
+    },
+    "40": {
+      "answer": "C",
+      "type": "mcq",
+      "stem_keywords": "Why does Drew contrast trying new schedules with fitting new equipment",
+      "locate": "定位 Passage 3「How should a trial be arranged?」Drew 一段：Drew suggests **trying different switch-off times before fitting new equipment**. Where the change is reversible, the authority can discover whether complaints concern an initial adjustment or a conflict that persists. Conversely, **if equipment is replaced first, the cost of reinstatement may make people reluctant to report a failure**.",
+      "paraphrase": "题干 contrast trying new schedules with fitting new equipment ↔ 原文 trying different switch-off times before fitting new equipment；选项 C the cost of undoing a change can influence the feedback it generates ↔ 原文 the cost of reinstatement may make people reluctant to report a failure",
+      "judgment": "Drew 对照先试新的开关时间与先装新设备，是为了说明撤销一项改动的成本会影响人们给出的反馈。故答案为 **C**。",
+      "explanation": "题干关键词：Why does Drew contrast trying new schedules with fitting new equipment\n原文定位：定位 Passage 3「How should a trial be arranged?」Drew 一段：Drew suggests **trying different switch-off times before fitting new equipment**. Where the change is reversible, the authority can discover whether complaints concern an initial adjustment or a conflict that persists. Conversely, **if equipment is replaced first, the cost of reinstatement may make people reluctant to report a failure**.\n关键词替换：题干 contrast trying new schedules with fitting new equipment ↔ 原文 trying different switch-off times before fitting new equipment；选项 C the cost of undoing a change can influence the feedback it generates ↔ 原文 the cost of reinstatement may make people reluctant to report a failure\n判定点：Drew 对照先试新的开关时间与先装新设备，是为了说明撤销一项改动的成本会影响人们给出的反馈。故答案为 **C**。"
+    },
+    "41": {
+      "answer": "A",
+      "type": "mcq",
+      "stem_keywords": "Why does Holt give the example of someone whose shift only occasionally finishes late",
+      "locate": "定位 Passage 3「How should a trial be arranged?」Holt 一段：People who walk regularly may notice a change immediately, **whereas others use a route only on the occasional night when a shift finishes late**. **A short trial could be technically easy to reverse while still giving the least frequent users little chance to register its effects.**",
+      "paraphrase": "题干 someone whose shift only occasionally finishes late ↔ 原文 use a route only on the occasional night when a shift finishes late；选项 A a type of user whose experience may be missed by a short trial ↔ 原文 a short trial … giving the least frequent users little chance to register its effects",
+      "judgment": "Holt 举偶尔加班较晚才结束的人，是为了指出一类使用者：短期试验可能捕捉不到他们的体验。故答案为 **A**。",
+      "explanation": "题干关键词：Why does Holt give the example of someone whose shift only occasionally finishes late\n原文定位：定位 Passage 3「How should a trial be arranged?」Holt 一段：People who walk regularly may notice a change immediately, **whereas others use a route only on the occasional night when a shift finishes late**. **A short trial could be technically easy to reverse while still giving the least frequent users little chance to register its effects.**\n关键词替换：题干 someone whose shift only occasionally finishes late ↔ 原文 use a route only on the occasional night when a shift finishes late；选项 A a type of user whose experience may be missed by a short trial ↔ 原文 a short trial … giving the least frequent users little chance to register its effects\n判定点：Holt 举偶尔加班较晚才结束的人，是为了指出一类使用者：短期试验可能捕捉不到他们的体验。故答案为 **A**。"
+    },
+    "42": {
+      "answer": "B",
+      "type": "mcq",
+      "stem_keywords": "role of the reference to energy savings in the final paragraph",
+      "locate": "定位 Passage 3 末段：**The information most readily collected after the lights go out may be quite adequate for estimating energy savings, yet poorly suited to deciding whether a wildlife route has reopened or a resident has quietly given up an evening activity.**",
+      "paraphrase": "题干 the reference to energy savings ↔ 原文 adequate for estimating energy savings；选项 B contrasts evidence that is easy to obtain with evidence needed to judge broader aims ↔ 原文 most readily collected … adequate for estimating energy savings, yet poorly suited to deciding whether a wildlife route has reopened or a resident has quietly given up an evening activity",
+      "judgment": "末段提到节能，是为了对照：有些证据容易获得，却不足以判断生态或社会方面的更广泛目标是否实现。故答案为 **B**。",
+      "explanation": "题干关键词：role of the reference to energy savings in the final paragraph\n原文定位：定位 Passage 3 末段：**The information most readily collected after the lights go out may be quite adequate for estimating energy savings, yet poorly suited to deciding whether a wildlife route has reopened or a resident has quietly given up an evening activity.**\n关键词替换：题干 the reference to energy savings ↔ 原文 adequate for estimating energy savings；选项 B contrasts evidence that is easy to obtain with evidence needed to judge broader aims ↔ 原文 most readily collected … adequate for estimating energy savings, yet poorly suited to deciding whether a wildlife route has reopened or a resident has quietly given up an evening activity\n判定点：末段提到节能，是为了对照：有些证据容易获得，却不足以判断生态或社会方面的更广泛目标是否实现。故答案为 **B**。"
+    }
+  }
+}

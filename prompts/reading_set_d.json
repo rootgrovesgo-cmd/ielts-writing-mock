@@ -1,0 +1,515 @@
+{
+  "id": "set-d",
+  "title": "Set D · P3 高阶专项练习",
+  "subtitle": "Academic Reading",
+  "instructions": {
+    "time": "1 hour",
+    "to_candidates": [
+      "Answer all the questions.",
+      "You may write on this question paper.",
+      "You must write your answers clearly.",
+      "In a real test you would transfer your answers to an answer sheet within the time allowed."
+    ],
+    "information": [
+      "There are 42 questions on this question paper.",
+      "Each question carries one mark.",
+      "This paper is Passage 3 specialist practice and consists of three separate Passage 3 texts."
+    ]
+  },
+  "passages": [
+    {
+      "id": 1,
+      "label": "READING PASSAGE 1",
+      "time_guidance": "You should spend about 20 minutes on Questions 1–14, which are based on Reading Passage 1 below.",
+      "title": "Who should own an orchestra’s sound?",
+      "paragraphs": [
+        "A regional orchestra has been offered free access to a hall with adjustable acoustics. Panels above the stage and curtains along the walls can alter the way sound travels. The offer appears to settle a practical problem: the orchestra can adapt the building to whatever it plays. Yet three specialists disagree about what ought to be adjusted, who should decide and how anyone would know that the decision had worked.",
+        {
+          "heading": "What should a hall make audible?"
+        },
+        "Acoustician Mira Fenwick distinguishes between hearing a note and hearing where it came from. A hall can make a quiet passage perfectly audible while obscuring the exchange between two sections of the orchestra. She recalls a trial in which listeners placed the woodwind correctly more often after the overhead panels were lowered, although they rated the overall sound no louder. For Fenwick, the result matters because a listener's grasp of a musical exchange can depend on its location, a quality that a simple test of loudness would miss.",
+        "Conductor Julian Vale values some uncertainty about the origin of a sound. In a piece built around changes of colour, he says, a note that seems to belong to neither instrument alone can be the point of the exercise. But he is less tolerant of such blending when it affects the performers themselves. A violinist who cannot tell whether a colleague has finished a phrase may enter too late. Vale would therefore consider separately what the players need to hear and what ought to reach the audience.",
+        "Music educator Sarah Nduka wonders whether concertgoers always recognise what has become easier to follow. An audience unfamiliar with a work may welcome a striking increase in clarity without being able to say which relationships it has revealed. She would ask people to describe a musical exchange twice, once immediately and again after hearing a short demonstration of the relevant parts. A difference between the accounts would help show which details required help to become meaningful.",
+        {
+          "heading": "Who should choose the settings?"
+        },
+        "Fenwick wants visiting ensembles to be able to request changes, provided that each setting can be reproduced. The controls should retain a record of positions used in rehearsals. A promising result in an afternoon session is of little practical value if the technician must reconstruct it from memory before the evening performance. She is willing to accept a relatively small menu of settings if it makes reliable recall possible.",
+        "Vale is wary of leaving the final choice to the visiting conductor. From the podium, a small alteration may seem far more consequential than it is from the back of the hall. He would let the conductor propose a setting but ask a colleague to listen from several seats before it was adopted. The colleague would be asked to identify anything lost from the intended musical effect, rather than merely report a personal preference.",
+        "Nduka would invite some listeners without specialist training into the process. She expects them to notice problems that experienced musicians have learnt to compensate for. However, she would ask for their observations before telling them which setting was recommended. Once an authority has described a sound as clearer, people may hear the concert as an opportunity to confirm that description rather than report what struck them.",
+        {
+          "heading": "What would count as improvement?"
+        },
+        "Fenwick would keep a record of the same settings across several productions. A configuration that consistently improves the location of instruments could still be unsuitable for a programme that depends on blending. For Vale, the test is whether the performers can produce an intended effect in the first place and then vary it within the performance. Nduka asks whether the hall helps listeners find their way through an unfamiliar piece, even when the resulting experience is less immediately pleasing.",
+        "The three proposals expose a difficulty with asking whether the new hall sounds better. Making musical sources easier to distinguish, giving players room to respond to one another and helping new listeners interpret what they hear are all plausible objectives. A successful change on one measure could be neutral or costly on another. The first decision about the controls is therefore what the orchestra wants a particular performance to achieve."
+      ]
+    },
+    {
+      "id": 2,
+      "label": "READING PASSAGE 2",
+      "time_guidance": "You should spend about 20 minutes on Questions 15–28, which are based on Reading Passage 2 below.",
+      "title": "What a repair should show",
+      "paragraphs": [
+        "A nineteenth-century town clock has stopped. Its original mechanism is unusually complete, but several wheels are too worn to run reliably. The proposed repair would return the clock to public use by fitting replacement parts. The question is how those parts and the work of fitting them should be presented. Three specialists consider what visitors ought to be able to infer from the clock once it starts again.",
+        {
+          "heading": "What survives in a repaired object?"
+        },
+        "Clockmaker Edith Sayer argues that a running mechanism preserves information that a stationary one cannot readily convey. A new apprentice can see how a slight delay at one point changes the movement elsewhere. Drawings can represent the relationship, but they rarely communicate the sound by which a practitioner recognises that the action is wrong. Sayer would therefore accept the replacement of a worn component where it makes the behaviour of the whole intelligible, so long as the discarded component remains available for study.",
+        "Materials conservator Hugh Bell is concerned about a different kind of information. The scratches left where two wheels meet can show that someone once ran the clock with considerably more force than its designer intended. Repeated operation may erase such traces even when the clock appears to be running smoothly. Bell would first ask which surfaces still carry evidence likely to be lost in use. A decision based on whether a mechanism can be made to work tells him too little about whether it should.",
+        "Historian Amara Firth is interested in what an earlier repair tells us about the people who paid for it. She points to a crude bracket, probably installed when metal was expensive, which a restorer might be tempted to remove. The bracket has little to teach a modern maker about elegant construction. It may nevertheless explain how the town kept a public service going when a more expensive repair was out of reach.",
+        {
+          "heading": "Should the new parts stand out?"
+        },
+        "Sayer dislikes replacements that can be detected only by consulting records in a distant office. However, a component made visually conspicuous may distract anyone trying to understand how the mechanism works. She favours discreet dates engraved in accessible places, enabling a visitor to establish the age of an individual part without having that information forced on them throughout the demonstration.",
+        "Bell argues that a durable mark offers only partial protection against future mistakes. If a component breaks and is sent to a workshop on its own, a date may be meaningless to somebody who has no idea where the part came from. He wants each marked piece to have a corresponding description in the record, with its position and purpose shown in a photograph. What matters is whether evidence from two sources can be brought together, even after the staff who did the work have left.",
+        "Firth accepts the usefulness of labels but questions a display that makes a sharp initial distinction between original and replacement material. Such a distinction can obscure the fact that the oldest surviving piece may itself belong to a later rebuilding of the tower. She would begin with a history of decisions, showing how the object reached its present form, before identifying which alteration was made most recently.",
+        {
+          "heading": "How should a repair be assessed?"
+        },
+        "Sayer would ask an apprentice to diagnose an unfamiliar problem on the repaired clock. Correctly naming the wheels would count for little if the apprentice could not predict how a change would affect their combined movement. Bell would revisit the clock after a period of running and compare vulnerable surfaces with detailed photographs taken before the work. Firth would ask visitors which feature they regarded as evidence of a decision by the town and what conclusion they thought it justified.",
+        "All three assessments have the merit of testing what a particular repair was meant to preserve. A display could succeed in explaining the machine as a working whole while giving an entirely misleading account of its history. Conversely, the survival of every worn surface may be of little practical help to somebody trying to learn the skills of a clockmaker. The repair ought to be judged against the purposes declared before it began, including any of those purposes that were knowingly given lower priority."
+      ]
+    },
+    {
+      "id": 3,
+      "label": "READING PASSAGE 3",
+      "time_guidance": "You should spend about 20 minutes on Questions 29–42, which are based on Reading Passage 3 below.",
+      "title": "Can the countryside afford darkness?",
+      "paragraphs": [
+        "Several villages are considering switching off street lights for part of the night. A reduction in electricity use is easy to forecast, but the proposed change is usually defended on broader grounds: darker skies for residents and less disruption to wildlife. Three specialists examine the case for the change and the evidence that might justify extending it to neighbouring areas.",
+        {
+          "heading": "What exactly is being restored?"
+        },
+        "Ecologist Leila Mercer is interested in the usefulness of dark ground as a route between feeding areas. She describes two fields of similar size and brightness. One is linked to a wood by an unlit hedge while the other is cut off by a brightly illuminated road. Measuring the fields alone would suggest that animals found the same opportunities in both places. Mercer argues that the circumstances under which animals can reach an area may matter more than the conditions recorded within it.",
+        "Lighting engineer Owen Drew makes a different distinction. Residents who complain that the stars are barely visible may be responding partly to a lamp shining straight into their eyes, even when the sky above them is relatively dark. Changing the lamp’s direction can alter what people see without producing a comparable reduction in light reflected upwards. Drew would measure both effects before using residents’ reports as evidence about the brightness of the sky.",
+        "Social researcher Nina Holt asks what darkness enables people to do. A person taking a child outside to look at the moon may experience it as an amenity. Someone who walks home after the last bus may experience the same stretch of road as a barrier. Holt doubts the usefulness of an average rating of satisfaction from people who make such different use of the night. She would record what activities became easier, what became harder and who made the adjustments.",
+        {
+          "heading": "How should a trial be arranged?"
+        },
+        "Mercer would leave some lamps on where switching them off might isolate a pedestrian route, even if doing so interrupted a corridor for wildlife. In that case, however, she would look for an alternative route through nearby ground. She is opposed to treating a reduction in total light as proof that a new route has become available.",
+        "Drew suggests trying different switch-off times before fitting new equipment. Where the change is reversible, he thinks the authority can discover whether complaints concern an initial adjustment or a conflict that persists. Conversely, if equipment is replaced first, the cost of reinstatement may make people reluctant to report a failure. He regards the option of reversing a trial as valuable mainly because it makes it easier to act honestly on the findings.",
+        "Holt also favours a reversible trial, but asks whose habits it will have time to capture. People who walk regularly may notice a change immediately, whereas others use a route only on the occasional night when a shift finishes late. A short trial could be technically easy to reverse while still giving the least frequent users little chance to register its effects. Holt would set its duration after studying local routines, rather than using one timetable across the whole district.",
+        {
+          "heading": "What would justify expansion?"
+        },
+        "Mercer would look for evidence of movement along proposed links, as well as activity at individual sites. Drew would repeat observations under different cloud conditions, because a result obtained on a clear night might misrepresent the effects observed under cloud. Holt would compare journeys made before and after the change. A decline in negative reports might mean that a troublesome journey had become easier, but it might also mean that those affected no longer attempted it.",
+        "For a council, these lines of enquiry demand rather different kinds of patience. The information most readily collected after the lights go out may be quite adequate for estimating energy savings, yet poorly suited to deciding whether a wildlife route has reopened or a resident has quietly given up an evening activity. Extending the scheme would be more defensible if the evidence addressed the reasons it was introduced in the first place."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "q1-6",
+      "passage": 1,
+      "from": 1,
+      "to": 6,
+      "type": "matching_features",
+      "heading": "Questions 1–6",
+      "instructions": [
+        "Look at the following statements (Questions 1–6) and the list of specialists below.",
+        "Match each statement with the correct specialist, A, B or C.",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–C, in boxes 1–6 on your answer sheet."
+      ],
+      "box_title": "List of specialists",
+      "options": {
+        "A": "Mira Fenwick",
+        "B": "Julian Vale",
+        "C": "Sarah Nduka"
+      },
+      "items": [
+        {
+          "q": 1,
+          "stem": "An audience may detect an improvement without being able to identify what it helped them understand."
+        },
+        {
+          "q": 2,
+          "stem": "An increase in the ability to identify a source need not be accompanied by a change in perceived volume."
+        },
+        {
+          "q": 3,
+          "stem": "A feature valued by listeners can cause difficulties for people producing the sound."
+        },
+        {
+          "q": 4,
+          "stem": "Limiting the range of choices may be justified if it makes a useful result easier to reproduce."
+        },
+        {
+          "q": 5,
+          "stem": "People should give their impressions before learning which option has been endorsed."
+        },
+        {
+          "q": 6,
+          "stem": "The person proposing a setting may experience a change differently from someone elsewhere in the room."
+        }
+      ]
+    },
+    {
+      "id": "q7-10",
+      "passage": 1,
+      "from": 7,
+      "to": 10,
+      "type": "matching_endings",
+      "heading": "Questions 7–10",
+      "instructions": [
+        "Complete each sentence with the correct ending, A–F, below.",
+        "Write the correct letter, A–F, in boxes 7–10 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 7,
+          "stem": "Fenwick’s description of the woodwind trial and Vale’s example of a note of uncertain origin both suggest that"
+        },
+        {
+          "q": 8,
+          "stem": "Vale’s colleague and Nduka’s listeners are both asked to provide evidence that"
+        },
+        {
+          "q": 9,
+          "stem": "Whereas Fenwick’s proposal for recording settings is meant to reproduce a result, Nduka’s two accounts of a musical exchange are meant to establish"
+        },
+        {
+          "q": 10,
+          "stem": "In the discussion of improvement, Fenwick and Vale both allow for the possibility that"
+        }
+      ],
+      "endings": {
+        "A": "comes from a perspective other than that of the person making the recommendation.",
+        "B": "results observed in rehearsal can be reproduced without recording the controls.",
+        "C": "the merits of an acoustic effect depend on what the music is trying to do.",
+        "D": "the ability to locate a sound is a distinct aspect of the listening experience.",
+        "E": "trained observers can be expected to agree about the best acoustic conditions.",
+        "F": "which aspects of listening benefit from additional guidance."
+      }
+    },
+    {
+      "id": "q11-14",
+      "passage": 1,
+      "from": 11,
+      "to": 14,
+      "type": "mcq",
+      "heading": "Questions 11–14",
+      "instructions": [
+        "Choose the correct letter, A, B, C or D.",
+        "Write the correct letter in boxes 11–14 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 11,
+          "stem": "Why does Vale mention a violinist entering late?",
+          "options": {
+            "A": "To show why playing in time involves judging the loudness of nearby instruments.",
+            "B": "To suggest that one late entry can obscure the structure of an entire composition.",
+            "C": "To qualify his defence of blending by showing its potential cost to performers.",
+            "D": "To explain why listeners unfamiliar with a piece may overlook errors."
+          }
+        },
+        {
+          "q": 12,
+          "stem": "What is the function of the afternoon and evening comparison in Fenwick’s argument?",
+          "options": {
+            "A": "It suggests that an occupied hall may behave differently during a performance.",
+            "B": "It illustrates what is lost when a successful configuration cannot be recalled.",
+            "C": "It shows why a record of panel positions is more useful for some ensembles than for others.",
+            "D": "It provides evidence that changes are easier to evaluate during rehearsals."
+          }
+        },
+        {
+          "q": 13,
+          "stem": "Why does Nduka want people without specialist training to take part?",
+          "options": {
+            "A": "Their preferences can establish which settings will appeal to the widest audience.",
+            "B": "They can judge whether a colleague’s interpretation matches the conductor’s.",
+            "C": "They are less likely than professionals to be influenced by a recommendation.",
+            "D": "They may draw attention to difficulties that experts have learnt to work around."
+          }
+        },
+        {
+          "q": 14,
+          "stem": "What does the final paragraph contribute to the argument?",
+          "options": {
+            "A": "It explains why a useful judgement requires a prior decision about the performance’s aims.",
+            "B": "It proposes combining the three criteria into a single evaluation of the hall.",
+            "C": "It shows that each of the three objectives can be achieved through the same setting.",
+            "D": "It recommends giving greatest weight to the experience of new listeners."
+          }
+        }
+      ]
+    },
+    {
+      "id": "q15-20",
+      "passage": 2,
+      "from": 15,
+      "to": 20,
+      "type": "matching_features",
+      "heading": "Questions 15–20",
+      "instructions": [
+        "Look at the following statements (Questions 15–20) and the list of specialists below.",
+        "Match each statement with the correct specialist, A, B or C.",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–C, in boxes 15–20 on your answer sheet."
+      ],
+      "box_title": "List of specialists",
+      "options": {
+        "A": "Edith Sayer",
+        "B": "Hugh Bell",
+        "C": "Amara Firth"
+      },
+      "items": [
+        {
+          "q": 15,
+          "stem": "Using an object can destroy clues even in the absence of an obvious fault."
+        },
+        {
+          "q": 16,
+          "stem": "A technically unimpressive feature may be valuable evidence of an economic decision."
+        },
+        {
+          "q": 17,
+          "stem": "A replacement may be justified if a removed piece is retained and a process becomes observable."
+        },
+        {
+          "q": 18,
+          "stem": "A marking may lose much of its value once an item is separated from its usual setting."
+        },
+        {
+          "q": 19,
+          "stem": "Information should be available at the object without constantly drawing attention to itself."
+        },
+        {
+          "q": 20,
+          "stem": "The most recent intervention should be identified within a longer account of alterations."
+        }
+      ]
+    },
+    {
+      "id": "q21-24",
+      "passage": 2,
+      "from": 21,
+      "to": 24,
+      "type": "matching_endings",
+      "heading": "Questions 21–24",
+      "instructions": [
+        "Complete each sentence with the correct ending, A–F, below.",
+        "Write the correct letter, A–F, in boxes 21–24 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 21,
+          "stem": "Sayer’s example of the apprentice and Bell’s example of scratched surfaces both challenge the assumption that"
+        },
+        {
+          "q": 22,
+          "stem": "For Firth, the crude bracket and the oldest surviving component both illustrate why"
+        },
+        {
+          "q": 23,
+          "stem": "Sayer and Bell both give a mark on a replacement part a role, but Bell stresses that it should"
+        },
+        {
+          "q": 24,
+          "stem": "The assessments suggested by Sayer and Firth both ask a participant to"
+        }
+      ],
+      "endings": {
+        "A": "provide the date at which the mechanism was first installed in the tower.",
+        "B": "later changes deserve attention as part of the object’s history.",
+        "C": "show that an older part can perform its original function.",
+        "D": "be supported by a source that explains where and how the part was used.",
+        "E": "putting a clock back into service makes no difference to the evidence it offers.",
+        "F": "use what they observe to reason about something beyond simple identification."
+      }
+    },
+    {
+      "id": "q25-28",
+      "passage": 2,
+      "from": 25,
+      "to": 28,
+      "type": "mcq",
+      "heading": "Questions 25–28",
+      "instructions": [
+        "Choose the correct letter, A, B, C or D.",
+        "Write the correct letter in boxes 25–28 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 25,
+          "stem": "Why does Sayer refer to the sound of a mechanism?",
+          "options": {
+            "A": "To suggest that apprentices should identify the sound before learning the names of components.",
+            "B": "To give an example of practical knowledge that a static representation may fail to convey.",
+            "C": "To establish that the old clock was unusually difficult for its makers to regulate.",
+            "D": "To illustrate a sign that continues to be available after a mechanism stops running."
+          }
+        },
+        {
+          "q": 26,
+          "stem": "What is the purpose of Bell’s example of a part sent away to a workshop?",
+          "options": {
+            "A": "To suggest that dates should be recorded as soon as damaged parts are removed.",
+            "B": "To illustrate why the workshop must keep the original component after making a replacement.",
+            "C": "To explain why an engraved date is likely to wear away during a second repair.",
+            "D": "To show why a mark alone may not furnish enough information in a different context."
+          }
+        },
+        {
+          "q": 27,
+          "stem": "What misconception is Firth’s proposed display designed to address?",
+          "options": {
+            "A": "That the oldest material still present necessarily dates from the first construction.",
+            "B": "That an inexpensive alteration can rarely prolong the functioning life of a clock.",
+            "C": "That a component’s date cannot be determined from its physical features.",
+            "D": "That a repaired clock should be seen primarily as a tool for training apprentices."
+          }
+        },
+        {
+          "q": 28,
+          "stem": "What is the writer doing with the two cases beginning ‘A display could’ and ‘Conversely’ in the final paragraph?",
+          "options": {
+            "A": "Explaining why the clock’s previous repair failed on both historical and technical grounds.",
+            "B": "Proposing practical ways to overcome the weaknesses in the specialists’ assessments.",
+            "C": "Showing how success with one objective can coexist with limited value for another.",
+            "D": "Ranking the three objectives by the amount of evidence a repair preserves."
+          }
+        }
+      ]
+    },
+    {
+      "id": "q29-34",
+      "passage": 3,
+      "from": 29,
+      "to": 34,
+      "type": "matching_features",
+      "heading": "Questions 29–34",
+      "instructions": [
+        "Look at the following statements (Questions 29–34) and the list of specialists below.",
+        "Match each statement with the correct specialist, A, B or C.",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–C, in boxes 29–34 on your answer sheet."
+      ],
+      "box_title": "List of specialists",
+      "options": {
+        "A": "Leila Mercer",
+        "B": "Owen Drew",
+        "C": "Nina Holt"
+      },
+      "items": [
+        {
+          "q": 29,
+          "stem": "A change in what observers can see need not indicate a comparable change in the sky itself."
+        },
+        {
+          "q": 30,
+          "stem": "Comparable conditions at two destinations can conceal differences in whether they can be reached."
+        },
+        {
+          "q": 31,
+          "stem": "An overall rating may hide differences between what people use the night for."
+        },
+        {
+          "q": 32,
+          "stem": "An expensive commitment may make people less willing to acknowledge that a measure has failed."
+        },
+        {
+          "q": 33,
+          "stem": "A trade-off at one location may justify looking for another connection nearby."
+        },
+        {
+          "q": 34,
+          "stem": "Fewer reports of difficulty can result from a decline in participation."
+        }
+      ]
+    },
+    {
+      "id": "q35-38",
+      "passage": 3,
+      "from": 35,
+      "to": 38,
+      "type": "matching_endings",
+      "heading": "Questions 35–38",
+      "instructions": [
+        "Complete each sentence with the correct ending, A–F, below.",
+        "Write the correct letter, A–F, in boxes 35–38 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 35,
+          "stem": "Mercer’s comparison of fields and Drew’s example of a lamp shining into people’s eyes both show that"
+        },
+        {
+          "q": 36,
+          "stem": "Drew and Holt both favour reversible trials, but Holt’s distinctive concern is that"
+        },
+        {
+          "q": 37,
+          "stem": "Mercer’s proposal for monitoring expansion and Holt’s comparison of journeys both give particular weight to"
+        },
+        {
+          "q": 38,
+          "stem": "Drew’s advice on cloud conditions implies that a conclusion based on a clear night may"
+        }
+      ],
+      "endings": {
+        "A": "be more relevant to estimating energy savings than to assessing safety.",
+        "B": "whether and how routes affected by the change are actually used.",
+        "C": "a readily observed feature can be misleading as an indicator of the outcome of interest.",
+        "D": "opportunities for occasional users may improve as soon as the lighting is reduced.",
+        "E": "some of those affected may not encounter the new conditions while the trial is running.",
+        "F": "fail to apply under other conditions in the same place."
+      }
+    },
+    {
+      "id": "q39-42",
+      "passage": 3,
+      "from": 39,
+      "to": 42,
+      "type": "mcq",
+      "heading": "Questions 39–42",
+      "instructions": [
+        "Choose the correct letter, A, B, C or D.",
+        "Write the correct letter in boxes 39–42 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 39,
+          "stem": "What is the function of the two people in Holt’s opening paragraph?",
+          "options": {
+            "A": "To argue that people who go out in groups will be less affected than those who walk alone.",
+            "B": "To establish that the benefits of darkness are concentrated among families with children.",
+            "C": "To illustrate why loss of a bus service is more serious than a change in lighting.",
+            "D": "To show why reactions to the same conditions may reflect different activities."
+          }
+        },
+        {
+          "q": 40,
+          "stem": "Why does Drew contrast trying new schedules with fitting new equipment?",
+          "options": {
+            "A": "To show that changes to the timetable are less disruptive to walkers than new lamps.",
+            "B": "To argue that timetable changes will produce a more representative range of weather conditions.",
+            "C": "To show how the cost of undoing a change can influence the feedback it generates.",
+            "D": "To suggest that the most reliable test is one in which residents are unaware of any change."
+          }
+        },
+        {
+          "q": 41,
+          "stem": "Why does Holt give the example of someone whose shift only occasionally finishes late?",
+          "options": {
+            "A": "To identify a type of user whose experience may be missed by a short trial.",
+            "B": "To show that occasional users are more likely to complain than regular users.",
+            "C": "To suggest that reinstating lights for particular shifts would make evaluation easier.",
+            "D": "To explain why the impact on employment should determine the district’s timetable."
+          }
+        },
+        {
+          "q": 42,
+          "stem": "What is the role of the reference to energy savings in the final paragraph?",
+          "options": {
+            "A": "It presents an objective that the three specialists consider equally important.",
+            "B": "It contrasts evidence that is easy to obtain with evidence needed to judge broader aims.",
+            "C": "It suggests that the case for switching off lights rests mainly on financial returns.",
+            "D": "It points to a way of measuring benefits after the other effects have been established."
+          }
+        }
+      ]
+    }
+  ]
+}

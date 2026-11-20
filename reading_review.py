@@ -194,7 +194,7 @@ def list_reading_sets() -> list[dict]:
     """Student-facing set summaries for the setup dropdown."""
     seen: set[str] = set()
     out: list[dict] = []
-    for set_id in ("set-a", "set-b", "set-c", "set-d"):
+    for set_id in ("set-a", "set-b", "set-c", "set-d", "set-e"):
         paper = load_paper_for_set(set_id)
         if not paper:
             continue

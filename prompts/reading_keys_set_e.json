@@ -1,0 +1,365 @@
+{
+  "set_id": "set-e",
+  "questions": {
+    "1": {
+      "answer": "pharmacist",
+      "type": "notes",
+      "stem_keywords": "first qualified as; Early career",
+      "locate": "定位 Passage 1 第1段：she trained and qualified as a **pharmacist**, a path that gave her a working knowledge of solvents, oxides and careful measurement.",
+      "paraphrase": "题干 she first qualified as ↔ 原文 she trained and qualified as; 空格所需职业名 ↔ 原文 a pharmacist",
+      "judgment": "笔记问的是 Kellerman 最初取得的专业资格。原文写明她受训并取得 **pharmacist** 资格，因此空格应填 **pharmacist**。",
+      "explanation": "题干关键词：first qualified as; Early career\n原文定位：定位 Passage 1 第1段：she trained and qualified as a **pharmacist**, a path that gave her a working knowledge of solvents, oxides and careful measurement.\n关键词替换：题干 she first qualified as ↔ 原文 she trained and qualified as; 空格所需职业名 ↔ 原文 a pharmacist\n判定点：笔记问的是 Kellerman 最初取得的专业资格。原文写明她受训并取得 **pharmacist** 资格，因此空格应填 **pharmacist**。"
+    },
+    "2": {
+      "answer": "glazes",
+      "type": "notes",
+      "stem_keywords": "at Elmbeck; began by studying the chemistry of",
+      "locate": "定位 Passage 1 第2段：The technical office had begun a modest enquiry into the chemistry of **glazes** ... Kellerman was set to work on that enquiry.",
+      "paraphrase": "题干 at Elmbeck she began by studying ↔ 原文 Kellerman was set to work on that enquiry; 题干 the chemistry of ↔ 原文 the chemistry of **glazes**",
+      "judgment": "笔记问的是她在 Elmbeck 起步时所研究的对象。原文把那项enquiry明确为 **glazes** 的化学，因此空格应填 **glazes**。",
+      "explanation": "题干关键词：at Elmbeck; began by studying the chemistry of\n原文定位：定位 Passage 1 第2段：The technical office had begun a modest enquiry into the chemistry of **glazes** ... Kellerman was set to work on that enquiry.\n关键词替换：题干 at Elmbeck she began by studying ↔ 原文 Kellerman was set to work on that enquiry; 题干 the chemistry of ↔ 原文 the chemistry of **glazes**\n判定点：笔记问的是她在 Elmbeck 起步时所研究的对象。原文把那项enquiry明确为 **glazes** 的化学，因此空格应填 **glazes**。"
+    },
+    "3": {
+      "answer": "insulators",
+      "type": "notes",
+      "stem_keywords": "task of making porcelain; more reliable",
+      "locate": "定位 Passage 1 第3段：failures in the porcelain **insulators** ... Kellerman was given a small laboratory and a brief to make those **insulators** more reliable.",
+      "paraphrase": "题干 she was given the task of making ... more reliable ↔ 原文 a brief to make those insulators more reliable; 题干 porcelain ↔ 原文 porcelain insulators",
+      "judgment": "笔记问的是她受命提高可靠性的瓷器制品。原文写明对象是 porcelain **insulators**，因此空格应填 **insulators**。",
+      "explanation": "题干关键词：task of making porcelain; more reliable\n原文定位：定位 Passage 1 第3段：failures in the porcelain **insulators** ... Kellerman was given a small laboratory and a brief to make those **insulators** more reliable.\n关键词替换：题干 she was given the task of making ... more reliable ↔ 原文 a brief to make those insulators more reliable; 题干 porcelain ↔ 原文 porcelain insulators\n判定点：笔记问的是她受命提高可靠性的瓷器制品。原文写明对象是 porcelain **insulators**，因此空格应填 **insulators**。"
+    },
+    "4": {
+      "answer": "moisture",
+      "type": "notes",
+      "stem_keywords": "traced many failures to; remained after firing",
+      "locate": "定位 Passage 1 第3段：The most frequent source of breakdown ... was ... **moisture** that had remained in the body after an apparently complete firing.",
+      "paraphrase": "题干 traced many failures to ↔ 原文 The most frequent source of breakdown was; 题干 that had remained after firing ↔ 原文 that had remained in the body after an apparently complete firing",
+      "judgment": "笔记问的是她认定的主要故障原因。原文把 Repeated breakdown 归咎于烧成后仍留在坯体中的 **moisture**，因此空格应填 **moisture**。",
+      "explanation": "题干关键词：traced many failures to; remained after firing\n原文定位：定位 Passage 1 第3段：The most frequent source of breakdown ... was ... **moisture** that had remained in the body after an apparently complete firing.\n关键词替换：题干 traced many failures to ↔ 原文 The most frequent source of breakdown was; 题干 that had remained after firing ↔ 原文 that had remained in the body after an apparently complete firing\n判定点：笔记问的是她认定的主要故障原因。原文把 Repeated breakdown 归咎于烧成后仍留在坯体中的 **moisture**，因此空格应填 **moisture**。"
+    },
+    "5": {
+      "answer": "temperature",
+      "type": "notes",
+      "stem_keywords": "her new mixture survived; sudden changes of",
+      "locate": "定位 Passage 1 第4段：the new mixture survived these sudden changes of **temperature** without cracking",
+      "paraphrase": "题干 her new mixture survived ↔ 原文 the new mixture survived; 题干 sudden changes of ↔ 原文 sudden changes of **temperature**",
+      "judgment": "笔记问的是新配方所能承受的突变对象。原文写明它能经受 sudden changes of **temperature** 而不开裂，因此空格应填 **temperature**。",
+      "explanation": "题干关键词：her new mixture survived; sudden changes of\n原文定位：定位 Passage 1 第4段：the new mixture survived these sudden changes of **temperature** without cracking\n关键词替换：题干 her new mixture survived ↔ 原文 the new mixture survived; 题干 sudden changes of ↔ 原文 sudden changes of **temperature**\n判定点：笔记问的是新配方所能承受的突变对象。原文写明它能经受 sudden changes of **temperature** 而不开裂，因此空格应填 **temperature**。"
+    },
+    "6": {
+      "answer": "notebooks",
+      "type": "notes",
+      "stem_keywords": "laboratory; later given to a museum",
+      "locate": "定位 Passage 1 第6段：Bound laboratory **notebooks** ... were presented to a regional industrial museum in 1953",
+      "paraphrase": "题干 her laboratory ... were later given to a museum ↔ 原文 laboratory notebooks ... were presented to a regional industrial museum",
+      "judgment": "笔记问的是后来交给博物馆的实验室记录。原文写明 bound laboratory **notebooks** 于1953年呈交博物馆，因此空格应填 **notebooks**。",
+      "explanation": "题干关键词：laboratory; later given to a museum\n原文定位：定位 Passage 1 第6段：Bound laboratory **notebooks** ... were presented to a regional industrial museum in 1953\n关键词替换：题干 her laboratory ... were later given to a museum ↔ 原文 laboratory notebooks ... were presented to a regional industrial museum\n判定点：笔记问的是后来交给博物馆的实验室记录。原文写明 bound laboratory **notebooks** 于1953年呈交博物馆，因此空格应填 **notebooks**。"
+    },
+    "7": {
+      "answer": "linings",
+      "type": "notes",
+      "stem_keywords": "advised smelting plants; ceramic",
+      "locate": "定位 Passage 1 第6段：she advised on ceramic **linings** capable of resisting both heat and chemical attack in furnace chambers.",
+      "paraphrase": "题干 she advised smelting plants on ceramic ↔ 原文 took her to smelting plants in the Andes, where she advised on ceramic **linings**",
+      "judgment": "笔记问的是她为冶炼厂提供建议的陶瓷部件。原文写明对象是陶瓷 **linings**，因此空格应填 **linings**。",
+      "explanation": "题干关键词：advised smelting plants; ceramic\n原文定位：定位 Passage 1 第6段：she advised on ceramic **linings** capable of resisting both heat and chemical attack in furnace chambers.\n关键词替换：题干 she advised smelting plants on ceramic ↔ 原文 took her to smelting plants in the Andes, where she advised on ceramic **linings**\n判定点：笔记问的是她为冶炼厂提供建议的陶瓷部件。原文写明对象是陶瓷 **linings**，因此空格应填 **linings**。"
+    },
+    "8": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "stem_keywords": "left pharmacy work; as soon as she had qualified",
+      "locate": "定位 Passage 1 第1段：She did not, however, abandon the dispensary at once: contemporary payrolls show that she remained behind the counter of a municipal pharmacy for several years",
+      "paraphrase": "题干 left pharmacy work as soon as she had qualified ↔ 原文 did not ... abandon the dispensary at once ... remained ... for several years",
+      "judgment": "题干称她一取得资格便离开药房工作。原文明确写她并未立刻离开配药室，并在市政药房柜台工作了数年。二者互相矛盾，故为 **FALSE**。",
+      "explanation": "题干关键词：left pharmacy work; as soon as she had qualified\n原文定位：定位 Passage 1 第1段：She did not, however, abandon the dispensary at once: contemporary payrolls show that she remained behind the counter of a municipal pharmacy for several years\n关键词替换：题干 left pharmacy work as soon as she had qualified ↔ 原文 did not ... abandon the dispensary at once ... remained ... for several years\n判定点：题干称她一取得资格便离开药房工作。原文明确写她并未立刻离开配药室，并在市政药房柜台工作了数年。二者互相矛盾，故为 **FALSE**。"
+    },
+    "9": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "stem_keywords": "Elmbeck factory originally produced; goods for household use",
+      "locate": "定位 Passage 1 第2段：Elmbeck had grown up as a producer of household tableware, and much of the yard was still given over to plates, jugs and cheap decorative wares when Kellerman arrived.",
+      "paraphrase": "题干 originally produced ↔ 原文 had grown up as a producer of; 题干 goods for household use ↔ 原文 household tableware ... plates, jugs and cheap decorative wares",
+      "judgment": "题干与原文同义：Elmbeck 工厂起初生产家用器皿。判定规则为信息一致，故为 **TRUE**。",
+      "explanation": "题干关键词：Elmbeck factory originally produced; goods for household use\n原文定位：定位 Passage 1 第2段：Elmbeck had grown up as a producer of household tableware, and much of the yard was still given over to plates, jugs and cheap decorative wares when Kellerman arrived.\n关键词替换：题干 originally produced ↔ 原文 had grown up as a producer of; 题干 goods for household use ↔ 原文 household tableware ... plates, jugs and cheap decorative wares\n判定点：题干与原文同义：Elmbeck 工厂起初生产家用器皿。判定规则为信息一致，故为 **TRUE**。"
+    },
+    "10": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "stem_keywords": "obtained a patent; improved ceramic body",
+      "locate": "定位 Passage 1 第4段：原文叙述新坯体的试验、投产及电力公司采用，但未提及专利、申请或任何法律保护。",
+      "paraphrase": "题干 obtained a patent ↔ 原文对此完全未述；题干 improved ceramic body ↔ 原文 the new mixture / The improved insulators",
+      "judgment": "原文说明了新配方的性能与投产，但没有信息表明 Kellerman 是否为该坯体获得过专利。既无一致也无矛盾，故为 **NOT GIVEN**。",
+      "explanation": "题干关键词：obtained a patent; improved ceramic body\n原文定位：定位 Passage 1 第4段：原文叙述新坯体的试验、投产及电力公司采用，但未提及专利、申请或任何法律保护。\n关键词替换：题干 obtained a patent ↔ 原文对此完全未述；题干 improved ceramic body ↔ 原文 the new mixture / The improved insulators\n判定点：原文说明了新配方的性能与投产，但没有信息表明 Kellerman 是否为该坯体获得过专利。既无一致也无矛盾，故为 **NOT GIVEN**。"
+    },
+    "11": {
+      "answer": "TRUE",
+      "type": "tfng",
+      "stem_keywords": "continued to work at Elmbeck; wartime demand for electrical ceramics increased",
+      "locate": "定位 Passage 1 第5段：Demand rose sharply in the 1930s and again during the Second World War, when electrical ceramics were required in unusual quantities ... Kellerman remained at Elmbeck throughout this expansion.",
+      "paraphrase": "题干 wartime demand ... increased ↔ 原文 Demand rose sharply ... during the Second World War, when electrical ceramics were required in unusual quantities; 题干 continued to work at Elmbeck ↔ 原文 Kellerman remained at Elmbeck throughout this expansion",
+      "judgment": "题干与原文同义：战时电气陶瓷需求上升期间，她仍留在 Elmbeck 工作。判定规则为信息一致，故为 **TRUE**。",
+      "explanation": "题干关键词：continued to work at Elmbeck; wartime demand for electrical ceramics increased\n原文定位：定位 Passage 1 第5段：Demand rose sharply in the 1930s and again during the Second World War, when electrical ceramics were required in unusual quantities ... Kellerman remained at Elmbeck throughout this expansion.\n关键词替换：题干 wartime demand ... increased ↔ 原文 Demand rose sharply ... during the Second World War, when electrical ceramics were required in unusual quantities; 题干 continued to work at Elmbeck ↔ 原文 Kellerman remained at Elmbeck throughout this expansion\n判定点：题干与原文同义：战时电气陶瓷需求上升期间，她仍留在 Elmbeck 工作。判定规则为信息一致，故为 **TRUE**。"
+    },
+    "12": {
+      "answer": "FALSE",
+      "type": "tfng",
+      "stem_keywords": "refused to give advice; companies outside her own country",
+      "locate": "定位 Passage 1 第6段：The most substantial took her to smelting plants in the Andes, where she advised on ceramic linings ... She made two extended visits and corresponded with the plants for several years afterwards.",
+      "paraphrase": "题干 refused to give advice to companies outside her own country ↔ 原文 took her to smelting plants in the Andes, where she advised ... made two extended visits",
+      "judgment": "题干称她拒绝为国外公司提供建议。原文写明她曾前往安第斯山脉的冶炼厂，就陶瓷衬里提供咨询，并两次长期访问、随后数年保持通信。二者互相矛盾，故为 **FALSE**。",
+      "explanation": "题干关键词：refused to give advice; companies outside her own country\n原文定位：定位 Passage 1 第6段：The most substantial took her to smelting plants in the Andes, where she advised on ceramic linings ... She made two extended visits and corresponded with the plants for several years afterwards.\n关键词替换：题干 refused to give advice to companies outside her own country ↔ 原文 took her to smelting plants in the Andes, where she advised ... made two extended visits\n判定点：题干称她拒绝为国外公司提供建议。原文写明她曾前往安第斯山脉的冶炼厂，就陶瓷衬里提供咨询，并两次长期访问、随后数年保持通信。二者互相矛盾，故为 **FALSE**。"
+    },
+    "13": {
+      "answer": "NOT GIVEN",
+      "type": "tfng",
+      "stem_keywords": "the first woman; receive the technical society's medal",
+      "locate": "定位 Passage 1 第7段：A technical society awarded her a medal in 1961 for services to industrial ceramics。原文只记录颁奖事实，未比较此前得主的性别或是否为首次授予女性。",
+      "paraphrase": "题干 was the first woman to receive ↔ 原文对此完全未述；题干 the technical society's medal ↔ 原文 A technical society awarded her a medal in 1961",
+      "judgment": "原文确认她在1961年获得该学会奖章，但没有信息表明她是否为首位获此奖的女性。既无一致也无矛盾，故为 **NOT GIVEN**。",
+      "explanation": "题干关键词：the first woman; receive the technical society's medal\n原文定位：定位 Passage 1 第7段：A technical society awarded her a medal in 1961 for services to industrial ceramics。原文只记录颁奖事实，未比较此前得主的性别或是否为首次授予女性。\n关键词替换：题干 was the first woman to receive ↔ 原文对此完全未述；题干 the technical society's medal ↔ 原文 A technical society awarded her a medal in 1961\n判定点：原文确认她在1961年获得该学会奖章，但没有信息表明她是否为首位获此奖的女性。既无一致也无矛盾，故为 **NOT GIVEN**。"
+    },
+    "14": {
+      "answer": "C",
+      "type": "matching_info",
+      "stem_keywords": "a reason why; schemes for planting trees in a quarry often fail",
+      "locate": "定位 Passage 2 Paragraph C：Omar Feliz ... argues that most of these planting campaigns fail because they treat the quarry as if it were already an ordinary hillside.",
+      "paraphrase": "题干 schemes for planting trees ↔ 原文 attempts to establish woodland by planting saplings / these planting campaigns; 题干 often fail because ↔ 原文 fail because they treat the quarry as if it were already an ordinary hillside",
+      "judgment": "C段给出植树计划常常失败的原因：把采石场当作已成形的普通山坡来对待。该信息只在此段出现，对应 **C**。",
+      "explanation": "题干关键词：a reason why; schemes for planting trees in a quarry often fail\n原文定位：定位 Passage 2 Paragraph C：Omar Feliz ... argues that most of these planting campaigns fail because they treat the quarry as if it were already an ordinary hillside.\n关键词替换：题干 schemes for planting trees ↔ 原文 attempts to establish woodland by planting saplings / these planting campaigns; 题干 often fail because ↔ 原文 fail because they treat the quarry as if it were already an ordinary hillside\n判定点：C段给出植树计划常常失败的原因：把采石场当作已成形的普通山坡来对待。该信息只在此段出现，对应 **C**。"
+    },
+    "15": {
+      "answer": "A",
+      "type": "matching_info",
+      "stem_keywords": "a prediction; how long the physical legacy of extraction would keep changing; if quarrying stopped altogether",
+      "locate": "定位 Passage 2 Paragraph A：Even if all extraction were to cease tomorrow, specialists argue, the physical legacy would continue to change for several decades",
+      "paraphrase": "题干 if quarrying stopped altogether ↔ 原文 Even if all extraction were to cease tomorrow; 题干 how long the physical legacy ... would keep changing ↔ 原文 the physical legacy would continue to change for several decades",
+      "judgment": "A段预测即使开采立刻停止，开采留下的实体遗迹仍会继续变化数十年。该预测只在此段出现，对应 **A**。",
+      "explanation": "题干关键词：a prediction; how long the physical legacy of extraction would keep changing; if quarrying stopped altogether\n原文定位：定位 Passage 2 Paragraph A：Even if all extraction were to cease tomorrow, specialists argue, the physical legacy would continue to change for several decades\n关键词替换：题干 if quarrying stopped altogether ↔ 原文 Even if all extraction were to cease tomorrow; 题干 how long the physical legacy ... would keep changing ↔ 原文 the physical legacy would continue to change for several decades\n判定点：A段预测即使开采立刻停止，开采留下的实体遗迹仍会继续变化数十年。该预测只在此段出现，对应 **A**。"
+    },
+    "16": {
+      "answer": "F",
+      "type": "matching_info",
+      "stem_keywords": "a technology; decide which sites should be treated first",
+      "locate": "定位 Passage 2 Paragraph F：a government programme has used lidar surveys ... to build a three-dimensional model of every recorded void and to rank them",
+      "paraphrase": "题干 a technology used to decide which sites should be treated first ↔ 原文 used lidar surveys ... to rank them; 题干 treated first ↔ 原文 where to look first / rank them",
+      "judgment": "F段提到用 lidar surveys 为废弃矿坑建模并排序，以确定应优先处理的地点。该技术只在此段出现，对应 **F**。",
+      "explanation": "题干关键词：a technology; decide which sites should be treated first\n原文定位：定位 Passage 2 Paragraph F：a government programme has used lidar surveys ... to build a three-dimensional model of every recorded void and to rank them\n关键词替换：题干 a technology used to decide which sites should be treated first ↔ 原文 used lidar surveys ... to rank them; 题干 treated first ↔ 原文 where to look first / rank them\n判定点：F段提到用 lidar surveys 为废弃矿坑建模并排序，以确定应优先处理的地点。该技术只在此段出现，对应 **F**。"
+    },
+    "17": {
+      "answer": "D",
+      "type": "matching_info",
+      "stem_keywords": "a form of reuse; comparatively inexpensive",
+      "locate": "定位 Passage 2 Paragraph D：adapting an existing void cost about a third as much as constructing a purpose-built upper reservoir of similar volume",
+      "paraphrase": "题干 a form of reuse ↔ 原文 adapting an existing void / a small pumped-storage scheme; 题干 comparatively inexpensive ↔ 原文 cost about a third as much as constructing a purpose-built upper reservoir",
+      "judgment": "D段指出改造现有采石坑的费用约为新建同容量上库的三分之一，说明这种再利用相对便宜。该比较只在此段出现，对应 **D**。",
+      "explanation": "题干关键词：a form of reuse; comparatively inexpensive\n原文定位：定位 Passage 2 Paragraph D：adapting an existing void cost about a third as much as constructing a purpose-built upper reservoir of similar volume\n关键词替换：题干 a form of reuse ↔ 原文 adapting an existing void / a small pumped-storage scheme; 题干 comparatively inexpensive ↔ 原文 cost about a third as much as constructing a purpose-built upper reservoir\n判定点：D段指出改造现有采石坑的费用约为新建同容量上库的三分之一，说明这种再利用相对便宜。该比较只在此段出现，对应 **D**。"
+    },
+    "18": {
+      "answer": "pontoons",
+      "type": "notes",
+      "stem_keywords": "flooded pit; intake pipes have been carried on",
+      "locate": "定位 Passage 2 Paragraph B：In order to keep the intake pipes off the uneven drowned ledges, the pipes have been carried on **pontoons** that can be moved as the water level changes.",
+      "paraphrase": "题干 the intake pipes have been carried on ↔ 原文 the pipes have been carried on **pontoons**; 题干 In one flooded pit ↔ 原文 a drowned slate pit / moored on the pool itself",
+      "judgment": "句子问的是淹没矿坑中进水管被架在何种装置上。原文写明 pipes have been carried on **pontoons**，因此空格应填 **pontoons**。",
+      "explanation": "题干关键词：flooded pit; intake pipes have been carried on\n原文定位：定位 Passage 2 Paragraph B：In order to keep the intake pipes off the uneven drowned ledges, the pipes have been carried on **pontoons** that can be moved as the water level changes.\n关键词替换：题干 the intake pipes have been carried on ↔ 原文 the pipes have been carried on **pontoons**; 题干 In one flooded pit ↔ 原文 a drowned slate pit / moored on the pool itself\n判定点：句子问的是淹没矿坑中进水管被架在何种装置上。原文写明 pipes have been carried on **pontoons**，因此空格应填 **pontoons**。"
+    },
+    "19": {
+      "answer": "terraces",
+      "type": "notes",
+      "stem_keywords": "Failed woodland planting was replaced by; spoil; designed to hold moisture",
+      "locate": "定位 Passage 2 Paragraph C：His organisation has instead built **terraces** of compacted spoil, laid so as to hold moisture and catch leaf litter",
+      "paraphrase": "题干 Failed woodland planting was replaced by ↔ 原文 planting campaigns fail ... His organisation has instead built; 题干 spoil ... designed to hold moisture ↔ 原文 terraces of compacted spoil, laid so as to hold moisture",
+      "judgment": "句子问的是替代失败植树的弃渣构筑物。原文写明建成 compacted spoil 的 **terraces**，用以保持水分，因此空格应填 **terraces**。",
+      "explanation": "题干关键词：Failed woodland planting was replaced by; spoil; designed to hold moisture\n原文定位：定位 Passage 2 Paragraph C：His organisation has instead built **terraces** of compacted spoil, laid so as to hold moisture and catch leaf litter\n关键词替换：题干 Failed woodland planting was replaced by ↔ 原文 planting campaigns fail ... His organisation has instead built; 题干 spoil ... designed to hold moisture ↔ 原文 terraces of compacted spoil, laid so as to hold moisture\n判定点：句子问的是替代失败植树的弃渣构筑物。原文写明建成 compacted spoil 的 **terraces**，用以保持水分，因此空格应填 **terraces**。"
+    },
+    "20": {
+      "answer": "turbines",
+      "type": "notes",
+      "stem_keywords": "Water stored in a granite pit; released through; times of peak demand",
+      "locate": "定位 Passage 2 Paragraph D：Water is raised to a higher holding pond at night and released back through **turbines** during hours of peak demand.",
+      "paraphrase": "题干 Water stored in a granite pit is released through ↔ 原文 released back through **turbines**; 题干 at times of peak demand ↔ 原文 during hours of peak demand",
+      "judgment": "句子问的是花岗岩石坑蓄水在高峰需求时经过何种装置放出。原文写明 released back through **turbines**，因此空格应填 **turbines**。",
+      "explanation": "题干关键词：Water stored in a granite pit; released through; times of peak demand\n原文定位：定位 Passage 2 Paragraph D：Water is raised to a higher holding pond at night and released back through **turbines** during hours of peak demand.\n关键词替换：题干 Water stored in a granite pit is released through ↔ 原文 released back through **turbines**; 题干 at times of peak demand ↔ 原文 during hours of peak demand\n判定点：句子问的是花岗岩石坑蓄水在高峰需求时经过何种装置放出。原文写明 released back through **turbines**，因此空格应填 **turbines**。"
+    },
+    "21": {
+      "answer": "barley",
+      "type": "notes",
+      "stem_keywords": "Trial plots in a chalk pit; were sown with",
+      "locate": "定位 Passage 2 Paragraph E：trial plots were sown with **barley**, a crop already familiar to farms on the surrounding plateau.",
+      "paraphrase": "题干 Trial plots in a chalk pit were sown with ↔ 原文 trial plots were sown with **barley**",
+      "judgment": "句子问的是白垩矿坑试验田播种的作物。原文写明 sown with **barley**，因此空格应填 **barley**。",
+      "explanation": "题干关键词：Trial plots in a chalk pit; were sown with\n原文定位：定位 Passage 2 Paragraph E：trial plots were sown with **barley**, a crop already familiar to farms on the surrounding plateau.\n关键词替换：题干 Trial plots in a chalk pit were sown with ↔ 原文 trial plots were sown with **barley**\n判定点：句子问的是白垩矿坑试验田播种的作物。原文写明 sown with **barley**，因此空格应填 **barley**。"
+    },
+    "22": {
+      "answer": "lidar",
+      "type": "notes",
+      "stem_keywords": "A government programme has used; surveys to rank abandoned pits",
+      "locate": "定位 Passage 2 Paragraph F：a government programme has used **lidar** surveys ... to rank them",
+      "paraphrase": "题干 A government programme has used ... surveys to rank abandoned pits ↔ 原文 a government programme has used **lidar** surveys ... to rank them",
+      "judgment": "句子问的是政府项目用来给废弃矿坑排序的勘测类型。原文写明 used **lidar** surveys，因此空格应填 **lidar**。",
+      "explanation": "题干关键词：A government programme has used; surveys to rank abandoned pits\n原文定位：定位 Passage 2 Paragraph F：a government programme has used **lidar** surveys ... to rank them\n关键词替换：题干 A government programme has used ... surveys to rank abandoned pits ↔ 原文 a government programme has used **lidar** surveys ... to rank them\n判定点：句子问的是政府项目用来给废弃矿坑排序的勘测类型。原文写明 used **lidar** surveys，因此空格应填 **lidar**。"
+    },
+    "23": {
+      "answer": "E",
+      "type": "matching_features",
+      "stem_keywords": "A map of risk; only as a starting point for action",
+      "locate": "定位 Passage 2 Paragraph F：Keiko Amari ... insists that a map of this kind is only a first step. 'It tells us where to look first,' she says, 'not what to do when we get there'",
+      "paraphrase": "题干 A map of risk ↔ 原文 a map of this kind; 题干 only as a starting point for action ↔ 原文 is only a first step ... tells us where to look first, not what to do",
+      "judgment": "Amari 强调这类地图只是第一步，只能提示先看何处，并不能规定到达后如何行动。对应选项 **E** Keiko Amari。",
+      "explanation": "题干关键词：A map of risk; only as a starting point for action\n原文定位：定位 Passage 2 Paragraph F：Keiko Amari ... insists that a map of this kind is only a first step. 'It tells us where to look first,' she says, 'not what to do when we get there'\n关键词替换：题干 A map of risk ↔ 原文 a map of this kind; 题干 only as a starting point for action ↔ 原文 is only a first step ... tells us where to look first, not what to do\n判定点：Amari 强调这类地图只是第一步，只能提示先看何处，并不能规定到达后如何行动。对应选项 **E** Keiko Amari。"
+    },
+    "24": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "A lasting scheme; designed with local decision-makers in mind",
+      "locate": "定位 Passage 2 Paragraph C：Omar Feliz ... 'If a scheme is to last, it has to work with the way spoil and water already move, and it has to be designed with the people who will walk the site in future, including local councils.'",
+      "paraphrase": "题干 A lasting scheme ↔ 原文 If a scheme is to last; 题干 designed with local decision-makers in mind ↔ 原文 designed with the people who will walk the site in future, including local councils",
+      "judgment": "Feliz 主张，方案若要持久，必须把包括地方议会在内、日后使用场地的人纳入设计。对应选项 **B** Omar Feliz。",
+      "explanation": "题干关键词：A lasting scheme; designed with local decision-makers in mind\n原文定位：定位 Passage 2 Paragraph C：Omar Feliz ... 'If a scheme is to last, it has to work with the way spoil and water already move, and it has to be designed with the people who will walk the site in future, including local councils.'\n关键词替换：题干 A lasting scheme ↔ 原文 If a scheme is to last; 题干 designed with local decision-makers in mind ↔ 原文 designed with the people who will walk the site in future, including local councils\n判定点：Feliz 主张，方案若要持久，必须把包括地方议会在内、日后使用场地的人纳入设计。对应选项 **B** Omar Feliz。"
+    },
+    "25": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "Conventional flood protection; often overlooked; chance to put old pits to use",
+      "locate": "定位 Passage 2 Paragraph B：Helena Kranz ... notes that flood-defence programmes have often ignored the possibility of putting old voids to work",
+      "paraphrase": "题干 Conventional flood protection ↔ 原文 flood-defence programmes; 题干 have often overlooked the chance to put old pits to use ↔ 原文 have often ignored the possibility of putting old voids to work",
+      "judgment": "Kranz 指出防洪项目常常忽略把旧矿坑投入使用的可能。对应选项 **A** Helena Kranz。",
+      "explanation": "题干关键词：Conventional flood protection; often overlooked; chance to put old pits to use\n原文定位：定位 Passage 2 Paragraph B：Helena Kranz ... notes that flood-defence programmes have often ignored the possibility of putting old voids to work\n关键词替换：题干 Conventional flood protection ↔ 原文 flood-defence programmes; 题干 have often overlooked the chance to put old pits to use ↔ 原文 have often ignored the possibility of putting old voids to work\n判定点：Kranz 指出防洪项目常常忽略把旧矿坑投入使用的可能。对应选项 **A** Helena Kranz。"
+    },
+    "26": {
+      "answer": "D",
+      "type": "matching_features",
+      "stem_keywords": "Reuse is more likely to be accepted; fits practices already familiar in the area",
+      "locate": "定位 Passage 2 Paragraph E：Pavel Radek ... argues that reuse has a better chance of being accepted when it can be fitted to the crops, buildings and working habits already common in a district",
+      "paraphrase": "题干 more likely to be accepted ↔ 原文 has a better chance of being accepted; 题干 fits practices already familiar in the area ↔ 原文 fitted to the crops, buildings and working habits already common in a district",
+      "judgment": "Radek 认为，再利用若能与当地已有的作物、建筑和工作习惯相契合，就更容易被接受。对应选项 **D** Pavel Radek。",
+      "explanation": "题干关键词：Reuse is more likely to be accepted; fits practices already familiar in the area\n原文定位：定位 Passage 2 Paragraph E：Pavel Radek ... argues that reuse has a better chance of being accepted when it can be fitted to the crops, buildings and working habits already common in a district\n关键词替换：题干 more likely to be accepted ↔ 原文 has a better chance of being accepted; 题干 fits practices already familiar in the area ↔ 原文 fitted to the crops, buildings and working habits already common in a district\n判定点：Radek 认为，再利用若能与当地已有的作物、建筑和工作习惯相契合，就更容易被接受。对应选项 **D** Pavel Radek。"
+    },
+    "27": {
+      "answer": "B",
+      "type": "matching_info",
+      "stem_keywords": "how beavers acquire their building behaviour",
+      "locate": "定位 Passage 3 Paragraph B：Young beavers remain with the family group for two years or more and acquire their building behaviour by taking part in nightly repairs",
+      "paraphrase": "题干 how beavers acquire their building behaviour ↔ 原文 acquire their building behaviour by taking part in nightly repairs; 题干 a reference to ↔ 原文 The animals do not have to be taught these procedures in any formal sense",
+      "judgment": "B段说明幼狸通过参与夜间修补获得筑坝行为，无需正式训练。该信息只在此段出现，对应 **B**。",
+      "explanation": "题干关键词：how beavers acquire their building behaviour\n原文定位：定位 Passage 3 Paragraph B：Young beavers remain with the family group for two years or more and acquire their building behaviour by taking part in nightly repairs\n关键词替换：题干 how beavers acquire their building behaviour ↔ 原文 acquire their building behaviour by taking part in nightly repairs; 题干 a reference to ↔ 原文 The animals do not have to be taught these procedures in any formal sense\n判定点：B段说明幼狸通过参与夜间修补获得筑坝行为，无需正式训练。该信息只在此段出现，对应 **B**。"
+    },
+    "28": {
+      "answer": "D",
+      "type": "matching_info",
+      "stem_keywords": "an example of a rare insect; numbers increased after beavers arrived",
+      "locate": "定位 Passage 3 Paragraph D：the arrival of two beaver families has been followed by a marked increase in a rare water beetle, Agabus wasastjernae ... a wild species being helped by an intervention",
+      "paraphrase": "题干 a rare insect whose numbers increased ↔ 原文 a marked increase in a rare water beetle, Agabus wasastjernae; 题干 after beavers arrived ↔ 原文 the arrival of two beaver families has been followed by",
+      "judgment": "D段举出稀有水甲虫在河狸到来后数量明显增加的例子。该昆虫例证只在此段出现，对应 **D**。",
+      "explanation": "题干关键词：an example of a rare insect; numbers increased after beavers arrived\n原文定位：定位 Passage 3 Paragraph D：the arrival of two beaver families has been followed by a marked increase in a rare water beetle, Agabus wasastjernae ... a wild species being helped by an intervention\n关键词替换：题干 a rare insect whose numbers increased ↔ 原文 a marked increase in a rare water beetle, Agabus wasastjernae; 题干 after beavers arrived ↔ 原文 the arrival of two beaver families has been followed by\n判定点：D段举出稀有水甲虫在河狸到来后数量明显增加的例子。该昆虫例证只在此段出现，对应 **D**。"
+    },
+    "29": {
+      "answer": "C",
+      "type": "matching_info",
+      "stem_keywords": "claims by different researchers; beaver projects have reduced flood risk",
+      "locate": "定位 Passage 3 Paragraph C：A review ... compiled by Maren Odhiambo, found consistent reductions in peak discharge ... Similar claims have been made by Elise Farid ... and by a Dutch agricultural institute which reported more stable summer baseflows.",
+      "paraphrase": "题干 claims by different researchers ↔ 原文 Odhiambo, found ... Similar claims have been made by Elise Farid ... and by a Dutch agricultural institute; 题干 reduced flood risk ↔ 原文 reductions in peak discharge / fewer over-bank events / more stable summer baseflows",
+      "judgment": "C段并列若干研究者的判断：峰值流量下降、岸上漫溢减少、夏季基流更稳定，即河狸项目降低了洪水风险。该多方主张只在此段集中出现，对应 **C**。",
+      "explanation": "题干关键词：claims by different researchers; beaver projects have reduced flood risk\n原文定位：定位 Passage 3 Paragraph C：A review ... compiled by Maren Odhiambo, found consistent reductions in peak discharge ... Similar claims have been made by Elise Farid ... and by a Dutch agricultural institute which reported more stable summer baseflows.\n关键词替换：题干 claims by different researchers ↔ 原文 Odhiambo, found ... Similar claims have been made by Elise Farid ... and by a Dutch agricultural institute; 题干 reduced flood risk ↔ 原文 reductions in peak discharge / fewer over-bank events / more stable summer baseflows\n判定点：C段并列若干研究者的判断：峰值流量下降、岸上漫溢减少、夏季基流更稳定，即河狸项目降低了洪水风险。该多方主张只在此段集中出现，对应 **C**。"
+    },
+    "30": {
+      "answer": "G",
+      "type": "matching_info",
+      "stem_keywords": "an optimistic suggestion; how beaver activity might be used in future",
+      "locate": "定位 Passage 3 Paragraph G：Weller ... has suggested that a carefully connected series of colonies could eventually be treated as a planned element of national flood policy ... The suggestion is frankly optimistic",
+      "paraphrase": "题干 an optimistic suggestion ↔ 原文 The suggestion is frankly optimistic; 题干 how beaver activity might be used in future ↔ 原文 could eventually be treated as a planned element of national flood policy / might, in time, be used to recharge aquifers",
+      "judgment": "G段提出把连通的河狸群落纳入国家防洪政策、并用于补给含水层等展望，并明言这一设想是乐观的。该前瞻只在此段出现，对应 **G**。",
+      "explanation": "题干关键词：an optimistic suggestion; how beaver activity might be used in future\n原文定位：定位 Passage 3 Paragraph G：Weller ... has suggested that a carefully connected series of colonies could eventually be treated as a planned element of national flood policy ... The suggestion is frankly optimistic\n关键词替换：题干 an optimistic suggestion ↔ 原文 The suggestion is frankly optimistic; 题干 how beaver activity might be used in future ↔ 原文 could eventually be treated as a planned element of national flood policy / might, in time, be used to recharge aquifers\n判定点：G段提出把连通的河狸群落纳入国家防洪政策、并用于补给含水层等展望，并明言这一设想是乐观的。该前瞻只在此段出现，对应 **G**。"
+    },
+    "31": {
+      "answer": "B",
+      "type": "matching_info",
+      "stem_keywords": "a description of how; beaver constructions change the movement of water",
+      "locate": "定位 Passage 3 Paragraph B：The pond that forms behind the structure spreads peak flows, delaying and flattening a rainstorm that would once have rushed downstream; in dry weeks the same pond leaks slowly, keeping soil wetter than it would otherwise have been.",
+      "paraphrase": "题干 beaver constructions change the movement of water ↔ 原文 The pond that forms behind the structure spreads peak flows, delaying and flattening a rainstorm ... the same pond leaks slowly",
+      "judgment": "B段描述坝后水塘如何摊平洪峰、并在干旱时缓慢渗漏以保持土壤湿润，即筑坝如何改变水流运动。对应 **B**。",
+      "explanation": "题干关键词：a description of how; beaver constructions change the movement of water\n原文定位：定位 Passage 3 Paragraph B：The pond that forms behind the structure spreads peak flows, delaying and flattening a rainstorm that would once have rushed downstream; in dry weeks the same pond leaks slowly, keeping soil wetter than it would otherwise have been.\n关键词替换：题干 beaver constructions change the movement of water ↔ 原文 The pond that forms behind the structure spreads peak flows, delaying and flattening a rainstorm ... the same pond leaks slowly\n判定点：B段描述坝后水塘如何摊平洪峰、并在干旱时缓慢渗漏以保持土壤湿润，即筑坝如何改变水流运动。对应 **B**。"
+    },
+    "32": {
+      "answer": "B",
+      "type": "matching_features",
+      "stem_keywords": "harmful results; beaver reintroduction is not extensive enough",
+      "locate": "定位 Passage 3 Paragraph B：Tomasz Weller ... cautions that disappointing or even damaging results can follow if the animals are not allowed to occupy a connected stretch of stream, since a single colony in a large catchment may produce only local puddles.",
+      "paraphrase": "题干 harmful results ↔ 原文 disappointing or even damaging results; 题干 if beaver reintroduction is not extensive enough ↔ 原文 if the animals are not allowed to occupy a connected stretch of stream / a single colony in a large catchment",
+      "judgment": "Weller 告诫，若河狸不能占据一段相连的河道、仅以单个群落存在于大流域中，可能带来令人失望甚至有害的结果。对应选项 **B** Tomasz Weller。",
+      "explanation": "题干关键词：harmful results; beaver reintroduction is not extensive enough\n原文定位：定位 Passage 3 Paragraph B：Tomasz Weller ... cautions that disappointing or even damaging results can follow if the animals are not allowed to occupy a connected stretch of stream, since a single colony in a large catchment may produce only local puddles.\n关键词替换：题干 harmful results ↔ 原文 disappointing or even damaging results; 题干 if beaver reintroduction is not extensive enough ↔ 原文 if the animals are not allowed to occupy a connected stretch of stream / a single colony in a large catchment\n判定点：Weller 告诫，若河狸不能占据一段相连的河道、仅以单个群落存在于大流域中，可能带来令人失望甚至有害的结果。对应选项 **B** Tomasz Weller。"
+    },
+    "33": {
+      "answer": "D",
+      "type": "matching_features",
+      "stem_keywords": "may help both farmland and a threatened wild species",
+      "locate": "定位 Passage 3 Paragraph D：Jun-ho Park ... argues that the project has therefore served a double purpose, protecting pasture from sudden floods while also giving a threatened species a habitat",
+      "paraphrase": "题干 may help both farmland and a threatened wild species ↔ 原文 served a double purpose, protecting pasture ... while also giving a threatened species a habitat",
+      "judgment": "Park 认为该项目同时保护牧场免受骤发洪水，并为受威胁物种提供栖息地。对应选项 **D** Jun-ho Park。",
+      "explanation": "题干关键词：may help both farmland and a threatened wild species\n原文定位：定位 Passage 3 Paragraph D：Jun-ho Park ... argues that the project has therefore served a double purpose, protecting pasture from sudden floods while also giving a threatened species a habitat\n关键词替换：题干 may help both farmland and a threatened wild species ↔ 原文 served a double purpose, protecting pasture ... while also giving a threatened species a habitat\n判定点：Park 认为该项目同时保护牧场免受骤发洪水，并为受威胁物种提供栖息地。对应选项 **D** Jun-ho Park。"
+    },
+    "34": {
+      "answer": "A",
+      "type": "matching_features",
+      "stem_keywords": "Preparing people to live with beavers; different focus; presenting a release as a public event",
+      "locate": "定位 Passage 3 Paragraph E：Odhiambo ... argues that preparing a community for beavers ... requires a different emphasis from staging a release as a public spectacle or as simple wildlife restocking.",
+      "paraphrase": "题干 Preparing people to live with beavers ↔ 原文 preparing a community for beavers; 题干 needs a different focus from presenting a release as a public event ↔ 原文 requires a different emphasis from staging a release as a public spectacle",
+      "judgment": "Odhiambo 主张，让社区为与河狸共处做准备，其重心应有别于把放归办成公开展示或简单补种野生动物。对应选项 **A** Maren Odhiambo。",
+      "explanation": "题干关键词：Preparing people to live with beavers; different focus; presenting a release as a public event\n原文定位：定位 Passage 3 Paragraph E：Odhiambo ... argues that preparing a community for beavers ... requires a different emphasis from staging a release as a public spectacle or as simple wildlife restocking.\n关键词替换：题干 Preparing people to live with beavers ↔ 原文 preparing a community for beavers; 题干 needs a different focus from presenting a release as a public event ↔ 原文 requires a different emphasis from staging a release as a public spectacle\n判定点：Odhiambo 主张，让社区为与河狸共处做准备，其重心应有别于把放归办成公开展示或简单补种野生动物。对应选项 **A** Maren Odhiambo。"
+    },
+    "35": {
+      "answer": "E",
+      "type": "matching_features",
+      "stem_keywords": "Reports of a change in flooding; those living near beaver works; may not be wholly reliable",
+      "locate": "定位 Passage 3 Paragraph E：Bridget Lang ... memory had compressed a mixed series of seasons into a single story of improvement. Claims of a change in flooding, she concludes, should not be taken as a complete account of what has occurred.",
+      "paraphrase": "题干 Reports of a change in flooding from those living near beaver works ↔ 原文 Several residents described the floods ... Claims of a change in flooding; 题干 may not be wholly reliable ↔ 原文 should not be taken as a complete account / memory had compressed a mixed series of seasons",
+      "judgment": "Lang 把居民的改善说法与水位记录对照后认为，记忆把好坏参半的季节压成了单一的改进故事，有关洪水变化的陈述不能当作完整可靠的记录。对应选项 **E** Bridget Lang。",
+      "explanation": "题干关键词：Reports of a change in flooding; those living near beaver works; may not be wholly reliable\n原文定位：定位 Passage 3 Paragraph E：Bridget Lang ... memory had compressed a mixed series of seasons into a single story of improvement. Claims of a change in flooding, she concludes, should not be taken as a complete account of what has occurred.\n关键词替换：题干 Reports of a change in flooding from those living near beaver works ↔ 原文 Several residents described the floods ... Claims of a change in flooding; 题干 may not be wholly reliable ↔ 原文 should not be taken as a complete account / memory had compressed a mixed series of seasons\n判定点：Lang 把居民的改善说法与水位记录对照后认为，记忆把好坏参半的季节压成了单一的改进故事，有关洪水变化的陈述不能当作完整可靠的记录。对应选项 **E** Bridget Lang。"
+    },
+    "36": {
+      "answer": "C",
+      "type": "matching_features",
+      "stem_keywords": "the most effective natural option for some flood peaks; provided colonies are properly managed",
+      "locate": "定位 Passage 3 Paragraph C：she regards beaver works as the most effective natural measure available for small flood peaks only when that management is in place.",
+      "paraphrase": "题干 the most effective natural option for some flood peaks ↔ 原文 the most effective natural measure available for small flood peaks; 题干 provided colonies are properly managed ↔ 原文 only when that management is in place / colonies had been sited with care and were being watched",
+      "judgment": "Farid 认为，只有在群落得到妥善选址与看管时，河狸工程才是应对较小洪峰的最有效自然措施。对应选项 **C** Elise Farid。",
+      "explanation": "题干关键词：the most effective natural option for some flood peaks; provided colonies are properly managed\n原文定位：定位 Passage 3 Paragraph C：she regards beaver works as the most effective natural measure available for small flood peaks only when that management is in place.\n关键词替换：题干 the most effective natural option for some flood peaks ↔ 原文 the most effective natural measure available for small flood peaks; 题干 provided colonies are properly managed ↔ 原文 only when that management is in place / colonies had been sited with care and were being watched\n判定点：Farid 认为，只有在群落得到妥善选址与看管时，河狸工程才是应对较小洪峰的最有效自然措施。对应选项 **C** Elise Farid。"
+    },
+    "37": {
+      "answer": "trout",
+      "type": "summary",
+      "stem_keywords": "Seln catchment; a rise in the deaths of",
+      "locate": "定位 Passage 3 Paragraph F：fish surveys have recorded a rise in the deaths of **trout**, particularly where dams have raised water temperatures and blocked access to cooler spawning tributaries.",
+      "paraphrase": "题干 This has been followed by a rise in the deaths of ↔ 原文 have recorded a rise in the deaths of **trout**; 题干 In the Seln catchment ↔ 原文 In the Seln catchment",
+      "judgment": "摘要问的是 Seln 流域死亡率上升的对象。原文写明 a rise in the deaths of **trout**，因此空格应填 **trout**。",
+      "explanation": "题干关键词：Seln catchment; a rise in the deaths of\n原文定位：定位 Passage 3 Paragraph F：fish surveys have recorded a rise in the deaths of **trout**, particularly where dams have raised water temperatures and blocked access to cooler spawning tributaries.\n关键词替换：题干 This has been followed by a rise in the deaths of ↔ 原文 have recorded a rise in the deaths of **trout**; 题干 In the Seln catchment ↔ 原文 In the Seln catchment\n判定点：摘要问的是 Seln 流域死亡率上升的对象。原文写明 a rise in the deaths of **trout**，因此空格应填 **trout**。"
+    },
+    "38": {
+      "answer": "parasites",
+      "type": "summary",
+      "stem_keywords": "the animals could carry; capable of affecting other species",
+      "locate": "定位 Passage 3 Paragraph F：It has also been suggested that the animals could carry **parasites**, including a liver fluke already present in the region, which might affect livestock and some wild herbivores",
+      "paraphrase": "题干 the animals could carry ↔ 原文 the animals could carry **parasites**; 题干 capable of affecting other species ↔ 原文 which might affect livestock and some wild herbivores",
+      "judgment": "摘要问的是据称河狸可能携带、并影响其他物种的东西。原文写明 could carry **parasites**，因此空格应填 **parasites**。",
+      "explanation": "题干关键词：the animals could carry; capable of affecting other species\n原文定位：定位 Passage 3 Paragraph F：It has also been suggested that the animals could carry **parasites**, including a liver fluke already present in the region, which might affect livestock and some wild herbivores\n关键词替换：题干 the animals could carry ↔ 原文 the animals could carry **parasites**; 题干 capable of affecting other species ↔ 原文 which might affect livestock and some wild herbivores\n判定点：摘要问的是据称河狸可能携带、并影响其他物种的东西。原文写明 could carry **parasites**，因此空格应填 **parasites**。"
+    },
+    "39": {
+      "answer": "forage",
+      "type": "summary",
+      "stem_keywords": "may reduce the amount of; available to some wild animals",
+      "locate": "定位 Passage 3 Paragraph F：the felling of willow and aspen may reduce the amount of **forage** available to browsing animals in late winter.",
+      "paraphrase": "题干 they may reduce the amount of ↔ 原文 may reduce the amount of **forage**; 题干 available to some wild animals ↔ 原文 available to browsing animals",
+      "judgment": "摘要问的是可能因此减少、并供某些野生动物利用的资源。原文写明 reduce the amount of **forage** available to browsing animals，因此空格应填 **forage**。",
+      "explanation": "题干关键词：may reduce the amount of; available to some wild animals\n原文定位：定位 Passage 3 Paragraph F：the felling of willow and aspen may reduce the amount of **forage** available to browsing animals in late winter.\n关键词替换：题干 they may reduce the amount of ↔ 原文 may reduce the amount of **forage**; 题干 available to some wild animals ↔ 原文 available to browsing animals\n判定点：摘要问的是可能因此减少、并供某些野生动物利用的资源。原文写明 reduce the amount of **forage** available to browsing animals，因此空格应填 **forage**。"
+    },
+    "40": {
+      "answer": "mink",
+      "type": "summary",
+      "stem_keywords": "protecting nests; threatened by predators such as",
+      "locate": "定位 Passage 3 Paragraph F：in places where their nests had previously been lost to predators such as **mink**.",
+      "paraphrase": "题干 nests that might otherwise be threatened by predators such as ↔ 原文 their nests had previously been lost to predators such as **mink**",
+      "judgment": "摘要问的是原先威胁鸟巢的捕食者。原文写明 predators such as **mink**，因此空格应填 **mink**。",
+      "explanation": "题干关键词：protecting nests; threatened by predators such as\n原文定位：定位 Passage 3 Paragraph F：in places where their nests had previously been lost to predators such as **mink**.\n关键词替换：题干 nests that might otherwise be threatened by predators such as ↔ 原文 their nests had previously been lost to predators such as **mink**\n判定点：摘要问的是原先威胁鸟巢的捕食者。原文写明 predators such as **mink**，因此空格应填 **mink**。"
+    }
+  }
+}

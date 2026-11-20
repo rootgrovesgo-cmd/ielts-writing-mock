@@ -225,7 +225,7 @@ class SetDPaperTests(unittest.TestCase):
         self.assertEqual(rr.keys_path_for_set("set-a"), rs.KEYS_PATH)
         self.assertEqual(rr.keys_path_for_set("set-d"), KEYS_PATH)
         ids = [item["id"] for item in rr.list_reading_sets()]
-        self.assertEqual(ids, ["set-a", "set-b", "set-c", "set-d"])
+        self.assertEqual(ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
         html = rr.official_passage_html(paper["passages"][0])
         self.assertIn('class="passage-subheading"', html)
         self.assertIn("What should a hall make audible?", html)
@@ -380,7 +380,7 @@ class SetDRouteTests(unittest.TestCase):
         listing = self.client.get("/api/reading/sets")
         self.assertEqual(listing.status_code, 200)
         ids = [item["id"] for item in listing.get_json()]
-        self.assertEqual(ids, ["set-a", "set-b", "set-c", "set-d"])
+        self.assertEqual(ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
 
     def test_submit_uses_set_d_keys_and_ranges(self):
         self._start()

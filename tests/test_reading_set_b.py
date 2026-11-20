@@ -307,7 +307,7 @@ class SetBRouteTests(unittest.TestCase):
         listing = self.client.get("/api/reading/sets")
         self.assertEqual(listing.status_code, 200)
         ids = [item["id"] for item in listing.get_json()]
-        self.assertEqual(ids, ["set-a", "set-b", "set-c", "set-d"])
+        self.assertEqual(ids, ["set-a", "set-b", "set-c", "set-d", "set-e"])
 
     def test_submit_uses_set_b_keys_and_ranges(self):
         self._start()

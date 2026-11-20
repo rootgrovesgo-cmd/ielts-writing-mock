@@ -26,6 +26,7 @@
     "set-b": { full: [1, 40], passage1: [1, 14], passage2: [15, 27], passage3: [28, 40] },
     "set-c": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
     "set-d": { full: [1, 42], passage1: [1, 14], passage2: [15, 28], passage3: [29, 42] },
+    "set-e": { full: [1, 40], passage1: [1, 13], passage2: [14, 26], passage3: [27, 40] },
   };
   const THEME_CLASS = "reading-theme-c";
 

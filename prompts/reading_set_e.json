@@ -1,0 +1,467 @@
+{
+  "id": "set-e",
+  "title": "Set E · Academic Reading",
+  "subtitle": "Academic Reading",
+  "instructions": {
+    "time": "1 hour",
+    "to_candidates": [
+      "Answer all the questions.",
+      "You may write on this question paper.",
+      "You must write your answers clearly.",
+      "In a real test you would transfer your answers to an answer sheet within the time allowed."
+    ],
+    "information": [
+      "There are 40 questions on this question paper.",
+      "Each question carries one mark."
+    ]
+  },
+  "passages": [
+    {
+      "id": 1,
+      "label": "READING PASSAGE 1",
+      "time_guidance": "You should spend about 20 minutes on Questions 1–13, which are based on Reading Passage 1 below.",
+      "title": "The industrial ceramics of Nadia Kellerman",
+      "paragraphs": [
+        "Nadia Kellerman (1891–1978) occupies an unusual place in the history of industrial materials. Born in the Baltic port of Windau, she spent her childhood among warehouses rather than among factories. Family expectation pointed her towards a respectable trade, and she trained and qualified as a pharmacist, a path that gave her a working knowledge of solvents, oxides and careful measurement. She did not, however, abandon the dispensary at once: contemporary payrolls show that she remained behind the counter of a municipal pharmacy for several years, compounding medicines while she read technical journals in the evenings. It was only through an uncle employed at a ceramics works in the small river town of Elmbeck that she was invited, in 1914, to visit the kilns and laboratories there. The visit, which she later described as an accident of kinship rather than a considered career move, decided the rest of her working life.",
+        "Elmbeck had grown up as a producer of household tableware, and much of the yard was still given over to plates, jugs and cheap decorative wares when Kellerman arrived. The technical office had begun a modest enquiry into the chemistry of glazes, whose tendency to craze or to flake from the body was costing the firm contracts. Kellerman was set to work on that enquiry. Her pharmacy training proved useful: she recorded firing curves with a precision the older kiln men found pedantic, and she showed that several fashionable colouring oxides were being applied in quantities that made the glaze brittle. Within two years the works had fewer rejected batches, and the directors, already looking for a less crowded market than domestic pottery, asked her to consider a different class of product altogether.",
+        "Electrical supply was spreading through the surrounding industrial towns, and failures in the porcelain insulators that kept cables clear of damp walls and iron bridges had become a public nuisance. Kellerman was given a small laboratory and a brief to make those insulators more reliable. She spent three winters cutting failed pieces into thin sections and examining them under a borrowed microscope. The most frequent source of breakdown, she argued, was not a poor choice of clay, as the firm's buyers had supposed, but moisture that had remained in the body after an apparently complete firing. In damp weather the trapped water expanded, opened hairline fractures and allowed current to track across the surface. Kellerman's insistence on measuring residual water in every trial piece, rather than trusting the look of the ware, later changed practice at Elmbeck and at several neighbouring works.",
+        "From this diagnosis she developed a denser body, richer in calcined clay and sparingly fluxed, which could be fired so as to leave almost no closed pores. The practical test that persuaded the directors was a simple one: samples were taken from a hot kiln and plunged into cold water. Ordinary factory porcelain shattered; the new mixture survived these sudden changes of temperature without cracking, and subsequently showed far higher resistance to electrical puncture. The improved insulators went into production in 1922 and were widely adopted by regional power companies over the next decade.",
+        "Demand rose sharply in the 1930s and again during the Second World War, when electrical ceramics were required in unusual quantities for communications and transport. Kellerman remained at Elmbeck throughout this expansion. She declined a standing invitation to join the materials department of a technical university in another city, arguing that production problems still taught her more than a teaching post would have done. A later claim that she withdrew from the works in those years to write a general textbook is not supported by the evidence; her published output then consists of short, highly specific notes in trade journals.",
+        "After 1948 she gradually reduced her hours at the factory and turned to the organisation of her records. Bound laboratory notebooks, kept in the same cramped hand from 1915 onwards, were presented to a regional industrial museum in 1953, together with a selection of trial pieces. The museum's catalogue, the principal source for later research, makes clear that she regarded the notebooks as a working tool rather than as a prepared archive, and that many pages remain difficult to interpret without the vanished test tiles to which they refer. She also accepted a small number of consultancies. The most substantial took her to smelting plants in the Andes, where she advised on ceramic linings capable of resisting both heat and chemical attack in furnace chambers. She made two extended visits and corresponded with the plants for several years afterwards.",
+        "Honours came late and in a modest form. A technical society awarded her a medal in 1961 for services to industrial ceramics, and she delivered a single public lecture on residual moisture. She continued to answer letters from younger engineers until shortly before her death. What the notebooks still repay is the picture of a researcher who treated an unglamorous manufactured object as a problem in chemistry and who, by insisting on measurement rather than appearance, altered a branch of industry content to copy inherited recipes."
+      ]
+    },
+    {
+      "id": 2,
+      "label": "READING PASSAGE 2",
+      "time_guidance": "You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.",
+      "title": "New uses for abandoned quarries",
+      "lettered": true,
+      "paragraphs": [
+        "When a quarry is abandoned, the void does not disappear with the company that dug it. Across Europe and parts of South America, thousands of exhausted pits remain as steep-sided hollows, some already flooded, others slowly filling as groundwater seeps in. Even if all extraction were to cease tomorrow, specialists argue, the physical legacy would continue to change for several decades: faces would keep weathering, water levels would keep rising, and unstable benches would keep collapsing. Certain districts, where a single industry once opened pit after pit in a narrow valley, are more exposed than others to this unfinished process. It is in those places, rather than in regions that still have active workings, that experiments in reuse have multiplied.",
+        "At Ffennoir, a drowned slate pit in a wet upland district, the immediate problem was not emptiness but water that periodically overtopped a loosely tipped bund and ran into the village below. A conventional response would have been to raise a permanent dam and pump the surplus downhill. Instead, the local water board has begun to treat the pit as a raw reservoir. The bund has been rebuilt and raised, and a treatment plant has been moored on the pool itself. In order to keep the intake pipes off the uneven drowned ledges, the pipes have been carried on pontoons that can be moved as the water level changes. Helena Kranz, who advises the board on long-term risk, notes that flood-defence programmes have often ignored the possibility of putting old voids to work, and that the present arrangement is not a final one. 'We shall have to come back in twenty or thirty years and adjust the intakes as the surrounding groundwater continues to rise,' she says.",
+        "A different difficulty presents itself at a limestone quarry near Castelnuovo, where the benches are dry, pale and almost without soil. Repeated attempts to establish woodland by planting saplings in pockets of imported earth have failed: the young trees dry out, or the thin soil washes from the rock during autumn storms. Omar Feliz, who directs a land-restoration trust in the district, argues that most of these planting campaigns fail because they treat the quarry as if it were already an ordinary hillside. His organisation has instead built terraces of compacted spoil, laid so as to hold moisture and catch leaf litter, and has then allowed shrubs and, later, trees to colonise the shelves largely unaided. The results have been uneven, and more convincing on the lower benches than on the highest faces. 'A single engineering fix is rarely enough,' Feliz says. 'If a scheme is to last, it has to work with the way spoil and water already move, and it has to be designed with the people who will walk the site in future, including local councils.'",
+        "In the granite hollow at Storvik, the chosen reuse has been hydraulic rather than ecological. The pit is deep, narrow and already flooded to a stable level, which made it a candidate for a small pumped-storage scheme. Water is raised to a higher holding pond at night and released back through turbines during hours of peak demand. Ingrid Tessier, an energy economist who reviewed the project, points out that adapting an existing void cost about a third as much as constructing a purpose-built upper reservoir of similar volume, and that the scheme avoided the need to flood an intact valley. The comparison is one reason the Storvik works have been cited as a model for any large hole in the ground. Tessier herself is more cautious, noting that few quarries have the right combination of depth, hard rock and a nearby grid connection.",
+        "A chalk pit in the lower Somme has taken a quieter path. After the floors had been graded and a layer of composted green waste mixed into the crushed chalk, trial plots were sown with barley, a crop already familiar to farms on the surrounding plateau. Yields have been modest, but they have been sufficient to keep the land in agricultural use. Pavel Radek, who studied the conversion, argues that reuse has a better chance of being accepted when it can be fitted to the crops, buildings and working habits already common in a district, rather than when it arrives as an imported spectacle. He also notes a limitation: the high lime content of the waste continues to restrict the range of plants that will thrive, and several more ambitious horticultural trials have been abandoned.",
+        "Choosing which of a region's many pits deserves scarce funds has become a technical problem in its own right. In the Drin valley, a government programme has used lidar surveys, flown in winter when vegetation is thin, to build a three-dimensional model of every recorded void and to rank them by the steepness of their faces, the volume of water they already hold and their proximity to housing. Keiko Amari, who designed the ranking, insists that a map of this kind is only a first step. 'It tells us where to look first,' she says, 'not what to do when we get there, and not how often we shall have to look again as the pits continue to weather.' The programme has already revised its priority list once, after a previously low-ranked pit began to discharge sediment into a stream after a wet autumn. Amari's warning is that intervention, like the voids themselves, may need to be repeated rather than completed."
+      ]
+    },
+    {
+      "id": 3,
+      "label": "READING PASSAGE 3",
+      "time_guidance": "You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.",
+      "title": "A new role for the beaver",
+      "lettered": true,
+      "paragraphs": [
+        "For several thousand years, people in northern Europe and North America trapped the beaver for fur and because its dams flooded hay meadows. By the end of the nineteenth century the animal had been hunted to extinction over much of its former range, and the streams it had once modified ran straighter and faster than before. In recent decades the beaver has been invited back, not primarily as a species to be restored for its own sake, but as an inexpensive means of holding water in a catchment. Livestock and crops, once protected from the beaver, are now in some valleys expected to benefit from the wetter, slower landscapes the animal creates. The reversal has attracted both enthusiasm and a growing body of research.",
+        "A beaver colony alters a watercourse by felling trees and packing mud, stones and brush into a dam. The pond that forms behind the structure spreads peak flows, delaying and flattening a rainstorm that would once have rushed downstream; in dry weeks the same pond leaks slowly, keeping soil wetter than it would otherwise have been. The animals do not have to be taught these procedures in any formal sense. Young beavers remain with the family group for two years or more and acquire their building behaviour by taking part in nightly repairs, so a newly released pair arrives already competent if a suitable stream and woody plants are present. Tomasz Weller, who has compared isolated trial releases with more extensive reintroductions, cautions that disappointing or even damaging results can follow if the animals are not allowed to occupy a connected stretch of stream, since a single colony in a large catchment may produce only local puddles.",
+        "Whether the method works at a useful scale is a question on which several researchers have now offered a fairly confident view. A review of instrumented catchments in Sweden and the Pacific Northwest, compiled by Maren Odhiambo, found consistent reductions in peak discharge below established beaver complexes. Similar claims have been made by Elise Farid, whose measurements on two pastoral tributaries in Wales showed fewer over-bank events on fields downstream of dams after four years, and by a Dutch agricultural institute which reported more stable summer baseflows. Farid adds a condition that is easy to overlook: the figures were obtained where colonies had been sited with care and were being watched, and she regards beaver works as the most effective natural measure available for small flood peaks only when that management is in place.",
+        "Not all of the recorded benefits concern water on farmland. On a slow tributary of the river Kell, the arrival of two beaver families has been followed by a marked increase in a rare water beetle, Agabus wasastjernae, which favours shallow, well-vegetated pools of a kind that had almost vanished from the catchment. Jun-ho Park, who led the invertebrate survey, argues that the project has therefore served a double purpose, protecting pasture from sudden floods while also giving a threatened species a habitat that conventional ditch management had removed. He is unwilling to claim that every beaver pond will do the same, but the Kell tributary is now often cited as an illustration of a wild species being helped by an intervention whose original justification was agricultural.",
+        "Living beside the animals is a different matter from celebrating them at a distance. Odhiambo has more recently turned to the social conditions that make a colony tolerable. She argues that preparing a community for beavers — explaining where dams may be lowered, who will be compensated, and how a blocked culvert will be cleared — requires a different emphasis from staging a release as a public spectacle or as simple wildlife restocking. Bridget Lang, who interviewed households on the same Welsh tributaries that Farid instrumented, offers a further reason for caution. Several residents described the floods on their land as 'much less violent than before', yet Lang's comparison of those testimonies with the gauge record suggested that memory had compressed a mixed series of seasons into a single story of improvement. Claims of a change in flooding, she concludes, should not be taken as a complete account of what has occurred.",
+        "Reintroduction has also produced effects that the original proposals did not advertise. In the Seln catchment, where beavers were brought in to protect riverside pasture from sudden floods, fish surveys have recorded a rise in the deaths of trout, particularly where dams have raised water temperatures and blocked access to cooler spawning tributaries. It has also been suggested that the animals could carry parasites, including a liver fluke already present in the region, which might affect livestock and some wild herbivores that share wet pasture. Deer managers add that the felling of willow and aspen may reduce the amount of forage available to browsing animals in late winter. A competing observation from the same catchment is that several pairs of ground-nesting wading birds have raised broods on the wet margins of beaver ponds, in places where their nests had previously been lost to predators such as mink.",
+        "Supporters of a wider programme are already looking beyond the farmed valley. Some hydrologists have asked whether beaver complexes might, in time, be used to recharge aquifers that supply small towns, or to slow polluted run-off at the edge of growing suburbs. Weller, despite his reservations about isolated releases, has suggested that a carefully connected series of colonies could eventually be treated as a planned element of national flood policy rather than as a series of local experiments. The suggestion is frankly optimistic, and it assumes coordination that present projects do not yet possess. It does, however, indicate how some researchers now wish to see the work move: from the recovery of a once-persecuted animal to the deliberate use of that animal's building habits as catchment infrastructure."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "q1-7",
+      "passage": 1,
+      "from": 1,
+      "to": 7,
+      "type": "notes",
+      "heading": "Questions 1–7",
+      "instructions": [
+        "Complete the notes below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 1–7 on your answer sheet."
+      ],
+      "notes": {
+        "title": "Nadia Kellerman",
+        "sections": [
+          {
+            "heading": "Early career",
+            "items": [
+              {
+                "parts": [
+                  "she first qualified as a ",
+                  {
+                    "q": 1
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "at Elmbeck she began by studying the chemistry of ",
+                  {
+                    "q": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Electrical ceramics",
+            "items": [
+              {
+                "parts": [
+                  "she was given the task of making porcelain ",
+                  {
+                    "q": 3
+                  },
+                  " more reliable"
+                ]
+              },
+              {
+                "parts": [
+                  "she traced many failures to ",
+                  {
+                    "q": 4
+                  },
+                  " that had remained after firing"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "A more durable material",
+            "items": [
+              {
+                "parts": [
+                  "her new mixture survived sudden changes of ",
+                  {
+                    "q": 5
+                  }
+                ]
+              },
+              {
+                "parts": [
+                  "her laboratory ",
+                  {
+                    "q": 6
+                  },
+                  " were later given to a museum"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Later consultancy",
+            "items": [
+              {
+                "parts": [
+                  "she advised smelting plants on ceramic ",
+                  {
+                    "q": 7
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "q8-13",
+      "passage": 1,
+      "from": 8,
+      "to": 13,
+      "type": "tfng",
+      "heading": "Questions 8–13",
+      "instructions": [
+        "Do the following statements agree with the information given in Reading Passage 1?",
+        "In boxes 8–13 on your answer sheet, write"
+      ],
+      "legend": [
+        {
+          "value": "TRUE",
+          "meaning": "if the statement agrees with the information"
+        },
+        {
+          "value": "FALSE",
+          "meaning": "if the statement contradicts the information"
+        },
+        {
+          "value": "NOT GIVEN",
+          "meaning": "if there is no information on this"
+        }
+      ],
+      "items": [
+        {
+          "q": 8,
+          "stem": "Kellerman left pharmacy work as soon as she had qualified."
+        },
+        {
+          "q": 9,
+          "stem": "The Elmbeck factory originally produced goods for household use."
+        },
+        {
+          "q": 10,
+          "stem": "Kellerman obtained a patent for her improved ceramic body."
+        },
+        {
+          "q": 11,
+          "stem": "Kellerman continued to work at Elmbeck when wartime demand for electrical ceramics increased."
+        },
+        {
+          "q": 12,
+          "stem": "Kellerman refused to give advice to companies outside her own country."
+        },
+        {
+          "q": 13,
+          "stem": "Kellerman was the first woman to receive the technical society's medal."
+        }
+      ]
+    },
+    {
+      "id": "q14-17",
+      "passage": 2,
+      "from": 14,
+      "to": 17,
+      "type": "matching_info",
+      "heading": "Questions 14–17",
+      "instructions": [
+        "The reading passage has six paragraphs, A–F.",
+        "Which paragraph contains the following information?",
+        "Write the correct letter, A–F, in boxes 14–17 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 14,
+          "stem": "a reason why schemes for planting trees in a quarry often fail"
+        },
+        {
+          "q": 15,
+          "stem": "a prediction about how long the physical legacy of extraction would keep changing if quarrying stopped altogether"
+        },
+        {
+          "q": 16,
+          "stem": "a mention of a technology used to decide which sites should be treated first"
+        },
+        {
+          "q": 17,
+          "stem": "a reference to a form of reuse being comparatively inexpensive"
+        }
+      ]
+    },
+    {
+      "id": "q18-22",
+      "passage": 2,
+      "from": 18,
+      "to": 22,
+      "type": "notes",
+      "heading": "Questions 18–22",
+      "instructions": [
+        "Complete the sentences below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 18–22 on your answer sheet."
+      ],
+      "notes": {
+        "sections": [
+          {
+            "items": [
+              {
+                "parts": [
+                  "In one flooded pit, the intake pipes have been carried on ",
+                  {
+                    "q": 18
+                  },
+                  "."
+                ]
+              },
+              {
+                "parts": [
+                  "Failed woodland planting was replaced by spoil ",
+                  {
+                    "q": 19
+                  },
+                  " designed to hold moisture."
+                ]
+              },
+              {
+                "parts": [
+                  "Water stored in a granite pit is released through ",
+                  {
+                    "q": 20
+                  },
+                  " at times of peak demand."
+                ]
+              },
+              {
+                "parts": [
+                  "Trial plots in a chalk pit were sown with ",
+                  {
+                    "q": 21
+                  },
+                  "."
+                ]
+              },
+              {
+                "parts": [
+                  "A government programme has used ",
+                  {
+                    "q": 22
+                  },
+                  " surveys to rank abandoned pits."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "q23-26",
+      "passage": 2,
+      "from": 23,
+      "to": 26,
+      "type": "matching_features",
+      "heading": "Questions 23–26",
+      "instructions": [
+        "Look at the following statements (Questions 23–26) and the list of people below.",
+        "Match each statement with the correct person, A–E.",
+        "Write the correct letter, A–E, in boxes 23–26 on your answer sheet."
+      ],
+      "box_title": "List of people",
+      "options": {
+        "A": "Helena Kranz",
+        "B": "Omar Feliz",
+        "C": "Ingrid Tessier",
+        "D": "Pavel Radek",
+        "E": "Keiko Amari"
+      },
+      "items": [
+        {
+          "q": 23,
+          "stem": "A map of risk should be treated only as a starting point for action."
+        },
+        {
+          "q": 24,
+          "stem": "A lasting scheme has to be designed with local decision-makers in mind."
+        },
+        {
+          "q": 25,
+          "stem": "Conventional flood protection has often overlooked the chance to put old pits to use."
+        },
+        {
+          "q": 26,
+          "stem": "Reuse is more likely to be accepted if it fits practices already familiar in the area."
+        }
+      ]
+    },
+    {
+      "id": "q27-31",
+      "passage": 3,
+      "from": 27,
+      "to": 31,
+      "type": "matching_info",
+      "heading": "Questions 27–31",
+      "instructions": [
+        "The reading passage has seven paragraphs, A–G.",
+        "Which paragraph contains the following information?",
+        "NB You may use any letter more than once.",
+        "Write the correct letter, A–G, in boxes 27–31 on your answer sheet."
+      ],
+      "items": [
+        {
+          "q": 27,
+          "stem": "a reference to how beavers acquire their building behaviour"
+        },
+        {
+          "q": 28,
+          "stem": "an example of a rare insect whose numbers increased after beavers arrived"
+        },
+        {
+          "q": 29,
+          "stem": "claims by different researchers that beaver projects have reduced flood risk"
+        },
+        {
+          "q": 30,
+          "stem": "an optimistic suggestion about how beaver activity might be used in future"
+        },
+        {
+          "q": 31,
+          "stem": "a description of how beaver constructions change the movement of water"
+        }
+      ]
+    },
+    {
+      "id": "q32-36",
+      "passage": 3,
+      "from": 32,
+      "to": 36,
+      "type": "matching_features",
+      "heading": "Questions 32–36",
+      "instructions": [
+        "Look at the following statements (Questions 32–36) and the list of people below.",
+        "Match each statement with the correct person, A–E.",
+        "Write the correct letter, A–E, in boxes 32–36 on your answer sheet."
+      ],
+      "box_title": "List of people",
+      "options": {
+        "A": "Maren Odhiambo",
+        "B": "Tomasz Weller",
+        "C": "Elise Farid",
+        "D": "Jun-ho Park",
+        "E": "Bridget Lang"
+      },
+      "items": [
+        {
+          "q": 32,
+          "stem": "There may be harmful results if beaver reintroduction is not extensive enough."
+        },
+        {
+          "q": 33,
+          "stem": "The use of beavers may help both farmland and a threatened wild species."
+        },
+        {
+          "q": 34,
+          "stem": "Preparing people to live with beavers needs a different focus from presenting a release as a public event."
+        },
+        {
+          "q": 35,
+          "stem": "Reports of a change in flooding from those living near beaver works may not be wholly reliable."
+        },
+        {
+          "q": 36,
+          "stem": "Beavers are the most effective natural option for some flood peaks, provided colonies are properly managed."
+        }
+      ]
+    },
+    {
+      "id": "q37-40",
+      "passage": 3,
+      "from": 37,
+      "to": 40,
+      "type": "summary",
+      "heading": "Questions 37–40",
+      "instructions": [
+        "Complete the summary below.",
+        "Choose ONE WORD ONLY from the passage for each answer.",
+        "Write your answers in boxes 37–40 on your answer sheet."
+      ],
+      "summary": {
+        "title": "Unintended effects of beaver reintroduction",
+        "parts": [
+          "In the Seln catchment, beavers have been used to protect pasture from sudden floods. This has been followed by a rise in the deaths of ",
+          {
+            "q": 37
+          },
+          ". It has also been suggested that the animals could carry ",
+          {
+            "q": 38
+          },
+          " capable of affecting other species, and that they may reduce the amount of ",
+          {
+            "q": 39
+          },
+          " available to some wild animals. On the other hand, these rodents may help birds by protecting nests that might otherwise be threatened by predators such as ",
+          {
+            "q": 40
+          },
+          "."
+        ]
+      }
+    }
+  ]
+}

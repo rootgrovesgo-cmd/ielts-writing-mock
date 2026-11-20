@@ -567,6 +567,9 @@
 
   function renderMatching(group) {
     let html = '<div class="match-box">';
+    const diagram = group.diagram || group.map || {};
+    if (diagram.title) html += '<div class="map-title">' + escapeHtml(diagram.title) + "</div>";
+    if (diagram.svg) html += '<div class="map-svg-wrap">' + diagram.svg + "</div>";
     if (group.legend && group.legend.length) {
       html += '<ul class="legend">';
       group.legend.forEach((row) => {

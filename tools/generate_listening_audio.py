@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate listening mp3s from tools/listening_script.py (Set A) or tools/listening_script_set_b.py (Set B) or tools/listening_script_set_c.py (Set C) using edge-tts + ffmpeg.
+"""Generate listening mp3s from tools/listening_script.py (Set A) or tools/listening_script_set_b.py (Set B) or tools/listening_script_set_c.py (Set C) or tools/listening_script_set_d.py (Set D) using edge-tts + ffmpeg.
 
 Audio is pre-generated practice TTS, not official Cambridge recordings.
 Do not add edge-tts to the web app requirements — this script is build-time only.
@@ -19,33 +19,39 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(ROOT))
 
-def script_config(set_id: str) -> tuple[dict, dict, Path, Path]:
+def script_config(set_id: str) -> tuple[dict, dict, Path, Path, str]:
     token = (set_id or "set-a").strip().lower() or "set-a"
     if token == "set-b":
         from listening_script_set_b import SECTIONS, VOICES  # noqa: E402
         out_dir = ROOT / "static" / "audio" / "listening_set_b"
         paper_path = ROOT / "prompts" / "listening_set_b.json"
-        return SECTIONS, VOICES, out_dir, paper_path
+        return SECTIONS, VOICES, out_dir, paper_path, "+25%"
     if token == "set-c":
         from listening_script_set_c import SECTIONS, VOICES  # noqa: E402
         out_dir = ROOT / "static" / "audio" / "listening_set_c"
         paper_path = ROOT / "prompts" / "listening_set_c.json"
-        return SECTIONS, VOICES, out_dir, paper_path
+        return SECTIONS, VOICES, out_dir, paper_path, "+25%"
+    if token == "set-d":
+        from listening_script_set_d import SECTIONS, VOICES  # noqa: E402
+        out_dir = ROOT / "static" / "audio" / "listening_set_d"
+        paper_path = ROOT / "prompts" / "listening_set_d.json"
+        # Normal speaking speed: do not use the +25% rate of Sets A–C.
+        return SECTIONS, VOICES, out_dir, paper_path, "+0%"
     from listening_script import SECTIONS, VOICES  # noqa: E402
     out_dir = ROOT / "static" / "audio" / "listening_set_a"
     paper_path = ROOT / "prompts" / "listening_set_a.json"
-    return SECTIONS, VOICES, out_dir, paper_path
+    return SECTIONS, VOICES, out_dir, paper_path, "+25%"
 
 
 # Defaults used when the module is imported without a selected set.
-SECTIONS, VOICES, OUT_DIR, PAPER_PATH = script_config("set-a")
+SECTIONS, VOICES, OUT_DIR, PAPER_PATH, TTS_RATE = script_config("set-a")
 FFMPEG = "ffmpeg"
 SAMPLE_RATE = 24000
 BITRATE = "72k"
 TURN_PAD = 0.15
-# 1.25x of the default edge-tts rate. Look-at/check silences are unchanged;
+# TTS_RATE comes from script_config: Sets A–C use +25%; Set D uses +0%
+# (normal speaking speed). Look-at/check silences are unchanged;
 # do not speed the finished section files with atempo/playbackRate.
-TTS_RATE = "+25%"
 
 
 def run(cmd: list[str]) -> None:
@@ -210,9 +216,9 @@ def update_paper_durations(durations: dict[int, int]) -> None:
 
 
 async def main_async(args: argparse.Namespace) -> int:
-    global SECTIONS, VOICES, OUT_DIR, PAPER_PATH
+    global SECTIONS, VOICES, OUT_DIR, PAPER_PATH, TTS_RATE
     set_id = (args.set or "set-a").strip().lower() or "set-a"
-    SECTIONS, VOICES, OUT_DIR, PAPER_PATH = script_config(set_id)
+    SECTIONS, VOICES, OUT_DIR, PAPER_PATH, TTS_RATE = script_config(set_id)
     default_work = ROOT / "tools" / ".listening-audio-work"
     if set_id != "set-a":
         default_work = default_work / set_id
@@ -221,7 +227,7 @@ async def main_async(args: argparse.Namespace) -> int:
     sections = args.section or [1, 2, 3, 4]
     durations: dict[int, int] = {}
     for sid in sections:
-        print(f"Building {set_id} section {sid}…")
+        print(f"Building {set_id} section {sid} at rate {TTS_RATE}…")
         out = await build_section(sid, work, force=args.force)
         seconds = probe_duration(out)
         durations[sid] = int(round(seconds))
@@ -246,8 +252,8 @@ async def main_async(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate Listening Set A, Set B or Set C mp3s")
-    parser.add_argument("--set", choices=["set-a", "set-b", "set-c"], default="set-a")
+    parser = argparse.ArgumentParser(description="Generate Listening Set A, Set B, Set C or Set D mp3s")
+    parser.add_argument("--set", choices=["set-a", "set-b", "set-c", "set-d"], default="set-a")
     parser.add_argument("--section", type=int, action="append", choices=[1, 2, 3, 4])
     parser.add_argument("--force", action="store_true", help="Regenerate clips even if cached")
     parser.add_argument("--work", type=Path, help="Working directory for intermediate clips")

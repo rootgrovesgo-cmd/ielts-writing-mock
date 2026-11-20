@@ -177,9 +177,9 @@ Render 免费磁盘**不持久**，重启/重新部署后本地 JSON 可能丢�
 - 口语题库：`prompts/speaking_sept2026.json`（2026 年 9–12 月公开回忆话题，仅题目与话题卡提示，不含范文）。
 - 阅读学生卷：Academic Reading 现有 Set A、Set B、Set C、Set D 与 Set E，分别为 `prompts/reading_set_a.json`、`prompts/reading_set_b.json`、`prompts/reading_set_c.json`、`prompts/reading_set_d.json` 与 `prompts/reading_set_e.json`（只有文章与题目，不含答案）。Set D 为教师原创 Passage 3 高阶专项练习（三篇独立的 P3 文本，共 42 题）。Set E 为原创 Academic Reading 练习卷（三篇，共 40 题）。
 - 阅读标准答案与解析（仅服务器使用）：Set A 为 `prompts/reading_keys.json`，Set B 为 `prompts/reading_keys_set_b.json`，Set C 为 `prompts/reading_keys_set_c.json`，Set D 为 `prompts/reading_keys_set_d.json`，Set E 为 `prompts/reading_keys_set_e.json`。切勿把这些文件的内容放进学生页面或前端脚本。
-- 听力学生卷：Academic Listening 现有 Set A、Set B 与 Set C，分别为 `prompts/listening_set_a.json`、`prompts/listening_set_b.json` 与 `prompts/listening_set_c.json`（只有题干、选项、笔记表格和音频文件名，不含答案或录音文本）。三套均为原创练习卷，题型对应剑桥常见形式（笔记、笔记表格、单项选择、选两项、配对、讲座笔记），不含地图。
-- 听力标准答案、解析与录音文本（仅服务器使用）：Set A 为 `prompts/listening_keys.json`，Set B 为 `prompts/listening_keys_set_b.json`，Set C 为 `prompts/listening_keys_set_c.json`。切勿把这些文件的内容放进学生页面或前端初始配置。
-- 听力练习音频：`static/audio/listening_set_a/`、`static/audio/listening_set_b/` 与 `static/audio/listening_set_c/` 下的 `section1.mp3` … `section4.mp3`。考试播放走需登录的 `/api/listening/audio/<section>`。可用 `tools/generate_listening_audio.py --set set-a|set-b|set-c` 从对应脚本重新生成。音频为原创 TTS 练习音频，不是剑桥官方录音。
+- 听力学生卷：Academic Listening 现有 Set A、Set B、Set C 与 Set D，分别为 `prompts/listening_set_a.json`、`prompts/listening_set_b.json`、`prompts/listening_set_c.json` 与 `prompts/listening_set_d.json`（只有题干、选项、笔记表格、平面图和音频文件名，不含答案或录音文本）。四套均为原创练习卷。Set D 为 40 题 Academic Listening 练习，音频为正常语速。
+- 听力标准答案、解析与录音文本（仅服务器使用）：Set A 为 `prompts/listening_keys.json`，Set B 为 `prompts/listening_keys_set_b.json`，Set C 为 `prompts/listening_keys_set_c.json`，Set D 为 `prompts/listening_keys_set_d.json`。切勿把这些文件的内容放进学生页面或前端初始配置。
+- 听力练习音频：`static/audio/listening_set_a/`、`static/audio/listening_set_b/`、`static/audio/listening_set_c/` 与 `static/audio/listening_set_d/` 下的 `section1.mp3` … `section4.mp3`。考试播放走需登录的 `/api/listening/audio/<section>`。可用 `tools/generate_listening_audio.py --set set-a|set-b|set-c|set-d` 从对应脚本重新生成。Set D 使用正常语速生成；不要对成品 mp3 再做变速。音频为原创 TTS 练习音频，不是剑桥官方录音。
 - 阅读篇章教师标注（题材、文章类型、结构类型）：`prompts/passage_meta.json`，按套卷 id（如 `set-a`）组织。新增套卷时在此补充对应条目即可，勿把标注写死在模板里。
 
 ---
@@ -235,16 +235,20 @@ ielts-writing-mock/
   prompts/listening_set_a.json
   prompts/listening_set_b.json
   prompts/listening_set_c.json
+  prompts/listening_set_d.json
   prompts/listening_keys.json
   prompts/listening_keys_set_b.json
   prompts/listening_keys_set_c.json
+  prompts/listening_keys_set_d.json
   tools/generate_listening_audio.py
   tools/listening_script.py
   tools/listening_script_set_b.py
   tools/listening_script_set_c.py
+  tools/listening_script_set_d.py
   static/audio/listening_set_a/
   static/audio/listening_set_b/
   static/audio/listening_set_c/
+  static/audio/listening_set_d/
   student_portal.py
   tests/test_reading.py
   tests/test_reading_set_b.py
@@ -255,6 +259,7 @@ ielts-writing-mock/
   tests/test_listening.py
   tests/test_listening_set_b.py
   tests/test_listening_set_c.py
+  tests/test_listening_set_d.py
   prompts/speaking_sept2026.json
   templates/
   static/                 # 含 fonts/（Droid Sans Fallback + DejaVu Sans），供 PDF 中英排版

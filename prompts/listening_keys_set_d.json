@@ -1,0 +1,523 @@
+{
+  "set_id": "set-d",
+  "questions": {
+    "1": {
+      "answer": "19 February",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "19th February",
+        "19 February",
+        "the 19th of February",
+        "19th of February",
+        "19.02",
+        "19.2",
+        "19/02",
+        "19/2",
+        "February 19",
+        "February 19th",
+        "19 Feb",
+        "19th Feb",
+        "19.02.",
+        "19th February"
+      ],
+      "prediction": "空格在 Winter pruning 的 Date 栏，应填日期；可能先出现被否定的日期干扰。",
+      "logic": "题目要的是冬季修剪工作坊的日期。邻居所说的 12 February 是员工培训日，不对公众开放。原文随即给出正确日期：The winter pruning workshop is on the nineteenth of February。",
+      "audio_quote": "Owen: “The winter pruning workshop is on the **nineteenth of February**.”",
+      "explanation": "预测：空格在 Winter pruning 的 Date 栏，应填日期；可能先出现被否定的日期干扰。\n考点与原文逻辑替换：题目要的是冬季修剪工作坊的日期。邻居所说的 12 February 是员工培训日，不对公众开放。原文随即给出正确日期：The winter pruning workshop is on the nineteenth of February。\n跟音：Owen: “The winter pruning workshop is on the **nineteenth of February**.”"
+    },
+    "2": {
+      "answer": "32",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "32.00",
+        "£32",
+        "32 pounds"
+      ],
+      "prediction": "空格在 Winter pruning 的 Fee 栏，前面已有英镑符号，应填费用数字；注意旧价格或团体价干扰。",
+      "logic": "题目要的是面向公众的普通费用。网站上的 twenty-five pounds 是去年的旧价格。private group 包场是 thirty-five。原文把 ordinary public fee 明确为 thirty-two pounds。",
+      "audio_quote": "Owen: “The fee is **thirty-two pounds** now. We do charge thirty-five if a private group books the whole session, but the ordinary public fee is thirty-two.”",
+      "explanation": "预测：空格在 Winter pruning 的 Fee 栏，前面已有英镑符号，应填费用数字；注意旧价格或团体价干扰。\n考点与原文逻辑替换：题目要的是面向公众的普通费用。网站上的 twenty-five pounds 是去年的旧价格。private group 包场是 thirty-five。原文把 ordinary public fee 明确为 thirty-two pounds。\n跟音：Owen: “The fee is **thirty-two pounds** now. We do charge thirty-five if a private group books the whole session, but the ordinary public fee is thirty-two.”"
+    },
+    "3": {
+      "answer": "secateurs",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "prediction": "空格在 Winter pruning 的 What to bring 栏，应填需要自带的物品，通常是一个名词。",
+      "logic": "题目要的是参加者须自带的东西。gloves 和 waterproofs 由果园提供，不是答案。原文用 What you do need to bring is a pair of secateurs 对应题干，并补充不外借。",
+      "audio_quote": "Owen: “What you do need to bring is a pair of **secateurs**. We don't lend secateurs, so please bring your own.”",
+      "explanation": "预测：空格在 Winter pruning 的 What to bring 栏，应填需要自带的物品，通常是一个名词。\n考点与原文逻辑替换：题目要的是参加者须自带的东西。gloves 和 waterproofs 由果园提供，不是答案。原文用 What you do need to bring is a pair of secateurs 对应题干，并补充不外借。\n跟音：Owen: “What you do need to bring is a pair of **secateurs**. We don't lend secateurs, so please bring your own.”"
+    },
+    "4": {
+      "answer": "8 March",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "8th March",
+        "8 March",
+        "the 8th of March",
+        "8th of March",
+        "8.03",
+        "8.3",
+        "08.03",
+        "8/03",
+        "8/3",
+        "March 8",
+        "March 8th",
+        "8 Mar",
+        "8th Mar"
+      ],
+      "prediction": "空格在 Tree grafting 的 Date 栏，应填嫁接工作坊的日期，可能与同月另一场活动区分。",
+      "logic": "题目要的是嫁接工作坊本身的日期。18 March 只是品种讲座，不是实习课。原文把 The grafting workshop itself 对应为 the eighth of March。",
+      "audio_quote": "Owen: “The grafting workshop itself is on the **eighth of March**.”",
+      "explanation": "预测：空格在 Tree grafting 的 Date 栏，应填嫁接工作坊的日期，可能与同月另一场活动区分。\n考点与原文逻辑替换：题目要的是嫁接工作坊本身的日期。18 March 只是品种讲座，不是实习课。原文把 The grafting workshop itself 对应为 the eighth of March。\n跟音：Owen: “The grafting workshop itself is on the **eighth of March**.”"
+    },
+    "5": {
+      "answer": "notebook",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "note book",
+        "note-book"
+      ],
+      "prediction": "空格在 Tree grafting 的 What to bring 栏，前面已有不定冠词 a，应填单数名词。",
+      "logic": "题目要的是须自带的物品。knives 和 rootstock 由主办方提供，也不鼓励拍照，因此 knife、camera 都不是答案。原文用 What we do ask you to bring is a notebook 直接对应空格。",
+      "audio_quote": "Owen: “What we do ask you to bring is a **notebook**, so you can jot down the steps.”",
+      "explanation": "预测：空格在 Tree grafting 的 What to bring 栏，前面已有不定冠词 a，应填单数名词。\n考点与原文逻辑替换：题目要的是须自带的物品。knives 和 rootstock 由主办方提供，也不鼓励拍照，因此 knife、camera 都不是答案。原文用 What we do ask you to bring is a notebook 直接对应空格。\n跟音：Owen: “What we do ask you to bring is a **notebook**, so you can jot down the steps.”"
+    },
+    "6": {
+      "answer": "4 October",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "4th October",
+        "4 October",
+        "the 4th of October",
+        "4th of October",
+        "4.10",
+        "4.10.",
+        "04.10",
+        "4/10",
+        "October 4",
+        "October 4th",
+        "4 Oct",
+        "4th Oct"
+      ],
+      "prediction": "空格在 Juice pressing 的 Date 栏，应填榨汁工作坊的日期；注意被改期或与开放日混淆。",
+      "logic": "题目要的是榨汁工作坊的新日期。原定 30 September 因果实未成熟取消；14 October 只是开放日，不做榨汁。原文把工作坊改到 the fourth of October。",
+      "audio_quote": "Owen: “We've moved the juice-pressing workshop to the **fourth of October**.”",
+      "explanation": "预测：空格在 Juice pressing 的 Date 栏，应填榨汁工作坊的日期；注意被改期或与开放日混淆。\n考点与原文逻辑替换：题目要的是榨汁工作坊的新日期。原定 30 September 因果实未成熟取消；14 October 只是开放日，不做榨汁。原文把工作坊改到 the fourth of October。\n跟音：Owen: “We've moved the juice-pressing workshop to the **fourth of October**.”"
+    },
+    "7": {
+      "answer": "16.50",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "16.5",
+        "£16.50",
+        "16.50 pounds"
+      ],
+      "prediction": "空格在 Juice pressing 的 Fee 栏，前面已有英镑符号，应填个人票价；注意家庭票或旧网站价格干扰。",
+      "logic": "题目要的是个人费用。leaflet 上的 thirty pounds 是家庭票；旧网站价格 fifteen pounds 已于春季结束。原文把 The individual fee 说成 sixteen pounds fifty。",
+      "audio_quote": "Owen: “The individual fee is **sixteen pounds fifty**.”",
+      "explanation": "预测：空格在 Juice pressing 的 Fee 栏，前面已有英镑符号，应填个人票价；注意家庭票或旧网站价格干扰。\n考点与原文逻辑替换：题目要的是个人费用。leaflet 上的 thirty pounds 是家庭票；旧网站价格 fifteen pounds 已于春季结束。原文把 The individual fee 说成 sixteen pounds fifty。\n跟音：Owen: “The individual fee is **sixteen pounds fifty**.”"
+    },
+    "8": {
+      "answer": "bottles",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "prediction": "空格在 Juice pressing 的 What to bring 栏，应填需要自带的物品。",
+      "logic": "题目要的是参加者应携带的东西。不要自带苹果，因为只榨本园果实。原文用 What you should bring is bottles 对应题干，并说明现场没有备用瓶。",
+      "audio_quote": "Owen: “What you should bring is **bottles**, clean ones, to take the juice home.”",
+      "explanation": "预测：空格在 Juice pressing 的 What to bring 栏，应填需要自带的物品。\n考点与原文逻辑替换：题目要的是参加者应携带的东西。不要自带苹果，因为只榨本园果实。原文用 What you should bring is bottles 对应题干，并说明现场没有备用瓶。\n跟音：Owen: “What you should bring is **bottles**, clean ones, to take the juice home.”"
+    },
+    "9": {
+      "answer": "27 November",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "alternatives": [
+        "27th November",
+        "27 November",
+        "the 27th of November",
+        "27th of November",
+        "27.11",
+        "27.11.",
+        "27/11",
+        "November 27",
+        "November 27th",
+        "27 Nov",
+        "27th Nov"
+      ],
+      "prediction": "空格在 Hedgerow planting 的 Date 栏，应填日期；注意月份可能被纠正。",
+      "logic": "题目要的是树篱种植工作坊的日期。问询者以为是 27 October，被更正为同一日但属于 November。原文给出 The twenty-seventh of November。费用 18 pounds 已印在表里，不是本题答案。",
+      "audio_quote": "Owen: “It's the twenty-seventh, but of November, not October. The **twenty-seventh of November**.”",
+      "explanation": "预测：空格在 Hedgerow planting 的 Date 栏，应填日期；注意月份可能被纠正。\n考点与原文逻辑替换：题目要的是树篱种植工作坊的日期。问询者以为是 27 October，被更正为同一日但属于 November。原文给出 The twenty-seventh of November。费用 18 pounds 已印在表里，不是本题答案。\n跟音：Owen: “It's the twenty-seventh, but of November, not October. The **twenty-seventh of November**.”"
+    },
+    "10": {
+      "answer": "boots",
+      "type": "notes_table",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": true
+      },
+      "prediction": "空格在 Hedgerow planting 的 What to bring 栏，应填须自带或须穿的物品。",
+      "logic": "题目要的是应携带或穿着的东西。trainers 被明确说不合适；gloves 由果园提供。原文用 You need to bring boots 对应空格，并强调 boots are the essential thing。",
+      "audio_quote": "Owen: “You need to bring **boots** — sturdy ones. As I said, gloves are provided, so boots are the essential thing.”",
+      "explanation": "预测：空格在 Hedgerow planting 的 What to bring 栏，应填须自带或须穿的物品。\n考点与原文逻辑替换：题目要的是应携带或穿着的东西。trainers 被明确说不合适；gloves 由果园提供。原文用 You need to bring boots 对应空格，并强调 boots are the essential thing。\n跟音：Owen: “You need to bring **boots** — sturdy ones. As I said, gloves are provided, so boots are the essential thing.”"
+    },
+    "11": {
+      "answer": "B",
+      "type": "choose_two",
+      "pair": [
+        11,
+        12
+      ],
+      "prediction": "11–12 题要选关于参观该地点的两项建议，需区分仍有效的叮嘱与已被否定或过时的说法。本题先关注着装。",
+      "logic": "题目要的是仍然有效的参观建议。原文用 I would advise wearing shoes you don't mind getting damp 对应选项 B，因为水泵周围的地面可能是湿的。",
+      "audio_quote": "Duncan Bell: “I would advise wearing shoes you don't mind getting **damp**, because the floors around the pumps can be wet, even in summer.”",
+      "explanation": "预测：11–12 题要选关于参观该地点的两项建议，需区分仍有效的叮嘱与已被否定或过时的说法。本题先关注着装。\n考点与原文逻辑替换：题目要的是仍然有效的参观建议。原文用 I would advise wearing shoes you don't mind getting damp 对应选项 B，因为水泵周围的地面可能是湿的。\n跟音：Duncan Bell: “I would advise wearing shoes you don't mind getting **damp**, because the floors around the pumps can be wet, even in summer.”"
+    },
+    "12": {
+      "answer": "D",
+      "type": "choose_two",
+      "pair": [
+        11,
+        12
+      ],
+      "prediction": "11–12 题要选关于参观该地点的两项建议。本题关注参观某设施所需预留的时间。",
+      "logic": "题目要的是仍然有效的建议。原文用 leave yourself plenty of time 说明登塔不可赶在结束前匆忙完成，并给出最后入内时间，对应选项 D。提前预约导览、把包存在咖啡馆储物柜、十点前到达以避开团队，都被随后否定或称为过时信息。",
+      "audio_quote": "Duncan Bell: “If you want to go up the tower, **leave yourself plenty of time**. The stair is slow, and the last entry is forty minutes before closing.”",
+      "explanation": "预测：11–12 题要选关于参观该地点的两项建议。本题关注参观某设施所需预留的时间。\n考点与原文逻辑替换：题目要的是仍然有效的建议。原文用 leave yourself plenty of time 说明登塔不可赶在结束前匆忙完成，并给出最后入内时间，对应选项 D。提前预约导览、把包存在咖啡馆储物柜、十点前到达以避开团队，都被随后否定或称为过时信息。\n跟音：Duncan Bell: “If you want to go up the tower, **leave yourself plenty of time**. The stair is slow, and the last entry is forty minutes before closing.”"
+    },
+    "13": {
+      "answer": "C",
+      "type": "choose_two",
+      "pair": [
+        13,
+        14
+      ],
+      "prediction": "13–14 题要选关于周末引擎演示的两项正确信息，需与被否定的说法区分。本题先关注演示开始前的安排。",
+      "logic": "题目要的是演讲者对引擎演示的明确说明。原文用 Each demonstration begins with a short talk 对应选项 C。下雨取消、儿童可帮忙启动，都与原文相反。",
+      "audio_quote": "Duncan Bell: “Each demonstration begins with a **short talk**, about five minutes, on how the engine was used when the works were still pumping water for the city.”",
+      "explanation": "预测：13–14 题要选关于周末引擎演示的两项正确信息，需与被否定的说法区分。本题先关注演示开始前的安排。\n考点与原文逻辑替换：题目要的是演讲者对引擎演示的明确说明。原文用 Each demonstration begins with a short talk 对应选项 C。下雨取消、儿童可帮忙启动，都与原文相反。\n跟音：Duncan Bell: “Each demonstration begins with a **short talk**, about five minutes, on how the engine was used when the works were still pumping water for the city.”"
+    },
+    "14": {
+      "answer": "D",
+      "type": "choose_two",
+      "pair": [
+        13,
+        14
+      ],
+      "prediction": "13–14 题要选关于周末引擎演示的两项正确信息。本题关注演示之后可以获得的物品。",
+      "logic": "题目要的是对演示的正确描述。原文说已重印原操作手册，演示结束后可以购买，对应选项 D。大型引擎每天只启动两次，不是每小时一次。",
+      "audio_quote": "Duncan Bell: “We've also reprinted an original operating manual, and you can **buy a copy** after the demonstration if you'd like to take one home.”",
+      "explanation": "预测：13–14 题要选关于周末引擎演示的两项正确信息。本题关注演示之后可以获得的物品。\n考点与原文逻辑替换：题目要的是对演示的正确描述。原文说已重印原操作手册，演示结束后可以购买，对应选项 D。大型引擎每天只启动两次，不是每小时一次。\n跟音：Duncan Bell: “We've also reprinted an original operating manual, and you can **buy a copy** after the demonstration if you'd like to take one home.”"
+    },
+    "15": {
+      "answer": "F",
+      "type": "map",
+      "prediction": "15 题要在平面图上标出 first-aid room 的位置，通常从入口讲起，注意左右方向。",
+      "logic": "题目要的是急救室。原文从 Mill Lane 的大门说起：一进门右边、靠近马路的小砖房就是 first-aid room。入口右侧近门的位置是 F。靠河更远处的旧售票亭已上锁，不是本题地点。",
+      "audio_quote": "Duncan Bell: “As soon as you come through the gate, you'll see a small brick office on your right, just inside the entrance and close to Mill Lane. That's the **first-aid room**.”",
+      "explanation": "预测：15 题要在平面图上标出 first-aid room 的位置，通常从入口讲起，注意左右方向。\n考点与原文逻辑替换：题目要的是急救室。原文从 Mill Lane 的大门说起：一进门右边、靠近马路的小砖房就是 first-aid room。入口右侧近门的位置是 F。靠河更远处的旧售票亭已上锁，不是本题地点。\n跟音：Duncan Bell: “As soon as you come through the gate, you'll see a small brick office on your right, just inside the entrance and close to Mill Lane. That's the **first-aid room**.”"
+    },
+    "16": {
+      "answer": "H",
+      "type": "map",
+      "prediction": "16 题要标出 bicycle racks 的位置，可能在入口另一侧，注意不要放到停车场围栏上。",
+      "logic": "题目要的是自行车架。原文说不要把车锁在停车场围栏上，车架在入口小路和停车场之间的凹处，进门左侧。该位置是 H。",
+      "audio_quote": "Duncan Bell: “The **bicycle racks** are in the little recess between the entrance path and the car park, just inside the gate on that side.”",
+      "explanation": "预测：16 题要标出 bicycle racks 的位置，可能在入口另一侧，注意不要放到停车场围栏上。\n考点与原文逻辑替换：题目要的是自行车架。原文说不要把车锁在停车场围栏上，车架在入口小路和停车场之间的凹处，进门左侧。该位置是 H。\n跟音：Duncan Bell: “The **bicycle racks** are in the little recess between the entrance path and the car park, just inside the gate on that side.”"
+    },
+    "17": {
+      "answer": "D",
+      "type": "map",
+      "prediction": "17 题要标出 lost-property office 的位置，可能附着在中心建筑一侧。",
+      "logic": "题目要的是失物招领处。原文说沿中轴向 Filter House 走，它西墙外、在 Filter House 与停车场之间的院子里，有一间小办公室。该位置是 D。",
+      "audio_quote": "Duncan Bell: “Attached to its west wall, in the yard between the Filter House and the car park, there's a small office. That's the **lost-property office**.”",
+      "explanation": "预测：17 题要标出 lost-property office 的位置，可能附着在中心建筑一侧。\n考点与原文逻辑替换：题目要的是失物招领处。原文说沿中轴向 Filter House 走，它西墙外、在 Filter House 与停车场之间的院子里，有一间小办公室。该位置是 D。\n跟音：Duncan Bell: “Attached to its west wall, in the yard between the Filter House and the car park, there's a small office. That's the **lost-property office**.”"
+    },
+    "18": {
+      "answer": "A",
+      "type": "map",
+      "prediction": "18 题要标出 education shed 的位置，注意它不在冷却池旁边。",
+      "logic": "题目要的是教育木屋。原文说继续走过 Filter House 西侧，在场地西北角、西路尽头以外，有一座木屋。它不在 cooling pond 旁边。西北角是 A。",
+      "audio_quote": "Duncan Bell: “In the north-west corner of the site, beyond the west path, you'll find a timber building. That's the **education shed**, where the school workshops are held.”",
+      "explanation": "预测：18 题要标出 education shed 的位置，注意它不在冷却池旁边。\n考点与原文逻辑替换：题目要的是教育木屋。原文说继续走过 Filter House 西侧，在场地西北角、西路尽头以外，有一座木屋。它不在 cooling pond 旁边。西北角是 A。\n跟音：Duncan Bell: “In the north-west corner of the site, beyond the west path, you'll find a timber building. That's the **education shed**, where the school workshops are held.”"
+    },
+    "19": {
+      "answer": "C",
+      "type": "map",
+      "prediction": "19 题要标出 picnic tables 的位置，可能先提到一块更显眼的草地作为干扰。",
+      "logic": "题目要的是野餐桌。许多人以为在冷却池北侧的草坪上，那是 B 附近的空地。原文纠正说桌子在东北角，紧靠河边。东北角靠河是 C。",
+      "audio_quote": "Duncan Bell: “In fact, they're in the north-east corner, right beside the river. That's the only place we allow picnics.”",
+      "explanation": "预测：19 题要标出 picnic tables 的位置，可能先提到一块更显眼的草地作为干扰。\n考点与原文逻辑替换：题目要的是野餐桌。许多人以为在冷却池北侧的草坪上，那是 B 附近的空地。原文纠正说桌子在东北角，紧靠河边。东北角靠河是 C。\n跟音：Duncan Bell: “In fact, they're in the north-east corner, right beside the river. That's the only place we allow picnics.”"
+    },
+    "20": {
+      "answer": "E",
+      "type": "map",
+      "prediction": "20 题要标出 volunteer hut 的位置，通常在沿河路径的中段。",
+      "logic": "题目要的是志愿者小屋。原文说从野餐桌沿河向下走，会在东侧中段、Filter House 与河流之间看到一座小屋。该位置是 E。",
+      "audio_quote": "Duncan Bell: “You'll come to a small hut about halfway along the east side, between the Filter House and the river. That's the **volunteer hut**, where the weekend guides sign in.”",
+      "explanation": "预测：20 题要标出 volunteer hut 的位置，通常在沿河路径的中段。\n考点与原文逻辑替换：题目要的是志愿者小屋。原文说从野餐桌沿河向下走，会在东侧中段、Filter House 与河流之间看到一座小屋。该位置是 E。\n跟音：Duncan Bell: “You'll come to a small hut about halfway along the east side, between the Filter House and the river. That's the **volunteer hut**, where the weekend guides sign in.”"
+    },
+    "21": {
+      "answer": "B",
+      "type": "choose_two",
+      "pair": [
+        21,
+        22
+      ],
+      "prediction": "21–22 题要选背景阅读中让两位学生都感到意外的两项发现，需排除只有一人意外或其实早已知道的内容。本题先关注水质安全。",
+      "logic": "题目要的是双方都感到意外的发现。原文中 Imogen 说明两人都没意识到 untreated greywater 会在数小时内变得不安全，对应选项 B。淋浴用水量他们在课上已经知道，不是答案。",
+      "audio_quote": "Imogen: “What I hadn't taken in — and Rohan hadn't either — was how quickly untreated greywater becomes **unsafe**.”",
+      "explanation": "预测：21–22 题要选背景阅读中让两位学生都感到意外的两项发现，需排除只有一人意外或其实早已知道的内容。本题先关注水质安全。\n考点与原文逻辑替换：题目要的是双方都感到意外的发现。原文中 Imogen 说明两人都没意识到 untreated greywater 会在数小时内变得不安全，对应选项 B。淋浴用水量他们在课上已经知道，不是答案。\n跟音：Imogen: “What I hadn't taken in — and Rohan hadn't either — was how quickly untreated greywater becomes **unsafe**.”"
+    },
+    "22": {
+      "answer": "D",
+      "type": "choose_two",
+      "pair": [
+        21,
+        22
+      ],
+      "prediction": "21–22 题要选让两位学生都感到意外的两项发现。本题关注处理装置的能耗。",
+      "logic": "题目要的是双方都意外的发现。Rohan 说两人没料到小型处理装置耗电很少，对应选项 D。关于体育中心已在回用洗浴水的数字其实来自酒店，他们未当作可用发现；水色规定只让 Rohan 意外，Imogen 并不感到惊讶。",
+      "audio_quote": "Rohan: “The other thing we both found unexpected was how little **energy** a small treatment unit requires.”",
+      "explanation": "预测：21–22 题要选让两位学生都感到意外的两项发现。本题关注处理装置的能耗。\n考点与原文逻辑替换：题目要的是双方都意外的发现。Rohan 说两人没料到小型处理装置耗电很少，对应选项 D。关于体育中心已在回用洗浴水的数字其实来自酒店，他们未当作可用发现；水色规定只让 Rohan 意外，Imogen 并不感到惊讶。\n跟音：Rohan: “The other thing we both found unexpected was how little **energy** a small treatment unit requires.”"
+    },
+    "23": {
+      "answer": "A",
+      "type": "choose_two",
+      "pair": [
+        23,
+        24
+      ],
+      "prediction": "23–24 题要选上届学生项目中让 Rohan 印象深刻的两个特点，需与 Imogen 的看法或项目弱点区分。本题先关注费用呈现方式。",
+      "logic": "题目问的是令 Rohan 印象深刻的特点。原文中他把 the way costs were set out 列为第一点，因为费用被拆开说明，对应选项 A。照片是 Imogen 赞赏的，Rohan 并不特别看重。",
+      "audio_quote": "Rohan: “Two things, really. First, the way **costs** were set out. They didn't just give a total — they broke the figures down so you could see which parts of the system were expensive.”",
+      "explanation": "预测：23–24 题要选上届学生项目中让 Rohan 印象深刻的两个特点，需与 Imogen 的看法或项目弱点区分。本题先关注费用呈现方式。\n考点与原文逻辑替换：题目问的是令 Rohan 印象深刻的特点。原文中他把 the way costs were set out 列为第一点，因为费用被拆开说明，对应选项 A。照片是 Imogen 赞赏的，Rohan 并不特别看重。\n跟音：Rohan: “Two things, really. First, the way **costs** were set out. They didn't just give a total — they broke the figures down so you could see which parts of the system were expensive.”"
+    },
+    "24": {
+      "answer": "E",
+      "type": "choose_two",
+      "pair": [
+        23,
+        24
+      ],
+      "prediction": "23–24 题要选令 Rohan 印象深刻的两个特点。本题关注项目的比较方法。",
+      "logic": "题目问的是令 Rohan 印象深刻的特点。原文中他随后强调 the decision to test two systems side by side，认为这比只测一套系统更有说服力，对应选项 E。样本其实偏小，清洁工访谈也很简短，这两点都不是他欣赏的地方。",
+      "audio_quote": "Rohan: “What did impress me, though, was the decision to test **two systems side by side**.”",
+      "explanation": "预测：23–24 题要选令 Rohan 印象深刻的两个特点。本题关注项目的比较方法。\n考点与原文逻辑替换：题目问的是令 Rohan 印象深刻的特点。原文中他随后强调 the decision to test two systems side by side，认为这比只测一套系统更有说服力，对应选项 E。样本其实偏小，清洁工访谈也很简短，这两点都不是他欣赏的地方。\n跟音：Rohan: “What did impress me, though, was the decision to test **two systems side by side**.”"
+    },
+    "25": {
+      "answer": "C",
+      "type": "choose_two",
+      "pair": [
+        25,
+        26
+      ],
+      "prediction": "25–26 题要选两位学生都同意写入报告的两个话题，需排除只有一人主张或已决定不写的内容。本题先关注健康风险。",
+      "logic": "题目要的是双方都同意添加的内容。Rohan 提出必须写入 the risk of legionella，Imogen 随即表示 that's essential，对应选项 C。雨水收集因没有数据已被放弃；游泳者意见因时间不够未能取得一致。",
+      "audio_quote": "Rohan: “What we do both want in the report is the risk of **legionella**.”",
+      "explanation": "预测：25–26 题要选两位学生都同意写入报告的两个话题，需排除只有一人主张或已决定不写的内容。本题先关注健康风险。\n考点与原文逻辑替换：题目要的是双方都同意添加的内容。Rohan 提出必须写入 the risk of legionella，Imogen 随即表示 that's essential，对应选项 C。雨水收集因没有数据已被放弃；游泳者意见因时间不够未能取得一致。\n跟音：Rohan: “What we do both want in the report is the risk of **legionella**.”"
+    },
+    "26": {
+      "answer": "E",
+      "type": "choose_two",
+      "pair": [
+        25,
+        26
+      ],
+      "prediction": "25–26 题要选两位学生都同意写入报告的两个话题。本题关注设备成本回收。",
+      "logic": "题目要的是双方都同意添加的内容。Imogen 说两人还要把 the payback period for the equipment 写入报告，因为经理会问多久收回成本，对应选项 E。周末开放计划被双方认定超出题目范围。",
+      "audio_quote": "Imogen: “And we also both want to include the **payback period** for the equipment.”",
+      "explanation": "预测：25–26 题要选两位学生都同意写入报告的两个话题。本题关注设备成本回收。\n考点与原文逻辑替换：题目要的是双方都同意添加的内容。Imogen 说两人还要把 the payback period for the equipment 写入报告，因为经理会问多久收回成本，对应选项 E。周末开放计划被双方认定超出题目范围。\n跟音：Imogen: “And we also both want to include the **payback period** for the equipment.”"
+    },
+    "27": {
+      "answer": "B",
+      "type": "matching",
+      "prediction": "27 题是流程图第一阶段 Selecting the showers 的说明，应从选项盒中选一个能概括该阶段进展的短语。",
+      "logic": "题目要的是选择淋浴间这一阶段的实际情况。原文用 that stage was completed in a single afternoon 对应选项 B。他们本以为清洁组会反对，但清洁组其实很配合，因此 C 不适用于这一阶段。",
+      "audio_quote": "Imogen: “In the end that stage was **completed in a single afternoon**.”",
+      "explanation": "预测：27 题是流程图第一阶段 Selecting the showers 的说明，应从选项盒中选一个能概括该阶段进展的短语。\n考点与原文逻辑替换：题目要的是选择淋浴间这一阶段的实际情况。原文用 that stage was completed in a single afternoon 对应选项 B。他们本以为清洁组会反对，但清洁组其实很配合，因此 C 不适用于这一阶段。\n跟音：Imogen: “In the end that stage was **completed in a single afternoon**.”"
+    },
+    "28": {
+      "answer": "D",
+      "type": "matching",
+      "prediction": "28 题是 Taking the baseline readings 这一阶段的说明，注意记录方式可能被更正。",
+      "logic": "题目要的是基线读数如何被记录。Rohan 起初用纸质笔记本，后来按 Imogen 的建议把数据放进 a shared spreadsheet。原文说 that's how the readings were recorded，对应选项 D。",
+      "audio_quote": "Rohan: “Imogen suggested we put everything in a **shared spreadsheet** so we could both check the figures, and that's how the readings were recorded.”",
+      "explanation": "预测：28 题是 Taking the baseline readings 这一阶段的说明，注意记录方式可能被更正。\n考点与原文逻辑替换：题目要的是基线读数如何被记录。Rohan 起初用纸质笔记本，后来按 Imogen 的建议把数据放进 a shared spreadsheet。原文说 that's how the readings were recorded，对应选项 D。\n跟音：Rohan: “Imogen suggested we put everything in a **shared spreadsheet** so we could both check the figures, and that's how the readings were recorded.”"
+    },
+    "29": {
+      "answer": "A",
+      "type": "matching",
+      "prediction": "29 题是 Installing the diversion valves 这一阶段的说明，注意工期变动与中途故障干扰。",
+      "logic": "题目要的是安装分流阀阶段实际发生的情况。原文说管道工只能在假期过来，所以 that stage was delayed until the vacation，对应选项 A。泄漏来自旧水槽接口，试验并未放弃；部门经费在春季就已到位，不是这一阶段才发生的事。",
+      "audio_quote": "Imogen: “The plumber could only come in the break, so that stage was **delayed until the vacation**.”",
+      "explanation": "预测：29 题是 Installing the diversion valves 这一阶段的说明，注意工期变动与中途故障干扰。\n考点与原文逻辑替换：题目要的是安装分流阀阶段实际发生的情况。原文说管道工只能在假期过来，所以 that stage was delayed until the vacation，对应选项 A。泄漏来自旧水槽接口，试验并未放弃；部门经费在春季就已到位，不是这一阶段才发生的事。\n跟音：Imogen: “The plumber could only come in the break, so that stage was **delayed until the vacation**.”"
+    },
+    "30": {
+      "answer": "G",
+      "type": "matching",
+      "prediction": "30 题是向 estates committee 汇报结果之后的说明，注意汇报本身与后续材料的先后。",
+      "logic": "题目要的是汇报之后发生的事。原文用 it was followed by a short written briefing 说明委员会要求留下一页摘要，对应选项 G。这份 briefing 是在汇报之后，而不是代替汇报。",
+      "audio_quote": "Imogen: “The presentation went reasonably well, and it was **followed by a short written briefing** — they asked us to leave a one-page summary for members who couldn't attend.”",
+      "explanation": "预测：30 题是向 estates committee 汇报结果之后的说明，注意汇报本身与后续材料的先后。\n考点与原文逻辑替换：题目要的是汇报之后发生的事。原文用 it was followed by a short written briefing 说明委员会要求留下一页摘要，对应选项 G。这份 briefing 是在汇报之后，而不是代替汇报。\n跟音：Imogen: “The presentation went reasonably well, and it was **followed by a short written briefing** — they asked us to leave a one-page summary for members who couldn't attend.”"
+    },
+    "31": {
+      "answer": "oxygen",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "Saturation slows decay，空格是 access of 后的物质名词；需从影响分解的多个因素中确定水饱和所限制的那个因素。",
+      "logic": "原文先承认 temperature 有影响，随后以 However 把论证收束到保持泥炭饱和的关键作用：限制 oxygen 进入。restricts the entry of 对应 limiting the access of；之后解释分解生物活动受限，从机制上支持 slows decay。温度是背景条件，氧气的可获得性才是本句因果链的缺失环节。",
+      "audio_quote": "Professor Alec Durrant: “However, the key effect of keeping the peat saturated is that it restricts the entry of oxygen.”",
+      "explanation": "预测：Saturation slows decay，空格是 access of 后的物质名词；需从影响分解的多个因素中确定水饱和所限制的那个因素。\n考点与原文逻辑替换：原文先承认 temperature 有影响，随后以 However 把论证收束到保持泥炭饱和的关键作用：限制 oxygen 进入。restricts the entry of 对应 limiting the access of；之后解释分解生物活动受限，从机制上支持 slows decay。温度是背景条件，氧气的可获得性才是本句因果链的缺失环节。\n跟音：Professor Alec Durrant: “However, the key effect of keeping the peat saturated is that it restricts the entry of oxygen.”"
+    },
+    "32": {
+      "answer": "cracks",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "Water bypassed intact barriers through 后需要复数通道名词；应跟踪最初怀疑到现场确诊的变化，确定水绕过结构的实际路径。",
+      "logic": "团队最初怀疑屏障安装不严，但检查确认 barriers themselves were intact。泥炭干缩后 opening cracks，水经这些裂缝绕过屏障逃逸。题干的 bypassed intact barriers 概括这个修正后的诊断；surrounding peat 对应 peat beside them，答案是 cracks。",
+      "audio_quote": "Professor Alec Durrant: “During dry weather, the peat beside them had shrunk, opening cracks through which water escaped around the structures.”",
+      "explanation": "预测：Water bypassed intact barriers through 后需要复数通道名词；应跟踪最初怀疑到现场确诊的变化，确定水绕过结构的实际路径。\n考点与原文逻辑替换：团队最初怀疑屏障安装不严，但检查确认 barriers themselves were intact。泥炭干缩后 opening cracks，水经这些裂缝绕过屏障逃逸。题干的 bypassed intact barriers 概括这个修正后的诊断；surrounding peat 对应 peat beside them，答案是 cracks。\n跟音：Professor Alec Durrant: “During dry weather, the peat beside them had shrunk, opening cracks through which water escaped around the structures.”"
+    },
+    "33": {
+      "answer": "slope",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "空格在 channel's 后，需要决定屏障间距的地形属性；重点是固定间距方案被什么设计依据取代。",
+      "logic": "报价方案原拟按等距安装，生态学家要求先测沿沟的 slope，再决定 distances between barriers。后句解释落差大处间距更小，以减轻单个屏障的水位差。题干 based on 归纳 survey ... before choosing 的设计逻辑；沟长只帮助估工作量，坡度才决定间距。",
+      "audio_quote": "Professor Alec Durrant: “The ecologists insisted on surveying the slope along each channel before choosing the distances between barriers.”",
+      "explanation": "预测：空格在 channel's 后，需要决定屏障间距的地形属性；重点是固定间距方案被什么设计依据取代。\n考点与原文逻辑替换：报价方案原拟按等距安装，生态学家要求先测沿沟的 slope，再决定 distances between barriers。后句解释落差大处间距更小，以减轻单个屏障的水位差。题干 based on 归纳 survey ... before choosing 的设计逻辑；沟长只帮助估工作量，坡度才决定间距。\n跟音：Professor Alec Durrant: “The ecologists insisted on surveying the slope along each channel before choosing the distances between barriers.”"
+    },
+    "34": {
+      "answer": "plastic",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "interlocking sheets of 后是材料名词；需区别主屏障材料、曾考虑的材料和后来只作支撑的材料。",
+      "logic": "原文先说大多沟渠可用本地泥炭，再限定东侧两个出口泥炭不足；timber 被考虑后放弃，实际安装的是 plastic。edges locked together 对应 interlocking sheets，后文说明照片中的木材只作 bracing。题干用 main barrier 将主结构与支撑分开，因此答案唯一为 plastic。",
+      "audio_quote": "Professor Alec Durrant: “What was installed instead was plastic, supplied as sheets whose edges locked together and driven into firm material below the channel.”",
+      "explanation": "预测：interlocking sheets of 后是材料名词；需区别主屏障材料、曾考虑的材料和后来只作支撑的材料。\n考点与原文逻辑替换：原文先说大多沟渠可用本地泥炭，再限定东侧两个出口泥炭不足；timber 被考虑后放弃，实际安装的是 plastic。edges locked together 对应 interlocking sheets，后文说明照片中的木材只作 bracing。题干用 main barrier 将主结构与支撑分开，因此答案唯一为 plastic。\n跟音：Professor Alec Durrant: “What was installed instead was plastic, supplied as sheets whose edges locked together and driven into firm material below the channel.”"
+    },
+    "35": {
+      "answer": "birch",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "Removal of 后需要被清除的植物名称；chiefly 提示要抓主要水文目的，并区分修复区内外的植被。",
+      "logic": "willow 位于邻近溪流、属于修复区外。On the dried peat itself 后引出 birch，its removal 的指代对象就是它。drawn up and released through leaves 对应 water loss through leaves；shade 只是另一个影响。题干把地点和 chiefly 两个限制合并，考查指代与主次关系。",
+      "audio_quote": "Professor Alec Durrant: “On the dried peat itself, birch had become established, and its removal was intended chiefly to reduce the amount of water being drawn up and released through leaves.”",
+      "explanation": "预测：Removal of 后需要被清除的植物名称；chiefly 提示要抓主要水文目的，并区分修复区内外的植被。\n考点与原文逻辑替换：willow 位于邻近溪流、属于修复区外。On the dried peat itself 后引出 birch，its removal 的指代对象就是它。drawn up and released through leaves 对应 water loss through leaves；shade 只是另一个影响。题干把地点和 chiefly 两个限制合并，考查指代与主次关系。\n跟音：Professor Alec Durrant: “On the dried peat itself, birch had become established, and its removal was intended chiefly to reduce the amount of water being drawn up and released through leaves.”"
+    },
+    "36": {
+      "answer": "acidity",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "water 后需要可比较的水化学属性名词；before moss collection 要求辨认移植前的筛选依据，而非运输便利或采集量。",
+      "logic": "最近的健康苔藓区只是方便，真正决策前先比较 donor 和 receiving areas 水的 acidity。后文 explains chemically different conditions 即使同样潮湿也可能导致失败，因此不是单看湿度。题干的 before moss collection 对应 Before collecting anything，答案为 acidity。",
+      "audio_quote": "Professor Alec Durrant: “Before collecting anything, they compared the acidity of water in the donor and receiving areas.”",
+      "explanation": "预测：water 后需要可比较的水化学属性名词；before moss collection 要求辨认移植前的筛选依据，而非运输便利或采集量。\n考点与原文逻辑替换：最近的健康苔藓区只是方便，真正决策前先比较 donor 和 receiving areas 水的 acidity。后文 explains chemically different conditions 即使同样潮湿也可能导致失败，因此不是单看湿度。题干的 before moss collection 对应 Before collecting anything，答案为 acidity。\n跟音：Professor Alec Durrant: “Before collecting anything, they compared the acidity of water in the donor and receiving areas.”"
+    },
+    "37": {
+      "answer": "straw",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "a light covering of 后需要覆盖材料名词；应将覆盖材料与其保护作用相连，而不把补充营养当作本题目的。",
+      "logic": "原文指出新撒苔藓缺少成熟苔毯维持湿润的小环境，随后用 straw 作松散覆盖。loose layer 对应 light covering；soften the effects of drying air 对应 protected ... from drying conditions。光照仍须到达苔藓，所以只薄盖，营养供应并非这里的直接目的。",
+      "audio_quote": "Professor Alec Durrant: “The team covered them with a loose layer of straw.”",
+      "explanation": "预测：a light covering of 后需要覆盖材料名词；应将覆盖材料与其保护作用相连，而不把补充营养当作本题目的。\n考点与原文逻辑替换：原文指出新撒苔藓缺少成熟苔毯维持湿润的小环境，随后用 straw 作松散覆盖。loose layer 对应 light covering；soften the effects of drying air 对应 protected ... from drying conditions。光照仍须到达苔藓，所以只薄盖，营养供应并非这里的直接目的。\n跟音：Professor Alec Durrant: “The team covered them with a loose layer of straw.”"
+    },
+    "38": {
+      "answer": "wells",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "shallow 后需要复数设施名词；区分观测设施本体、装在其中的仪器与旁边可见的水池。",
+      "logic": "团队在固定位置设置 shallow wells，sensors 放在其内读取水位；Each measurement was related to the adjacent peat surface 对应题干 relative to the peat surface。wells 是测量发生的设施，sensors 是内部仪器，地表水池的照片无法代表相邻泥炭的状态。",
+      "audio_quote": "Professor Alec Durrant: “For the regular water-level measurements, they relied on shallow wells, sunk at fixed points across the site.”",
+      "explanation": "预测：shallow 后需要复数设施名词；区分观测设施本体、装在其中的仪器与旁边可见的水池。\n考点与原文逻辑替换：团队在固定位置设置 shallow wells，sensors 放在其内读取水位；Each measurement was related to the adjacent peat surface 对应题干 relative to the peat surface。wells 是测量发生的设施，sensors 是内部仪器，地表水池的照片无法代表相邻泥炭的状态。\n跟音：Professor Alec Durrant: “For the regular water-level measurements, they relied on shallow wells, sunk at fixed points across the site.”"
+    },
+    "39": {
+      "answer": "methane",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "included 后需要气体名词；also 与 emissions may rise 提示另一个必须纳入评估、变化方向可能不同的温室气体。",
+      "logic": "原文先讲变湿后 carbon dioxide 预计减少，随后指出这不足以证明总温室效应立即改善，因为 methane 在缺氧恢复、尤其长期积水处可能增加。题干 also included 归纳 therefore measured that gas as well；may rise 对应 can increase。结论要求综合、长期衡量，而非用单一气体的变化代表成败。",
+      "audio_quote": "Professor Alec Durrant: “Methane can increase when oxygen-poor conditions return, particularly where restoration creates persistent open water.”",
+      "explanation": "预测：included 后需要气体名词；also 与 emissions may rise 提示另一个必须纳入评估、变化方向可能不同的温室气体。\n考点与原文逻辑替换：原文先讲变湿后 carbon dioxide 预计减少，随后指出这不足以证明总温室效应立即改善，因为 methane 在缺氧恢复、尤其长期积水处可能增加。题干 also included 归纳 therefore measured that gas as well；may rise 对应 can increase。结论要求综合、长期衡量，而非用单一气体的变化代表成败。\n跟音：Professor Alec Durrant: “Methane can increase when oxygen-poor conditions return, particularly where restoration creates persistent open water.”"
+    },
+    "40": {
+      "answer": "drought",
+      "type": "notes",
+      "word_limit": {
+        "max_words": 1,
+        "allow_number": false
+      },
+      "prediction": "after a 后需要单数事件名词；time needed for recovery 提示测量的是恢复时长，而不是年平均水位或雨后表面是否有水。",
+      "logic": "两处地区即使年均水位相同，波动过程也可能完全不同。研究者于是记录 drought 后水位需要多久才恢复；后文进一步限定为近地表水位重新建立并维持。how long ... took to recover 对应 time needed for recovery，答案是 drought，考查从均值转到韧性指标的论证转折。",
+      "audio_quote": "Professor Alec Durrant: “To test resilience, the researchers recorded how long water levels took to recover after a drought.”",
+      "explanation": "预测：after a 后需要单数事件名词；time needed for recovery 提示测量的是恢复时长，而不是年平均水位或雨后表面是否有水。\n考点与原文逻辑替换：两处地区即使年均水位相同，波动过程也可能完全不同。研究者于是记录 drought 后水位需要多久才恢复；后文进一步限定为近地表水位重新建立并维持。how long ... took to recover 对应 time needed for recovery，答案是 drought，考查从均值转到韧性指标的论证转折。\n跟音：Professor Alec Durrant: “To test resilience, the researchers recorded how long water levels took to recover after a drought.”"
+    }
+  },
+  "transcripts": {
+    "1": "Narrator: This is the Academic Listening practice test, Set D.\n\nNarrator: Section 1. You will hear a woman booking weekend workshops at a community orchard.\n\nNarrator: First, you have some time to look at questions 1 to 5.\n\nNarrator: Now listen carefully and answer questions 1 to 5.\n\nTessa: Hello, is that Willowfen Community Orchard? I'd like to book places on some of your weekend workshops.\n\nOwen: Yes, this is Owen in the office. Which workshops were you hoping to join?\n\nTessa: Winter pruning, first of all. A neighbour told me it's on the twelfth of February.\n\nOwen: The twelfth is a staff training day, I'm afraid — the site is closed to the public then. The winter pruning workshop is on the nineteenth of February.\n\nTessa: The nineteenth, fine. And is it still twenty-five pounds? That's what the website says.\n\nOwen: That figure is from last year, and we haven't updated the page. The fee is thirty-two pounds now. We do charge thirty-five if a private group books the whole session, but the ordinary public fee is thirty-two.\n\nTessa: Thirty-two, got it. Should I bring anything? I was going to pack a pair of gloves.\n\nOwen: No need for gloves or waterproofs — we provide those. What you do need to bring is a pair of secateurs. We don't lend secateurs, so please bring your own.\n\nTessa: Right. I'd also like the tree grafting workshop. I circled the eighteenth of March in my diary.\n\nOwen: The eighteenth is just an evening talk about fruit varieties, not a practical session. The grafting workshop itself is on the eighth of March.\n\nTessa: The eighth. And I saw that one is forty-two pounds — I'll pay that. Do I need to bring a grafting knife? Or a camera? I'd like to photograph the technique.\n\nOwen: Knives and the rootstock are all provided, and we'd rather people didn't take photos during the demonstration. What we do ask you to bring is a notebook, so you can jot down the steps.\n\nNarrator: Before you hear the rest of the conversation, you have some time to look at questions 6 to 10.\n\nNarrator: Now listen and answer questions 6 to 10.\n\nTessa: Then there's juice pressing. Is that the last Saturday of September? I thought I saw the thirtieth.\n\nOwen: We did have it down for the thirtieth of September, but the fruit won't be ready. We've moved the juice-pressing workshop to the fourth of October. Don't mix that up with the fourteenth of October — that's just an open day, and there's no pressing then.\n\nTessa: Fourth of October. The leaflet I picked up in town says thirty pounds.\n\nOwen: That's the family ticket, for two adults and two children. The individual fee is sixteen pounds fifty. There was an old web price of fifteen pounds as well, but that ended in the spring.\n\nTessa: Sixteen fifty. Shall I bring some of my own apples?\n\nOwen: Please don't — we only press fruit from this orchard, for quality reasons. What you should bring is bottles, clean ones, to take the juice home. We haven't any spare bottles here.\n\nTessa: Bottles, fine. And the last one, hedgerow planting — is that the twenty-seventh of October?\n\nOwen: It's the twenty-seventh, but of November, not October. The twenty-seventh of November. The fee is eighteen pounds, as advertised.\n\nTessa: November the twenty-seventh. Anything special to wear? I was going to come in trainers.\n\nOwen: Trainers really aren't suitable on the wet ground. You need to bring boots — sturdy ones. As I said, gloves are provided, so boots are the essential thing.\n\nTessa: Boots. I'll book all four, under Tessa Kline. That's K-L-I-N-E.\n\nOwen: Thank you, Tessa. I'll email a confirmation shortly.\n\nNarrator: That is the end of Section 1. You now have 30 seconds to check your answers.",
+    "2": "Narrator: Section 2. You will hear a member of staff talking about a visit to a restored waterworks.\n\nNarrator: First, you have some time to look at questions 11 to 14.\n\nNarrator: Now listen carefully and answer questions 11 to 14.\n\nDuncan Bell: Good morning, and welcome to Holmestead Waterworks. My name is Duncan Bell, and I look after visitor services here. I'll start with a little practical advice, and then I'll talk about this weekend's engine demonstrations, before I take you around the plan of the site.\n\nDuncan Bell: A few of you have asked whether you should book a guided tour in advance. You don't need to do that. The guides wait in the Filter House, and you can simply join a group when you arrive.\n\nDuncan Bell: I would advise wearing shoes you don't mind getting damp, because the floors around the pumps can be wet, even in summer. That's the main thing I would ask you to think about before you go in.\n\nDuncan Bell: People also ask about bags. There used to be lockers by the café, but they're out of service this season, so please keep your bags with you rather than looking for somewhere to leave them.\n\nDuncan Bell: If you want to go up the tower, leave yourself plenty of time. The stair is slow, and the last entry is forty minutes before closing. It isn't a long climb, but it isn't something you can rush at the end of a visit.\n\nDuncan Bell: Some websites still say you should arrive before ten to miss the coach parties. That used to be true, but the coaches now arrive after lunch, so the mornings are actually the quietest time anyway. That old advice is out of date.\n\nDuncan Bell: Now, the engine demonstrations this weekend. They're held in the engine hall, so rain never stops them — we don't cancel because of the weather.\n\nDuncan Bell: Children are very welcome to watch, but they aren't allowed to help start either engine. I'm afraid that's a safety rule we have to keep to.\n\nDuncan Bell: Each demonstration begins with a short talk, about five minutes, on how the engine was used when the works were still pumping water for the city. Please try to be in the hall a little before the start so you don't miss that introduction.\n\nDuncan Bell: We've also reprinted an original operating manual, and you can buy a copy after the demonstration if you'd like to take one home.\n\nDuncan Bell: One last detail on the timetable. The little pump runs on the hour through the afternoon, but the large pumping engine is only started twice a day, at eleven and at two, so don't expect to see that one every hour.\n\nNarrator: Before you hear the rest of the talk, you have some time to look at questions 15 to 20.\n\nNarrator: Now listen and answer questions 15 to 20.\n\nDuncan Bell: Now, please look at the plan of the site. We'll start at the main entrance, on Mill Lane, at the bottom of your plan. The car park fills the south-west corner, on your left as you come in, and the River Holm runs along the eastern edge, on the right of the plan.\n\nDuncan Bell: As soon as you come through the gate, you'll see a small brick office on your right, just inside the entrance and close to Mill Lane. That's the first-aid room. It isn't the older ticket booth further along by the river — that booth is locked, and it isn't staffed.\n\nDuncan Bell: If you turn left instead, don't try to chain a bicycle to the car-park fence. The bicycle racks are in the little recess between the entrance path and the car park, just inside the gate on that side.\n\nDuncan Bell: Walk up the central path towards the Filter House — that's the large building in the middle of the plan. Attached to its west wall, in the yard between the Filter House and the car park, there's a small office. That's the lost-property office. If you leave a coat or a camera, that's where it will be taken.\n\nDuncan Bell: Carry on past the west side of the Filter House, and in the north-west corner of the site, beyond the west path, you'll find a timber building. That's the education shed, where the school workshops are held. It isn't next to the cooling pond — it's in that far corner.\n\nDuncan Bell: A lot of visitors assume the picnic tables are on the lawn immediately north of the cooling pond, because that's the most open patch of grass. In fact, they're in the north-east corner, right beside the river. That's the only place we allow picnics.\n\nDuncan Bell: Finally, if you follow the river path down from those tables, you'll come to a small hut about halfway along the east side, between the Filter House and the river. That's the volunteer hut, where the weekend guides sign in. So that's the layout, and I hope you enjoy your visit.\n\nNarrator: That is the end of Section 2. You now have 30 seconds to check your answers.",
+    "3": "Narrator: Section 3. You will hear two students discussing a greywater project with their tutor.\n\nNarrator: First, you have some time to look at questions 21 to 26.\n\nNarrator: Now listen carefully and answer questions 21 to 26.\n\nDr Sabina Holt: Imogen, Rohan, thank you for coming in. I read the outline of your greywater trial at Hatherley Sports Centre. Before we talk about the stages of the work, can I ask what in the background reading was actually new to both of you?\n\nImogen: Well, we'd already been told in lectures how much drinking water the showers use, so that wasn't a surprise. What I hadn't taken in — and Rohan hadn't either — was how quickly untreated greywater becomes unsafe. We both thought it stayed usable for days, but the papers say it can be unsafe within hours.\n\nRohan: Yes, that caught both of us out. The other thing we both found unexpected was how little energy a small treatment unit requires. I'd assumed it would be a serious load on the building's electricity, but the figures were tiny.\n\nImogen: There was an article that claimed a lot of sports centres already reuse shower water, but that figure was for hotels, not sports centres, so we didn't treat it as a finding we could use.\n\nRohan: And the rules on water colour are strict, but that didn't surprise Imogen — her sister works in environmental health — so I wouldn't say it was a surprise for both of us.\n\nDr Sabina Holt: Good. You also looked at a previous student project on the same site. Rohan, what impressed you about that one?\n\nRohan: Two things, really. First, the way costs were set out. They didn't just give a total — they broke the figures down so you could see which parts of the system were expensive. I want us to do that.\n\nImogen: I thought the photographs were excellent, actually.\n\nRohan: They were fine, but they didn't really add much for me — I wouldn't single them out. What did impress me, though, was the decision to test two systems side by side. That made the comparison much more convincing than testing one system on its own.\n\nDr Sabina Holt: And the sample size? They interviewed quite a few staff, didn't they?\n\nRohan: That's just it — the sample was actually quite small. I wouldn't hold that up as a strength. They did include some interviews with cleaning staff, but those were very brief, so that wasn't what impressed me either.\n\nDr Sabina Holt: All right. Looking ahead, is there anything you both think should be added to the report?\n\nRohan: I was keen to include a comparison with rainwater harvesting, but Imogen pointed out we haven't collected any data on that, so we've dropped it.\n\nImogen: I would have liked to include the views of swimmers, and you suggested that too, Dr Holt, but Rohan is right that we won't have time to interview them properly, so we don't agree on putting that in.\n\nRohan: What we do both want in the report is the risk of legionella. We can't ignore that if we're storing used shower water, even for a short time.\n\nImogen: Yes, that's essential. And we also both want to include the payback period for the equipment. The manager will ask how long it takes to recover the cost, so that has to be in there.\n\nDr Sabina Holt: The manager also asked about a plan for weekend opening. Have you included that?\n\nImogen: We talked about it, but we both decided it's outside the brief. We're looking at the water system, not the centre's opening hours.\n\nNarrator: Before you hear the rest of the discussion, you have some time to look at questions 27 to 30.\n\nNarrator: Now listen and answer questions 27 to 30.\n\nDr Sabina Holt: Let's go through the stages of the trial in order, so I can see how the work actually unfolded.\n\nImogen: First we had to select which showers to include. We thought the manager might take days to decide, but in the end that stage was completed in a single afternoon. We'd also expected the cleaning team to object, but they were actually quite helpful, so there was no opposition from them.\n\nRohan: Then we took the baseline meter readings, before any of the new pipework went in. I started with a paper notebook, but Imogen suggested we put everything in a shared spreadsheet so we could both check the figures, and that's how the readings were recorded.\n\nDr Sabina Holt: And installing the diversion valves — did that stay on the original timetable?\n\nImogen: No. We hoped to do it in term time, but the plumber could only come in the break, so that stage was delayed until the vacation. There was a leak in a waste pipe while he was there, and for a moment we thought we'd have to abandon the trial, but it was a joint on an old sink, not our valves, so we carried on.\n\nRohan: The valves themselves were paid for by a department grant, which we'd already secured in the spring, so that wasn't something that happened at the installation stage.\n\nDr Sabina Holt: And after you'd collected the results, you presented them to the estates committee.\n\nImogen: Yes. The presentation went reasonably well, and it was followed by a short written briefing — they asked us to leave a one-page summary for members who couldn't attend. That briefing came after the presentation, not instead of it.\n\nDr Sabina Holt: That's a clear sequence. Write it up in that order, and we'll talk about the draft next week.\n\nNarrator: That is the end of Section 3. You now have 30 seconds to check your answers.",
+    "4": "Narrator: Section 4. You will hear a lecture on restoring a lowland raised bog.\n\nNarrator: First, you have some time to look at questions 31 to 40.\n\nNarrator: Now listen carefully and answer questions 31 to 40.\n\nProfessor Alec Durrant: Good afternoon. Today we're considering the restoration of lowland raised bogs: wetlands where partially decayed vegetation has accumulated into a dome of peat. Unlike a river-fed marsh, the upper surface of an intact raised bog depends mainly on rainfall. My example is an invented field project at Merewick Moss, a former peat-cutting site. We'll use it to explore why simply making a place look wet can be a very poor test of ecological recovery.\n\nProfessor Alec Durrant: First, think about what we're trying to preserve. Plants continue to grow on a bog, but their dead remains break down unusually slowly. You might put that down to low temperature, and temperature certainly matters. However, the key effect of keeping the peat saturated is that it restricts the entry of oxygen. Many of the organisms that would otherwise consume the dead material cannot work as effectively under those conditions. Drain the site, and you remove that constraint: a store built up over centuries can then start losing carbon, even if the remaining surface still looks green.\n\nProfessor Alec Durrant: At Merewick, the obvious legacy of peat cutting was a network of drainage channels. Closing their outlets seemed an adequate first step. Initially, the team blamed continuing water loss on badly fitted barriers; after all, water levels were falling behind several of them. Inspections showed that the barriers themselves were intact. During dry weather, the peat beside them had shrunk, opening cracks through which water escaped around the structures. Adding height to each barrier would therefore have missed the actual route of leakage. The surrounding damaged peat had to be dealt with as well.\n\nProfessor Alec Durrant: This diagnosis also changed the layout of the work. A contractor had offered a price based on putting a barrier at regular intervals, which looked simple on the budget sheet. The ecologists insisted on surveying the slope along each channel before choosing the distances between barriers. Where the ground fell rapidly, the structures needed to be closer together, so that no single one held back too great a difference in water level. The length of a channel told them roughly how much work was involved; it did not, by itself, determine the spacing.\n\nProfessor Alec Durrant: Most channels could be blocked using compacted peat from the site. At two outlets on the eastern edge, however, too little suitable peat remained to make a reliable seal. Timber was considered for the main barrier, then rejected there. What was installed instead was plastic, supplied as sheets whose edges locked together and driven into firm material below the channel. Some wood was used as bracing, which explains why photographs can be misleading about the barrier's composition. This was a limited exception, not a recommendation to put that material across the whole bog; inspection and eventual replacement remained part of the plan.\n\nProfessor Alec Durrant: Another intervention concerned the vegetation that had moved in after drainage. Willow lined a neighbouring stream, but that was outside the raised-bog restoration area. On the dried peat itself, birch had become established, and its removal was intended chiefly to reduce the amount of water being drawn up and released through leaves. Shade was another influence, but not the main reason for this decision. Tree removal can sound like the opposite of conservation; here, retaining woodland would have maintained a condition created by drainage, rather than restored the naturally open bog.\n\nProfessor Alec Durrant: Rewetting did not guarantee that peat-forming mosses would return unaided. Across the old cutting fields, suitable fragments were scarce, so the team arranged a carefully limited transfer from a donor area. The nearest apparently healthy patch would have been convenient, but convenience was not the deciding factor. Before collecting anything, they compared the acidity of water in the donor and receiving areas. A moss community from chemically different conditions might fail even where the destination was equally wet. That check came before the agreement on how much material could safely be taken, not after a failed planting trial.\n\nProfessor Alec Durrant: Once spread, the moss fragments were especially vulnerable: there was no established carpet around them to maintain a humid surface. The team covered them with a loose layer of straw. Its immediate job was to soften the effects of drying air and sharp temperature changes, rather than to supply a meal for the plants. The argument for it was therefore different from an argument for fertiliser. Nor was a deep covering desirable: the fragments still needed light. In the trial, the thickness of the layer was checked as carefully as the amount of moss beneath it.\n\nProfessor Alec Durrant: How, then, could the team judge progress? A photograph of standing water after a storm was easy to obtain but told them little about conditions between rainstorms. For the regular water-level measurements, they relied on shallow wells, sunk at fixed points across the site. Sensors were lowered inside these, rather than left in the nearest visible pool. Each measurement was related to the adjacent peat surface. That distinction mattered because water could remain in a channel while the peat a few metres away was already becoming too dry for the recovering mosses.\n\nProfessor Alec Durrant: Climate benefits required a separate set of measurements. The team expected less carbon dioxide to be released as the peat became wetter. That expectation was reasonable, but it was not enough to demonstrate an immediate overall improvement in the greenhouse-gas balance. Methane can increase when oxygen-poor conditions return, particularly where restoration creates persistent open water. The team therefore measured that gas as well. A rise did not prove that rewetting had been a mistake, any more than a fall in carbon dioxide alone proved complete success: both needed to be assessed over time.\n\nProfessor Alec Durrant: Finally, the annual average water level could conceal quite different patterns. Two areas might have the same mean, although one stayed fairly stable and the other alternated between flooding and severe drying. To test resilience, the researchers recorded how long water levels took to recover after a drought. They weren't just asking whether the surface became wet again with the first rain, but whether near-surface levels were re-established and maintained. That response, compared across restored and less-disturbed plots, was more informative than another attractive winter photograph. Restoration is a recovery of processes, not simply a change in appearance.\n\nNarrator: That is the end of Section 4. You now have 30 seconds to check your answers.\n\nNarrator: That is the end of the Listening test. You now have some time to check your answers."
+  }
+}

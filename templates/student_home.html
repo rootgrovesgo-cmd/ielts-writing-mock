@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>我的记录 · Rosette Exclusive Mock Exam</title>
+  <title>{% if admin_preview %}学生记录主页 · {{ student_name }}{% else %}我的记录{% endif %} · Rosette Exclusive Mock Exam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
+  {% if admin_preview %}
+  <div class="admin-preview-bar">
+    <p class="admin-preview-text">正在查看该学生的「我的记录」主页（学生所见）{% if preview_code %} · 邀请码 <code>{{ preview_code }}</code>{% if preview_note %}（{{ preview_note }}）{% endif %}{% endif %}</p>
+    <a class="btn secondary sm" href="{{ url_for('admin', tab='records') }}">返回学生记录</a>
+  </div>
+  {% endif %}
   <header class="topbar">
     <div class="brand-block">
       <a class="brand brand-link" href="/">Rosette Exclusive Mock Exam</a>
@@ -14,9 +20,15 @@
     </div>
     <div class="meta">
       <span class="student-chip">{{ student_name }}</span>
+      {% if admin_preview %}
+      <a class="btn secondary sm" href="/speaking">口语题库</a>
+      <a class="btn secondary sm" href="{{ url_for('admin_student_records', cid=preview_code_id) }}">我的记录</a>
+      <a class="btn secondary sm" href="{{ url_for('admin', tab='records') }}">返回学生记录</a>
+      {% else %}
       <a class="btn secondary sm" href="/speaking">口语题库</a>
       <a class="btn secondary sm" href="/me">我的记录</a>
       <a class="btn secondary sm" href="{{ url_for('student_logout') }}">退出</a>
+      {% endif %}
     </div>
   </header>
 
@@ -72,7 +84,7 @@
             {% if fig.lit and fig.caption %}
             <figcaption class="sprout-caption">
               {% if fig.attempt_id %}
-              <a href="{{ url_for('student_submission', sid=fig.attempt_id) }}">{{ fig.caption }}</a>
+              <a href="{% if admin_preview %}{{ url_for('admin_student_records_submission', cid=preview_code_id, sid=fig.attempt_id) }}{% else %}{{ url_for('student_submission', sid=fig.attempt_id) }}{% endif %}">{{ fig.caption }}</a>
               {% else %}
               {{ fig.caption }}
               {% endif %}
@@ -124,7 +136,7 @@
             {% if fig.lit and fig.caption %}
             <figcaption class="pikachu-caption">
               {% if fig.attempt_id %}
-              <a href="{{ url_for('student_submission', sid=fig.attempt_id) }}">{{ fig.caption }}</a>
+              <a href="{% if admin_preview %}{{ url_for('admin_student_records_submission', cid=preview_code_id, sid=fig.attempt_id) }}{% else %}{{ url_for('student_submission', sid=fig.attempt_id) }}{% endif %}">{{ fig.caption }}</a>
               {% else %}
               {{ fig.caption }}
               {% endif %}
@@ -167,9 +179,9 @@
           </p>
         </div>
         <div class="attempt-actions">
-          <a class="btn sm" href="{{ url_for('student_submission', sid=item.id) }}">查看整卷</a>
+          <a class="btn sm" href="{% if admin_preview %}{{ url_for('admin_student_records_submission', cid=preview_code_id, sid=item.id) }}{% else %}{{ url_for('student_submission', sid=item.id) }}{% endif %}">查看整卷</a>
           {% if item.module in ['reading', 'listening'] %}
-          <a class="btn ghost sm" href="{{ url_for('student_submission_review', sid=item.id) }}">查看错题</a>
+          <a class="btn ghost sm" href="{% if admin_preview %}{{ url_for('admin_student_records_review', cid=preview_code_id, sid=item.id) }}{% else %}{{ url_for('student_submission_review', sid=item.id) }}{% endif %}">查看错题</a>
           {% endif %}
         </div>
       </article>

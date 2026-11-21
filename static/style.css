@@ -675,6 +675,28 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
 .mark-table tr.ok-row td:nth-child(4) { color: var(--ok); font-weight: 700; }
 .mark-table tr.bad-row td:nth-child(4) { color: var(--danger); font-weight: 700; }
 
+/* Teacher preview of a student's 我的记录 homepage */
+.admin-preview-bar {
+  background: var(--card);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding: 8px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.admin-preview-bar .admin-preview-text {
+  margin: 0;
+  color: var(--muted);
+}
+.admin-preview-bar code {
+  font-size: 12px;
+  color: var(--ink);
+}
+
 /* Admin tabs and invite form */
 .admin-tabs {
   display: flex;

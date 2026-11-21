@@ -25,6 +25,7 @@
       <a class="{{ 'active' if tab == 'users' else '' }}" href="{{ url_for('admin', tab='users') }}">登录用户</a>
       <a class="{{ 'active' if tab == 'log' else '' }}" href="{{ url_for('admin', tab='log') }}">进入记录</a>
       <a class="{{ 'active' if tab == 'invites' else '' }}" href="{{ url_for('admin', tab='invites') }}">邀请码</a>
+      <a class="{{ 'active' if tab == 'records' else '' }}" href="{{ url_for('admin', tab='records') }}">学生记录</a>
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -276,11 +277,51 @@
               <td>{{ c.created_at or "—" }}</td>
               <td>{{ c.created_by or "—" }}</td>
               <td>
+                <a href="{{ url_for('admin_student_records', cid=c.id) }}">查看记录主页</a>
+                <br/>
                 <form method="post" action="{{ url_for('admin_invite_toggle', cid=c.id) }}" style="display:inline">
                   <input type="hidden" name="enabled" value="{{ '0' if c.enabled else '1' }}" />
                   <button type="submit" class="btn ghost sm">{{ "停用" if c.enabled else "启用" }}</button>
                 </form>
               </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {% if tab == 'records' %}
+    <section class="card">
+      <p class="eyebrow">Student records</p>
+      <h1>学生记录</h1>
+      <p class="muted">按邀请码查看每位学生的「我的记录」主页，内容与学生所见相同，包括画廊和最高三次平均分。分项评分与评语不会出现在此页。</p>
+      {% if not record_rows %}
+      <div class="banner info">尚未创建邀请码。请先在「邀请码」中创建，再在此查看学生记录主页。</div>
+      {% else %}
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>邀请码</th>
+              <th>备注</th>
+              <th>考生</th>
+              <th>答卷</th>
+              <th>状态</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in record_rows %}
+            <tr>
+              <td><code>{{ row.code }}</code></td>
+              <td>{{ row.note or "—" }}</td>
+              <td>{{ row.name_label }}</td>
+              <td>{{ row.attempt_count }} 份</td>
+              <td>{{ "启用" if row.enabled else "停用" }}</td>
+              <td><a href="{{ url_for('admin_student_records', cid=row.id) }}">查看记录主页</a></td>
             </tr>
             {% endfor %}
           </tbody>

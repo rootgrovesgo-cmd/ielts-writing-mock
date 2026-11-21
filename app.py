@@ -544,9 +544,19 @@ def student_logout():
     return redirect(url_for("index"))
 
 
-def _review_context(record: dict, *, mistakes_only: bool = False, admin: bool = False) -> dict:
+def _review_context(
+    record: dict,
+    *,
+    mistakes_only: bool = False,
+    admin: bool = False,
+    records_preview_cid: str | None = None,
+) -> dict:
     sid = record.get("id") or ""
-    if admin:
+    if records_preview_cid:
+        api_url = f"/api/admin/submission/{sid}"
+        back_href = url_for("admin_student_records", cid=records_preview_cid)
+        back_label = "返回我的记录"
+    elif admin:
         api_url = f"/api/admin/submission/{sid}"
         back_href = "/admin"
         back_label = "返回教师后台"
@@ -558,16 +568,27 @@ def _review_context(record: dict, *, mistakes_only: bool = False, admin: bool = 
         "sid": sid,
         "mistakes_only": bool(mistakes_only),
         "module": sp.module_of(record),
-        "admin": bool(admin),
+        "admin": bool(admin) or bool(records_preview_cid),
         "api_url": api_url,
         "back_href": back_href,
         "back_label": back_label,
     }
 
 
-def render_attempt_exam(record: dict, *, mistakes_only: bool = False, admin: bool = False):
+def render_attempt_exam(
+    record: dict,
+    *,
+    mistakes_only: bool = False,
+    admin: bool = False,
+    records_preview_cid: str | None = None,
+):
     """Render the live exam templates in read-only review mode."""
-    review = _review_context(record, mistakes_only=mistakes_only, admin=admin)
+    review = _review_context(
+        record,
+        mistakes_only=mistakes_only,
+        admin=admin,
+        records_preview_cid=records_preview_cid,
+    )
     if sp.module_of(record) == "reading":
         return render_template("reading.html", review=review)
     if sp.module_of(record) == "listening":
@@ -1279,19 +1300,128 @@ def _admin_view_data():
         "codes": codes,
         "user_rows": user_rows,
         "event_rows": event_rows,
+        "record_rows": admin_student_record_rows(codes, users, submissions),
         "notion_on": notion_enabled(),
         "admin_name": session.get("admin_username") or "",
     }
+
+
+def admin_student_record_rows(codes=None, users=None, submissions=None) -> list[dict]:
+    """One row per invite code for the teacher「学生记录」list."""
+    codes = list(codes if codes is not None else access.list_codes())
+    users = list(users if users is not None else access.list_users())
+    submissions = list(submissions if submissions is not None else (load_index().get("submissions") or []))
+    users_by_code: dict[str, list] = {}
+    for user in users:
+        cid = user.get("invite_code_id") or ""
+        if cid:
+            users_by_code.setdefault(cid, []).append(user)
+    attempt_counts: dict[str, int] = {}
+    for item in submissions:
+        cid = item.get("invite_code_id") or ""
+        if cid and item.get("id") and sp.records_module(item) in sp.RECORDS_MODULES:
+            attempt_counts[cid] = attempt_counts.get(cid, 0) + 1
+    rows = []
+    for code in codes:
+        cid = code.get("id") or ""
+        names = []
+        seen = set()
+        for user in users_by_code.get(cid, []):
+            name = (user.get("name") or "").strip()
+            key = access.normalize_name(name)
+            if name and key not in seen:
+                seen.add(key)
+                names.append(name)
+        rows.append(
+            {
+                "id": cid,
+                "code": code.get("code") or "",
+                "note": code.get("note") or "",
+                "enabled": bool(code.get("enabled")),
+                "names": names,
+                "name_label": "、".join(names) if names else "—",
+                "attempt_count": attempt_counts.get(cid, 0),
+            }
+        )
+    return rows
+
+
+def ident_for_invite(cid: str) -> tuple[dict, dict] | tuple[None, None]:
+    """Build a records ident for an invite code, without a student login."""
+    invite = access.get_code(cid)
+    if not invite:
+        return None, None
+    users = [user for user in access.list_users() if (user.get("invite_code_id") or "") == cid]
+    name = ""
+    user_id = None
+    if users:
+        name = (users[0].get("name") or "").strip()
+        user_id = users[0].get("id")
+    if not name:
+        name = (invite.get("note") or invite.get("code") or "").strip()
+    ident = {
+        "invite_code_id": cid,
+        "candidate_name": name,
+        "user_id": user_id,
+    }
+    return ident, invite
 
 
 @app.route("/admin")
 @admin_required
 def admin():
     tab = (request.args.get("tab") or "scripts").strip()
-    if tab not in {"scripts", "users", "log", "invites"}:
+    if tab not in {"scripts", "users", "log", "invites", "records"}:
         tab = "scripts"
     data = _admin_view_data()
     return render_template("admin.html", tab=tab, **data)
+
+
+@app.route("/admin/records/<cid>")
+@admin_required
+def admin_student_records(cid: str):
+    ident, invite = ident_for_invite(cid)
+    if not ident:
+        return "未找到该邀请码", 404
+    attempts = sp.list_own_attempts(load_index(), ident)
+    theme, gallery = records_gallery(ident, attempts)
+    growth_html = Markup(top_average.render(scores=sp.growth_stack_scores(attempts)))
+    return render_template(
+        "student_home.html",
+        student_name=ident.get("candidate_name") or "",
+        attempts=attempts,
+        gallery=gallery,
+        gallery_theme=theme,
+        top_average_html=growth_html,
+        admin_preview=True,
+        preview_code_id=cid,
+        preview_code=invite.get("code") or "",
+        preview_note=invite.get("note") or "",
+    )
+
+
+@app.route("/admin/records/<cid>/submission/<sid>")
+@admin_required
+def admin_student_records_submission(cid: str, sid: str):
+    ident, _invite = ident_for_invite(cid)
+    if not ident:
+        return "未找到该邀请码", 404
+    record = load_owned_submission(sid, ident)
+    if record is None:
+        return "未找到该答卷", 404
+    return render_attempt_exam(record, mistakes_only=False, records_preview_cid=cid)
+
+
+@app.route("/admin/records/<cid>/submission/<sid>/review")
+@admin_required
+def admin_student_records_review(cid: str, sid: str):
+    ident, _invite = ident_for_invite(cid)
+    if not ident:
+        return "未找到该邀请码", 404
+    record = load_owned_submission(sid, ident)
+    if record is None or sp.module_of(record) not in {"reading", "listening"}:
+        return "未找到该答卷", 404
+    return render_attempt_exam(record, mistakes_only=True, records_preview_cid=cid)
 
 
 @app.route("/admin/invites/create", methods=["POST"])

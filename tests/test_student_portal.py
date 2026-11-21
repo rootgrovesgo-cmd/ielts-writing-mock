@@ -1313,6 +1313,151 @@ class PikachuProgressTests(StudentPortalTestCase):
         writing_record = json.loads((appmod.SUBMISSIONS_DIR / f"{writing_sid}.json").read_text(encoding="utf-8"))
         self.assertNotIn("teacher_band", writing_record)
 
+    def test_teacher_writing_criteria_compute_and_reload(self):
+        self._create_code()
+        self._start(module="writing")
+        sid = self._submit_writing().get_json()["id"]
+
+        self._login_admin()
+        detail = self.client.get(f"/admin/submission/{sid}").get_data(as_text=True)
+        self.assertIn('name="teacher_task1_ta"', detail)
+        self.assertIn('name="teacher_task2_tr"', detail)
+        self.assertIn("任务完成", detail)
+        self.assertIn("任务回应", detail)
+        self.assertIn("Task Achievement", detail)
+        self.assertIn("Task Response", detail)
+
+        saved = self.client.post(
+            f"/admin/submission/{sid}/score",
+            data={
+                "teacher_task1_ta": "6",
+                "teacher_task1_cc": "6",
+                "teacher_task1_lr": "6",
+                "teacher_task1_gra": "7",
+                "teacher_task2_tr": "7",
+                "teacher_task2_cc": "7",
+                "teacher_task2_lr": "7",
+                "teacher_task2_gra": "6",
+                "teacher_band": "5",
+                "teacher_comment": "Stronger on Task 2.",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(saved.status_code, 200)
+        html = saved.get_data(as_text=True)
+        self.assertIn("已保存写作评分：7。", html)
+        self.assertIn("未采用手填总分 5。", html)
+        self.assertIn("教师评分：7", html)
+        self.assertIn("Task 1 6.5（TA 6 · CC 6 · LR 6 · GRA 7）", html)
+        self.assertIn("Task 2 7（TR 7 · CC 7 · LR 7 · GRA 6）", html)
+        self.assertIn('name="teacher_task1_ta"', html)
+        self.assertRegex(html, r'name="teacher_task1_ta"[^>]*value="6"')
+        self.assertRegex(html, r'name="teacher_task2_tr"[^>]*value="7"')
+        self.assertIn("Stronger on Task 2.", html)
+
+        record = json.loads((appmod.SUBMISSIONS_DIR / f"{sid}.json").read_text(encoding="utf-8"))
+        self.assertEqual(record["teacher_band"], 7.0)
+        self.assertEqual(record["teacher_task1_band"], 6.5)
+        self.assertEqual(record["teacher_task2_band"], 7.0)
+        self.assertEqual(record["teacher_task1_ta"], 6.0)
+        self.assertEqual(record["teacher_task2_gra"], 6.0)
+        self.assertNotIn("official_score", record)
+        self.assertNotIn("task1_band", record)
+
+        index = json.loads(appmod.INDEX_PATH.read_text(encoding="utf-8"))
+        row = next(item for item in index["submissions"] if item["id"] == sid)
+        self.assertEqual(row["teacher_band"], 7.0)
+        self.assertEqual(row["teacher_task1_ta"], 6.0)
+        self.assertEqual(row["teacher_task2_tr"], 7.0)
+
+        export = self.client.get("/admin/export.csv")
+        self.assertEqual(export.status_code, 200)
+        csv_text = export.get_data(as_text=True)
+        self.assertIn("teacher_task1_ta", csv_text)
+        self.assertIn("teacher_task2_tr", csv_text)
+        self.assertIn(sid, csv_text)
+        data_line = next(line for line in csv_text.splitlines() if sid in line)
+        self.assertIn(",7.0,", data_line)
+        self.assertIn(",6.5,", data_line)
+
+        home = self.client.get("/me").get_data(as_text=True)
+        self.assertIn("写作 Set A · 7", self._plain_captions(home))
+        self.assertIn("教师评分 7", home)
+        self.assertNotIn("Stronger on Task 2.", home)
+        self.assertNotIn("任务完成", home)
+        self.assertNotIn("Task Achievement", home)
+        self.assertNotIn("teacher_task1_ta", home)
+        self.assertNotIn("TA 6", home)
+        self.assertNotIn("official_score", home)
+
+        review = self.client.get(f"/me/submission/{sid}").get_data(as_text=True)
+        self.assertNotIn("任务完成", review)
+        self.assertNotIn("Stronger on Task 2.", review)
+        self.assertNotIn("teacher_task1_ta", review)
+        self.assertNotIn("official_score", review)
+
+        payload = self.client.get(f"/api/me/submission/{sid}").get_json()
+        raw = self.client.get(f"/api/me/submission/{sid}").get_data(as_text=True)
+        for key in (
+            "teacher_task1_ta",
+            "teacher_task2_tr",
+            "teacher_comment",
+            "official_score",
+            "task1_band",
+            "task2_band",
+            "band_estimate",
+        ):
+            self.assertNotIn(key, payload)
+            self.assertNotIn(key, raw)
+        self.assertNotIn("Stronger on Task 2.", raw)
+
+    def test_teacher_writing_partial_criteria_are_rejected(self):
+        self._create_code()
+        self._start(module="writing")
+        sid = self._submit_writing().get_json()["id"]
+        self._login_admin()
+        refused = self.client.post(
+            f"/admin/submission/{sid}/score",
+            data={
+                "teacher_band": "7",
+                "teacher_task1_ta": "6",
+                "teacher_task1_cc": "6",
+                "teacher_task1_lr": "6",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(refused.status_code, 200)
+        self.assertIn("Task 1 请填齐四项", refused.get_data(as_text=True))
+        record = json.loads((appmod.SUBMISSIONS_DIR / f"{sid}.json").read_text(encoding="utf-8"))
+        self.assertNotIn("teacher_band", record)
+        self.assertNotIn("teacher_task1_ta", record)
+
+    def test_teacher_writing_task1_only_computes_overall_from_task1(self):
+        self._create_code()
+        self._start(module="writing", mode="task1")
+        sid = self._submit_writing(mode="task1").get_json()["id"]
+        self._login_admin()
+        detail = self.client.get(f"/admin/submission/{sid}").get_data(as_text=True)
+        self.assertIn('name="teacher_task1_ta"', detail)
+        self.assertNotIn('name="teacher_task2_tr"', detail)
+        saved = self.client.post(
+            f"/admin/submission/{sid}/score",
+            data={
+                "teacher_task1_ta": "5.5",
+                "teacher_task1_cc": "6",
+                "teacher_task1_lr": "6",
+                "teacher_task1_gra": "6.5",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(saved.status_code, 200)
+        self.assertIn("已保存写作评分：6。", saved.get_data(as_text=True))
+        record = json.loads((appmod.SUBMISSIONS_DIR / f"{sid}.json").read_text(encoding="utf-8"))
+        self.assertEqual(record["mode"], "task1")
+        self.assertEqual(record["teacher_task1_band"], 6.0)
+        self.assertEqual(record["teacher_band"], 6.0)
+        self.assertIsNone(record.get("teacher_task2_band"))
+
 
 class WritingSetTests(StudentPortalTestCase):
     def test_writing_set_c_renders_comic_flowchart(self):

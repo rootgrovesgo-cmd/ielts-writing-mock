@@ -112,6 +112,234 @@ def writing_teacher_band(item: dict | None):
     return None
 
 
+# Official Academic Writing criteria (band descriptors updated May 2023).
+TEACHER_TASK1_CRITERIA = (
+    ("teacher_task1_ta", "TA", "Task Achievement", "任务完成"),
+    ("teacher_task1_cc", "CC", "Coherence and Cohesion", "连贯与衔接"),
+    ("teacher_task1_lr", "LR", "Lexical Resource", "词汇资源"),
+    ("teacher_task1_gra", "GRA", "Grammatical Range and Accuracy", "语法多样性及准确性"),
+)
+TEACHER_TASK2_CRITERIA = (
+    ("teacher_task2_tr", "TR", "Task Response", "任务回应"),
+    ("teacher_task2_cc", "CC", "Coherence and Cohesion", "连贯与衔接"),
+    ("teacher_task2_lr", "LR", "Lexical Resource", "词汇资源"),
+    ("teacher_task2_gra", "GRA", "Grammatical Range and Accuracy", "语法多样性及准确性"),
+)
+TEACHER_CRITERION_KEYS = tuple(
+    key for key, *_ in TEACHER_TASK1_CRITERIA + TEACHER_TASK2_CRITERIA
+)
+TEACHER_WRITING_SCORE_KEYS = (
+    "teacher_band",
+    "teacher_task1_band",
+    "teacher_task2_band",
+    *TEACHER_CRITERION_KEYS,
+)
+
+
+def coerce_teacher_band(raw) -> float | None:
+    """Like parse_teacher_band, but invalid or empty values become None."""
+    try:
+        return parse_teacher_band(raw)
+    except ValueError:
+        return None
+
+
+def round_ielts_writing_average(value: float) -> float:
+    """Round an average to an official IELTS writing half-band.
+
+    Remainder < 0.25 stays at the integer; 0.25–<0.75 becomes .5;
+    0.75 or above goes to the next integer. Examples: 6.25→6.5, 6.75→7.0.
+    """
+    number = float(value)
+    if not math.isfinite(number):
+        raise ValueError("分数须为 0 到 9 之间的 0.5 档。")
+    integer_part = math.floor(number)
+    remainder = number - integer_part
+    if remainder < 0.25 - 1e-9:
+        rounded = float(integer_part)
+    elif remainder < 0.75 - 1e-9:
+        rounded = integer_part + 0.5
+    else:
+        rounded = float(integer_part + 1)
+    if rounded < 0:
+        return 0.0
+    if rounded > 9:
+        return 9.0
+    return rounded
+
+
+def task_band_from_criteria(scores) -> float | None:
+    """Mean of four official criteria, then official writing rounding."""
+    values = list(scores)
+    if len(values) != 4 or any(item is None for item in values):
+        return None
+    return round_ielts_writing_average(sum(values) / 4.0)
+
+
+def overall_band_from_tasks(task1, task2, mode: str | None):
+    """Overall writing band from task bands, with Task 2 double-weighted.
+
+    A task1-only attempt uses the Task 1 band; task2-only uses Task 2.
+    A full paper needs both bands: (Task 1 + 2×Task 2) / 3, then the same
+    official rounding. Returns None until enough task bands exist.
+    """
+    key = (mode or "full").strip().lower()
+    if key == "task1":
+        return task1
+    if key == "task2":
+        return task2
+    if task1 is None or task2 is None:
+        return None
+    return round_ielts_writing_average((task1 + 2.0 * task2) / 3.0)
+
+
+def _parse_criterion_group(form, specs, task_label: str) -> list:
+    values = []
+    for key, *_rest in specs:
+        raw = form.get(key) if form is not None else None
+        values.append(parse_teacher_band(raw))
+    filled = sum(item is not None for item in values)
+    if filled not in (0, 4):
+        names = "、".join(code for _key, code, *_rest in specs)
+        raise ValueError(f"{task_label} 请填齐四项（{names}），或全部留空。")
+    return values
+
+
+def resolve_teacher_writing_score(form, *, mode: str = "full", comment_limit: int = 2000) -> dict:
+    """Parse a teacher scoring form into saved fields plus computation metadata."""
+    data = form or {}
+    task1_scores = _parse_criterion_group(data, TEACHER_TASK1_CRITERIA, "Task 1")
+    task2_scores = _parse_criterion_group(data, TEACHER_TASK2_CRITERIA, "Task 2")
+    task1_complete = all(item is not None for item in task1_scores)
+    task2_complete = all(item is not None for item in task2_scores)
+    if task1_complete:
+        task1 = task_band_from_criteria(task1_scores)
+    else:
+        task1 = parse_teacher_band(data.get("teacher_task1_band"))
+    if task2_complete:
+        task2 = task_band_from_criteria(task2_scores)
+    else:
+        task2 = parse_teacher_band(data.get("teacher_task2_band"))
+    computed_overall = overall_band_from_tasks(task1, task2, mode)
+    posted_overall = parse_teacher_band(data.get("teacher_band"))
+    if computed_overall is not None:
+        overall = computed_overall
+    else:
+        overall = posted_overall
+    if overall is None:
+        raise ValueError("请填写总分（0–9，可为 0.5 档），或填齐用于计算总分的分项。")
+    comment = (data.get("teacher_comment") or "").strip()
+    if comment_limit and len(comment) > comment_limit:
+        comment = comment[:comment_limit]
+    fields = {
+        "teacher_band": overall,
+        "teacher_task1_band": task1,
+        "teacher_task2_band": task2,
+        "teacher_comment": comment,
+    }
+    for (key, *_rest), value in zip(TEACHER_TASK1_CRITERIA, task1_scores):
+        fields[key] = value
+    for (key, *_rest), value in zip(TEACHER_TASK2_CRITERIA, task2_scores):
+        fields[key] = value
+    return {
+        "fields": fields,
+        "computed_overall": computed_overall is not None,
+        "computed_task1": task1_complete,
+        "computed_task2": task2_complete,
+        "posted_overall": posted_overall,
+        "overall_replaced": (
+            computed_overall is not None
+            and posted_overall is not None
+            and posted_overall != computed_overall
+        ),
+    }
+
+
+def teacher_writing_index_fields(fields: dict) -> dict:
+    return {key: fields.get(key) for key in TEACHER_WRITING_SCORE_KEYS}
+
+
+def _criteria_context(record: dict | None, specs) -> list[dict]:
+    item = record or {}
+    rows = []
+    for key, code, english, chinese in specs:
+        value = coerce_teacher_band(item.get(key))
+        rows.append(
+            {
+                "key": key,
+                "code": code,
+                "english": english,
+                "chinese": chinese,
+                "value": value,
+                "value_label": format_teacher_band(value) or "",
+            }
+        )
+    return rows
+
+
+def format_teacher_task_summary(band, criteria_rows: list[dict] | None = None) -> str | None:
+    """Task band plus any filled criteria, e.g. '6.5（TA 6 · CC 6 · LR 6 · GRA 7）'."""
+    parts = []
+    for row in criteria_rows or []:
+        label = row.get("value_label") or format_teacher_band(row.get("value"))
+        code = row.get("code") or ""
+        if label and code:
+            parts.append(f"{code} {label}")
+    band_label = format_teacher_band(band)
+    if band_label and parts:
+        return f"{band_label}（{' · '.join(parts)}）"
+    if band_label:
+        return band_label
+    if parts:
+        return " · ".join(parts)
+    return None
+
+
+def teacher_writing_form_context(record: dict | None) -> dict:
+    item = record or {}
+    mode = (item.get("mode") or "full").strip().lower() or "full"
+    overall = writing_teacher_band(item)
+    task1 = coerce_teacher_band(item.get("teacher_task1_band"))
+    task2 = coerce_teacher_band(item.get("teacher_task2_band"))
+    task1_criteria = _criteria_context(item, TEACHER_TASK1_CRITERIA)
+    task2_criteria = _criteria_context(item, TEACHER_TASK2_CRITERIA)
+    return {
+        "mode": mode,
+        "show_task1": mode in {"full", "task1"},
+        "show_task2": mode in {"full", "task2"},
+        "overall": overall,
+        "overall_label": format_teacher_band(overall),
+        "task1_band": task1,
+        "task1_band_label": format_teacher_band(task1) or "",
+        "task2_band": task2,
+        "task2_band_label": format_teacher_band(task2) or "",
+        "task1_criteria": task1_criteria,
+        "task2_criteria": task2_criteria,
+        "header_task1": format_teacher_task_summary(task1, task1_criteria),
+        "header_task2": format_teacher_task_summary(task2, task2_criteria),
+        "comment": item.get("teacher_comment") or "",
+    }
+
+
+def teacher_writing_score_flash(result: dict) -> str:
+    fields = result["fields"]
+    overall = format_teacher_band(fields.get("teacher_band"))
+    message = f"已保存写作评分：{overall}。"
+    bits = []
+    if result.get("computed_task1"):
+        bits.append(f"Task 1 {format_teacher_band(fields.get('teacher_task1_band'))}")
+    if result.get("computed_task2"):
+        bits.append(f"Task 2 {format_teacher_band(fields.get('teacher_task2_band'))}")
+    if result.get("computed_overall") and bits:
+        message += "已按官方规则计算 " + "、".join(bits) + " 与总分。"
+    elif result.get("computed_overall"):
+        message += "已按官方规则计算总分。"
+    if result.get("overall_replaced"):
+        posted = format_teacher_band(result.get("posted_overall"))
+        message += f"未采用手填总分 {posted}。"
+    return message
+
+
 def attempt_caption(item: dict) -> str:
     """Set + score line shown under a lit Pikachu and on the attempt card."""
     module = module_of(item)

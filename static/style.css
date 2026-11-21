@@ -932,16 +932,49 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
 .writing-score-form {
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   align-items: start;
   margin-top: 12px;
+}
+.writing-score-tasks {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.writing-score-task {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #faf8f5;
+  min-width: 0;
+}
+.writing-score-task legend {
+  padding: 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.writing-score-criteria {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 6px;
 }
 .writing-score-form label {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   font-size: 13px;
   color: var(--ink);
+}
+.writing-score-form .crit-code {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.writing-score-form .crit-zh {
+  color: var(--muted, #8a847c);
+  font-size: 12px;
 }
 .writing-score-form input[type="number"],
 .writing-score-form textarea {
@@ -951,11 +984,28 @@ a.brand-link:hover { text-decoration: none; opacity: .9; }
   border-radius: 8px;
   background: #fff;
   color: var(--ink);
+  width: 100%;
+  box-sizing: border-box;
 }
-.writing-score-comment { grid-column: 1 / -1; }
-.writing-score-action { grid-column: 1 / -1; }
+.writing-score-form input[readonly] {
+  background: #f3f0ec;
+  color: var(--ink);
+}
+.writing-score-task-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+.writing-score-task-band { margin-top: 10px; }
+.writing-score-overall-hint { font-size: 12px; }
+.writing-score-comment,
+.writing-score-action,
+.writing-score-overall { grid-column: 1 / -1; }
+@media (max-width: 900px) {
+  .writing-score-tasks { grid-template-columns: 1fr; }
+}
 @media (max-width: 700px) {
   .writing-score-form { grid-template-columns: 1fr; }
+  .writing-score-criteria { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pikachu-figure.is-xs,
   .pikachu-figure.is-sm,
   .pikachu-figure.is-md,

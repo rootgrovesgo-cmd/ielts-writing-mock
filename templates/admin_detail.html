@@ -46,8 +46,8 @@
         {% else %}
         Task1 题：{{ record.task1_prompt_id }} · Task2 题：{{ record.task2_prompt_id }}<br/>
         教师评分：{% if teacher_band_label %}{{ teacher_band_label }}{% else %}待评分{% endif %}
-        {% if record.teacher_task1_band is not none and record.teacher_task1_band != "" %} · Task 1 {{ record.teacher_task1_band }}{% endif %}
-        {% if record.teacher_task2_band is not none and record.teacher_task2_band != "" %} · Task 2 {{ record.teacher_task2_band }}{% endif %}
+        {% if teacher_score and teacher_score.header_task1 %} · Task 1 {{ teacher_score.header_task1 }}{% endif %}
+        {% if teacher_score and teacher_score.header_task2 %} · Task 2 {{ teacher_score.header_task2 }}{% endif %}
         <br/>
         {% endif %}
         用时 {{ record.time_used_seconds | duration }} · 剩余 {{ record.time_remaining_seconds | duration }} · 暂停累计 {{ (record.paused_total_seconds or 0) | duration }}<br/>
@@ -187,22 +187,57 @@
     {% else %}
     <section class="card writing-score-card">
       <h2>写作评分</h2>
-      <p class="muted">给学生「我的记录」里那只皮卡丘后面用的分数。只填总分即可；Task 1 / Task 2 与评语仅教师可见。</p>
-      <form class="writing-score-form" method="post" action="{{ url_for('admin_submission_score', sid=record.id) }}">
-        <label>
+      <p class="muted">给学生「我的记录」里那只皮卡丘后面用的分数。四项填齐后按官方规则自动计算该题分数{% if teacher_score and teacher_score.mode == 'full' %}与总分（Task 2 双倍权重）{% elif teacher_score and teacher_score.mode == 'task1' %}；本题为仅 Task 1，总分等于 Task 1 分数{% elif teacher_score and teacher_score.mode == 'task2' %}；本题为仅 Task 2，总分等于 Task 2 分数{% endif %}。也可只填总分。分项、本题分数与评语仅教师可见。</p>
+      <form class="writing-score-form" method="post" action="{{ url_for('admin_submission_score', sid=record.id) }}" data-writing-mode="{{ teacher_score.mode if teacher_score else 'full' }}">
+        <div class="writing-score-tasks">
+          {% if teacher_score and teacher_score.show_task1 %}
+          <fieldset class="writing-score-task" data-task="task1">
+            <legend>Task 1 · TA 任务完成</legend>
+            <div class="writing-score-criteria">
+              {% for item in teacher_score.task1_criteria %}
+              <label title="{{ item.english }}">
+                <span class="crit-code">{{ item.code }}</span>
+                <span class="crit-zh">{{ item.chinese }}</span>
+                <input type="number" name="{{ item.key }}" min="0" max="9" step="0.5"
+                       value="{{ item.value_label }}" data-criterion />
+              </label>
+              {% endfor %}
+            </div>
+            <p class="writing-score-task-hint muted" data-task-hint hidden></p>
+            <label class="writing-score-task-band">
+              本题分数（四项填齐后自动计算）
+              <input type="number" name="teacher_task1_band" min="0" max="9" step="0.5"
+                     value="{{ teacher_score.task1_band_label }}" data-task-band />
+            </label>
+          </fieldset>
+          {% endif %}
+          {% if teacher_score and teacher_score.show_task2 %}
+          <fieldset class="writing-score-task" data-task="task2">
+            <legend>Task 2 · TR 任务回应</legend>
+            <div class="writing-score-criteria">
+              {% for item in teacher_score.task2_criteria %}
+              <label title="{{ item.english }}">
+                <span class="crit-code">{{ item.code }}</span>
+                <span class="crit-zh">{{ item.chinese }}</span>
+                <input type="number" name="{{ item.key }}" min="0" max="9" step="0.5"
+                       value="{{ item.value_label }}" data-criterion />
+              </label>
+              {% endfor %}
+            </div>
+            <p class="writing-score-task-hint muted" data-task-hint hidden></p>
+            <label class="writing-score-task-band">
+              本题分数（四项填齐后自动计算）
+              <input type="number" name="teacher_task2_band" min="0" max="9" step="0.5"
+                     value="{{ teacher_score.task2_band_label }}" data-task-band />
+            </label>
+          </fieldset>
+          {% endif %}
+        </div>
+        <label class="writing-score-overall">
           总分（0–9，可 0.5）
-          <input type="number" name="teacher_band" min="0" max="9" step="0.5" required
-                 value="{{ teacher_band if teacher_band is not none else '' }}" />
-        </label>
-        <label>
-          Task 1（可选）
-          <input type="number" name="teacher_task1_band" min="0" max="9" step="0.5"
-                 value="{{ teacher_task1_band if teacher_task1_band is not none else '' }}" />
-        </label>
-        <label>
-          Task 2（可选）
-          <input type="number" name="teacher_task2_band" min="0" max="9" step="0.5"
-                 value="{{ teacher_task2_band if teacher_task2_band is not none else '' }}" />
+          <input type="number" name="teacher_band" min="0" max="9" step="0.5"
+                 value="{{ teacher_band if teacher_band is not none else '' }}" data-overall />
+          <span class="writing-score-overall-hint muted">四项填齐后自动计算；若未填分项，也可只填总分。</span>
         </label>
         <label class="writing-score-comment">
           评语（可选，仅教师可见）
@@ -212,6 +247,84 @@
           <button class="btn" type="submit">保存评分</button>
         </div>
       </form>
+      <script>
+        (function () {
+          var form = document.querySelector(".writing-score-form");
+          if (!form) return;
+          var mode = form.getAttribute("data-writing-mode") || "full";
+          function parseBand(input) {
+            if (!input) return null;
+            var text = String(input.value || "").trim();
+            if (!text) return null;
+            var value = Number(text);
+            if (!isFinite(value)) return null;
+            var quantized = Math.round(value * 2) / 2;
+            if (Math.abs(value - quantized) > 1e-9 || quantized < 0 || quantized > 9) return null;
+            return quantized;
+          }
+          function roundAverage(value) {
+            var integerPart = Math.floor(value);
+            var rem = value - integerPart;
+            if (rem < 0.25 - 1e-9) return integerPart;
+            if (rem < 0.75 - 1e-9) return integerPart + 0.5;
+            return integerPart + 1;
+          }
+          function formatBand(value) {
+            if (value == null) return "";
+            return Number.isInteger(value) ? String(value) : String(value);
+          }
+          function setComputed(input, value) {
+            if (!input) return;
+            input.value = formatBand(value);
+            input.readOnly = true;
+          }
+          function clearComputed(input) {
+            if (!input) return;
+            input.readOnly = false;
+          }
+          function taskBand(task) {
+            var inputs = task.querySelectorAll("[data-criterion]");
+            var values = [];
+            inputs.forEach(function (input) {
+              var band = parseBand(input);
+              if (band != null) values.push(band);
+            });
+            var hint = task.querySelector("[data-task-hint]");
+            var bandInput = task.querySelector("[data-task-band]");
+            if (values.length === 4) {
+              if (hint) { hint.hidden = true; hint.textContent = ""; }
+              setComputed(bandInput, roundAverage((values[0] + values[1] + values[2] + values[3]) / 4));
+              return parseBand(bandInput);
+            }
+            if (values.length > 0) {
+              if (hint) {
+                hint.hidden = false;
+                hint.textContent = "请填齐四项，或全部留空。未填齐时不能计算本题分数。";
+              }
+              if (bandInput) { bandInput.value = ""; bandInput.readOnly = true; }
+              return null;
+            }
+            if (hint) { hint.hidden = true; hint.textContent = ""; }
+            clearComputed(bandInput);
+            return parseBand(bandInput);
+          }
+          function refresh() {
+            var task1 = form.querySelector('[data-task="task1"]');
+            var task2 = form.querySelector('[data-task="task2"]');
+            var t1 = task1 ? taskBand(task1) : null;
+            var t2 = task2 ? taskBand(task2) : null;
+            var overallInput = form.querySelector("[data-overall]");
+            var overall = null;
+            if (mode === "task1") overall = t1;
+            else if (mode === "task2") overall = t2;
+            else if (t1 != null && t2 != null) overall = roundAverage((t1 + 2 * t2) / 3);
+            if (overall != null) setComputed(overallInput, overall);
+            else clearComputed(overallInput);
+          }
+          form.addEventListener("input", refresh);
+          refresh();
+        })();
+      </script>
     </section>
     <section class="card">
       <h2>Task 1（{{ record.task1_word_count }} 词）</h2>

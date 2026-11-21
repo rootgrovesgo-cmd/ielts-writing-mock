@@ -338,6 +338,65 @@ class ReportPdfTests(unittest.TestCase):
         self.assertNotIn("各部分用时", text)
         self.assertNotIn("篇章信息", text)
         self.assertNotIn("高亮与扫跳评述", text)
+        # Unscored writing still notes that a teacher score is pending.
+        self.assertIn("教师评分", text)
+        self.assertIn("待评分", text)
+
+    def test_writing_report_includes_teacher_criteria(self):
+        self._set_admin()
+        self._create_code()
+        started = self._start(name="Writer", module="writing", mode="full")
+        self.assertEqual(started.status_code, 200)
+        res = self.client.post(
+            "/api/submit",
+            json={
+                "candidate_name": "Writer",
+                "mode": "full",
+                "prompt_set_id": "set-a",
+                "task1_text": "This is a short writing sample about a chart.",
+                "task2_text": "Cities should invest more in public parks.",
+                "duration_seconds": 3600,
+                "time_remaining_seconds": 10,
+                "time_used_seconds": 3590,
+            },
+        )
+        self.assertEqual(res.status_code, 200, res.get_data(as_text=True))
+        sid = res.get_json()["id"]
+
+        self._login_admin()
+        saved = self.client.post(
+            f"/admin/submission/{sid}/score",
+            data={
+                "teacher_task1_ta": "6",
+                "teacher_task1_cc": "6",
+                "teacher_task1_lr": "6",
+                "teacher_task1_gra": "7",
+                "teacher_task2_tr": "7",
+                "teacher_task2_cc": "7",
+                "teacher_task2_lr": "7",
+                "teacher_task2_gra": "6",
+                "teacher_comment": "Teacher-only comment.",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(saved.status_code, 200)
+
+        pdf = self.client.get(f"/admin/submission/{sid}/report.pdf")
+        self.assertEqual(pdf.status_code, 200)
+        text = self._pdf_text(pdf.get_data())
+        self.assertIn("教师评分", text)
+        self.assertIn("6.5", text)
+        self.assertIn("TA 6", text)
+        self.assertIn("GRA 7", text)
+        self.assertIn("TR 7", text)
+        self.assertIn("Teacher-only comment.", text)
+        self.assertIn("Cities should invest more in public parks.", text)
+
+        # Students cannot download the teacher report.
+        student = appmod.app.test_client()
+        blocked = student.get(f"/admin/submission/{sid}/report.pdf")
+        self.assertEqual(blocked.status_code, 302)
+        self.assertIn("/admin/login", blocked.headers.get("Location", ""))
 
     def test_old_reading_submission_without_part_times_still_renders(self):
         self._set_admin()

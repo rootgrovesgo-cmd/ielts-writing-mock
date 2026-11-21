@@ -419,7 +419,60 @@ def part_times_summary(part_times, label: str = "Passage") -> str | None:
     return " · ".join(labels)
 
 
+def _format_pdf_band(value) -> str | None:
+    if value is None or value == "":
+        return None
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if number.is_integer():
+        return str(int(number))
+    return str(number)
+
+
+_WRITING_TASK_CRITERIA = (
+    (
+        "Task 1",
+        "teacher_task1_band",
+        (
+            ("TA", "teacher_task1_ta"),
+            ("CC", "teacher_task1_cc"),
+            ("LR", "teacher_task1_lr"),
+            ("GRA", "teacher_task1_gra"),
+        ),
+    ),
+    (
+        "Task 2",
+        "teacher_task2_band",
+        (
+            ("TR", "teacher_task2_tr"),
+            ("CC", "teacher_task2_cc"),
+            ("LR", "teacher_task2_lr"),
+            ("GRA", "teacher_task2_gra"),
+        ),
+    ),
+)
+
+
+def _writing_task_score_text(record: dict, band_key: str, criteria: tuple[tuple[str, str], ...]) -> str | None:
+    band = _format_pdf_band(record.get(band_key))
+    parts = []
+    for code, key in criteria:
+        label = _format_pdf_band(record.get(key))
+        if label:
+            parts.append(f"{code} {label}")
+    if band and parts:
+        return f"{band}（{' · '.join(parts)}）"
+    if band:
+        return band
+    if parts:
+        return " · ".join(parts)
+    return None
+
+
 def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
+
     reading = _is_reading(record)
     listening = _is_listening(record)
     scored = reading or listening
@@ -475,6 +528,15 @@ def _meta_pairs(record: dict, invite: dict | None) -> list[tuple[str, str]]:
                 f"Task 1 {t1w if t1w is not None else 0} 词 · Task 2 {t2w if t2w is not None else 0} 词",
             )
         )
+        overall = _format_pdf_band(record.get("teacher_band"))
+        pairs.append(("教师评分", overall or "待评分"))
+        for label, band_key, criteria in _WRITING_TASK_CRITERIA:
+            text_value = _writing_task_score_text(record, band_key, criteria)
+            if text_value:
+                pairs.append((label, text_value))
+        comment = (record.get("teacher_comment") or "").strip()
+        if comment:
+            pairs.append(("评语", comment))
 
     used = record.get("time_used_seconds")
     remain = record.get("time_remaining_seconds")

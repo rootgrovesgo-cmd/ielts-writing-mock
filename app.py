@@ -1388,7 +1388,10 @@ def admin_submission(sid: str):
             record.get("part_times"), label="Section"
         )
     band_fmt = rs.format_band if is_reading else ls.format_band
-    teacher_band = sp.writing_teacher_band(record) if not is_reading and not is_listening else None
+    teacher_score = (
+        None if is_reading or is_listening else sp.teacher_writing_form_context(record)
+    )
+    teacher_band = None if teacher_score is None else teacher_score.get("overall")
     return render_template(
         "admin_detail.html",
         record=record,
@@ -1401,11 +1404,12 @@ def admin_submission(sid: str):
         transcripts=transcripts,
         listening_layouts=listening_layouts,
         invite=invite,
+        teacher_score=teacher_score,
         teacher_band=teacher_band,
-        teacher_band_label=sp.format_teacher_band(teacher_band),
-        teacher_task1_band=record.get("teacher_task1_band") if not is_reading and not is_listening else None,
-        teacher_task2_band=record.get("teacher_task2_band") if not is_reading and not is_listening else None,
-        teacher_comment=record.get("teacher_comment") or "",
+        teacher_band_label=None if teacher_score is None else teacher_score.get("overall_label"),
+        teacher_task1_band=None if teacher_score is None else teacher_score.get("task1_band"),
+        teacher_task2_band=None if teacher_score is None else teacher_score.get("task2_band"),
+        teacher_comment="" if teacher_score is None else teacher_score.get("comment") or "",
     )
 
 
@@ -1421,33 +1425,24 @@ def admin_submission_score(sid: str):
         flash("只有写作答卷可以手动评分。", "error")
         return redirect(url_for("admin_submission", sid=sid))
     try:
-        overall = sp.parse_teacher_band(request.form.get("teacher_band"))
-        task1 = sp.parse_teacher_band(request.form.get("teacher_task1_band"))
-        task2 = sp.parse_teacher_band(request.form.get("teacher_task2_band"))
+        result = sp.resolve_teacher_writing_score(
+            request.form,
+            mode=record.get("mode") or "full",
+        )
     except ValueError as exc:
         flash(str(exc), "error")
         return redirect(url_for("admin_submission", sid=sid))
-    if overall is None:
-        flash("请填写总分（0–9，可为 0.5 档）。", "error")
-        return redirect(url_for("admin_submission", sid=sid))
-    comment = (request.form.get("teacher_comment") or "").strip()
-    if len(comment) > 2000:
-        comment = comment[:2000]
-    record["teacher_band"] = overall
-    record["teacher_task1_band"] = task1
-    record["teacher_task2_band"] = task2
-    record["teacher_comment"] = comment
+    fields = result["fields"]
+    record.update(fields)
     record["teacher_scored_at"] = datetime.now(TZ_SHANGHAI).isoformat(timespec="seconds")
     record["teacher_scored_by"] = session.get("admin_username") or ""
     save_submission(record)
     update_index_submission(
         sid,
-        teacher_band=overall,
-        teacher_task1_band=task1,
-        teacher_task2_band=task2,
+        **sp.teacher_writing_index_fields(fields),
         teacher_scored_at=record["teacher_scored_at"],
     )
-    flash(f"已保存写作评分：{sp.format_teacher_band(overall)}。", "success")
+    flash(sp.teacher_writing_score_flash(result), "success")
     return redirect(url_for("admin_submission", sid=sid))
 
 
@@ -1551,6 +1546,14 @@ def admin_export_csv():
             "teacher_band",
             "teacher_task1_band",
             "teacher_task2_band",
+            "teacher_task1_ta",
+            "teacher_task1_cc",
+            "teacher_task1_lr",
+            "teacher_task1_gra",
+            "teacher_task2_tr",
+            "teacher_task2_cc",
+            "teacher_task2_lr",
+            "teacher_task2_gra",
             "time_used_seconds",
             "time_remaining_seconds",
             "auto_submitted",
@@ -1584,6 +1587,14 @@ def admin_export_csv():
                 r.get("teacher_band") if module == "writing" else "",
                 r.get("teacher_task1_band") if module == "writing" else "",
                 r.get("teacher_task2_band") if module == "writing" else "",
+                r.get("teacher_task1_ta") if module == "writing" else "",
+                r.get("teacher_task1_cc") if module == "writing" else "",
+                r.get("teacher_task1_lr") if module == "writing" else "",
+                r.get("teacher_task1_gra") if module == "writing" else "",
+                r.get("teacher_task2_tr") if module == "writing" else "",
+                r.get("teacher_task2_cc") if module == "writing" else "",
+                r.get("teacher_task2_lr") if module == "writing" else "",
+                r.get("teacher_task2_gra") if module == "writing" else "",
                 r.get("time_used_seconds"),
                 r.get("time_remaining_seconds"),
                 r.get("auto_submitted"),
